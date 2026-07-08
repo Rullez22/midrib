@@ -1,0 +1,78 @@
+/* ============================================================
+   MIDHUB — Accordion (1:1 из Figma «UI Контролы» / Dropdown=Accordion 529:...)
+   ------------------------------------------------------------
+   Заголовок: шеврон (слева) + текст (Medium, Ghost — без фона),
+   раскрывает панель с контентом. Шеврон поворачивается при открытии.
+     Size  : l (16/24) · m (14/22) · s (12/20)
+     State : default (dark 800) / open (dark 900) / disabled
+
+   Компонент <Accordion> (accordion.tsx).
+   ============================================================ */
+@layer components {
+  .ds-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ds-accordion--l { --acc-fs: 16px; --acc-lh: 24px; --acc-icon: 24px; }
+  .ds-accordion--m { --acc-fs: 14px; --acc-lh: 22px; --acc-icon: 20px; }
+  .ds-accordion--s { --acc-fs: 12px; --acc-lh: 20px; --acc-icon: 16px; }
+
+  .ds-accordion__header {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: var(--acc-fs);
+    line-height: var(--acc-lh);
+    color: var(--color-dark-800);
+    text-align: left;
+    transition: color 0.15s ease;
+  }
+  .ds-accordion__header:hover:not(:disabled) {
+    color: var(--color-dark-900);
+  }
+  .ds-accordion__header:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+  .ds-accordion__header:disabled {
+    cursor: not-allowed;
+    color: var(--color-grey-300);
+  }
+
+  .ds-accordion__chevron {
+    flex: none;
+    display: inline-flex;
+    width: var(--acc-icon);
+    height: var(--acc-icon);
+    color: currentColor;
+    transition: transform 0.2s ease;
+  }
+  .ds-accordion__chevron svg { display: block; width: 100%; height: 100%; }
+
+  .ds-accordion--open > .ds-accordion__header {
+    color: var(--color-dark-900);
+  }
+  .ds-accordion--open > .ds-accordion__header .ds-accordion__chevron {
+    transform: rotate(90deg);
+  }
+
+  .ds-accordion__panel {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--acc-fs);
+    line-height: var(--acc-lh);
+    color: var(--color-foreground-muted);
+    padding-left: calc(var(--acc-icon) + 8px);
+  }
+}

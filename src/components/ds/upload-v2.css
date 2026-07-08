@@ -1,0 +1,183 @@
+/* ============================================================
+   MIDHUB — Upload v2 (1:1 из Figma «UI Контролы» / Upload var 2, node 1520:62781)
+   Широкая drop-зона + строка прикреплённого файла.
+   ------------------------------------------------------------
+   Drop-зона <UploadV2>: пунктирная рамка, иконка-загрузка + подсказка.
+     hover/active/focus — цвет рамки (псевдоклассы); disabled / error — палитра.
+   Строка файла <UploadFile>: сплошная рамка, имя + мета, иконки справа.
+     progress → режим загрузки: серая заливка-прогресс + «пауза».
+     иначе    → готово: «карандаш» (правка) + «корзина».
+   ============================================================ */
+@layer components {
+  /* ─────────────────────────  DROP-ЗОНА  ──────────────────────── */
+  .ds-upload-v2 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    min-height: 132px;
+    padding: 19px 16px;
+    border: 1px dashed var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    color: var(--color-blue-midhub-500); /* цвет иконки */
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ds-upload-v2:hover {
+    border-color: var(--color-grey-200);
+  }
+  .ds-upload-v2:active {
+    border-color: var(--color-blue-midhub-500);
+  }
+  .ds-upload-v2:focus-visible {
+    outline: none;
+    border: 2px dashed var(--color-blue-midhub-600);
+  }
+
+  .ds-upload-v2__icon {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    color: inherit;
+  }
+  .ds-upload-v2__icon > svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ds-upload-v2__text {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--type-p3-size); /* 14 */
+    line-height: var(--type-p3-lh); /* 22 */
+    color: var(--color-dark-900);
+  }
+  .ds-upload-v2__accent {
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-upload-v2__hint {
+    display: block;
+    font-size: var(--type-caption-size); /* 12 */
+    line-height: var(--type-caption-lh); /* 20 */
+    color: var(--color-grey-300);
+  }
+
+  /* ── disabled — всё серое ──────────────────────────────────── */
+  .ds-upload-v2--disabled {
+    border-color: var(--color-grey-20);
+    color: var(--color-grey-300);
+    cursor: not-allowed;
+  }
+  .ds-upload-v2--disabled:hover,
+  .ds-upload-v2--disabled:active {
+    border-color: var(--color-grey-20);
+  }
+  .ds-upload-v2--disabled .ds-upload-v2__text,
+  .ds-upload-v2--disabled .ds-upload-v2__accent {
+    color: var(--color-grey-300);
+  }
+
+  /* ── error — красная палитра ───────────────────────────────── */
+  .ds-upload-v2--error {
+    border-color: var(--color-red-300);
+    color: var(--color-red-300);
+  }
+  .ds-upload-v2--error:hover,
+  .ds-upload-v2--error:active {
+    border-color: var(--color-red-300);
+  }
+  .ds-upload-v2--error .ds-upload-v2__text {
+    color: var(--color-red-300);
+  }
+
+  /* ─────────────────────────  СТРОКА ФАЙЛА  ───────────────────── */
+  .ds-upload-file {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 66px;
+    padding: 11px 15px;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    overflow: hidden;
+  }
+
+  /* серая заливка-прогресс (режим загрузки) */
+  .ds-upload-file__progress {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background-color: var(--color-grey-10);
+    pointer-events: none;
+  }
+
+  .ds-upload-file__text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-size: var(--type-caption-size); /* 12 */
+    line-height: var(--type-caption-lh); /* 20 */
+  }
+  .ds-upload-file__name {
+    font-weight: var(--weight-medium);
+    color: var(--color-dark-900);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ds-upload-file__meta {
+    font-weight: var(--weight-regular);
+    color: var(--color-grey-300);
+  }
+
+  .ds-upload-file__actions {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    flex: none;
+  }
+  .ds-upload-file__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-grey-300);
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .ds-upload-file__action > svg {
+    width: 24px;
+    height: 24px;
+  }
+  .ds-upload-file__action:hover:not(:disabled) {
+    color: var(--color-dark-900);
+  }
+  .ds-upload-file__action:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+  .ds-upload-file__action--danger {
+    color: var(--color-red-300);
+  }
+  .ds-upload-file__action--danger:hover:not(:disabled) {
+    color: var(--color-red-400);
+  }
+}

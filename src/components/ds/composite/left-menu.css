@@ -1,0 +1,368 @@
+/* ============================================================
+   MIDHUB — LeftMenu (левое меню / сайдбар, композит)
+   1:1 из Figma «UI фичи» / menu:
+     menu full validator 2115:233056 · menu 1 1118:96768 ·
+     menu 2 1272:133860 · smallmenu 1116:98990 · 1586:245446 ·
+     1676:234159 · профиль 1116:98961 · admin 1116:98967 ·
+     профиль 2 1684:238673 · 1368:162112 · 1118:96985
+   ------------------------------------------------------------
+   Двухколоночный сайдбар:
+     • MenuRail   — узкая колонка-рейка 60px: лого/КП-бейдж сверху,
+                    цветные номер-бейджи (рабочие пространства), футер.
+     • MenuPanel  — раскрытая колонка ~160px: профиль-карточка,
+                    кнопки, навигационные пункты, футер.
+   Все цвета/типографика/радиусы — токены MIDHUB. Хардкода нет.
+   Компоненты — left-menu.tsx.
+   ============================================================ */
+@layer components {
+  /* ── Корневой контейнер: рейка + панель встык ──────────────── */
+  .ds-lm {
+    display: inline-flex;
+    align-items: stretch;
+    font-family: var(--font-sans);
+  }
+
+  /* ============================================================
+     RAIL — узкая колонка с бейджами (60px)
+     ============================================================ */
+  .ds-lm-rail {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    border: 1px solid var(--color-grey-90);
+    background: var(--color-white);
+  }
+  /* Прокручиваемый список бейджей */
+  .ds-lm-rail__list {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 20px 0;
+    overflow-y: auto;
+  }
+
+  /* ── Бейдж рабочего пространства (32, rounded-4) ───────────── */
+  .ds-lm-badge {
+    box-sizing: border-box;
+    position: relative;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-xs);
+    background: var(--badge-color, var(--color-grey-100));
+    color: var(--color-white);
+    font-weight: var(--weight-regular);
+    font-size: 14px;
+    line-height: 22px;
+    cursor: pointer;
+    transition: filter 0.15s ease, box-shadow 0.15s ease;
+  }
+  .ds-lm-badge:hover:not(:disabled):not(.ds-lm-badge--active) {
+    filter: brightness(0.97);
+  }
+  .ds-lm-badge:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  /* Активный бейдж — синяя заливка + кольцо-обводка (40px) */
+  .ds-lm-badge--active {
+    background: var(--badge-color, var(--color-blue-midhub-500));
+    box-shadow: 0 0 0 2px var(--color-white),
+      0 0 0 3px var(--badge-color, var(--color-blue-midhub-500));
+  }
+  .ds-lm-badge:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-white),
+      0 0 0 3px var(--color-blue-midhub-500);
+  }
+  /* Бренд-марка / лого как первый элемент рейки */
+  .ds-lm-badge--brand {
+    background: transparent;
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-lm-badge--brand:hover:not(:disabled) {
+    filter: none;
+  }
+
+  /* ============================================================
+     PANEL — раскрытая колонка
+     ============================================================ */
+  .ds-lm-panel {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: var(--lm-panel-w, 161px);
+    border: 1px solid var(--color-grey-90);
+    background: var(--color-white);
+  }
+  /* Когда рейка стоит слева — убираем двойную границу */
+  .ds-lm-rail + .ds-lm-panel {
+    border-left: 0;
+  }
+  .ds-lm-panel__body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 7px;
+    overflow-y: auto;
+  }
+
+  /* ── Профиль-карточка (cover + аватар + имя + пайщики) ─────── */
+  .ds-lm-profile {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 8px;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background: var(--color-white);
+    box-shadow: 2px 4px 4px 0 rgba(231, 234, 237, 0.2);
+    overflow: hidden;
+  }
+  .ds-lm-profile__cover {
+    position: relative;
+    width: 100%;
+    height: 88px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background: linear-gradient(
+      120deg,
+      var(--color-blue-midhub-900),
+      var(--color-purple-700) 55%,
+      var(--color-red-800)
+    );
+    background-size: cover;
+    background-position: center;
+  }
+  .ds-lm-profile__avatar {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 72px;
+    border: 2px solid var(--color-white);
+    border-radius: var(--radius-pill);
+    background: var(--color-grey-20);
+    overflow: hidden;
+  }
+  .ds-lm-profile__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Текстовый фолбэк аватара (имя по центру кружка) */
+  .ds-lm-profile__avatar-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 7px;
+    color: var(--color-dark-900);
+    font-weight: var(--weight-medium);
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+  }
+  .ds-lm-profile__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+    width: 129px;
+    text-align: center;
+  }
+  .ds-lm-profile__name {
+    width: 100%;
+    color: var(--color-dark-900);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .ds-lm-profile__meta {
+    width: 100%;
+    color: var(--color-grey-300);
+    font-weight: var(--weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  /* ── Кнопка панели (Деятельность / иконные / роль) ─────────── */
+  .ds-lm-btn {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    margin: 0;
+    padding: 6px 16px;
+    border: 0;
+    border-radius: var(--radius-xs);
+    background: var(--color-grey-20);
+    color: var(--color-dark-800);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, filter 0.15s ease;
+  }
+  .ds-lm-btn:hover:not(:disabled) {
+    background: var(--color-grey-10);
+  }
+  .ds-lm-btn:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 1px;
+  }
+  .ds-lm-btn__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+  }
+  .ds-lm-btn__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  /* Роль-кнопка (красный дропдаун «Пред. правления») */
+  .ds-lm-btn--role {
+    background: var(--color-red-200);
+    color: var(--color-white);
+    justify-content: space-between;
+  }
+  .ds-lm-btn--role:hover:not(:disabled) {
+    background: var(--color-red-200);
+    filter: brightness(0.97);
+  }
+  /* Иконные квадратные кнопки в ряд */
+  .ds-lm-btn-row {
+    display: flex;
+    gap: 7px;
+    width: 100%;
+  }
+  .ds-lm-btn--icon {
+    flex: 1 1 0;
+    width: auto;
+    padding: 8px;
+  }
+
+  /* ── Навигационный пункт (иконка + подпись) ────────────────── */
+  .ds-lm-nav {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    color: var(--color-dark-800);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .ds-lm-nav:hover:not(:disabled):not(.ds-lm-nav--active) {
+    background: var(--color-grey-20);
+  }
+  .ds-lm-nav:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 1px;
+  }
+  .ds-lm-nav--active {
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-lm-nav__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--color-dark-800);
+  }
+  .ds-lm-nav--active .ds-lm-nav__icon {
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-lm-nav__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .ds-lm-nav__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ── Разделитель между группами пунктов ────────────────────── */
+  .ds-lm-divider {
+    width: 100%;
+    height: 1px;
+    margin: 4px 0;
+    background: var(--color-grey-90);
+    border: 0;
+  }
+
+  /* ── Футер-ячейка (Admin / пользователь) ───────────────────── */
+  .ds-lm-foot {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: none;
+    min-height: 56px;
+    padding: 12px;
+    border-top: 1px solid var(--color-grey-90);
+    color: var(--color-dark-800);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+  }
+  /* Активная ячейка — текущий раздел (профиль пользователя): заливка grey-20. */
+  .ds-lm-foot--active {
+    background: var(--color-grey-20);
+  }
+  .ds-lm-foot__avatar {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-pill);
+    background: var(--color-grey-20);
+    overflow: hidden;
+  }
+  .ds-lm-foot__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Розовое кольцо вокруг аватара (Пред. правления) — 1:1 из Figma */
+  .ds-lm-foot__avatar--ring {
+    box-shadow: 0 0 0 1.5px var(--color-white), 0 0 0 3px var(--color-red-200);
+  }
+}

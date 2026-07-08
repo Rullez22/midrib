@@ -1,0 +1,240 @@
+/* ============================================================
+   MIDHUB — AccountCard (карточка счёта, 1:1 из Figma «UI фичи»
+   карточка счета раскрыта 2237:231380)
+   ------------------------------------------------------------
+   Баланс (2 кнопки + сумма по центру) · панель характеристик
+   (шапка title + крестик, строки label/value) · футер-кнопка.
+
+   Собран из DS <Button>. Токены MIDHUB. Компонент <AccountCard> (account-card.tsx).
+   ============================================================ */
+@layer components {
+  .ds-account {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    /* visible — чтобы синий бордер кнопки-футера (отриц. поля) лёг поверх рамки;
+       фон карточки скругляется по border-radius независимо от overflow. */
+    overflow: visible;
+  }
+
+  /* ── Баланс ────────────────────────────────────────────────── */
+  .ds-account__balance {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 72px;
+    min-height: 144px;
+    padding: 16px 24px;
+  }
+  .ds-account__action { display: inline-flex; flex: none; }
+  .ds-account__balance-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .ds-account__balance-label {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-dark-900);
+  }
+  .ds-account__balance-amount {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 32px;
+    line-height: 40px;
+    color: var(--color-dark-900);
+    white-space: nowrap;
+  }
+  .ds-account__balance-sub {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-dark-800);
+  }
+
+  /* ── Шестерёнка + дропдаун (свёрнутый режим, Figma 2496:290267/290260) ── */
+  .ds-account__gear {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+  .ds-account__gear-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    color: var(--color-grey-300);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .ds-account__gear-btn:hover {
+    background-color: var(--color-grey-10);
+    color: var(--color-dark-800);
+  }
+  .ds-account__gear-btn[aria-expanded="true"] {
+    background-color: var(--color-grey-10);
+    color: var(--color-dark-800);
+  }
+  .ds-account__gear-btn svg { display: block; width: 16px; height: 16px; }
+
+  .ds-account__menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 180px;
+    padding: 8px;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    box-shadow: 0 8px 24px rgb(36 43 50 / 0.08);
+  }
+  .ds-account__menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 38px;
+    padding: 0 8px;
+    border: none;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--color-dark-800);
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .ds-account__menu-item:hover { background-color: var(--color-grey-10); }
+  .ds-account__menu-item:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: -2px;
+  }
+
+  /* ── Панель характеристик ──────────────────────────────────── */
+  .ds-account__panel {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-grey-90);
+  }
+  .ds-account__subhead {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 48px;
+    border-bottom: 1px solid var(--color-grey-90);
+    background-color: var(--color-grey-10);
+  }
+  .ds-account__subhead-title {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-dark-900);
+    text-align: center;
+  }
+  .ds-account__subhead-close {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--color-grey-300);
+    cursor: pointer;
+  }
+  .ds-account__subhead-close:hover { color: var(--color-dark-800); }
+  .ds-account__subhead-close svg { display: block; width: 100%; height: 100%; }
+
+  /* ── Строки label/value ────────────────────────────────────── */
+  .ds-account__row {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    align-items: start;
+    gap: 24px;
+    padding: 16px 24px;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .ds-account__row + .ds-account__row { border-top: 1px solid var(--color-grey-90); }
+
+  .ds-account__label { color: var(--color-grey-300); }
+  .ds-account__value { color: var(--color-dark-900); }
+  .ds-account__value > * + * { margin-top: 8px; }
+
+  /* Парная строка: две stacked-ячейки + вертикальный разделитель */
+  .ds-account__row--pair {
+    grid-template-columns: 1fr 1px 1fr;
+    align-items: stretch;
+    gap: 24px;
+  }
+  .ds-account__cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ds-account__cell-label { color: var(--color-grey-300); }
+  .ds-account__cell-value { color: var(--color-dark-900); }
+  .ds-account__vdivider {
+    width: 1px;
+    align-self: stretch;
+    background-color: var(--color-grey-90);
+  }
+
+  /* ── Футер-кнопка ──────────────────────────────────────────── */
+  .ds-account__edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* Кнопка-футер: синий бордер со всех сторон + скруглённый низ (Figma
+       2237:231394). Отрицательные поля кладут бордер поверх рамки карточки. */
+    margin: 0 -1px -1px;
+    padding: 12px 32px;
+    border: 1px solid var(--color-blue-midhub-500);
+    border-bottom-left-radius: var(--radius-xs);
+    border-bottom-right-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-blue-midhub-500);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .ds-account__edit:hover { background-color: var(--color-grey-10); }
+  .ds-account__edit:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: -2px;
+  }
+}

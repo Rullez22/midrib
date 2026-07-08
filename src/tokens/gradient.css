@@ -1,0 +1,15 @@
+/* ============================================================
+   MIDHUB — Gradients (из Figma «Стиль» → Градиенты, node 105:3)
+   ------------------------------------------------------------
+   Значения 1:1 из dev-mode. Использовать через CSS-переменную
+   (background: var(--gradient-blue)) или утилиту .bg-gradient-*.
+   ============================================================ */
+
+:root {
+  --gradient-blue:   linear-gradient(180deg, #5900ff 0%, #04d4ff 100%);
+  --gradient-green:  linear-gradient(90deg,  #a9e3ab 0%, #75ca78 100%);
+  --gradient-orange: linear-gradient(270deg, #ff6f00 0%, #ffe27a 100%);
+  /* grey — мягкое затухание (для overlay/fade), с альфой */
+  --gradient-grey:   linear-gradient(270deg, rgba(243, 246, 249, 0.66) 0%, rgba(243, 246, 249, 0) 100%);
+  --gradient-dark:   linear-gradient(0deg,   #000000 0%, #ffffff 100%);
+}

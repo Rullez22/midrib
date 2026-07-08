@@ -1,0 +1,114 @@
+/* ============================================================
+   MIDHUB — Incriment (1:1 из Figma «UI Контролы» / Incriment 928:21)
+   Степпер «−  значение  +» — числовой контрол с шагом.
+   ------------------------------------------------------------
+   Size : l (48) · m (40) · s (32)
+
+   Бокс: белый фон, рамка grey-90, радиус 4px.
+   Боковые ячейки «+» / «−» — синий blue-midhub-500, разделены
+   вертикальными линиями (border) от центрального значения (dark-900).
+   Компонент <Incriment> (incriment.tsx).
+   ============================================================ */
+@layer components {
+  .ds-incriment {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: stretch;
+    height: var(--inc-h);
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    overflow: hidden;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-incriment--l {
+    --inc-h: 48px;
+    --inc-side: 35px;
+    --inc-fs-btn: 24px;
+    --inc-fs-val: 20px;
+    --inc-val-min: 75px;
+  }
+  .ds-incriment--m {
+    --inc-h: 40px;
+    --inc-side: 35px;
+    --inc-fs-btn: 20px;
+    --inc-fs-val: 16px;
+    --inc-val-min: 69px;
+  }
+  .ds-incriment--s {
+    --inc-h: 32px;
+    --inc-side: 35px;
+    --inc-fs-btn: 18px;
+    --inc-fs-val: 14px;
+    --inc-val-min: 61px;
+  }
+
+  /* ── Кнопки «+» / «−» ──────────────────────────────────────── */
+  .ds-incriment__btn {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--inc-side);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-blue-midhub-500);
+    font: inherit;
+    font-size: var(--inc-fs-btn);
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+  .ds-incriment__btn:hover:not(:disabled) {
+    color: var(--color-blue-midhub-600);
+    background-color: var(--color-grey-10);
+  }
+  .ds-incriment__btn:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: -2px;
+  }
+  .ds-incriment__btn:disabled {
+    color: var(--color-blue-midhub-100);
+    cursor: not-allowed;
+  }
+
+  .ds-incriment__btn--inc { border-right: 1px solid var(--color-grey-90); }
+  .ds-incriment__btn--dec { border-left: 1px solid var(--color-grey-90); }
+
+  /* ── Значение ──────────────────────────────────────────────── */
+  .ds-incriment__value {
+    flex: 1 1 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--inc-val-min);
+    padding-inline: 8px;
+    color: var(--color-dark-900);
+    font-size: var(--inc-fs-val);
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* ── Только просмотр (без кнопок) ──────────────────────────── */
+  .ds-incriment--readonly .ds-incriment__value {
+    min-width: var(--inc-val-min);
+  }
+
+  /* ── Весь контрол выключен ─────────────────────────────────── */
+  .ds-incriment--disabled {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-grey-20);
+  }
+  .ds-incriment--disabled .ds-incriment__btn--inc,
+  .ds-incriment--disabled .ds-incriment__btn--dec {
+    border-color: var(--color-grey-20);
+  }
+  .ds-incriment--disabled .ds-incriment__value {
+    color: var(--color-grey-100);
+  }
+}

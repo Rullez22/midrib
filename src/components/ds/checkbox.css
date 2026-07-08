@@ -1,0 +1,154 @@
+/* ============================================================
+   MIDHUB — Checkbox (1:1 из Figma «UI Контролы» / Checkbox 62:22, 79:98)
+   ------------------------------------------------------------
+   Матрица: Size × Value × State × View.
+     Size  : S-32 · XS-24 · XXS-16
+     Value : unchecked · checked · indeterminate
+     State : default · hover · active · focus · disabled · error
+     View  : box-only · с текстом (label)
+
+   Состояния — нативные псевдоклассы скрытого <input type="checkbox">.
+   Цвета — палитра-токены MIDHUB (tokens/color.css).
+   Используется компонентом <Checkbox> (checkbox.tsx).
+   ============================================================ */
+@layer components {
+  .ds-check {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--check-gap);
+    cursor: pointer;
+    user-select: none;
+  }
+  .ds-check:has(.ds-check__input:disabled) {
+    cursor: not-allowed;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-check--s   { --check-box: 32px; --check-gap: 8px; --check-fs: 18px; --check-lh: 26px; }
+  .ds-check--xs  { --check-box: 24px; --check-gap: 8px; --check-fs: 14px; --check-lh: 22px; }
+  .ds-check--xxs { --check-box: 16px; --check-gap: 4px; --check-fs: 12px; --check-lh: 20px; }
+
+  /* ── Контрол (квадрат) ─────────────────────────────────────── */
+  .ds-check__control {
+    position: relative;
+    flex: none;
+    width: var(--check-box);
+    height: var(--check-box);
+  }
+  .ds-check__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+    z-index: 1;
+  }
+
+  .ds-check__box {
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    box-shadow: inset 0 1px 3px 0 rgba(90, 100, 111, 0.3);
+    color: var(--color-white);
+    pointer-events: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .ds-check__box svg {
+    width: 75%;
+    height: 75%;
+  }
+  .ds-check__box .ds-check__check,
+  .ds-check__box .ds-check__minus {
+    display: none;
+  }
+
+  /* ── Value: unchecked — состояния ──────────────────────────── */
+  .ds-check__input:not(:checked):not(:indeterminate):hover:not(:disabled) + .ds-check__box {
+    background-color: var(--color-grey-10);
+  }
+  .ds-check__input:not(:checked):not(:indeterminate):active:not(:disabled) + .ds-check__box {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-blue-midhub-500);
+  }
+  .ds-check__input:not(:checked):not(:indeterminate):focus-visible + .ds-check__box {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-blue-midhub-500);
+    border-width: 2px;
+  }
+  .ds-check__input:not(:checked):not(:indeterminate):disabled + .ds-check__box {
+    border-color: var(--color-grey-20);
+    background-color: var(--color-white);
+  }
+
+  /* ── Modifier: error (unchecked) ───────────────────────────── */
+  .ds-check--error .ds-check__input:not(:checked):not(:indeterminate) + .ds-check__box {
+    border-color: var(--color-red-200);
+  }
+  .ds-check--error .ds-check__input:not(:checked):not(:indeterminate):focus-visible + .ds-check__box {
+    border-color: var(--color-red-200);
+  }
+
+  /* ── Value: checked / indeterminate (заливка) ──────────────── */
+  /* Цвет заливки — через переменную --check-checked-bg (по умолчанию синий).
+     Любой чекбокс можно перекрасить, задав --check-checked-bg (наследуется в
+     .ds-check__box). Вариант .ds-check--purple задаёт её фиолетовой. */
+  .ds-check__input:checked + .ds-check__box,
+  .ds-check__input:indeterminate + .ds-check__box {
+    background-color: var(--check-checked-bg, var(--color-blue-midhub-500));
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .ds-check--purple { --check-checked-bg: var(--color-purple-300, #b39ddb); }
+
+  .ds-check__input:checked + .ds-check__box .ds-check__check {
+    display: block;
+  }
+  .ds-check__input:indeterminate + .ds-check__box .ds-check__check {
+    display: none;
+  }
+  .ds-check__input:indeterminate + .ds-check__box .ds-check__minus {
+    display: block;
+  }
+
+  .ds-check__input:checked:hover:not(:disabled) + .ds-check__box,
+  .ds-check__input:indeterminate:hover:not(:disabled) + .ds-check__box {
+    background-color: var(--check-checked-bg, var(--color-blue-midhub-600));
+  }
+  .ds-check__input:checked:active:not(:disabled) + .ds-check__box,
+  .ds-check__input:indeterminate:active:not(:disabled) + .ds-check__box {
+    background-color: var(--check-checked-bg, var(--color-blue-midhub-800));
+  }
+  .ds-check__input:checked:focus-visible + .ds-check__box,
+  .ds-check__input:indeterminate:focus-visible + .ds-check__box {
+    background-color: var(--check-checked-bg, var(--color-blue-midhub-500));
+    border-color: var(--color-blue-midhub-800);
+  }
+  .ds-check__input:checked:disabled + .ds-check__box,
+  .ds-check__input:indeterminate:disabled + .ds-check__box {
+    background-color: var(--color-blue-midhub-100);
+    border-color: transparent;
+  }
+
+  /* ── Label ─────────────────────────────────────────────────── */
+  .ds-check__label {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--check-fs);
+    line-height: var(--check-lh);
+    color: var(--color-dark-900);
+  }
+  .ds-check--error .ds-check__label {
+    color: var(--color-red-300);
+  }
+  .ds-check:has(.ds-check__input:disabled) .ds-check__label {
+    color: var(--color-grey-300);
+  }
+}

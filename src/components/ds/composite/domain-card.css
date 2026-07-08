@@ -1,0 +1,115 @@
+/* ============================================================
+   MIDHUB — DomainCard (карточка домена, 1:1 из Figma
+   «UI фичи» / Карточка домена 215:41782)
+   ------------------------------------------------------------
+   Иконка (папка в сером круге 32) + заголовок (Medium 14/22) +
+   две строки-статистики (Regular 14/22). Виды «мой/не мой»
+   через .ds-domain--mine, состояние hover — через :hover.
+   Токены MIDHUB. Компонент <DomainCard> (domain-card.tsx).
+   ============================================================ */
+@layer components {
+  .ds-domain {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    min-height: 140px;
+    padding: 16px;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .ds-domain:hover {
+    background-color: var(--color-grey-20);
+    border-color: var(--color-grey-300);
+  }
+
+  /* ── «Мой» домен — синяя палитра ── */
+  .ds-domain--mine {
+    background-color: var(--color-blue-midhub-50);
+    border-color: var(--color-blue-midhub-500);
+  }
+  .ds-domain--mine:hover {
+    background-color: var(--color-blue-midhub-100);
+    border-color: var(--color-blue-midhub-800);
+  }
+
+  /* ── Шапка: иконка + заголовок ── */
+  .ds-domain__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .ds-domain__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-grey-20);
+    color: var(--color-grey-300);
+  }
+  .ds-domain__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .ds-domain__title {
+    align-self: center;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--color-dark-900);
+  }
+
+  /* ── Статистика ── */
+  .ds-domain__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ds-domain__stat {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .ds-domain__stat-label {
+    color: var(--color-dark-800);
+  }
+  .ds-domain__stat-value {
+    color: var(--color-dark-900);
+  }
+
+  /* ── Шестерёнка настроек (только «мой») ── */
+  .ds-domain__gear {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-domain__gear svg {
+    width: 16px;
+    height: 16px;
+  }
+  .ds-domain__gear:hover {
+    color: var(--color-blue-midhub-800);
+  }
+}

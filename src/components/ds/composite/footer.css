@@ -1,0 +1,31 @@
+/* ============================================================
+   MIDHUB — Footer (панель действий, 1:1 из Figma «UI фичи»
+   footer component 1987:197573)
+   ------------------------------------------------------------
+   Полоса grey-20 + рамка grey-90 с кнопками. Высота — от размера кнопок
+   (паддинг 16/24, gap 24). attached — футер карточки (скругление снизу).
+
+   Собран из DS <Button>. Компонент <Footer> (footer.tsx).
+   ============================================================ */
+@layer components {
+  .ds-footer {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    padding: 16px 24px;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-grey-20);
+  }
+
+  .ds-footer--end     { justify-content: flex-end; }
+  .ds-footer--start   { justify-content: flex-start; }
+  .ds-footer--between { justify-content: space-between; }
+
+  .ds-footer--attached {
+    padding: 8px;
+    border-radius: 0 0 var(--radius-xs) var(--radius-xs);
+  }
+}

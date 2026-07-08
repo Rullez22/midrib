@@ -1,0 +1,35 @@
+/* ============================================================
+   MIDHUB — Textarea (1:1 из Figma «UI Контролы» 153:15367)
+   ------------------------------------------------------------
+   Многострочный вариант Input: переиспользует `.ds-field` (бордер,
+   label, caption, состояния), но бокс растёт по высоте и текст
+   выровнен по верху. Падинг 12×16 (как inset Figma «Input text»),
+   нативная ручка resize в правом нижнем углу.
+
+   Компонент <Textarea> (textarea.tsx).
+   ============================================================ */
+@layer components {
+  /* Бокс: высота auto + min-height по размеру, контент по верху */
+  .ds-field--area .ds-field__box {
+    height: auto;
+    min-height: var(--area-min, 120px);
+    align-items: stretch;
+    padding-block: 12px;
+  }
+  .ds-field--area.ds-field--l  { --area-min: 120px; }
+  .ds-field--area.ds-field--m  { --area-min: 104px; }
+  .ds-field--area.ds-field--s  { --area-min: 88px;  }
+  .ds-field--area.ds-field--xs { --area-min: 76px;  }
+
+  /* Сам textarea */
+  .ds-field__textarea {
+    display: block;
+    min-height: var(--fld-lh, 24px);
+    resize: vertical;
+  }
+  .ds-field__textarea--no-resize { resize: none; }
+
+  /* В locked/disabled ресайз отключаем */
+  .ds-field--locked .ds-field__textarea,
+  .ds-field--disabled .ds-field__textarea { resize: none; }
+}

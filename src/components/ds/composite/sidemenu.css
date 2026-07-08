@@ -1,0 +1,90 @@
+/* ============================================================
+   MIDHUB — Sidemenu (композит, 1:1 из Figma «UI фичи» / sidemenu
+   nodes 1647:231585 · 1170:101117 · 1170:113096)
+   ------------------------------------------------------------
+   Вертикальный список выбираемых чипов (sidemenu). Каждый чип —
+   базовая «Tabs midhub» (Size=S-32, Type=Solid light): h32, px16,
+   py6, gap4, rounded-4, Articulat Regular 12/20 — те же значения,
+   что в .ds-tabs--s (tabs.css).
+
+   Variant:
+     label — текстовые чипы. default: grey-20 / grey-90 / dark-800;
+             active: white / grey-90 / blue-midhub-500.
+     color — цветные номер-бейджи. default: заливка --sm-color, текст
+             white; active: white / рамка --sm-color / текст --sm-color.
+
+   Цвета — палитра-токены MIDHUB. Компонент <Sidemenu> (sidemenu.tsx).
+   ============================================================ */
+@layer components {
+  .ds-sidemenu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sm-gap, 8px);
+  }
+
+  /* ── Чип (базовая кнопка S-32) ─────────────────────────────── */
+  .ds-sidemenu__item {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 6px 16px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .ds-sidemenu__item:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .ds-sidemenu__item:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 1px;
+  }
+  .ds-sidemenu__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── Variant: Label (текстовые чипы) ───────────────────────── */
+  .ds-sidemenu--label .ds-sidemenu__item {
+    background-color: var(--color-grey-20);
+    border-color: var(--color-grey-90);
+    color: var(--color-dark-800);
+  }
+  .ds-sidemenu--label .ds-sidemenu__item:hover:not(:disabled):not([aria-selected="true"]) {
+    background-color: var(--color-grey-10);
+  }
+  .ds-sidemenu--label .ds-sidemenu__item[aria-selected="true"] {
+    background-color: var(--color-white);
+    border-color: var(--color-grey-90);
+    color: var(--color-blue-midhub-500);
+  }
+
+  /* ── Variant: Color (цветные номер-бейджи) ─────────────────── */
+  .ds-sidemenu--color .ds-sidemenu__item {
+    background-color: var(--sm-color, var(--color-grey-20));
+    border-color: transparent;
+    color: var(--color-white);
+  }
+  .ds-sidemenu--color .ds-sidemenu__item:hover:not(:disabled):not([aria-selected="true"]) {
+    filter: brightness(0.97);
+  }
+  .ds-sidemenu--color .ds-sidemenu__item[aria-selected="true"] {
+    background-color: var(--color-white);
+    border-color: var(--sm-color, var(--color-grey-90));
+    color: var(--sm-color, var(--color-dark-800));
+  }
+}

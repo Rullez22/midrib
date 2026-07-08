@@ -1,0 +1,135 @@
+/* ============================================================
+   MIDHUB — Input / Text field (1:1 из Figma «UI Контролы» 148:156)
+   ------------------------------------------------------------
+   Анатомия:
+     • box      — бордер-контейнер (radius 4, inner-shadow)
+     • label    — плавающая подпись внутри сверху (опц., grey 300)
+     • input    — placeholder (grey 100) / значение (dark 900)
+     • icon     — слоты слева/справа (grey 300)
+     • caption  — вспом. текст под полем (dark 800 / error red 200)
+
+   Size  : l (48) · m (40) · s (32) · xs (24)
+   State : default · hover · active(focus) · locked(readonly) · disabled
+   Value : empty · filled · error (`--error`)
+
+   Цвета — палитра-токены MIDHUB. Компонент <Input> (input.tsx).
+   ============================================================ */
+@layer components {
+  .ds-field {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-field--l  { --fld-h: 48px; --fld-px: 16px; --fld-fs: 16px; --fld-lh: 24px; --fld-icon: 24px; }
+  .ds-field--m  { --fld-h: 40px; --fld-px: 16px; --fld-fs: 14px; --fld-lh: 22px; --fld-icon: 20px; }
+  .ds-field--s  { --fld-h: 32px; --fld-px: 16px; --fld-fs: 14px; --fld-lh: 22px; --fld-icon: 16px; }
+  .ds-field--xs { --fld-h: 24px; --fld-px: 12px; --fld-fs: 12px; --fld-lh: 20px; --fld-icon: 16px; }
+
+  /* ── Box (контейнер) ───────────────────────────────────────── */
+  .ds-field__box {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: var(--fld-h);
+    padding-inline: var(--fld-px);
+    text-align: left;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    box-shadow: inset 0 1px 3px 0 rgba(90, 100, 111, 0.3);
+    cursor: text;
+    transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  /* hover / focus только для активного небрака */
+  .ds-field:not(.ds-field--error):not(.ds-field--disabled):not(.ds-field--locked) .ds-field__box:hover {
+    border-color: var(--color-grey-200);
+  }
+  .ds-field:not(.ds-field--error):not(.ds-field--disabled):not(.ds-field--locked) .ds-field__box:focus-within {
+    border-color: var(--color-blue-midhub-500);
+  }
+
+  .ds-field--error .ds-field__box {
+    border-color: var(--color-red-200);
+  }
+  .ds-field--locked .ds-field__box {
+    background-color: var(--color-grey-10);
+    box-shadow: none;
+    cursor: default;
+  }
+  .ds-field--disabled .ds-field__box {
+    cursor: not-allowed;
+  }
+
+  /* ── Иконки ────────────────────────────────────────────────── */
+  .ds-field__icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--fld-icon);
+    height: var(--fld-icon);
+    color: var(--color-grey-300);
+  }
+  .ds-field__icon svg { display: block; width: 100%; height: 100%; }
+
+  /* ── Контент (label + input) ───────────────────────────────── */
+  .ds-field__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .ds-field__label {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-grey-300);
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ds-field__input {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--fld-fs);
+    line-height: var(--fld-lh);
+    color: var(--color-dark-900);
+    caret-color: var(--color-dark-900);
+  }
+  .ds-field__input::placeholder {
+    color: var(--color-grey-100);
+    opacity: 1;
+  }
+  .ds-field__input:disabled {
+    cursor: not-allowed;
+    color: var(--color-grey-100);
+    -webkit-text-fill-color: var(--color-grey-100);
+  }
+
+  /* ── Caption (под полем) ───────────────────────────────────── */
+  .ds-field__caption {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-dark-800);
+  }
+  .ds-field--error .ds-field__caption {
+    color: var(--color-red-200);
+  }
+}

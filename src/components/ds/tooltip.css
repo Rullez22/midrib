@@ -1,0 +1,70 @@
+/* ============================================================
+   MIDHUB — Tooltip (1:1 из Figma «UI Контролы» 1008:58062)
+   ------------------------------------------------------------
+   Тёмная подсказка (dark 900, белый текст, радиус 4, padding 8):
+     • body : P3 14/22 или Caption 12/20
+     • header (опц.) : P3-Medium 14/22
+
+   Появляется по hover/focus триггера (чистый CSS). Компонент <Tooltip>.
+   ============================================================ */
+@layer components {
+  .ds-tooltip {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .ds-tooltip__bubble {
+    position: absolute;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: max-content;
+    max-width: 240px;
+    /* Комфортные внутренние отступы: ~20px по бокам и ~16px сверху/снизу
+       (вертикальный 12px + ~4px leading от line-height → визуально ≈16px). */
+    padding: 12px 20px;
+    border-radius: var(--radius-xs);
+    background-color: var(--color-dark-900);
+    color: var(--color-white);
+    text-align: left;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+  }
+
+  /* стороны */
+  .ds-tooltip__bubble--top    { bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); }
+  .ds-tooltip__bubble--bottom { top: calc(100% + 8px);    left: 50%; transform: translateX(-50%); }
+  /* Left/right: якорим верх пузырька к триггеру (растёт вниз), а не центрируем,
+     чтобы у высоких подсказок заголовок всегда оставался виден рядом с иконкой
+     и не уходил за верхний край окна. */
+  .ds-tooltip__bubble--left   { right: calc(100% + 8px);  top: 0; }
+  .ds-tooltip__bubble--right  { left: calc(100% + 8px);   top: 0; }
+
+  .ds-tooltip:hover .ds-tooltip__bubble,
+  .ds-tooltip:focus-within .ds-tooltip__bubble {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ds-tooltip__title {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    /* P2-Medium 16/24 — крупнее тела (14px), чтобы заголовок был отдельным
+       блоком, а не сливался с описанием в один поток. */
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .ds-tooltip__body {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .ds-tooltip--caption .ds-tooltip__body {
+    font-size: 12px;
+    line-height: 20px;
+  }
+}

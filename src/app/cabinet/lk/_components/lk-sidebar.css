@@ -1,0 +1,24 @@
+/* Персональная панель ЛК короткая (без скролла) — снимаем overflow, чтобы
+   красный дропдаун роли не обрезался краем панели (Figma 1857:650107). */
+.lk-panel .ds-lm-panel__body {
+  overflow: visible;
+}
+.lk-panel .ds-dropdown {
+  display: block;
+  width: 100%;
+}
+/* Красная кнопка роли — фиксированной ширины на всю панель (как в Figma),
+   текст + шеврон по центру, а не по краям. */
+.lk-panel .ds-dropdown__trigger {
+  display: block;
+  width: 100%;
+}
+.lk-panel .ds-lm-btn--role {
+  justify-content: center;
+}
+.lk-panel .ds-dropdown__menu {
+  z-index: 50;
+  /* --color-white в проекте не резолвится в непрозрачный белый → форсируем #fff,
+     иначе меню полупрозрачное и сквозь него виден контент. */
+  background-color: #fff;
+}

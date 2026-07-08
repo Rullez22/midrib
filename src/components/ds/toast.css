@@ -1,0 +1,121 @@
+/* ============================================================
+   MIDHUB — Toast / уведомление (1:1 из Figma «UI Контролы» 1229:61463 …)
+   ------------------------------------------------------------
+   Контейнер: border 1px, радиус 4, padding 8, gap 8.
+     • с заголовком (title) — «2+ строки»: иконка сверху, 312px, items-start
+     • без заголовка        — «одна строка»: иконка по центру, 280px, items-center
+   Текст : заголовок P3-Medium 14/22 (dark-900), тело Caption 12/20 (dark-800).
+   Иконка/рамка/фон — по варианту (positive · notice · error · info · default).
+
+   Компонент toast.tsx.
+   ============================================================ */
+@layer components {
+  .ds-toast {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 280px;
+    max-width: 100%;
+    padding: 8px;
+    border: 1px solid var(--toast-border);
+    border-radius: var(--radius-xs);
+    background-color: var(--toast-bg);
+  }
+  .ds-toast--with-title {
+    width: 312px;
+    align-items: flex-start;
+  }
+
+  /* ── Варианты (фон / рамка / иконка) ───────────────────────── */
+  .ds-toast--positive {
+    --toast-bg: var(--color-green-50);
+    --toast-border: var(--color-green-500);
+    --toast-icon: var(--color-green-500);
+  }
+  .ds-toast--notice {
+    --toast-bg: var(--color-orange-50);
+    --toast-border: var(--color-yellow-500);
+    --toast-icon: var(--color-yellow-500);
+  }
+  .ds-toast--error {
+    --toast-bg: var(--color-red-50);
+    --toast-border: var(--color-red-500);
+    --toast-icon: var(--color-red-500);
+  }
+  .ds-toast--info {
+    --toast-bg: var(--color-white);
+    --toast-border: var(--color-blue-midhub-500);
+    --toast-icon: var(--color-blue-midhub-500);
+  }
+  .ds-toast--default {
+    --toast-bg: var(--color-blue-midhub-50);
+    --toast-border: var(--color-blue-midhub-500);
+    --toast-icon: var(--color-blue-midhub-500);
+  }
+
+  /* ── Иконка варианта ───────────────────────────────────────── */
+  .ds-toast__icon {
+    flex: none;
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    color: var(--toast-icon);
+  }
+  /* выравнивание по первой строке заголовка (22px) */
+  .ds-toast--with-title .ds-toast__icon {
+    margin-top: 3px;
+  }
+  .ds-toast__icon svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ── Текст ─────────────────────────────────────────────────── */
+  .ds-toast__content {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-sans);
+    word-break: break-word;
+  }
+  .ds-toast__title {
+    font-weight: var(--weight-medium);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--color-dark-900);
+  }
+  .ds-toast__body {
+    font-weight: var(--weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-dark-800);
+  }
+
+  /* ── Кнопка закрытия ───────────────────────────────────────── */
+  .ds-toast__close {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--color-grey-300);
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .ds-toast__close:hover {
+    color: var(--color-dark-800);
+  }
+  .ds-toast__close svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+}

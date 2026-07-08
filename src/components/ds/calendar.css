@@ -1,0 +1,204 @@
+/* ============================================================
+   MIDHUB — Calendar (1:1 из Figma «UI Контролы» / Calendar 1349:59464)
+   ------------------------------------------------------------
+   Анатомия:
+     • head   — переключатель: ‹ , Месяц▾ , Год▾ , ›
+     • grid   — 7 колонок: дни недели (Caption Medium, grey 300) + числа
+     • day    — кружок 36px; selected — синий + белый текст; hover — blue 50
+     • band   — подложка диапазона (blue 50), скруглена по краям сегмента
+     • panel  — выбор месяца / года (пилюли blue 50)
+
+   Цвета — палитра-токены MIDHUB. Компонент <Calendar> (calendar.tsx).
+   ============================================================ */
+@layer components {
+  .ds-cal {
+    --cal-cell: 44px;
+    --cal-day: 36px;
+    box-sizing: border-box;
+    width: 366px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 22px 15px;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+  }
+
+  /* ── Шапка ─────────────────────────────────────────────────── */
+  .ds-cal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 24px;
+  }
+  .ds-cal__nav {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--color-dark-900);
+    cursor: pointer;
+    border-radius: var(--radius-xs);
+  }
+  .ds-cal__nav svg { display: block; width: 16px; height: 16px; }
+  .ds-cal__nav:hover { color: var(--color-blue-midhub-500); }
+
+  .ds-cal__switch {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .ds-cal__switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--color-blue-midhub-500);
+    cursor: pointer;
+  }
+  .ds-cal__switch-chevron {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.18s ease;
+  }
+  .ds-cal__switch-chevron svg { display: block; width: 100%; height: 100%; }
+  .ds-cal__switch-btn[aria-expanded="true"] .ds-cal__switch-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ── Сетка дней ────────────────────────────────────────────── */
+  .ds-cal__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .ds-cal__wd {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--cal-cell);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-grey-300);
+    user-select: none;
+  }
+
+  .ds-cal__cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--cal-cell);
+  }
+  /* Подложка диапазона */
+  .ds-cal__cell::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    height: var(--cal-day);
+    background-color: var(--color-blue-midhub-50);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ds-cal__cell--range::before { opacity: 1; }
+  .ds-cal__cell--range-start::before { left: 50%; }
+  .ds-cal__cell--range-end::before { right: 50%; }
+  .ds-cal__cell--round-left::before {
+    border-top-left-radius: calc(var(--cal-day) / 2);
+    border-bottom-left-radius: calc(var(--cal-day) / 2);
+  }
+  .ds-cal__cell--round-right::before {
+    border-top-right-radius: calc(var(--cal-day) / 2);
+    border-bottom-right-radius: calc(var(--cal-day) / 2);
+  }
+
+  /* Кружок-число */
+  .ds-cal__day {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--cal-day);
+    height: var(--cal-day);
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-dark-900);
+    cursor: pointer;
+    transition: background-color 0.12s ease, color 0.12s ease;
+  }
+  .ds-cal__day:hover:not(:disabled):not(.ds-cal__day--selected) {
+    background-color: var(--color-blue-midhub-50);
+  }
+  .ds-cal__day--selected {
+    background-color: var(--color-blue-midhub-500);
+    color: var(--color-white);
+  }
+  .ds-cal__day:disabled {
+    color: var(--color-grey-100);
+    cursor: not-allowed;
+  }
+
+  /* ── Панель выбора месяца / года ───────────────────────────── */
+  .ds-cal__panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 8px;
+    column-gap: 0;
+    min-height: 252px;
+    align-content: center;
+  }
+  .ds-cal__pick {
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-dark-900);
+    cursor: pointer;
+    transition: background-color 0.12s ease, color 0.12s ease;
+  }
+  .ds-cal__pick:hover:not(:disabled):not(.ds-cal__pick--selected) {
+    background-color: var(--color-blue-midhub-50);
+  }
+  .ds-cal__pick--selected {
+    background-color: var(--color-blue-midhub-500);
+    color: var(--color-white);
+  }
+  .ds-cal__pick:disabled {
+    color: var(--color-grey-100);
+    cursor: not-allowed;
+  }
+}

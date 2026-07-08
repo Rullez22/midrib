@@ -1,0 +1,127 @@
+/* ============================================================
+   MIDHUB — Radio (1:1 из Figma «UI Контролы» / Radio 63:401, 79:569)
+   ------------------------------------------------------------
+   Матрица: Size × Value × State × View.
+     Size  : S-32 · XS-24
+     Value : unchecked · selected (точка по центру)
+     State : default · hover · focus · disabled · error
+     View  : без подписи · с подписью (label)
+
+   Структурно совпадает с Checkbox, но круг (border-radius 50%)
+   и точка-индикатор вместо галочки. Цвета — палитра-токены MIDHUB.
+   Используется компонентом <Radio> (radio.tsx).
+   ============================================================ */
+@layer components {
+  .ds-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--radio-gap);
+    cursor: pointer;
+    user-select: none;
+  }
+  .ds-radio:has(.ds-radio__input:disabled) {
+    cursor: not-allowed;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  /* Точка selected (1:1 Figma): S — inset 12.5% → 24px, XS — inset 16.67% → 16px. */
+  .ds-radio--s  { --radio-box: 32px; --radio-gap: 8px; --radio-fs: 18px; --radio-lh: 26px; --radio-dot: 24px; }
+  .ds-radio--xs { --radio-box: 24px; --radio-gap: 8px; --radio-fs: 14px; --radio-lh: 22px; --radio-dot: 16px; }
+
+  /* ── Контрол (круг) ────────────────────────────────────────── */
+  .ds-radio__control {
+    position: relative;
+    flex: none;
+    width: var(--radio-box);
+    height: var(--radio-box);
+  }
+  .ds-radio__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+    z-index: 1;
+  }
+
+  .ds-radio__circle {
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-grey-90);
+    border-radius: 9999px;
+    background-color: var(--color-white);
+    box-shadow: inset 0 1px 3px 0 rgba(90, 100, 111, 0.3);
+    pointer-events: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .ds-radio__dot {
+    width: var(--radio-dot);
+    height: var(--radio-dot);
+    border-radius: 9999px;
+    background-color: var(--color-blue-midhub-500);
+    transform: scale(0);
+    transition: transform 0.12s ease, background-color 0.15s ease;
+  }
+
+  /* ── Value: unchecked — состояния ──────────────────────────── */
+  .ds-radio__input:not(:checked):hover:not(:disabled) + .ds-radio__circle {
+    background-color: var(--color-grey-10);
+  }
+  .ds-radio__input:not(:checked):focus-visible + .ds-radio__circle {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-blue-midhub-500);
+    border-width: 2px;
+  }
+  .ds-radio__input:not(:checked):disabled + .ds-radio__circle {
+    border-color: var(--color-grey-20);
+  }
+  .ds-radio--error .ds-radio__input:not(:checked) + .ds-radio__circle {
+    border-color: var(--color-red-200);
+  }
+
+  /* ── Value: selected ───────────────────────────────────────── */
+  .ds-radio__input:checked + .ds-radio__circle {
+    border-color: var(--color-blue-midhub-500);
+    box-shadow: none;
+  }
+  .ds-radio__input:checked + .ds-radio__circle .ds-radio__dot {
+    transform: scale(1);
+  }
+  .ds-radio__input:checked:hover:not(:disabled) + .ds-radio__circle {
+    border-color: var(--color-blue-midhub-600);
+  }
+  .ds-radio__input:checked:hover:not(:disabled) + .ds-radio__circle .ds-radio__dot {
+    background-color: var(--color-blue-midhub-600);
+  }
+  .ds-radio__input:checked:focus-visible + .ds-radio__circle {
+    border-color: var(--color-blue-midhub-800);
+    border-width: 2px;
+  }
+  .ds-radio__input:checked:disabled + .ds-radio__circle {
+    border-color: var(--color-blue-midhub-100);
+  }
+  .ds-radio__input:checked:disabled + .ds-radio__circle .ds-radio__dot {
+    background-color: var(--color-blue-midhub-100);
+  }
+
+  /* ── Label ─────────────────────────────────────────────────── */
+  .ds-radio__label {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--radio-fs);
+    line-height: var(--radio-lh);
+    color: var(--color-dark-900);
+  }
+  .ds-radio--error .ds-radio__label {
+    color: var(--color-red-300);
+  }
+  .ds-radio:has(.ds-radio__input:disabled) .ds-radio__label {
+    color: var(--color-grey-300);
+  }
+}

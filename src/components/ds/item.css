@@ -1,0 +1,99 @@
+/* ============================================================
+   MIDHUB — Item (строка списка, 1:1 из Figma «UI фичи» / items 303:0)
+   ------------------------------------------------------------
+   Бордерная строка: leading (иконка) · content (растягивается) ·
+   trailing (действия). Цвет/начертание текста — от tone.
+
+   Size : l (66, 14/22) · m (56, 12/20) · s (48, 14/22) · xs (48, 12/20)
+   Tone : default (white) · muted (grey-10) — только фон; текст dark-900 Regular
+
+   Цвета — палитра-токены MIDHUB. Компонент <Item> (item.tsx).
+   ============================================================ */
+@layer components {
+  .ds-item {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: var(--item-h);
+    padding: 0 var(--item-px);
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--item-fs);
+    line-height: var(--item-lh);
+    color: var(--color-dark-900);
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-item--l  { --item-h: 66px; --item-px: 24px; --item-fs: 14px; --item-lh: 22px; --item-icon: 24px; }
+  .ds-item--m  { --item-h: 56px; --item-px: 16px; --item-fs: 12px; --item-lh: 20px; --item-icon: 16px; }
+  .ds-item--s  { --item-h: 48px; --item-px: 24px; --item-fs: 14px; --item-lh: 22px; --item-icon: 24px; }
+  .ds-item--xs { --item-h: 48px; --item-px: 16px; --item-fs: 12px; --item-lh: 20px; --item-icon: 16px; }
+
+  /* ── Тон (только фон) ──────────────────────────────────────── */
+  .ds-item--default { background-color: var(--color-white); }
+  .ds-item--muted   { background-color: var(--color-grey-10); }
+
+  /* Без рамки (строки-таблицы) — рамка прозрачная, габариты сохраняются. */
+  .ds-item--borderless { border-color: transparent; }
+
+  /* ── Состояния ─────────────────────────────────────────────── */
+  .ds-item--interactive {
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .ds-item--interactive:hover {
+    background-color: var(--color-grey-10);
+  }
+  .ds-item--interactive:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: -2px;
+  }
+  .ds-item--selected {
+    border-color: var(--color-blue-midhub-500);
+  }
+
+  /* ── Слоты ─────────────────────────────────────────────────── */
+  .ds-item__leading {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 24px;
+  }
+  .ds-item__content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .ds-item__trailing {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Иконки внутри слотов наследуют размер от --item-icon. */
+  .ds-item__leading > svg,
+  .ds-item__trailing > svg,
+  .ds-item__leading > .ds-item__icon,
+  .ds-item__trailing > .ds-item__icon {
+    display: inline-flex;
+    flex: none;
+    width: var(--item-icon);
+    height: var(--item-icon);
+    color: var(--color-grey-300);
+  }
+  .ds-item__icon svg { display: block; width: 100%; height: 100%; }
+
+  /* Вертикальный разделитель (ItemDivider). */
+  .ds-item__divider {
+    flex: none;
+    width: 1px;
+    height: 24px;
+    background-color: var(--color-grey-90);
+  }
+  .ds-item--xs .ds-item__divider { height: 16px; }
+}

@@ -1,0 +1,25 @@
+/* ============================================================
+   MIDHUB — SearchBar (композит, 1:1 из Figma «UI фичи» /
+   search with two button 975:109067)
+   ------------------------------------------------------------
+   Поисковый Input (растягивается) + слот действий (ghost-кнопки).
+   Собран из DS <Input> + <Button>. Компонент <SearchBar> (search-bar.tsx).
+   ============================================================ */
+@layer components {
+  .ds-searchbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .ds-searchbar__input {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .ds-searchbar__actions {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+  }
+}

@@ -1,0 +1,91 @@
+/* ============================================================
+   MIDHUB — TableHeader (шапка таблицы / навигация, 1:1 из Figma
+   «UI фичи» / Navigation 155:0; атом «столбец» 968:90300, 6203:163486)
+   ------------------------------------------------------------
+   Ряд заголовков колонок: подпись (dark-800 12/20) + стрелка сортировки
+   (8px). Опц. чекбокс «выбрать всё» + muted-фон.
+
+   Size : s (30) · m (46)
+   Tone : default (прозрачный) · muted (grey-10 + рамка grey-20)
+
+   Цвета — палитра-токены MIDHUB. Компонент <TableHeader> (table-header.tsx).
+   ============================================================ */
+@layer components {
+  .ds-thead {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: var(--th-h);
+    padding: 0 var(--th-px);
+    border: 1px solid transparent;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-dark-800);
+  }
+
+  .ds-thead--s { --th-h: 30px; --th-px: 24px; }
+  .ds-thead--m { --th-h: 46px; --th-px: 24px; }
+
+  .ds-thead--default { background-color: transparent; border-color: transparent; }
+  .ds-thead--muted   { background-color: var(--color-grey-10); border-color: var(--color-grey-20); }
+
+  .ds-thead__check {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+  }
+
+  .ds-thead__cell {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+  .ds-thead__cell--left   { justify-content: flex-start; text-align: left; }
+  .ds-thead__cell--center { justify-content: center; text-align: center; }
+  .ds-thead__cell--right  { justify-content: flex-end; text-align: right; }
+
+  .ds-thead__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ── Сортируемая колонка ───────────────────────────────────── */
+  .ds-thead__sortbtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .ds-thead__sortbtn:hover { color: var(--color-dark-900); }
+  .ds-thead__sortbtn:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .ds-thead__sort {
+    display: inline-flex;
+    flex: none;
+    width: 8px;
+    height: 8px;
+    color: var(--color-grey-300);
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+  .ds-thead__sort svg { display: block; width: 100%; height: 100%; }
+  .ds-thead__sort--active { color: var(--color-dark-800); }
+  .ds-thead__sort--asc { transform: rotate(180deg); }
+}

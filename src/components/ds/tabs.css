@@ -1,0 +1,123 @@
+/* ============================================================
+   MIDHUB — Tabs (1:1 из Figma «UI Контролы» / WEB-Tabs 193:26022)
+   ------------------------------------------------------------
+   Variant : basic (подчёркивание) · solid (заливка) · solid-light (контур)
+   Size    : s (32) · m (40) · l (48) · xl (56)
+   State   : tab — default / hover / active(selected) / disabled
+
+   Цвета — палитра-токены MIDHUB. Компоненты <Tabs>/<Tab> (tabs.tsx).
+   ============================================================ */
+@layer components {
+  .ds-tabs {
+    display: inline-flex;
+    align-items: stretch;
+  }
+
+  /* Равная ширина вкладок по самой широкой */
+  .ds-tabs--equal {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+  .ds-tabs--equal .ds-tab {
+    width: 100%;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-tabs--s  { --tab-h: 32px; --tab-fs: 12px; --tab-lh: 20px; --tab-gap: 4px; --tab-px: 16px; --tab-bpx: 6px;  --tab-icon: 16px; }
+  .ds-tabs--m  { --tab-h: 40px; --tab-fs: 14px; --tab-lh: 22px; --tab-gap: 4px; --tab-px: 20px; --tab-bpx: 8px;  --tab-icon: 20px; }
+  .ds-tabs--l  { --tab-h: 48px; --tab-fs: 16px; --tab-lh: 24px; --tab-gap: 8px; --tab-px: 20px; --tab-bpx: 10px; --tab-icon: 24px; }
+  .ds-tabs--xl { --tab-h: 56px; --tab-fs: 18px; --tab-lh: 26px; --tab-gap: 8px; --tab-px: 20px; --tab-bpx: 12px; --tab-icon: 24px; }
+
+  /* ── Tab (базовая кнопка) ──────────────────────────────────── */
+  .ds-tab {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--tab-gap);
+    height: var(--tab-h);
+    margin: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--tab-fs);
+    line-height: var(--tab-lh);
+    color: var(--color-dark-800);
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .ds-tab:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .ds-tab:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: -2px;
+  }
+  .ds-tab__icon {
+    flex: none;
+    display: inline-flex;
+    width: var(--tab-icon);
+    height: var(--tab-icon);
+  }
+  .ds-tab__icon svg { display: block; width: 100%; height: 100%; }
+
+  /* ── Variant: Basic (подчёркивание) ────────────────────────── */
+  .ds-tabs--basic {
+    gap: 24px;
+    border-bottom: 1px solid var(--color-grey-90);
+  }
+  .ds-tabs--basic .ds-tab {
+    padding-inline: var(--tab-bpx);
+    border-bottom: 1px solid transparent;
+    margin-bottom: -1px;
+  }
+  .ds-tabs--basic .ds-tab:hover:not(:disabled) {
+    color: var(--color-dark-900);
+  }
+  .ds-tabs--basic .ds-tab[aria-selected="true"] {
+    color: var(--color-blue-midhub-500);
+    border-bottom-color: var(--color-blue-midhub-500);
+  }
+
+  /* ── Variant: Solid (заливка) ──────────────────────────────── */
+  .ds-tabs--solid {
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+  }
+  .ds-tabs--solid .ds-tab {
+    padding-inline: var(--tab-px);
+    background-color: var(--color-grey-20);
+  }
+  .ds-tabs--solid .ds-tab:hover:not(:disabled):not([aria-selected="true"]) {
+    background-color: var(--color-grey-90);
+  }
+  .ds-tabs--solid .ds-tab[aria-selected="true"] {
+    background-color: var(--color-blue-midhub-500);
+    color: var(--color-white);
+  }
+
+  /* ── Variant: Solid Light (контур) ─────────────────────────── */
+  .ds-tabs--solid-light {
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+  }
+  .ds-tabs--solid-light .ds-tab {
+    padding-inline: var(--tab-px);
+    background-color: var(--color-grey-20);
+  }
+  .ds-tabs--solid-light .ds-tab + .ds-tab {
+    border-left: 1px solid var(--color-grey-90);
+  }
+  .ds-tabs--solid-light .ds-tab:hover:not(:disabled):not([aria-selected="true"]) {
+    background-color: var(--color-grey-10);
+  }
+  .ds-tabs--solid-light .ds-tab[aria-selected="true"] {
+    background-color: var(--color-white);
+    color: var(--color-blue-midhub-500);
+  }
+}

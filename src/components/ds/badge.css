@@ -1,0 +1,38 @@
+/* ============================================================
+   MIDHUB — Badge (статус-бейдж / пилюля, 1:1 из Figma «UI фичи»
+   968:90167 (soft green), 672:5788 (solid cyan «214»))
+   ------------------------------------------------------------
+   variant : soft (color-50 / color-400) · solid (color-200 / white)
+   color   : green · orange · red · blue · cyan · yellow · purple · grey
+
+   Padding 6/16, радиус 4, Medium 12/20. Токены MIDHUB.
+   Компонент <Badge> (badge.tsx).
+   ============================================================ */
+@layer components {
+  .ds-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+
+  /* Варианты */
+  .ds-badge--soft  { background-color: var(--b-soft-bg); color: var(--b-soft-fg); }
+  .ds-badge--solid { background-color: var(--b-solid-bg); color: var(--b-solid-fg, var(--color-white)); }
+
+  /* Цвета: soft-bg (50) · soft-fg (400) · solid-bg (200) */
+  .ds-badge--green  { --b-soft-bg: var(--color-green-50);       --b-soft-fg: var(--color-green-400);       --b-solid-bg: var(--color-green-200); }
+  .ds-badge--orange { --b-soft-bg: var(--color-orange-50);      --b-soft-fg: var(--color-orange-400);      --b-solid-bg: var(--color-orange-200); }
+  .ds-badge--red    { --b-soft-bg: var(--color-red-50);         --b-soft-fg: var(--color-red-400);         --b-solid-bg: var(--color-red-200); }
+  .ds-badge--blue   { --b-soft-bg: var(--color-blue-midhub-50); --b-soft-fg: var(--color-blue-midhub-500); --b-solid-bg: var(--color-blue-midhub-200); }
+  .ds-badge--cyan   { --b-soft-bg: var(--color-cyan-50);        --b-soft-fg: var(--color-cyan-600);        --b-solid-bg: var(--color-cyan-200); }
+  .ds-badge--yellow { --b-soft-bg: var(--color-yellow-50);      --b-soft-fg: var(--color-yellow-500);      --b-solid-bg: var(--color-yellow-300); }
+  .ds-badge--purple { --b-soft-bg: var(--color-purple-50);      --b-soft-fg: var(--color-purple-400);      --b-solid-bg: var(--color-purple-200); }
+  .ds-badge--grey   { --b-soft-bg: var(--color-grey-20);        --b-soft-fg: var(--color-dark-800);         --b-solid-bg: var(--color-grey-90); --b-solid-fg: var(--color-dark-900); }
+}

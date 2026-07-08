@@ -1,0 +1,28 @@
+/* ============================================================
+   MIDHUB — Flag / страна (1:1 из Figma «UI Контролы» 1417:61949)
+   ------------------------------------------------------------
+   Флаг 16px + gap 8 + название (P2 Regular, dark 900).
+   Компонент <Flag> (flag.tsx).
+   ============================================================ */
+@layer components {
+  .ds-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ds-flag__img {
+    flex: none;
+    height: auto;
+    border-radius: 2px;
+    object-fit: cover;
+    display: block;
+  }
+  .ds-flag__label {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 16px;   /* P2 */
+    line-height: 24px;
+    color: var(--color-dark-900);
+    white-space: nowrap;
+  }
+}

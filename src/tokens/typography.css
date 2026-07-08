@@ -1,0 +1,33 @@
+/* ============================================================
+   MIDHUB — Typography tokens (из Figma "Стиль" / Типографика_web)
+   ------------------------------------------------------------
+   Шрифт: Articulat CF (см. src/lib/fonts.ts).
+   Начертания DS: Regular 400, Medium 500 (оба с кириллицей).
+
+   Именованные стили объявлены классами в src/styles/globals.css
+   (@layer components): .ds-h1…h5, .ds-p1…p3 (+ -medium), .ds-caption …
+   ============================================================ */
+
+:root {
+  /* Font family — связан с next/font через --font-articulat */
+  --font-sans: var(--font-articulat), system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Веса (только те, что в DS) */
+  --weight-regular: 400;
+  --weight-medium:  500;
+
+  /* ── Type scale (px — 1:1 с Figma) ──────────────────────────
+     name        size / line-height / paragraph-spacing          */
+  --type-h1-size: 48px; --type-h1-lh: 56px; --type-h1-gap: 28px;
+  --type-h2-size: 40px; --type-h2-lh: 48px; --type-h2-gap: 24px;
+  --type-h3-size: 32px; --type-h3-lh: 40px; --type-h3-gap: 20px;
+  --type-h4-size: 24px; --type-h4-lh: 32px; --type-h4-gap: 16px;
+  --type-h5-size: 20px; --type-h5-lh: 28px; --type-h5-gap: 14px;
+
+  --type-p1-size: 18px; --type-p1-lh: 26px; --type-p1-gap: 12px;
+  --type-p2-size: 16px; --type-p2-lh: 24px; --type-p2-gap: 12px;
+  --type-p3-size: 14px; --type-p3-lh: 22px; --type-p3-gap: 10px;
+
+  --type-caption-size: 12px; --type-caption-lh: 20px; --type-caption-gap: 8px;
+  --type-caption-up-tracking: 0.5px;
+}

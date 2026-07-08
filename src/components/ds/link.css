@@ -1,0 +1,74 @@
+/* ============================================================
+   MIDHUB — Web Links (1:1 из Figma «UI Контролы» / Web-Links, node 759:0)
+   ------------------------------------------------------------
+   Текстовая ссылка акцентного цвета blue-midhub-500.
+     Size : p1-18 · p2-16 · p3-14 · caption-12 · caption-button
+     Type : internal (только текст) · external (текст + иконка «out»)
+   caption-button — тот же caption, но в рамке-кнопке (border blue, r-4).
+
+   Все цвета — палитра-primitives из tokens/color.css.
+   Подключается через @import в styles/globals.css.
+   Используется компонентом <Link> (link.tsx).
+   ============================================================ */
+@layer components {
+  .ds-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--link-gap);
+    color: var(--color-blue-midhub-500);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--link-fs);
+    line-height: var(--link-lh);
+    letter-spacing: 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+
+  .ds-link:hover  { color: var(--color-blue-midhub-600); }
+  .ds-link:active { color: var(--color-blue-midhub-800); }
+
+  .ds-link:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ── Размеры (font + icon) ─────────────────────────────────── */
+  .ds-link--p1      { --link-fs: 18px; --link-lh: 26px; --link-gap: 4px; --link-icon: 24px; }
+  .ds-link--p2      { --link-fs: 16px; --link-lh: 24px; --link-gap: 4px; --link-icon: 24px; }
+  .ds-link--p3      { --link-fs: 14px; --link-lh: 22px; --link-gap: 2px; --link-icon: 16px; }
+  .ds-link--caption { --link-fs: 12px; --link-lh: 20px; --link-gap: 2px; --link-icon: 16px; }
+
+  /* ── Слоты ─────────────────────────────────────────────────── */
+  .ds-link__label {
+    display: inline-block;
+  }
+  .ds-link__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: var(--link-icon);
+    height: var(--link-icon);
+  }
+  .ds-link__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── caption-button — caption в рамке-кнопке ───────────────── */
+  .ds-link--button {
+    justify-content: center;
+    height: 24px;
+    padding: 6px 8px;
+    border: 1px solid var(--color-blue-midhub-500);
+    border-radius: var(--radius-xs);
+    font-weight: var(--weight-medium);
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .ds-link--button:hover  { color: var(--color-blue-midhub-500); border-color: var(--color-blue-midhub-600); }
+  .ds-link--button:active { color: var(--color-blue-midhub-500); background-color: var(--color-blue-midhub-50); border-color: var(--color-blue-midhub-800); }
+}

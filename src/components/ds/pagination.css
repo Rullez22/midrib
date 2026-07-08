@@ -1,0 +1,122 @@
+/* ============================================================
+   MIDHUB — Pagination / постраничная навигация (1:1 из Figma «UI Контролы» 928:29174 …)
+   ------------------------------------------------------------
+   Ряд ghost-кнопок (grey-20 / border grey-90, радиус 4) + поле «N из M».
+     view : full · medium · basic · compact (full without input)
+     size : l-48 · m-40 · s-32 · xs-24
+   Кнопки: иконка (квадрат) / лейбл (Первая/Последняя) / compact (стрелка+текст).
+   Поле: белый фон, inset-тень, номер страницы редактируемый.
+
+   Компонент pagination.tsx.
+   ============================================================ */
+@layer components {
+  .ds-pagination {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-sans);
+  }
+
+  /* ── Размерные переменные ──────────────────────────────────── */
+  .ds-pagination--l  { --pg-h: 48px; --pg-fs: 16px; --pg-lh: 24px; --pg-icon: 24px; --pg-label-px: 32px; --pg-icon-pad: 12px; --pg-field-px: 16px; }
+  .ds-pagination--m  { --pg-h: 40px; --pg-fs: 14px; --pg-lh: 22px; --pg-icon: 16px; --pg-label-px: 24px; --pg-icon-pad: 12px; --pg-field-px: 16px; }
+  .ds-pagination--s  { --pg-h: 32px; --pg-fs: 12px; --pg-lh: 20px; --pg-icon: 16px; --pg-label-px: 16px; --pg-icon-pad: 8px;  --pg-field-px: 16px; }
+  .ds-pagination--xs { --pg-h: 24px; --pg-fs: 12px; --pg-lh: 20px; --pg-icon: 16px; --pg-label-px: 8px;  --pg-icon-pad: 4px;  --pg-field-px: 8px; }
+
+  /* ── Кнопка (общий ghost-вид) ──────────────────────────────── */
+  .ds-pagination__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-sizing: border-box;
+    height: var(--pg-h);
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-grey-20);
+    color: var(--color-dark-800);
+    font-family: inherit;
+    font-weight: var(--weight-medium);
+    font-size: var(--pg-fs);
+    line-height: var(--pg-lh);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  }
+  .ds-pagination__btn:hover:not(:disabled) {
+    background-color: var(--color-grey-90);
+  }
+  .ds-pagination__btn:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 1px;
+  }
+  .ds-pagination__btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* иконочная (квадрат): padding по размеру, иконка 16/24 */
+  .ds-pagination__btn--icon {
+    padding: var(--pg-icon-pad);
+  }
+  .ds-pagination__btn--icon svg {
+    display: block;
+    width: var(--pg-icon);
+    height: var(--pg-icon);
+  }
+
+  /* лейбловая (Первая / Последняя) */
+  .ds-pagination__btn--label {
+    padding-inline: var(--pg-label-px);
+  }
+
+  /* compact (стрелка + текст: Назад / Далее) */
+  .ds-pagination__btn--compact {
+    padding-inline: 8px;
+  }
+  .ds-pagination__btn--compact svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ── Поле «N из M» ─────────────────────────────────────────── */
+  .ds-pagination__field {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3ch;
+    box-sizing: border-box;
+    height: var(--pg-h);
+    padding-inline: var(--pg-field-px);
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    box-shadow: inset 0 1px 3px 0 rgba(90, 100, 111, 0.3);
+    color: var(--color-dark-900);
+    font-weight: var(--weight-regular);
+    font-size: var(--pg-fs);
+    line-height: var(--pg-lh);
+  }
+  .ds-pagination__input {
+    min-width: 1ch;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+  .ds-pagination__input::-webkit-outer-spin-button,
+  .ds-pagination__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .ds-pagination__of {
+    white-space: nowrap;
+  }
+}

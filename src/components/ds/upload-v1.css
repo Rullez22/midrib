@@ -1,0 +1,170 @@
+/* ============================================================
+   MIDHUB — Upload v1 (1:1 из Figma «UI Контролы» / Upload var 1, node 1508:62335)
+   Компактная квадратная плитка 84×84 для прикрепления документа.
+   ------------------------------------------------------------
+   Пустая плитка: голубой фон + синяя рамка + «плюс».
+     hover/active/focus — затемнение фона и рамки (псевдоклассы).
+     error    — красная палитра, disabled — серая, loading — спиннер.
+   С файлом (preview): миниатюра + рамка grey-90.
+     при наведении (onDelete) — тёмная вуаль + корзина.
+     count → постоянная тёмная вуаль + «+N» (группа документов).
+   Компонент <UploadV1> (upload-v1.tsx).
+   ============================================================ */
+@layer components {
+  .ds-upload-v1 {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 84px;
+    height: 84px;
+    padding: 0;
+    border: 1px solid var(--color-blue-midhub-500);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-blue-midhub-50);
+    overflow: hidden;
+    cursor: pointer;
+    color: var(--color-blue-midhub-500);
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ── Пустая плитка: интерактивные состояния ────────────────── */
+  .ds-upload-v1:hover {
+    background-color: var(--color-blue-midhub-100);
+    border-color: var(--color-blue-midhub-600);
+  }
+  .ds-upload-v1:active {
+    background-color: var(--color-blue-midhub-200);
+    border-color: var(--color-blue-midhub-800);
+  }
+  .ds-upload-v1:focus-visible {
+    outline: none;
+    background-color: var(--color-blue-midhub-100);
+    border: 2px solid var(--color-blue-midhub-600);
+  }
+
+  /* ── Иконка «плюс» / спиннер ───────────────────────────────── */
+  .ds-upload-v1__icon {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    color: inherit;
+  }
+  .ds-upload-v1__icon > svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Состояние: ошибка ─────────────────────────────────────── */
+  .ds-upload-v1--error {
+    background-color: var(--color-red-50);
+    border-color: var(--color-red-300);
+    color: var(--color-red-300);
+  }
+  .ds-upload-v1--error:hover,
+  .ds-upload-v1--error:active {
+    background-color: var(--color-red-50);
+    border-color: var(--color-red-300);
+  }
+
+  /* ── Состояние: выключено ──────────────────────────────────── */
+  .ds-upload-v1--disabled {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-grey-100);
+    color: var(--color-grey-300);
+    cursor: not-allowed;
+  }
+  .ds-upload-v1--disabled:hover,
+  .ds-upload-v1--disabled:active {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-grey-100);
+  }
+
+  /* ── Состояние: загрузка (спиннер) ─────────────────────────── */
+  .ds-upload-v1--loading {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-grey-90);
+    color: var(--color-blue-midhub-500);
+    cursor: default;
+  }
+  .ds-upload-v1--loading:hover,
+  .ds-upload-v1--loading:active {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-grey-90);
+  }
+  .ds-upload-v1__spinner {
+    animation: ds-upload-spin 0.8s linear infinite;
+  }
+  @keyframes ds-upload-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ── С файлом: миниатюра ───────────────────────────────────── */
+  .ds-upload-v1--filled {
+    border-color: var(--color-grey-90);
+    background-color: var(--color-white);
+    color: var(--color-white);
+    cursor: default;
+  }
+  .ds-upload-v1--filled:hover,
+  .ds-upload-v1--filled:active {
+    border-color: var(--color-grey-90);
+    background-color: var(--color-white);
+  }
+  .ds-upload-v1__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── Тёмная вуаль + действия поверх миниатюры ──────────────── */
+  .ds-upload-v1__overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgba(36, 43, 50, 0.8); /* dark-900 / 80% */
+    color: var(--color-white);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  /* появляется по наведению (удаление) … */
+  .ds-upload-v1--filled:hover .ds-upload-v1__overlay,
+  .ds-upload-v1--filled:focus-within .ds-upload-v1__overlay {
+    opacity: 1;
+  }
+  /* … либо всегда видима для группы «+N». */
+  .ds-upload-v1__overlay--count {
+    opacity: 1;
+  }
+
+  .ds-upload-v1__badge {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: var(--type-p3-size); /* 14 */
+    line-height: var(--type-p3-lh);
+    color: var(--color-white);
+  }
+
+  .ds-upload-v1__delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-white);
+    cursor: pointer;
+  }
+  .ds-upload-v1__delete > svg {
+    width: 24px;
+    height: 24px;
+  }
+}

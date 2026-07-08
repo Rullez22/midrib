@@ -1,0 +1,175 @@
+/* ============================================================
+   MIDHUB — Banner (1:1 из Figma «UI Контролы» / Banner 1220:58705)
+   ------------------------------------------------------------
+   Иконка (32) + текст (заголовок P2-Medium + описание P3) + кнопка.
+   Тон задаёт фон / рамку / цвет иконки / заливку кнопки:
+     info · neutral · warning · caution · danger · note
+   Кнопка — S-32 (caption-medium 12/20), цвет наследуется из тона.
+   Компонент <Banner> (banner.tsx).
+   ============================================================ */
+@layer components {
+  .ds-banner {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    padding: 16px 24px;
+    border: 1px solid var(--banner-border);
+    border-radius: var(--radius-xs);
+    background-color: var(--banner-bg);
+  }
+
+  /* ── Тоны ──────────────────────────────────────────────────── */
+  .ds-banner--info {
+    --banner-bg: var(--color-blue-midhub-50);
+    --banner-border: var(--color-blue-midhub-500);
+    --banner-icon: var(--color-blue-midhub-500);
+    --banner-btn-bg: var(--color-blue-midhub-500);
+    --banner-btn-bg-hover: var(--color-blue-midhub-600);
+    --banner-btn-fg: var(--color-white);
+  }
+  .ds-banner--neutral {
+    --banner-bg: var(--color-grey-10);
+    --banner-border: var(--color-grey-200);
+    --banner-icon: var(--color-grey-300);
+  }
+  .ds-banner--warning {
+    --banner-bg: var(--color-orange-50);
+    --banner-border: var(--color-orange-500);
+    --banner-icon: var(--color-orange-500);
+    --banner-btn-bg: var(--color-orange-500);
+    --banner-btn-bg-hover: var(--color-orange-600);
+    --banner-btn-fg: var(--color-white);
+  }
+  .ds-banner--caution {
+    --banner-bg: var(--color-yellow-50);
+    --banner-border: var(--color-yellow-500);
+    --banner-icon: var(--color-yellow-500);
+    --banner-btn-bg: var(--color-yellow-500);
+    --banner-btn-bg-hover: var(--color-yellow-600);
+    --banner-btn-fg: var(--color-white);
+  }
+  .ds-banner--danger {
+    --banner-bg: var(--color-red-50);
+    --banner-border: var(--color-red-500);
+    --banner-icon: var(--color-red-500);
+    --banner-btn-bg: var(--color-red-300);
+    --banner-btn-bg-hover: var(--color-red-400);
+    --banner-btn-fg: var(--color-white);
+  }
+  .ds-banner--note {
+    --banner-bg: var(--color-white);
+    --banner-border: var(--color-blue-midhub-500);
+    --banner-icon: var(--color-blue-midhub-500);
+    --banner-btn-bg: transparent;
+    --banner-btn-bg-hover: var(--color-blue-midhub-50);
+    --banner-btn-fg: var(--color-blue-midhub-500);
+    --banner-btn-border: var(--color-blue-midhub-500);
+    --banner-btn-border-hover: var(--color-blue-midhub-600);
+  }
+
+  /* ── Текст + иконка ────────────────────────────────────────── */
+  .ds-banner__main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .ds-banner__icon {
+    flex: none;
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    color: var(--banner-icon);
+  }
+  .ds-banner__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ds-banner__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .ds-banner__title {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-dark-900);
+  }
+  .ds-banner__desc {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--color-dark-800);
+  }
+  .ds-banner__desc p { margin: 0; }
+
+  /* ── Кнопка действия (S-32, цвет из тона) ──────────────────── */
+  .ds-banner__action {
+    flex: none;
+  }
+
+  .ds-banner__btn {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding-inline: 16px;
+    border: 1px solid var(--banner-btn-border, transparent);
+    border-radius: var(--radius-xs);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--banner-btn-bg);
+    color: var(--banner-btn-fg);
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .ds-banner__btn:hover:not(:disabled) {
+    background-color: var(--banner-btn-bg-hover, var(--banner-btn-bg));
+    border-color: var(--banner-btn-border-hover, var(--banner-btn-border, transparent));
+  }
+  .ds-banner__btn:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+  }
+  .ds-banner__btn:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Лоадер — ghost-стиль (grey), спиннер по центру */
+  .ds-banner__btn--loading {
+    min-width: 69px;
+    background-color: var(--color-grey-20);
+    border-color: var(--color-grey-90);
+    color: var(--color-dark-800);
+    cursor: default;
+  }
+  .ds-banner__spinner {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    color: currentColor;
+    animation: ds-banner-spin 0.7s linear infinite;
+  }
+  .ds-banner__spinner svg { display: block; width: 100%; height: 100%; }
+  @keyframes ds-banner-spin {
+    to { transform: rotate(360deg); }
+  }
+}

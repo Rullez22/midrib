@@ -1,0 +1,102 @@
+/* ============================================================
+   MIDHUB — ToggleButton (1:1 из Figma «UI Контролы» / Toggle 196:17)
+   Типы Ghost · Solid light · Mode — кнопка с состоянием «выбрано».
+   ------------------------------------------------------------
+   Variant : ghost · solid-light · mode
+   Size    : l (48) · m (40) · s (32) · xl (56)
+   State   : default(off) / hover / focus / disabled
+             + selected (aria-pressed) / selected hover / selected disabled
+
+   Off-вид общий: bg grey-20, рамка grey-90, текст dark-800.
+   Selected различается по типу. Цвета — палитра-токены MIDHUB.
+   Компонент <ToggleButton> (toggle-button.tsx).
+   ============================================================ */
+@layer components {
+  .ds-togglebtn {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--tb-gap);
+    padding-block: var(--tb-py);
+    padding-inline: var(--tb-px);
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-grey-20);
+    color: var(--color-dark-800);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: var(--tb-fs);
+    line-height: var(--tb-lh);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-togglebtn--l  { --tb-px: 32px; --tb-py: 12px; --tb-fs: 16px; --tb-lh: 24px; --tb-gap: 8px; }
+  .ds-togglebtn--m  { --tb-px: 24px; --tb-py: 9px;  --tb-fs: 14px; --tb-lh: 22px; --tb-gap: 4px; }
+  .ds-togglebtn--s  { --tb-px: 16px; --tb-py: 6px;  --tb-fs: 12px; --tb-lh: 20px; --tb-gap: 4px; }
+  .ds-togglebtn--xl { --tb-px: 20px; --tb-py: 15px; --tb-fs: 18px; --tb-lh: 26px; --tb-gap: 8px; }
+
+  /* ── Off: состояния (общие) ────────────────────────────────── */
+  .ds-togglebtn:hover:not(:disabled):not([aria-pressed="true"]) {
+    background-color: var(--color-grey-90);
+    border-color: var(--color-grey-100);
+  }
+  .ds-togglebtn:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+  }
+  .ds-togglebtn:disabled {
+    cursor: not-allowed;
+  }
+  .ds-togglebtn:disabled:not([aria-pressed="true"]) {
+    background-color: var(--color-grey-10);
+    border-color: var(--color-grey-20);
+    color: var(--color-grey-100);
+  }
+
+  /* ── Ghost selected (заливка blue) ─────────────────────────── */
+  .ds-togglebtn--ghost[aria-pressed="true"] {
+    background-color: var(--color-blue-midhub-500);
+    border-color: transparent;
+    color: var(--color-white);
+  }
+  .ds-togglebtn--ghost[aria-pressed="true"]:hover:not(:disabled) {
+    background-color: var(--color-blue-midhub-600);
+  }
+  .ds-togglebtn--ghost[aria-pressed="true"]:disabled {
+    background-color: var(--color-blue-midhub-100);
+    border-color: transparent;
+    color: var(--color-white);
+  }
+
+  /* ── Solid light selected (белый фон, синий текст) ─────────── */
+  .ds-togglebtn--solid-light[aria-pressed="true"] {
+    background-color: var(--color-white);
+    border-color: var(--color-grey-90);
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-togglebtn--solid-light[aria-pressed="true"]:hover:not(:disabled) {
+    color: var(--color-blue-midhub-600);
+  }
+  .ds-togglebtn--solid-light[aria-pressed="true"]:disabled {
+    background-color: var(--color-white);
+    border-color: var(--color-grey-20);
+    color: var(--color-blue-midhub-100);
+  }
+
+  /* ── Mode selected (серый фон, только синий текст) ─────────── */
+  .ds-togglebtn--mode[aria-pressed="true"] {
+    background-color: var(--color-grey-20);
+    border-color: var(--color-grey-90);
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-togglebtn--mode[aria-pressed="true"]:hover:not(:disabled) {
+    color: var(--color-blue-midhub-600);
+  }
+  .ds-togglebtn--mode[aria-pressed="true"]:disabled {
+    color: var(--color-blue-midhub-100);
+  }
+}

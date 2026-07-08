@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+/* MIDHUB design tokens (primitives + scales) */
+@import "../tokens/color.css";
+@import "../tokens/typography.css";
+@import "../tokens/spacing.css";
+@import "../tokens/radius.css";
+@import "../tokens/gradient.css";
+
+/* MIDHUB component styles */
+@import "../components/ds/button.css";
+@import "../components/ds/checkbox.css";
+@import "../components/ds/delete.css";
+@import "../components/ds/radio.css";
+@import "../components/ds/input.css";
+@import "../components/ds/textarea.css";
+@import "../components/ds/flag.css";
+@import "../components/ds/tabs.css";
+@import "../components/ds/toggle.css";
+@import "../components/ds/toggle-button.css";
+@import "../components/ds/combobox.css";
+@import "../components/ds/dropdown.css";
+@import "../components/ds/accordion.css";
+@import "../components/ds/tag.css";
+@import "../components/ds/link.css";
+@import "../components/ds/tooltip.css";
+@import "../components/ds/toast.css";
+@import "../components/ds/incriment.css";
+@import "../components/ds/banner.css";
+@import "../components/ds/pagination.css";
+@import "../components/ds/upload-v1.css";
+@import "../components/ds/upload-v2.css";
+@import "../components/ds/calendar.css";
+@import "../components/ds/datepicker.css";
+@import "../components/ds/item.css";
+@import "../components/ds/table-header.css";
+@import "../components/ds/badge.css";
+@import "../components/ds/composite/sidemenu.css";
+@import "../components/ds/composite/footer.css";
+@import "../components/ds/composite/question-card.css";
+@import "../components/ds/composite/search-bar.css";
+@import "../components/ds/composite/account-card.css";
+/* достижения */
+@import "../components/ds/composite/achievement-card.css";
+@import "../components/ds/composite/incriment-field.css";
+@import "../components/ds/composite/domain-card.css";
+@import "../components/ds/composite/domain-notifications.css";
+@import "../components/ds/composite/left-menu.css";
+@import "../components/ds/composite/chat.css";
+
+/* MIDHUB mobile app (/app) chrome */
+@import "../components/app/app-tabs.css";
+
+/* ============================================================
+   Tailwind v4 theme — семантический слой.
+   Маппит токены MIDHUB в Tailwind-утилиты:
+   bg-background, text-foreground, text-primary, border-border,
+   rounded-lg, shadow-md, font-sans, text-2xl …
+   ============================================================ */
+@theme inline {
+  /* Убираем дефолтную палитру Tailwind — используем только цвета MIDHUB
+     (палитра-primitives живут в tokens/color.css как обычные :root-vars). */
+  --color-*: initial;
+
+  /* fonts */
+  --font-sans: var(--font-articulat), system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* colors → semantic (ссылаются на primitives --color-{family}-{step}) */
+  --color-background:        var(--color-white);
+  --color-surface:           var(--color-white);
+  --color-surface-muted:     var(--color-grey-20);
+  --color-surface-sunken:    var(--color-grey-10);
+
+  --color-foreground:        var(--color-dark-900);   /* text dark 900 */
+  --color-foreground-muted:  var(--color-dark-800);   /* text dark 800 */
+  --color-foreground-subtle: var(--color-grey-300);   /* text grey 300 */
+  --color-on-primary:        var(--color-white);
+
+  --color-border:            var(--color-grey-90);
+  --color-border-strong:     var(--color-grey-100);
+  --color-ring:              var(--color-blue-midhub-500);
+
+  --color-primary:           var(--color-blue-midhub-500);
+  --color-primary-hover:     var(--color-blue-midhub-600);
+  --color-primary-soft:      var(--color-blue-midhub-50);
+  --color-link:              var(--color-blue-midhub-500);
+
+  --color-success:           var(--color-green-500);
+  --color-warning:           var(--color-orange-500);
+  --color-error:             var(--color-red-500);
+  --color-info:              var(--color-blue-midhub-500);
+
+  /* radius */
+  --radius-sm:   0.375rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+
+  /* shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(10, 10, 11, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(10, 10, 11, 0.08), 0 1px 2px -1px rgba(10, 10, 11, 0.08);
+  --shadow-md: 0 4px 8px -2px rgba(10, 10, 11, 0.10), 0 2px 4px -2px rgba(10, 10, 11, 0.06);
+  --shadow-lg: 0 12px 24px -6px rgba(10, 10, 11, 0.12), 0 4px 8px -4px rgba(10, 10, 11, 0.08);
+
+  /* font sizes (source of truth — генерируют text-* утилиты) */
+  --text-xs:   0.75rem;   /* 12 */
+  --text-sm:   0.875rem;  /* 14 */
+  --text-base: 1rem;      /* 16 */
+  --text-md:   1.125rem;  /* 18 */
+  --text-lg:   1.25rem;   /* 20 */
+  --text-xl:   1.5rem;    /* 24 */
+  --text-2xl:  1.875rem;  /* 30 */
+  --text-3xl:  2.25rem;   /* 36 */
+  --text-4xl:  3rem;      /* 48 */
+}
+
+/* ── Base layer ── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+}
+
+/* ============================================================
+   MIDHUB text styles — именованные стили DS (1:1 с Figma).
+   Использовать через компонент <Text variant="…"> или классом.
+   ============================================================ */
+@layer components {
+  .ds-h1, .ds-h2, .ds-h3, .ds-h4, .ds-h5 {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .ds-h1 { font-size: var(--type-h1-size); line-height: var(--type-h1-lh); }
+  .ds-h2 { font-size: var(--type-h2-size); line-height: var(--type-h2-lh); }
+  .ds-h3 { font-size: var(--type-h3-size); line-height: var(--type-h3-lh); }
+  .ds-h4 { font-size: var(--type-h4-size); line-height: var(--type-h4-lh); }
+  .ds-h5 { font-size: var(--type-h5-size); line-height: var(--type-h5-lh); }
+
+  .ds-p1, .ds-p1-medium,
+  .ds-p2, .ds-p2-medium,
+  .ds-p3, .ds-p3-medium,
+  .ds-caption, .ds-caption-medium, .ds-caption-up {
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .ds-p1, .ds-p1-medium { font-size: var(--type-p1-size); line-height: var(--type-p1-lh); }
+  .ds-p2, .ds-p2-medium { font-size: var(--type-p2-size); line-height: var(--type-p2-lh); }
+  .ds-p3, .ds-p3-medium { font-size: var(--type-p3-size); line-height: var(--type-p3-lh); }
+  .ds-caption, .ds-caption-medium, .ds-caption-up {
+    font-size: var(--type-caption-size); line-height: var(--type-caption-lh);
+  }
+
+  .ds-p1, .ds-p2, .ds-p3, .ds-caption { font-weight: var(--weight-regular); }
+  .ds-p1-medium, .ds-p2-medium, .ds-p3-medium,
+  .ds-caption-medium, .ds-caption-up { font-weight: var(--weight-medium); }
+
+  .ds-caption-up {
+    letter-spacing: var(--type-caption-up-tracking);
+    text-transform: uppercase;
+  }
+
+  /* Градиенты MIDHUB */
+  .bg-gradient-blue   { background: var(--gradient-blue); }
+  .bg-gradient-green  { background: var(--gradient-green); }
+  .bg-gradient-orange { background: var(--gradient-orange); }
+  .bg-gradient-grey   { background: var(--gradient-grey); }
+  .bg-gradient-dark   { background: var(--gradient-dark); }
+}

@@ -1,0 +1,122 @@
+/* ============================================================
+   MIDHUB — Tag / TagInput (1:1 из Figma «UI Контролы» tags 366:617 …, 929:57942)
+   ------------------------------------------------------------
+   Tag    — чип: фон grey-20, радиус 4, текст dark-900, крестик grey-300.
+   AddTag — чип «+» (синий) для добавления.
+   Size   : l (16/24) · m (14/22) · s (12/20)
+   TagInput — поле (база Input) с чипами + ввод новых.
+
+   Цвета — палитра-токены MIDHUB. Компоненты tag.tsx / tag-input.tsx.
+   ============================================================ */
+@layer components {
+  /* ── Размерные переменные (общие для Tag и AddTag) ─────────── */
+  .ds-tag--l { --tag-fs: 16px; --tag-lh: 24px; }
+  .ds-tag--m { --tag-fs: 14px; --tag-lh: 22px; }
+  .ds-tag--s { --tag-fs: 12px; --tag-lh: 20px; }
+
+  /* ── Tag (чип) ─────────────────────────────────────────────── */
+  .ds-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 100%;
+    height: var(--tag-lh);
+    padding-inline: 8px;
+    border-radius: var(--radius-xs);
+    background-color: var(--color-grey-20);
+    color: var(--color-dark-900);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--tag-fs);
+    line-height: var(--tag-lh);
+    white-space: nowrap;
+  }
+  .ds-tag--removable {
+    padding-right: 4px;
+  }
+  .ds-tag--disabled {
+    opacity: 0.5;
+  }
+  .ds-tag__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ds-tag__close {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: var(--tag-lh);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--color-grey-300);
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .ds-tag__close:hover:not(:disabled) {
+    color: var(--color-dark-800);
+  }
+  .ds-tag__close:disabled {
+    cursor: not-allowed;
+  }
+  .ds-tag__close svg { display: block; width: 16px; height: 16px; }
+
+  /* ── AddTag (чип «+») ──────────────────────────────────────── */
+  .ds-tag-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--tag-lh);
+    padding-inline: 4px;
+    border: none;
+    border-radius: var(--radius-xs);
+    background-color: var(--color-grey-20);
+    color: var(--color-blue-midhub-500);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .ds-tag-add:hover:not(:disabled) {
+    background-color: var(--color-grey-90);
+  }
+  .ds-tag-add:disabled {
+    cursor: not-allowed;
+    color: var(--color-blue-midhub-100);
+  }
+  .ds-tag-add svg { display: block; width: 16px; height: 16px; }
+
+  /* ── TagInput (поле с чипами, база — .ds-field) ────────────── */
+  .ds-field--tags .ds-field__box {
+    height: auto;
+    min-height: var(--fld-h);
+    align-items: center;
+    padding-block: 6px;
+    cursor: text;
+  }
+  .ds-taginput__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
+  .ds-taginput__input {
+    flex: 1 1 60px;
+    min-width: 60px;
+    width: auto;
+  }
+  /* Режим выбора из пула: «+» + подсказка вместо текстового ввода. */
+  .ds-taginput__add {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .ds-taginput__placeholder {
+    color: var(--color-grey-200);
+    font-size: var(--fld-fs);
+    line-height: var(--fld-lh);
+  }
+}

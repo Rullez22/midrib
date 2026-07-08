@@ -1,0 +1,20 @@
+/* ============================================================
+   MIDHUB mobile app — таб-бар экрана (Android-стиль из макетов).
+   Поверх DS Tabs (variant solid): активный таб — зелёная пилюля
+   (токен green-500), неактивные прозрачны и сливаются с серым
+   хедером (surface-muted). Класс `app-tabs` на <Tabs>.
+   ============================================================ */
+@layer components {
+  .app-tabs.ds-tabs--solid {
+    overflow: visible;
+    background: transparent;
+  }
+  .app-tabs.ds-tabs--solid .ds-tab {
+    background-color: transparent;
+    border-radius: 10px;
+  }
+  .app-tabs.ds-tabs--solid .ds-tab[aria-selected="true"] {
+    background-color: var(--color-green-500);
+    color: var(--color-white);
+  }
+}

@@ -1,0 +1,124 @@
+/* ============================================================
+   MIDHUB — Toggle / Switch (1:1 из Figma «UI Контролы» / Toggle 196:17, Type=Basic)
+   ------------------------------------------------------------
+   Переключатель: пилюля-трек + квадратный «бегунок» (белый, рамка 2px),
+   который скользит влево/вправо (ширина трека = 2× высоты).
+     Size  : s (64×32) · xs (48×24)
+     Value : off · on (selected)
+     State : default · hover · focus · disabled
+
+   Цвета — палитра-токены MIDHUB. Компонент <Toggle> (toggle.tsx).
+   ============================================================ */
+@layer components {
+  .ds-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .ds-toggle:has(.ds-toggle__input:disabled) {
+    cursor: not-allowed;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-toggle--s  { --tg-w: 64px; --tg-h: 32px; }
+  .ds-toggle--xs { --tg-w: 48px; --tg-h: 24px; }
+
+  .ds-toggle__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  /* ── Трек ──────────────────────────────────────────────────── */
+  .ds-toggle__track {
+    position: relative;
+    flex: none;
+    width: var(--tg-w);
+    height: var(--tg-h);
+    border-radius: 9999px;
+    background-color: var(--color-grey-100);
+    box-shadow: inset 0 1px 3px 0 rgba(90, 100, 111, 0.3);
+    transition: background-color 0.15s ease;
+  }
+
+  /* ── Бегунок (белый квадрат с рамкой) ──────────────────────── */
+  .ds-toggle__thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: var(--tg-h);
+    height: var(--tg-h);
+    border-radius: 9999px;
+    background-color: var(--color-white);
+    border: 2px solid var(--color-grey-100);
+    transition: transform 0.18s ease, border-color 0.15s ease;
+  }
+
+  /* ── Off: состояния ────────────────────────────────────────── */
+  .ds-toggle__input:not(:checked):hover:not(:disabled) ~ .ds-toggle__track {
+    background-color: var(--color-grey-200);
+  }
+  .ds-toggle__input:not(:checked):hover:not(:disabled) ~ .ds-toggle__track .ds-toggle__thumb {
+    border-color: var(--color-grey-200);
+  }
+  .ds-toggle__input:not(:checked):disabled ~ .ds-toggle__track {
+    background-color: var(--color-grey-20);
+  }
+  .ds-toggle__input:not(:checked):disabled ~ .ds-toggle__track .ds-toggle__thumb {
+    border-color: var(--color-grey-20);
+  }
+
+  /* ── On (selected) ─────────────────────────────────────────── */
+  .ds-toggle__input:checked ~ .ds-toggle__track {
+    background-color: var(--color-blue-midhub-500);
+    box-shadow: none;
+  }
+  .ds-toggle__input:checked ~ .ds-toggle__track .ds-toggle__thumb {
+    transform: translateX(100%);
+    border-color: var(--color-blue-midhub-500);
+  }
+  .ds-toggle__input:checked:hover:not(:disabled) ~ .ds-toggle__track {
+    background-color: var(--color-blue-midhub-600);
+  }
+  .ds-toggle__input:checked:hover:not(:disabled) ~ .ds-toggle__track .ds-toggle__thumb {
+    border-color: var(--color-blue-midhub-600);
+  }
+  .ds-toggle__input:checked:disabled ~ .ds-toggle__track {
+    background-color: var(--color-blue-midhub-100);
+  }
+  .ds-toggle__input:checked:disabled ~ .ds-toggle__track .ds-toggle__thumb {
+    border-color: var(--color-blue-midhub-100);
+  }
+
+  /* ── Focus ─────────────────────────────────────────────────── */
+  .ds-toggle__input:focus-visible:not(:checked) ~ .ds-toggle__track {
+    outline: 2px solid var(--color-grey-200);
+    outline-offset: 2px;
+  }
+  .ds-toggle__input:focus-visible:checked ~ .ds-toggle__track {
+    outline: 2px solid var(--color-blue-midhub-800);
+    outline-offset: 2px;
+  }
+
+  /* ── Label ─────────────────────────────────────────────────── */
+  .ds-toggle__label {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-dark-900);
+  }
+  .ds-toggle--xs .ds-toggle__label {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .ds-toggle:has(.ds-toggle__input:disabled) .ds-toggle__label {
+    color: var(--color-grey-300);
+  }
+}

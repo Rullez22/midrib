@@ -1,0 +1,138 @@
+/* ============================================================
+   MIDHUB — Color palette (из Figma «Стиль» → Цвета, node 105:3)
+   ------------------------------------------------------------
+   Слои:
+   1. Primitives (этот :root) — вся палитра как CSS-переменные
+      --color-{family}-{step} (например var(--color-blue-midhub-500)).
+      Объявлены в обычном :root, а не в @theme — иначе Tailwind v4
+      tree-shake'ит неиспользуемые цвета и расширенная палитра пропадает.
+   2. Semantic (globals.css @theme inline) — смысловые алиасы
+      (--color-primary, --color-foreground …), которые ссылаются на
+      primitives и генерируют утилиты bg-primary / text-foreground …
+      В UI использовать СЕМАНТИЧЕСКИЕ токены.
+
+   Для расширенной палитры (графики/иллюстрации) допустимо
+   var(--color-purple-900) или bg-[var(--color-purple-900)].
+   ============================================================ */
+
+:root {
+  /* ── Neutrals ─────────────────────────────────────────────── */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-dark-900: #242b32;   /* text primary  */
+  --color-dark-800: #5a646e;   /* text secondary */
+
+  --color-grey-10:  #f9fafc;
+  --color-grey-20:  #f3f6f9;
+  --color-grey-90:  #dee5ec;
+  --color-grey-100: #c9d3de;
+  --color-grey-200: #b1becb;
+  --color-grey-300: #93a3b4;
+
+  /* ── Brand: Blue-midhub (primary) ─────────────────────────── */
+  --color-blue-midhub-50:  #e4f2ff;
+  --color-blue-midhub-100: #bedffe;
+  --color-blue-midhub-200: #90c4f6;
+  --color-blue-midhub-300: #6cb3f8;
+  --color-blue-midhub-400: #4ea6fd;
+  --color-blue-midhub-500: #3996fc;
+  --color-blue-midhub-600: #3789ed;
+  --color-blue-midhub-700: #3477da;
+  --color-blue-midhub-800: #3065c7;
+  --color-blue-midhub-900: #2a46a8;
+
+  /* ── Brand: Blue-ruswan (вторая марка) ────────────────────── */
+  --color-blue-ruswan-50:  #e7e8ff;
+  --color-blue-ruswan-100: #c1c5fe;
+  --color-blue-ruswan-200: #94a0fe;
+  --color-blue-ruswan-300: #5d7aff;
+  --color-blue-ruswan-400: #1b5bff;
+  --color-blue-ruswan-500: #003cfb;
+  --color-blue-ruswan-600: #0033f0;
+  --color-blue-ruswan-700: #0026e3;
+  --color-blue-ruswan-800: #0017d9;
+  --color-blue-ruswan-900: #0000bf;
+
+  /* ── Red ──────────────────────────────────────────────────── */
+  --color-red-50:  #fde9ed;
+  --color-red-100: #fbc8d0;
+  --color-red-200: #e89297;
+  --color-red-300: #dc686f;
+  --color-red-400: #e5424d;
+  --color-red-500: #e92a34;
+  --color-red-600: #da1e32;
+  --color-red-700: #c8102c;
+  --color-red-800: #bc0225;
+  --color-red-900: #ad0019;
+
+  /* ── Green ────────────────────────────────────────────────── */
+  --color-green-50:  #e6f6e7;
+  --color-green-100: #c4e7c5;
+  --color-green-200: #9ed89f;
+  --color-green-300: #71c676;
+  --color-green-400: #54be5a;
+  --color-green-500: #35b23e;
+  --color-green-600: #2ba335;
+  --color-green-700: #1d912a;
+  --color-green-800: #0f8020;
+  --color-green-900: #00610c;
+
+  /* ── Orange ───────────────────────────────────────────────── */
+  --color-orange-50:  #fef0db;
+  --color-orange-100: #fdd8a6;
+  --color-orange-200: #fac06c;
+  --color-orange-300: #f6a530;
+  --color-orange-400: #f49200;
+  --color-orange-500: #f18000;
+  --color-orange-600: #ed7400;
+  --color-orange-700: #e86300;
+  --color-orange-800: #e25100;
+  --color-orange-900: #ee5500;
+
+  /* ── Yellow ───────────────────────────────────────────────── */
+  --color-yellow-50:  #fbf8e3;
+  --color-yellow-100: #f6ecb7;
+  --color-yellow-200: #f1e08a;
+  --color-yellow-300: #edd65d;
+  --color-yellow-400: #ebca3f;
+  --color-yellow-500: #e9c12b;
+  --color-yellow-600: #e9b424;
+  --color-yellow-700: #e9a31c;
+  --color-yellow-800: #e89315;
+  --color-yellow-900: #e87703;
+
+  /* ── Cyan ─────────────────────────────────────────────────── */
+  --color-cyan-50:  #e3f6f7;
+  --color-cyan-100: #bae8ec;
+  --color-cyan-200: #93d9df;
+  --color-cyan-300: #75c9d2;
+  --color-cyan-400: #68bdc8;
+  --color-cyan-600: #57a3ae;
+  --color-cyan-700: #4f8e96;
+  --color-cyan-800: #477b80;
+  --color-cyan-900: #385858;
+
+  /* ── Purple ───────────────────────────────────────────────── */
+  --color-purple-50:  #ede7f6;
+  --color-purple-100: #d1c4e9;
+  --color-purple-200: #a58cd2;
+  --color-purple-300: #9575cd;
+  --color-purple-400: #7e57c2;
+  --color-purple-500: #673ab7;
+  --color-purple-600: #5e35b1;
+  --color-purple-700: #512da8;
+  --color-purple-800: #4527a0;
+  --color-purple-900: #321b92;
+}
+
+/* ── Figma dev-mode алиасы ──────────────────────────────────────
+   Имена 1:1 с переменными Figma, чтобы CSS из dev-mode
+   (`color: var(--text-dark-900)`) вставлялся без правок. */
+:root {
+  --text-dark-900:        var(--color-dark-900);
+  --text-dark-800:        var(--color-dark-800);
+  --text-grey-300:        var(--color-grey-300);
+  --text-white:           var(--color-white);
+  --text-blue-midhub-500: var(--color-blue-midhub-500);
+}

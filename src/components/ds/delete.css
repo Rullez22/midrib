@@ -1,0 +1,64 @@
+/* ============================================================
+   MIDHUB — Delete (1:1 из Figma «UI Контролы» / delete document 804:5509)
+   ------------------------------------------------------------
+   Контрол удаления: красная иконка-корзина + опциональная подпись слева.
+     Size : md (Font 14, иконка 24) · sm (Font 12, иконка 16)
+     View : с подписью (`label`) или только иконка
+
+   Иконка — red 300; подпись — dark 900. Состояния hover/active/disabled
+   по красной шкале (red 400 / red 700 / red 100), консистентно с Negative.
+   Используется компонентом <DeleteButton> (delete.tsx).
+   ============================================================ */
+@layer components {
+  .ds-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--del-gap);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-dark-900);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--del-fs);
+    line-height: var(--del-lh);
+  }
+
+  .ds-delete--md { --del-gap: 8px; --del-icon: 24px; --del-fs: 14px; --del-lh: 22px; }
+  .ds-delete--sm { --del-gap: 4px; --del-icon: 16px; --del-fs: 12px; --del-lh: 20px; }
+
+  .ds-delete__label {
+    white-space: nowrap;
+  }
+
+  .ds-delete__icon {
+    flex: none;
+    display: inline-flex;
+    width: var(--del-icon);
+    height: var(--del-icon);
+    color: var(--color-red-300);
+    transition: color 0.15s ease;
+  }
+  .ds-delete__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ds-delete:hover:not(:disabled) .ds-delete__icon  { color: var(--color-red-400); }
+  .ds-delete:active:not(:disabled) .ds-delete__icon { color: var(--color-red-700); }
+
+  .ds-delete:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  .ds-delete:disabled {
+    cursor: not-allowed;
+  }
+  .ds-delete:disabled .ds-delete__icon  { color: var(--color-red-100); }
+  .ds-delete:disabled .ds-delete__label { color: var(--color-grey-300); }
+}

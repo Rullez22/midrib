@@ -1,0 +1,136 @@
+/* ============================================================
+   MIDHUB — QuestionCard (композит, 1:1 из Figma «UI фичи» / Questions
+   nodes 903:85344 (close) · 903:85253 (open) · 1991:201794 (open small);
+   кадры 903:85167, 296:0)
+   ------------------------------------------------------------
+   Бордерная карточка-аккордеон: шапка (заголовок · статус-иконка ·
+   разделитель · шеврон) + раскрывающаяся панель (текст + футер-кнопка).
+
+   Size:
+     l — шапка 66, паддинг 23/24, текст 14/22, иконки 24.
+     s — шапка 44, паддинг 11, текст 12/20, шеврон 16 (без статус-иконки).
+   Открытие: шапка получает фон grey-10 и нижнюю границу grey-90.
+
+   Цвета — палитра-токены MIDHUB. Компонент <QuestionCard> (question-card.tsx).
+   ============================================================ */
+@layer components {
+  .ds-qcard {
+    box-sizing: border-box;
+    border: 1px solid var(--color-grey-90);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-white);
+    overflow: hidden;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-qcard--l {
+    --qc-head-h: 66px;
+    --qc-pad-x: 24px;
+    --qc-fs: 14px;
+    --qc-lh: 22px;
+    --qc-icon: 24px;
+    --qc-body-pad: 16px 23px 20px;
+  }
+  .ds-qcard--s {
+    --qc-head-h: 44px;
+    --qc-pad-x: 11px;
+    --qc-fs: 12px;
+    --qc-lh: 20px;
+    --qc-icon: 16px;
+    --qc-body-pad: 11px;
+  }
+
+  /* ── Шапка (кнопка-раскрытие) ──────────────────────────────── */
+  .ds-qcard__header {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    height: var(--qc-head-h);
+    margin: 0;
+    padding: 0 var(--qc-pad-x);
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease;
+  }
+  .ds-qcard__header:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: -2px;
+  }
+  .ds-qcard--open .ds-qcard__header {
+    background-color: var(--color-grey-10);
+    border-bottom: 1px solid var(--color-grey-90);
+  }
+  .ds-qcard--disabled .ds-qcard__header {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .ds-qcard__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--qc-fs);
+    line-height: var(--qc-lh);
+    color: var(--color-dark-900);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ── Правый кластер: иконка · разделитель · шеврон ─────────── */
+  .ds-qcard__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 16px;
+  }
+  .ds-qcard__icon,
+  .ds-qcard__chevron {
+    display: inline-flex;
+    flex: none;
+    width: var(--qc-icon);
+    height: var(--qc-icon);
+    color: var(--color-grey-300);
+  }
+  .ds-qcard__icon svg,
+  .ds-qcard__chevron svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .ds-qcard__chevron {
+    transition: transform 0.15s ease;
+  }
+  .ds-qcard--open .ds-qcard__chevron {
+    transform: rotate(180deg);
+  }
+  .ds-qcard__divider {
+    flex: none;
+    width: 1px;
+    height: 24px;
+    background-color: var(--color-grey-90);
+  }
+  .ds-qcard--s .ds-qcard__divider {
+    height: 16px;
+  }
+
+  /* ── Панель ────────────────────────────────────────────────── */
+  .ds-qcard__panel {
+    padding: var(--qc-body-pad);
+  }
+  .ds-qcard__body {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--qc-fs);
+    line-height: var(--qc-lh);
+    color: var(--color-dark-800);
+  }
+  .ds-qcard__footer {
+    margin-top: 16px;
+  }
+}

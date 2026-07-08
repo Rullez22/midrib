@@ -1,0 +1,67 @@
+/* ============================================================
+   MIDHUB — Datepicker (1:1 из Figma «UI Контролы» / Datepicker 1346:59461)
+   ------------------------------------------------------------
+   База — поле из Input (.ds-field*): бордер-контейнер + плавающая
+   подпись + значение/placeholder + иконка-календарь справа.
+   При открытии разворачивается попап с <Calendar>.
+
+   Size : l (48) · m (40) · s (32). Цвета — палитра-токены MIDHUB.
+   Компонент <Datepicker> (datepicker.tsx).
+   ============================================================ */
+@layer components {
+  .ds-datepicker__anchor {
+    position: relative;
+  }
+
+  /* Триггер использует .ds-field__box, но это кнопка */
+  .ds-datepicker__trigger {
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .ds-field--disabled .ds-datepicker__trigger {
+    cursor: not-allowed;
+  }
+
+  /* Открыт → рамка как в Active (если не error/disabled) */
+  .ds-datepicker--open:not(.ds-field--error):not(.ds-field--disabled) .ds-field__box {
+    border-color: var(--color-blue-midhub-500);
+  }
+
+  /* Значение / плейсхолдер */
+  .ds-datepicker__value {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: var(--font-sans);
+    font-weight: var(--weight-regular);
+    font-size: var(--fld-fs);
+    line-height: var(--fld-lh);
+    color: var(--color-dark-900);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+  .ds-datepicker__value--placeholder {
+    color: var(--color-grey-100);
+  }
+
+  .ds-datepicker__calicon {
+    color: var(--color-grey-300);
+  }
+  .ds-datepicker--open .ds-datepicker__calicon {
+    color: var(--color-blue-midhub-500);
+  }
+
+  /* ── Попап ─────────────────────────────────────────────────── */
+  .ds-datepicker__popover {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 8px);
+    z-index: 50;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--radius-xs);
+  }
+}

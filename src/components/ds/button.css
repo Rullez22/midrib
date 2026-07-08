@@ -1,0 +1,181 @@
+/* ============================================================
+   MIDHUB — Button system (1:1 из Figma «UI Контролы» / Button midhub)
+   ------------------------------------------------------------
+   Матрица: Size × Type × State × View.
+     Size : L-48 · M-40 · S-32 · XS-24
+     Type : primary · secondary · ghost · tertiary · negative · negative-sec
+     State: default · hover · active · disabled · loading   (через CSS-псевдо)
+     View : label · left/right icon · icon-only · link
+
+   Все цвета — палитра-primitives из tokens/color.css (единый источник).
+   Подключается через @import в styles/globals.css.
+   Используется компонентом <Button> (button.tsx).
+   ============================================================ */
+@layer components {
+  .ds-btn {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-gap);
+    height: var(--btn-h);
+    padding-inline: var(--btn-px);
+    border: 1px solid transparent;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: var(--btn-fs);
+    line-height: var(--btn-lh);
+    letter-spacing: 0;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .ds-btn:focus-visible {
+    outline: 2px solid var(--color-blue-midhub-500);
+    outline-offset: 2px;
+  }
+
+  .ds-btn:disabled {
+    cursor: not-allowed;
+  }
+
+  /* ── Размеры ───────────────────────────────────────────────── */
+  .ds-btn--l  { --btn-h: 48px; --btn-px: 32px; --btn-gap: 8px; --btn-fs: 16px; --btn-lh: 24px; --btn-icon: 24px; }
+  .ds-btn--m  { --btn-h: 40px; --btn-px: 24px; --btn-gap: 4px; --btn-fs: 14px; --btn-lh: 22px; --btn-icon: 16px; }
+  .ds-btn--s  { --btn-h: 32px; --btn-px: 16px; --btn-gap: 4px; --btn-fs: 12px; --btn-lh: 20px; --btn-icon: 16px; }
+  .ds-btn--xs { --btn-h: 24px; --btn-px: 8px;  --btn-gap: 4px; --btn-fs: 12px; --btn-lh: 20px; --btn-icon: 16px; }
+
+  /* Icon-only — квадрат, без горизонтальных отступов */
+  .ds-btn--icon {
+    padding-inline: 0;
+    width: var(--btn-h);
+  }
+
+  .ds-btn--full {
+    width: 100%;
+  }
+
+  /* ── Слоты ─────────────────────────────────────────────────── */
+  .ds-btn__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: var(--btn-icon);
+    height: var(--btn-icon);
+  }
+  .ds-btn__icon svg,
+  .ds-btn__icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ds-btn__label {
+    display: inline-block;
+  }
+
+  /* ── Type: Primary (заливка blue) ──────────────────────────── */
+  .ds-btn--primary {
+    background-color: var(--color-blue-midhub-500);
+    color: var(--color-white);
+  }
+  .ds-btn--primary:hover:not(:disabled)  { background-color: var(--color-blue-midhub-600); }
+  .ds-btn--primary:active:not(:disabled) { background-color: var(--color-blue-midhub-800); }
+  .ds-btn--primary:disabled              { background-color: var(--color-blue-midhub-100); color: var(--color-white); }
+
+  /* ── Type: Secondary (контур blue) ─────────────────────────── */
+  .ds-btn--secondary {
+    background-color: transparent;
+    color: var(--color-blue-midhub-500);
+    border-color: var(--color-blue-midhub-500);
+  }
+  .ds-btn--secondary:hover:not(:disabled)  { border-color: var(--color-blue-midhub-600); }
+  .ds-btn--secondary:active:not(:disabled) { background-color: var(--color-blue-midhub-50); border-color: var(--color-blue-midhub-800); }
+  .ds-btn--secondary:disabled              { color: var(--color-blue-midhub-100); border-color: var(--color-blue-midhub-100); }
+
+  /* ── Type: Ghost (заливка grey) ────────────────────────────── */
+  .ds-btn--ghost {
+    background-color: var(--color-grey-20);
+    color: var(--color-dark-800);
+    border-color: var(--color-grey-90);
+  }
+  .ds-btn--ghost:hover:not(:disabled)  { background-color: var(--color-grey-90);  border-color: var(--color-grey-100); }
+  .ds-btn--ghost:active:not(:disabled) { background-color: var(--color-grey-100); border-color: var(--color-grey-300); }
+  .ds-btn--ghost:disabled              { background-color: var(--color-grey-10);  border-color: var(--color-grey-20); color: var(--color-grey-100); }
+
+  /* ── Type: Tertiary (только текст blue) ────────────────────── */
+  .ds-btn--tertiary {
+    background-color: transparent;
+    color: var(--color-blue-midhub-500);
+  }
+  .ds-btn--tertiary:hover:not(:disabled)  { background-color: var(--color-grey-10); }
+  .ds-btn--tertiary:active:not(:disabled) { background-color: var(--color-blue-midhub-50); }
+  .ds-btn--tertiary:disabled              { color: var(--color-blue-midhub-100); }
+
+  /* ── Type: Negative (заливка red) ──────────────────────────── */
+  .ds-btn--negative {
+    background-color: var(--color-red-300);
+    color: var(--color-white);
+  }
+  .ds-btn--negative:hover:not(:disabled)  { background-color: var(--color-red-400); }
+  .ds-btn--negative:active:not(:disabled) { background-color: var(--color-red-700); }
+  .ds-btn--negative:disabled              { background-color: var(--color-red-100); color: var(--color-white); }
+
+  /* ── Type: Negative secondary (контур red) ─────────────────── */
+  .ds-btn--negative-sec {
+    background-color: transparent;
+    color: var(--color-red-300);
+    border-color: var(--color-red-300);
+  }
+  .ds-btn--negative-sec:hover:not(:disabled)  { border-color: var(--color-red-400); }
+  .ds-btn--negative-sec:active:not(:disabled) { background-color: var(--color-red-100); border-color: var(--color-red-700); color: var(--color-red-200); }
+  .ds-btn--negative-sec:disabled              { color: var(--color-red-100); border-color: var(--color-red-100); }
+
+  /* ── View: Link (текст с подчёркиванием, без фона) ─────────── */
+  .ds-btn--link {
+    background-color: transparent !important;
+    border-color: transparent !important;
+  }
+  .ds-btn--link .ds-btn__label {
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-underline-position: from-font;
+  }
+  /* У заливочных типов (белый текст) ссылка переключается на акцентный цвет */
+  .ds-btn--primary.ds-btn--link  { color: var(--color-blue-midhub-500); }
+  .ds-btn--negative.ds-btn--link { color: var(--color-red-300); }
+
+  /* ── State: Loading ────────────────────────────────────────── */
+  .ds-btn--loading {
+    cursor: default;
+  }
+  .ds-btn--loading .ds-btn__icon,
+  .ds-btn--loading .ds-btn__label {
+    visibility: hidden;
+  }
+  .ds-btn__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--btn-icon);
+    height: var(--btn-icon);
+    margin-top: calc(var(--btn-icon) / -2);
+    margin-left: calc(var(--btn-icon) / -2);
+    color: currentColor;
+    animation: ds-btn-spin 0.7s linear infinite;
+  }
+  .ds-btn__spinner svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  @keyframes ds-btn-spin {
+    to { transform: rotate(360deg); }
+  }
+}
