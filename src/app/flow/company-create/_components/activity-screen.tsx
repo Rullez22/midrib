@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { Tabs, Tab, Checkbox, Button, Modal, Input, EditPencilIcon } from "@/components/ds";
 import { CoopSidebar, type CoopRoutes } from "./coop-sidebar";
@@ -322,9 +323,9 @@ function CkpAva() {
 }
 
 /** Красная иконка-меню (2×2 сетка + список) в правом верхнем углу ЦКП (Figma «menu-2»). */
-function CkpMenuIcon({ className }: { className?: string }) {
+function CkpMenuIcon({ className, onClick }: { className?: string; onClick?: () => void }) {
   return (
-    <button type="button" aria-label="Меню" className={cn("text-[#e1838b]", className)}>
+    <button type="button" aria-label="Структура компании" onClick={onClick} className={cn("text-[#e1838b] transition-opacity hover:opacity-70", className)}>
       <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-6">
         <rect x="3" y="3" width="7.5" height="7.5" rx="1.6" fill="currentColor" />
         <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6" fill="currentColor" />
@@ -343,11 +344,15 @@ function CkpMenuIcon({ className }: { className?: string }) {
  */
 function CkpBlock() {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  // Клик по грид-иконке → «Структура» кооператива с выделенной «Администрацией»
+  // (этот ЦКП — департамент «Администрация»).
+  const goStructure = () => router.push("/cabinet/about?view=structure&focus=administration");
 
   if (open) {
     return (
       <div className="relative flex w-full flex-col gap-4 rounded-[4px] border border-border bg-white p-4">
-        <CkpMenuIcon className="absolute right-4 top-4" />
+        <CkpMenuIcon className="absolute right-4 top-4" onClick={goStructure} />
         {/* Аватар + заголовок с подписями */}
         <div className="flex items-start gap-4 pr-9">
           <div className="w-[142px] shrink-0 overflow-clip rounded-[4px] border border-border pb-1">
@@ -373,7 +378,7 @@ function CkpBlock() {
 
   return (
     <div className="relative flex w-full gap-4 rounded-[4px] border border-border bg-white p-[7px]">
-      <CkpMenuIcon className="absolute right-4 top-4" />
+      <CkpMenuIcon className="absolute right-4 top-4" onClick={goStructure} />
       {/* Аватар-карточка */}
       <div className="flex w-[142px] shrink-0 flex-col items-center gap-1 overflow-clip rounded-[4px] border border-border pb-1">
         <CkpAva />
