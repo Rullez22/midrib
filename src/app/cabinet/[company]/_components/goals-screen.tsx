@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Input, Button, Combobox, Checkbox, Badge } from "@/components/ds";
@@ -132,6 +132,9 @@ function GoalCard({ g, href, onEdit, pending }: { g: Goal; href: string; onEdit:
 export function GoalsScreen({ cabinet }: { cabinet: CabinetConfig }) {
   const router = useRouter();
   const { createdContracts } = useRegFlow();
+  // «Просмотреть все цели» — якорь: плавный скролл к списку целей.
+  const listRef = useRef<HTMLDivElement>(null);
+  const scrollToList = () => listRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   const pendingFor = (goalId: string) =>
     createdContracts.filter((c) => c.orgId === goalId && c.parentId === null && !c.finalized).length;
   // Активные категории (по умолчанию все) — чекбоксы фильтруют карточки.
@@ -158,7 +161,7 @@ export function GoalsScreen({ cabinet }: { cabinet: CabinetConfig }) {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button size="l" onClick={() => router.push(`/cabinet/${cabinet.slug}/goals/create`)}>Добавить новую цель</Button>
-              <Button variant="secondary" size="l">Просмотреть все цели</Button>
+              <Button variant="secondary" size="l" onClick={scrollToList}>Просмотреть все цели</Button>
             </div>
           </div>
 
@@ -192,15 +195,17 @@ export function GoalsScreen({ cabinet }: { cabinet: CabinetConfig }) {
             </button>
           </div>
 
-          {/* Карточки целей (6, у каждой свой прогресс) */}
-          {visible.map((g) => (
-            <GoalCard
-              key={g.id}
-              g={g}
-              href={`/cabinet/${cabinet.slug}/goals/${g.id}`}
-              onEdit={() => router.push(`/cabinet/${cabinet.slug}/goals/${g.id}/edit`)}
-              pending={pendingFor(g.id)}
-            />
+          {/* Карточки целей (6, у каждой свой прогресс). Первая — якорь для
+              кнопки «Просмотреть все цели» (scroll-mt-8 — отступ при скролле). */}
+          {visible.map((g, i) => (
+            <div key={g.id} ref={i === 0 ? listRef : undefined} className="scroll-mt-8">
+              <GoalCard
+                g={g}
+                href={`/cabinet/${cabinet.slug}/goals/${g.id}`}
+                onEdit={() => router.push(`/cabinet/${cabinet.slug}/goals/${g.id}/edit`)}
+                pending={pendingFor(g.id)}
+              />
+            </div>
           ))}
           {visible.length === 0 && (
             <p className="ds-p1 py-16 text-center text-[var(--color-grey-300)]">Целей не найдено</p>
