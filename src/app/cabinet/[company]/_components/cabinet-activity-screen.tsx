@@ -156,7 +156,7 @@ function CkpAva({ avatar, cover }: { avatar?: string; cover?: string }) {
  *  «Смотреть всю информацию») → раскрыт (описание во всю ширину + «Свернуть»).
  *  Поведение 1:1 с кабинетом №1 (activity-screen → CkpBlock). Переиспользуется на
  *  экране «О компании» (кооператив без фото → аватар-заглушка «Immatra»). */
-export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor, title = "Ценный конечный продукт", editable = false, layout = false, onLayout }: { name: string; membersLabel?: string; desc: string; avatar?: string; cover?: string; borderColor?: string; title?: ReactNode; editable?: boolean; layout?: boolean; onLayout?: () => void }) {
+export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor, title = "Ценный конечный продукт", editable = false, layout = false, onLayout, layoutColor }: { name: string; membersLabel?: string; desc: string; avatar?: string; cover?: string; borderColor?: string; title?: ReactNode; editable?: boolean; layout?: boolean; onLayout?: () => void; layoutColor?: string }) {
   const [open, setOpen] = useState(false);
 
   // Иконки редактирования (карандаш + вид) — правый верхний угол (Figma «Общие
@@ -170,7 +170,7 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
           </button>
         )}
         {layout && (
-          <button type="button" aria-label="Структура компании" onClick={onLayout} className="text-[var(--color-red-200)] transition-opacity hover:opacity-70">
+          <button type="button" aria-label="Структура компании" onClick={onLayout} className="text-[var(--color-red-200)] transition-opacity hover:opacity-70" style={layoutColor ? { color: layoutColor } : undefined}>
             {/* QR-иконка 24×24 (Figma 7574:17191), цвет через currentColor. */}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-6">
               <path d="M8.72161 0H1.83113C0.82354 0 0.00390625 0.819634 0.00390625 1.82723V8.71771C0.00390625 9.7253 0.82354 10.5449 1.83113 10.5449H8.72161C9.72921 10.5449 10.5488 9.7253 10.5488 8.71771V1.82723C10.5487 0.819634 9.72921 0 8.72161 0Z" fill="currentColor" />
@@ -317,6 +317,7 @@ function StructureTab({ cabinet, data, accent }: { cabinet: CabinetConfig; data:
         membersLabel={data.membersLabel}
         desc={data.ckpDesc}
         layout
+        layoutColor={accent.border}
         onLayout={() => router.push(`/cabinet/about?view=structure&focus=${cabinet.slug}`)}
       />
 
