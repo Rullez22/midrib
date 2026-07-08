@@ -247,9 +247,26 @@ export function PaishikiMembersPanel({ members, className, focusCouncilSignal = 
       {tab === "council" ? (
         pending.length === 0 ? (
           <>
-            {/* Shuttle: внутренний gap 16px (как в каноне payment-once) */}
+            {/* Chrome — тот же searchRow + Toolbar, что и на остальных табах
+                панели (раньше shuttle рисовал свой отличный header). */}
+            {searchRow}
+            <Toolbar
+              center={<span className="ds-p3 text-foreground-subtle">Отмечено: {cCount}</span>}
+              right={
+                <>
+                  <Pagination size="xs" view="full" page={cPage} total={200} onChange={setCPage} />
+                  <Dropdown
+                    aria-label="Ещё"
+                    items={[{ value: "export", label: "Экспорт" }, { value: "settings", label: "Настройки" }]}
+                    trigger={<span className="flex size-6 items-center justify-center"><KebabIcon /></span>}
+                  />
+                </>
+              }
+            />
+            {/* Shuttle без встроенного chrome: внутренний gap 16px (канон payment-once) */}
             <div className="flex flex-col gap-4">
               <PaishikShuttle
+                hideChrome
                 tab={cTab}
                 onTabChange={setCTab}
                 sel={cSel}

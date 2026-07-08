@@ -282,6 +282,7 @@ export function PaishikShuttle({
   page,
   onPageChange,
   privateNames,
+  hideChrome = false,
 }: {
   tab: "private" | "legal";
   onTabChange: (t: "private" | "legal") => void;
@@ -294,6 +295,10 @@ export function PaishikShuttle({
   /** Список частных пайщиков (по умолчанию мок PRIVATE). Для таба «Совет» —
    *  динамические кандидаты согласования из RegFlow. */
   privateNames?: string[];
+  /** Спрятать встроенный header (поиск + «Отмечено» + пагинацию панелей),
+   *  чтобы обёртка выдала своё chrome (например, таб «Согласование совета»
+   *  использует тот же searchRow + Toolbar, что и остальные табы панели). */
+  hideChrome?: boolean;
 }) {
   const priv = privateNames ?? PRIVATE;
   const list = tab === "private" ? priv.map((name) => ({ name, mid: ADDR })) : LEGAL.map((r) => ({ name: r.name, mid: r.id }));
@@ -304,15 +309,19 @@ export function PaishikShuttle({
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="min-w-[200px] flex-1"><Input size="m" placeholder="Поиск" leftIcon={<SearchIcon />} /></div>
-        <Button variant="ghost" size="m" iconLeft={<ListIcon />}>Список</Button>
-        <Button variant="ghost" size="m" iconLeft={<GlobeIcon />}>Страны</Button>
-      </div>
-      <div className="flex items-center justify-between rounded-[4px] border border-border bg-[#f3f6f9] px-4 py-2">
-        <span className="ds-caption-medium flex-1 text-center text-[#5a646e]">Отмечено: {count}</span>
-        <button type="button" aria-label="Меню" className="text-[#5a646e]">⋮</button>
-      </div>
+      {!hideChrome && (
+        <>
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="min-w-[200px] flex-1"><Input size="m" placeholder="Поиск" leftIcon={<SearchIcon />} /></div>
+            <Button variant="ghost" size="m" iconLeft={<ListIcon />}>Список</Button>
+            <Button variant="ghost" size="m" iconLeft={<GlobeIcon />}>Страны</Button>
+          </div>
+          <div className="flex items-center justify-between rounded-[4px] border border-border bg-[#f3f6f9] px-4 py-2">
+            <span className="ds-caption flex-1 text-center text-[#5a646e]">Отмечено: {count}</span>
+            <button type="button" aria-label="Меню" className="text-[#5a646e]">⋮</button>
+          </div>
+        </>
+      )}
       <Tabs value={tab} onValueChange={(v) => onTabChange(v as "private" | "legal")} variant="basic" size="m" aria-label="Тип получателя" className="w-full">
         <Tab value="private">Частные пайщики</Tab>
         <Tab value="legal">Юридическое лицо</Tab>
@@ -335,9 +344,11 @@ export function PaishikShuttle({
               </div>
             ))}
           </div>
-          <div className="flex justify-center px-4 py-3">
-            <Pagination page={page} total={200} onChange={onPageChange} view="full" size="xs" />
-          </div>
+          {!hideChrome && (
+            <div className="flex justify-center px-4 py-3">
+              <Pagination page={page} total={200} onChange={onPageChange} view="full" size="xs" />
+            </div>
+          )}
         </Pane>
 
         {/* стрелка-индикатор переноса (чек слева → строка уходит вправо) */}
