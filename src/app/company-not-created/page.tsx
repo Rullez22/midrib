@@ -31,7 +31,6 @@ const companyRepresentative: NavHubLinkItem[] = [
   { label: "Настройте вопросы для голосования", href: "/flow/company-create/19" },
   { label: "Настройка счетов", href: "/flow/company-create/21" },
   { label: "Создание нового счета", href: "/flow/company-create/24" },
-  { label: "Отправка на валидацию", href: "/flow/company-create/27" },
 ];
 
 export default function CompanyNotCreatedPage() {
