@@ -92,7 +92,7 @@ export function HeaderIconButton({
       )}
       {...rest}
     >
-      <span className="flex size-4 items-center justify-center">{icon}</span>
+      <span className="flex size-4 items-center justify-center [&>svg]:size-full">{icon}</span>
     </button>
   );
 }
@@ -117,7 +117,7 @@ function GhostIconButton({
       )}
       {...rest}
     >
-      <span className="flex size-4 items-center justify-center">{icon}</span>
+      <span className="flex size-4 items-center justify-center [&>svg]:size-full">{icon}</span>
     </button>
   );
 }
