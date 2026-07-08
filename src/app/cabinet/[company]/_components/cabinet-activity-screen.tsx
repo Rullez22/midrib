@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { Tabs, Tab, EditPencilIcon } from "@/components/ds";
 import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/activity-screen";
@@ -155,7 +156,7 @@ function CkpAva({ avatar, cover }: { avatar?: string; cover?: string }) {
  *  «Смотреть всю информацию») → раскрыт (описание во всю ширину + «Свернуть»).
  *  Поведение 1:1 с кабинетом №1 (activity-screen → CkpBlock). Переиспользуется на
  *  экране «О компании» (кооператив без фото → аватар-заглушка «Immatra»). */
-export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor, title = "Ценный конечный продукт", editable = false, layout = false }: { name: string; membersLabel?: string; desc: string; avatar?: string; cover?: string; borderColor?: string; title?: ReactNode; editable?: boolean; layout?: boolean }) {
+export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor, title = "Ценный конечный продукт", editable = false, layout = false, onLayout }: { name: string; membersLabel?: string; desc: string; avatar?: string; cover?: string; borderColor?: string; title?: ReactNode; editable?: boolean; layout?: boolean; onLayout?: () => void }) {
   const [open, setOpen] = useState(false);
 
   // Иконки редактирования (карандаш + вид) — правый верхний угол (Figma «Общие
@@ -169,7 +170,7 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
           </button>
         )}
         {layout && (
-          <button type="button" aria-label="QR-код" className="text-[var(--color-red-200)]">
+          <button type="button" aria-label="Структура компании" onClick={onLayout} className="text-[var(--color-red-200)] transition-opacity hover:opacity-70">
             {/* QR-иконка 24×24 (Figma 7574:17191), цвет через currentColor. */}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-6">
               <path d="M8.72161 0H1.83113C0.82354 0 0.00390625 0.819634 0.00390625 1.82723V8.71771C0.00390625 9.7253 0.82354 10.5449 1.83113 10.5449H8.72161C9.72921 10.5449 10.5488 9.7253 10.5488 8.71771V1.82723C10.5487 0.819634 9.72921 0 8.72161 0Z" fill="currentColor" />
@@ -301,6 +302,7 @@ export function StructureCascade({ cascade: c, accent, className }: { cascade: C
 }
 
 function StructureTab({ cabinet, data, accent }: { cabinet: CabinetConfig; data: CabinetActivityData; accent: Accent }) {
+  const router = useRouter();
   // Выбранный участник коллектива (как в кабинете №1): по умолчанию — первый
   // активный. От выбора зависит подсветка карточки и стрелка-связка к каскаду.
   const firstActive = Math.max(0, data.collective.findIndex((m) => m.status === "active"));
@@ -308,7 +310,15 @@ function StructureTab({ cabinet, data, accent }: { cabinet: CabinetConfig; data:
 
   return (
     <div className="flex w-full flex-col gap-8 px-5 py-8 md:px-[50px]">
-      <CkpBlock name={cabinet.name} avatar={cabinet.avatar} membersLabel={data.membersLabel} desc={data.ckpDesc} />
+      {/* Грид-иконка ЦКП → «Структура» кооператива с выделенным этим подразделением. */}
+      <CkpBlock
+        name={cabinet.name}
+        avatar={cabinet.avatar}
+        membersLabel={data.membersLabel}
+        desc={data.ckpDesc}
+        layout
+        onLayout={() => router.push(`/cabinet/about?view=structure&focus=${cabinet.slug}`)}
+      />
 
       {/* Коллектив подразделения — карточки кликабельны (выбор → подсветка + стрелка) */}
       <div className="flex flex-col gap-4">

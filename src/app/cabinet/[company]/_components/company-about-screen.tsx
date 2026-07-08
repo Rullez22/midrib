@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   HeaderIconButton,
   HeaderGridIcon,
@@ -99,10 +99,14 @@ function PeersTable() {
   );
 }
 
-function StructureView() {
+function StructureView({ initialFocus = "administration" }: { initialFocus?: string }) {
   const [tab, setTab] = useState("struct");
-  // Фокус структуры: по умолчанию — Администрация; клик по карточке меняет.
-  const [focus, setFocus] = useState("administration");
+  // Фокус структуры: по умолчанию — Администрация; при переходе с экрана
+  // подразделения (грид-иконка ЦКП) фокус приходит из URL (?focus=slug).
+  // Клик по карточке дальше меняет фокус локально.
+  const [focus, setFocus] = useState(
+    STRUCTURE_DEPARTMENTS.some((s) => s.slug === initialFocus) ? initialFocus : "administration",
+  );
   const activity = getCabinetActivity(focus) ?? getCabinetActivity(CABINET_LIST[0].slug)!;
   const focusDept = STRUCTURE_DEPARTMENTS.find((s) => s.slug === focus) ?? STRUCTURE_DEPARTMENTS[0];
   // Акцент каскада/стрелок/бордеров — та же палитра ACCENT, что в подразделениях
@@ -324,7 +328,12 @@ function AboutHeader({
 
 export function CompanyAboutScreen() {
   const router = useRouter();
-  const [view, setView] = useState<View>("profile");
+  const searchParams = useSearchParams();
+  // Переход с экрана подразделения (грид-иконка ЦКП): ?view=structure&focus=slug —
+  // сразу открываем «Структуру» с выделенным подразделением.
+  const initialView: View = searchParams.get("view") === "structure" ? "structure" : "profile";
+  const initialFocus = searchParams.get("focus") ?? "administration";
+  const [view, setView] = useState<View>(initialView);
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -341,7 +350,7 @@ export function CompanyAboutScreen() {
           onExit={() => router.push("/cabinet/spaces")}
         />
 
-        {view === "structure" ? <StructureView /> : view === "landing" ? <LandingView /> : <ProfileView />}
+        {view === "structure" ? <StructureView initialFocus={initialFocus} /> : view === "landing" ? <LandingView /> : <ProfileView />}
       </div>
     </div>
   );

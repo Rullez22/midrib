@@ -51,6 +51,7 @@ function StructTab({ role }: { role: LkRole }) {
         desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim plerisque tem."
         editable
         layout
+        onLayout={() => router.push("/cabinet/about?view=structure&focus=administration")}
       />
 
       <div className="flex flex-col gap-3">
