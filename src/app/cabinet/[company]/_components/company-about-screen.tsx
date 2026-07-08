@@ -175,7 +175,16 @@ function StructureView({ initialFocus = "administration" }: { initialFocus?: str
               -mt-8 гасит родительский gap-8, чтобы ЦКП примыкал к слоту стрелки
               (зазор задаёт сам слот: 12px). */}
           <div className="-mt-8">
-            <CkpBlock name={focusDept.name} avatar={getCabinet(focus)?.avatar} membersLabel={activity.membersLabel} desc={activity.ckpDesc} borderColor={accent.border} />
+            <CkpBlock
+              name={focusDept.name}
+              avatar={getCabinet(focus)?.avatar}
+              membersLabel={activity.membersLabel}
+              desc={activity.ckpDesc}
+              borderColor={accent.border}
+              // Обложка аватара — в цвет подразделения (как рейка): свой градиент
+              // на каждый focus, иначе показывался общий дефолтный.
+              cover={`linear-gradient(120deg, ${accent.bg}, ${accent.border})`}
+            />
           </div>
           {/* -mt-4 сводит gap-8 к 16px между ЦКП и каскадом. */}
           <StructureCascade cascade={activity.cascade} accent={accent} className="-mt-4" />
