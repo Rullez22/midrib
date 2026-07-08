@@ -43,8 +43,9 @@ const RAIL: { label: string; color: MenuBadgeColor }[] = [
   { label: "8", color: "cyan" },
 ];
 
-/** Подсветка карточки департамента под цвет рейки кабинета. */
-const CARD_TINT: Record<MenuBadgeColor, { border: string; bg: string; cover: string }> = {
+/** Подсветка карточки департамента под цвет рейки кабинета (border/bg + cover-
+ *  градиент обложки аватара). Переиспользуется в «Структуре» (company-about). */
+export const CARD_TINT: Record<MenuBadgeColor, { border: string; bg: string; cover: string }> = {
   red: { border: "#e8a0a8", bg: "#fdf3f4", cover: "linear-gradient(120deg,#f9c5d1,#a18cd1,#84fab0)" },
   orange: { border: "#f0c38a", bg: "#fff7ec", cover: "linear-gradient(120deg,#fbd38d,#f6ad55,#fc8181)" },
   yellow: { border: "#ecd98a", bg: "#fffbec", cover: "linear-gradient(120deg,#fef08a,#facc15,#fb923c)" },

@@ -20,7 +20,7 @@ import {
   type MenuBadgeColor,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
-import { CompanyRail } from "./company-sidebar";
+import { CompanyRail, CARD_TINT } from "./company-sidebar";
 import { DeptProfile } from "./dept-profile";
 import { SideChatLayout } from "../../_components/side-chat-layout";
 import { CkpBlock, CascadeArrowDown, StructureCascade } from "./cabinet-activity-screen";
@@ -181,9 +181,9 @@ function StructureView({ initialFocus = "administration" }: { initialFocus?: str
               membersLabel={activity.membersLabel}
               desc={activity.ckpDesc}
               borderColor={accent.border}
-              // Обложка аватара — в цвет подразделения (как рейка): свой градиент
-              // на каждый focus, иначе показывался общий дефолтный.
-              cover={`linear-gradient(120deg, ${accent.bg}, ${accent.border})`}
+              // Обложка аватара — тот же cover-градиент, что в карточке
+              // подразделения в сайдбаре (CARD_TINT по цвету рейки), меняется с focus.
+              cover={CARD_TINT[focusRail].cover}
             />
           </div>
           {/* -mt-4 сводит gap-8 к 16px между ЦКП и каскадом. */}
