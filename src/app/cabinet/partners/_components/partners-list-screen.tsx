@@ -18,7 +18,8 @@ import { CompanySidebar } from "../../[company]/_components/company-sidebar";
 import { type CabinetConfig } from "../../[company]/_config/cabinets";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
 import { OrgRow } from "./org-row";
-import { ORGS, FIND_ORGS, EMPLOYEE_DOCS, DOC_STATUS_COLOR, VELESTA_CONTRACT } from "./partners-data";
+import { EmployeeDocScreen } from "./employee-doc-screen";
+import { ORGS, FIND_ORGS, EMPLOYEE_DOCS, DOC_STATUS_COLOR, VELESTA_CONTRACT, type EmployeeDoc, type OrgDocStatus } from "./partners-data";
 import { useRegFlow } from "../../../flow/company-create/_components/reg-flow";
 
 /**
@@ -138,10 +139,20 @@ function PartnersTab({ basePath }: { basePath: string }) {
 }
 
 /* ── Таб «Ваши сотрудники» ───────────────────────────────────────────────── */
+/** Стабильный ключ документа сотрудника (для RegFlow.approvedOrgDocs). */
+const empDocKey = (d: EmployeeDoc) => `emp:${d.name}`;
+
 function EmployeesTab() {
+  const { approvedOrgDocs } = useRegFlow();
   const [sort, setSort] = useState<{ key: string; dir: SortDir }>({ key: "date", dir: "desc" });
+  // Открытый документ (клик по строке) → просмотр с чатом и подписью.
+  const [openDoc, setOpenDoc] = useState<EmployeeDoc | null>(null);
   const onSort = (key: string) =>
     setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" }));
+
+  // Подписанный/согласованный документ показывается как «Согласован».
+  const effStatus = (d: EmployeeDoc): OrgDocStatus =>
+    approvedOrgDocs.includes(empDocKey(d)) ? "Согласован" : d.status;
 
   const rows = [...EMPLOYEE_DOCS].sort((a, b) => {
     const c =
@@ -155,31 +166,40 @@ function EmployeesTab() {
     return c * (sort.dir === "asc" ? 1 : -1);
   });
 
+  if (openDoc) {
+    return <EmployeeDocScreen doc={openDoc} docKey={empDocKey(openDoc)} onBack={() => setOpenDoc(null)} />;
+  }
+
   return (
     <div className="flex w-full flex-col gap-6 px-5 py-8 md:px-[50px]">
       <h1 className="ds-h4 text-center text-foreground">Документы от ваших сотрудников</h1>
 
       <div className="flex flex-col gap-2">
         <TableHeader columns={EMP_COLUMNS} size="s" tone="muted" sortKey={sort.key} sortDir={sort.dir} onSort={onSort} />
-        {rows.map((d, i) => (
-          <div
-            key={i}
-            className={cn(
-              "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3",
-              d.highlight ? "border-[color:var(--color-orange-400)]" : "border-border",
-            )}
-          >
-            <div className="flex flex-col gap-0.5" style={colStyle(EMP_COLUMNS[0])}>
-              <span className="ds-caption text-foreground-subtle">{d.type}</span>
-              <span className="ds-p3 text-foreground">{d.name}</span>
-            </div>
-            <div className="ds-p3 text-foreground" style={colStyle(EMP_COLUMNS[1])}>{d.staff}</div>
-            <div className="flex justify-center" style={colStyle(EMP_COLUMNS[2])}>
-              <Badge variant="soft" color={DOC_STATUS_COLOR[d.status]}>{d.status}</Badge>
-            </div>
-            <div className="ds-p3 text-right text-foreground" style={colStyle(EMP_COLUMNS[3])}>{d.date}</div>
-          </div>
-        ))}
+        {rows.map((d, i) => {
+          const status = effStatus(d);
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setOpenDoc(d)}
+              className={cn(
+                "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 text-left transition-colors hover:bg-surface-sunken",
+                status !== "Согласован" && d.highlight ? "border-[color:var(--color-orange-400)]" : "border-border",
+              )}
+            >
+              <div className="flex flex-col gap-0.5" style={colStyle(EMP_COLUMNS[0])}>
+                <span className="ds-caption text-foreground-subtle">{d.type}</span>
+                <span className="ds-p3 text-foreground">{d.name}</span>
+              </div>
+              <div className="ds-p3 text-foreground" style={colStyle(EMP_COLUMNS[1])}>{d.staff}</div>
+              <div className="flex justify-center" style={colStyle(EMP_COLUMNS[2])}>
+                <Badge variant="soft" color={DOC_STATUS_COLOR[status]}>{status}</Badge>
+              </div>
+              <div className="ds-p3 text-right text-foreground" style={colStyle(EMP_COLUMNS[3])}>{d.date}</div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
