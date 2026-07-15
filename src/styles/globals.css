@@ -178,3 +178,57 @@ body {
   .bg-gradient-grey   { background: var(--gradient-grey); }
   .bg-gradient-dark   { background: var(--gradient-dark); }
 }
+
+/* ============================================================================
+   Глобальный слой «плавность и отзывчивость» — микро-взаимодействия по всему
+   приложению: плавные переходы, отклик на нажатие, фокус, утилиты состояний.
+   Всё под guard prefers-reduced-motion (доступность).
+   ============================================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  /* Плавные переходы на всех интерактивных элементах */
+  a, button, summary,
+  [role="button"], [role="tab"], [role="menuitem"], [role="switch"],
+  input, select, textarea,
+  [class*="ds-btn"], [class*="ds-tab"], [class*="ds-lm-badge"],
+  [class*="ds-lm-nav"], [class*="ds-account"], [class*="ds-card"],
+  [class*="ds-chip"], [class*="ds-input"], [class*="ds-dropdown"] {
+    transition:
+      background-color .16s ease,
+      border-color .16s ease,
+      color .16s ease,
+      box-shadow .16s ease,
+      opacity .16s ease,
+      transform .12s cubic-bezier(.16, 1, .3, 1);
+  }
+
+  /* Тактильный отклик на нажатие */
+  button:not(:disabled):active,
+  [role="button"]:active,
+  [class*="ds-btn"]:not(:disabled):active {
+    transform: translateY(0.5px) scale(0.985);
+  }
+
+  /* Утилита появления контента */
+  .anim-in { animation: appFadeUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+
+@keyframes appFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes appFade   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes appShimmer { 100% { background-position: -200% 0; } }
+
+/* Спокойный единый фокус (клавиатура) */
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-blue-midhub-500, #2860eb) 45%, transparent);
+  outline-offset: 2px;
+}
+
+/* Скелетон-заглушка для состояний загрузки */
+.skeleton {
+  background: linear-gradient(90deg, rgba(17, 18, 22, 0.05) 25%, rgba(17, 18, 22, 0.09) 37%, rgba(17, 18, 22, 0.05) 63%);
+  background-size: 200% 100%;
+  animation: appShimmer 1.4s ease-in-out infinite;
+  border-radius: 8px;
+}
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }

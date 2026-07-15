@@ -67,7 +67,7 @@ const A3 = "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&q=80
 export const LK_INFO_GROUPS: InfoGroup[] = [
   {
     heading: "Описание",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec.",
+    text: "Пайщик кооператива Immatra с 2019 года. Отвечаю за операционные вопросы и взаимодействие с партнёрами. Участвую в голосованиях совета и развитии новых направлений.",
   },
   {
     heading: "Контакты",
@@ -92,8 +92,8 @@ export const LK_INFO_GROUPS: InfoGroup[] = [
 ];
 
 export const LK_REQUIREMENTS = [
-  { name: "Требование 1", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
-  { name: "Требование 2", type: "Домен", badge: { label: "Зеленый", color: "green" as const } },
+  { name: "Подтверждённый домен", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
+  { name: "Верификация паспорта", type: "Документы", badge: { label: "Пройдена", color: "green" as const } },
 ];
 
 export const LK_ACHIEVEMENTS = [
@@ -108,13 +108,11 @@ export const LK_HISTORY = [
   { avatar: A3, name: "Варламов Илья Варламович", period: "август 2014 — август 2017 · 3 года" },
 ];
 
-const POST_TEXT =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A, sed pulvinar scelerisque maecenas volutpat. Ornare in massa, blandit est, venenatis posuere felis, dolor.";
 const POST_IMG = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80";
 
 export const LK_FEED_POSTS = [
-  { title: "Departure to the site of installation", date: "Август 23, 2019", text: POST_TEXT, media: { type: "image" as const, src: POST_IMG } },
-  { title: "Departure to the site of installation", date: "Август 23, 2019", media: { type: "documents" as const, files: ["Лунная соната", "Дневник №1"] } },
+  { title: "Выезд на объект в Дегтярном переулке", date: "12 апреля 2025", text: "Провёл осмотр площадки перед началом работ, согласовал график с подрядчиком и подготовил фотоотчёт для совета.", media: { type: "image" as const, src: POST_IMG } },
+  { title: "Прикрепил документы к отчёту", date: "8 апреля 2025", media: { type: "documents" as const, files: ["Акт осмотра", "Смета работ"] } },
 ];
 
 /* ── Список чатов (единственное различие между ролями) ──────────────────── */

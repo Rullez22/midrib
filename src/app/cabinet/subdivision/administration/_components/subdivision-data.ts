@@ -33,7 +33,7 @@ export const SUBDIVISION = {
 export const INFO_GROUPS: InfoGroup[] = [
   {
     heading: "Описание",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec.",
+    text: "Потребительский кооператив Immatra объединяет 120 пайщиков и занимается управлением недвижимостью, инвестициями и цифровыми сервисами. Администрация отвечает за операционную работу, документооборот и взаимодействие с партнёрами.",
   },
   {
     heading: "Контактная информация",
@@ -66,14 +66,14 @@ export const CHARTER_ROWS = [
 ];
 
 export const REQUIREMENTS = [
-  { name: "Требование 1", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
-  { name: "Требование 2", type: "Домен", badge: { label: "Зеленый", color: "green" as const } },
+  { name: "Подтверждённый домен", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
+  { name: "Верификация KYC", type: "Документы", badge: { label: "Пройдена", color: "green" as const } },
 ];
 
 export const ACHIEVEMENTS = [
-  { logo: A1, title: "Самый лучший пайщик", org: "Ким Дмитрий Кимович", date: "август 2019" },
-  { logo: A2, title: "Самый лучший пайщик", org: "Энрике Чучела Каримович", date: "август 2018" },
-  { logo: A3, title: "Самый лучший пайщик", org: "Валитин Дмитрий Кузякин", date: "август 2016" },
+  { logo: A1, title: "Пайщик года", org: "Ким Дмитрий Кимович", date: "август 2019" },
+  { logo: A2, title: "За вклад в развитие", org: "Энрике Чучела Каримович", date: "август 2018" },
+  { logo: A3, title: "Лучший наставник", org: "Валитин Дмитрий Кузякин", date: "август 2016" },
 ];
 
 export const AGE_GROUPS = [
@@ -110,19 +110,16 @@ export const GEO_CITIES = [
   { label: "Другие", value: 1 },
 ];
 
-const POST_TEXT =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A, sed pulvinar scelerisque maecenas volutpat. Ornare in massa, blandit est, venenatis posuere felis, dolor.";
-
 export const FEED_POSTS = [
-  { title: "Departure to the site of installation", date: "Август 23, 2019", text: POST_TEXT, media: { type: "image" as const, src: FEED_IMG } },
-  { title: "Departure to the site of installation", date: "Август 23, 2019", text: POST_TEXT, media: { type: "documents" as const, files: ["Внутренний регламент", "Положение об отделе", "Должностная №14"] } },
-  { title: "Departure to the site of installation", date: "Август 23, 2019", text: POST_TEXT, media: { type: "video" as const, poster: FEED_VIDEO } },
-  { title: "Departure to the site of installation", date: "Август 23, 2019", text: POST_TEXT, media: { type: "gallery" as const, items: [{ src: FEED_IMG }, { src: FEED_VIDEO, video: true }, { src: FEED_IMG }], total: 8 } },
-  { title: "Departure to the site of installation", date: "Август 23, 2019", text: POST_TEXT },
+  { title: "Выезд на объект в Дегтярном переулке", date: "12 апреля 2025", text: "Провели осмотр площадки перед началом работ: зафиксировали объёмы, согласовали график с подрядчиком и сделали фотоотчёт для пайщиков.", media: { type: "image" as const, src: FEED_IMG } },
+  { title: "Обновили пакет внутренних документов", date: "8 апреля 2025", text: "Утвердили новую редакцию регламента и положения об отделе. Все документы доступны для ознакомления в разделе «Документооборот».", media: { type: "documents" as const, files: ["Внутренний регламент", "Положение об отделе", "Должностная №14"] } },
+  { title: "Запись общего собрания пайщиков", date: "2 апреля 2025", text: "Опубликовали видеозапись собрания: обсудили бюджет на второй квартал, обновление состава правления и новые направления.", media: { type: "video" as const, poster: FEED_VIDEO } },
+  { title: "Фотоотчёт с весеннего субботника", date: "28 марта 2025", text: "Больше 40 пайщиков вышли на благоустройство территории. Спасибо всем, кто присоединился — фотографии в галерее.", media: { type: "gallery" as const, items: [{ src: FEED_IMG }, { src: FEED_VIDEO, video: true }, { src: FEED_IMG }], total: 8 } },
+  { title: "Приём заявок на весенний поток открыт", date: "20 марта 2025", text: "Новые пайщики могут подать документы через личный кабинет до конца месяца. По вопросам — пишите в чат подразделения." },
 ];
 
 export const CHAT_MESSAGES: ChatMessage[] = [
-  { me: true, text: "Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu", time: "12:01" },
-  { me: true, text: "Commodo tristique sapien tellus", time: "12:02" },
-  { me: false, text: "Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu", time: "12:03" },
+  { me: true, text: "Коллеги, отправил обновлённый регламент на согласование — посмотрите, пожалуйста, до конца дня.", time: "12:01" },
+  { me: true, text: "И заодно подтвердите график выезда на объект.", time: "12:02" },
+  { me: false, text: "Принято, регламент посмотрю сегодня. По выезду — вторник подходит, согласую с подрядчиком.", time: "12:03" },
 ];
