@@ -1,7 +1,8 @@
 "use client";
 
-import { type CSSProperties, type ReactNode } from "react";
+import { useCallback, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import { Link } from "../link";
 import { TableHeader, type TableColumn } from "../table-header";
 
@@ -57,11 +58,22 @@ function alignClass(align?: TableColumn["align"]) {
 }
 
 export function ArticlesTable({ columns, rows, total, className }: ArticlesTableProps) {
+  // Ячейки строк позиционные (`cells[i]` ↔ `columns[i]`), поэтому ключ колонки
+  // переводим в индекс ячейки. Строка «Итого» не сортируется — она вне `rows`.
+  // Без ключа по умолчанию — исходный порядок строк сохраняется.
+  const accessor = useCallback(
+    (row: ArticlesRow, key: string) => {
+      const i = columns.findIndex((c) => c.key === key);
+      return i < 0 ? undefined : row.cells[i];
+    },
+    [columns],
+  );
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(rows, { accessor });
   return (
     <div className={cn("flex w-full flex-col", className)}>
-      <TableHeader columns={columns} size="m" tone="muted" />
+      <TableHeader columns={columns} size="m" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
 
-      {rows.map((row, ri) => (
+      {sorted.map((row, ri) => (
         <div key={ri} className="ds-row flex items-center border-b border-border px-4 py-4 transition-colors">
           {columns.map((col, ci) => (
             <div

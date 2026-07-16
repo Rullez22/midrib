@@ -2,6 +2,7 @@
 
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import { Badge, type BadgeColor } from "../badge";
 import { Button } from "../button";
 import { Combobox } from "../combobox";
@@ -157,6 +158,12 @@ export function TransactionsTable({
   const visible = showFilters
     ? transactions.filter((t) => !codeFilters.includes(t.color) || activeCodes.has(t.color))
     : transactions;
+  // Сортировка по клику на стрелку в шапке (код / доля / транзакция / сумма /
+  // комиссия). Ключи колонок совпадают с полями Transaction, поэтому accessor не
+  // нужен. Сортируем ПОСЛЕ фильтра, но ДО показа — «Показать ещё» отдаёт добор
+  // строк наружу через `onShowMore`, так что порядок применяется ко всему набору.
+  // Без ключа по умолчанию — исходный порядок транзакций сохраняется.
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(visible);
   return (
     <div className={cn("flex w-full flex-col gap-4", className)}>
       {/* Верхняя панель: заголовок + (опц.) фильтры + селект кодов */}
@@ -180,8 +187,8 @@ export function TransactionsTable({
 
       {/* Навигационная шапка (30px) + строки-карточки — общий блок с gap 8px */}
       <div className="flex flex-col gap-2">
-        <TableHeader columns={columns} size="s" tone="muted" />
-        {visible.map((t, i) => (
+        <TableHeader columns={columns} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+        {sorted.map((t, i) => (
           <div
             key={i}
             className="ds-row flex items-center rounded-[8px] border border-border bg-white px-4 py-3 transition-colors"

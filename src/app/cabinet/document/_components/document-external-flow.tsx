@@ -401,7 +401,7 @@ function CountryPicker({ onPick }: { onPick: () => void }) {
                                   onClick={isTarget ? onPick : undefined}
                                   className={cn(
                                     "flex items-center rounded-[4px] border border-border bg-surface px-6 py-4 text-left transition-colors",
-                                    isTarget ? "cursor-pointer hover:border-[var(--color-blue-midhub-300)]" : "cursor-default",
+                                    isTarget ? "ds-row cursor-pointer" : "cursor-default",
                                   )}
                                 >
                                   <span className="ds-p3 flex-1 text-foreground">{d.name}</span>

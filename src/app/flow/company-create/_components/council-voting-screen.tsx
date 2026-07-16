@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import {
   SectionHeader,
   Button,
@@ -155,6 +156,15 @@ export function CouncilVotingScreen({ backHref, doneHref }: { backHref?: string;
   const choice = readOnly ? "За" : rawChoice;
   const voted = choice != null;
 
+  // История транзакций: строки-данные вместо Array.from — чтобы стрелка «Дата»
+  // реально сортировала. Набор дат зависит от открытого этапа. Ключ колонки
+  // «date» совпадает с полем строки. Дефолт desc = исходный порядок (свежие сверху).
+  const txRows = useMemo(
+    () => TX_TIMES[stage].slice(0, voted ? 5 : 3).map((date) => ({ date })),
+    [stage, voted],
+  );
+  const { sorted: txSorted, sortKey, sortDir, onSort } = useTableSort(txRows, { key: "date", dir: "desc" });
+
   // Карточки голосования зависят от открытого этапа: 0 — все члены совета;
   // 1 — один председатель совета; 2 — один председатель правления. Слоты берём из
   // reg-flow (избранные пайщики), с защитным дефолтом на случай прямого захода.
@@ -261,11 +271,11 @@ export function CouncilVotingScreen({ backHref, doneHref }: { backHref?: string;
             {/* -mx-[23px] компенсирует горизонтальный паддинг тела карточки —
                 заливка строк (зебра) идёт от края до края. */}
             <div className="-mx-[23px] flex flex-col">
-              <TableHeader columns={TX_COLS} sortKey="date" sortDir="desc" />
-              {Array.from({ length: voted ? 5 : 3 }).map((_, i) => (
+              <TableHeader columns={TX_COLS} sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+              {txSorted.map((t, i) => (
                 <TxLine
-                  key={i}
-                  time={TX_TIMES[stage][i]}
+                  key={t.date}
+                  time={t.date}
                   minus={choice === "Против"}
                   striped={i % 2 === 0}
                 />

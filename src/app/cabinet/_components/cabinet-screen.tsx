@@ -17,6 +17,7 @@ import {
   type TableColumn,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import { CoopSidebar } from "../../flow/company-create/_components/coop-sidebar";
 import { useEnsureFinal, useRegFlow } from "../../flow/company-create/_components/reg-flow";
 import { CABINET_ROUTES } from "./cabinet-seed";
@@ -195,12 +196,33 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
     ...(flow.templateDocStage ? [templateDocRow(flow.templateDocStage)] : []),
     ...ACCOUNT_DOCS,
   ];
+  // Сортировка документов: без сортировки по умолчанию — исходный порядок важен
+  // (плашки in-flow документов идут первыми). Колонка «Тип верификации»
+  // (key=verify) показывает бейдж — поле d.badge.
+  const {
+    sorted: sortedDocs,
+    sortKey: docSortKey,
+    sortDir: docSortDir,
+    onSort: onDocSort,
+  } = useTableSort(docRows, {
+    accessor: (d, k) => (k === "verify" ? d.badge : d[k as keyof typeof d]),
+  });
+
   const [artFilter, setArtFilter] = useState("all");
   const artMatch = (s: ArtState) =>
     artFilter === "all" ||
     (artFilter === "fixed" && s === "lock") ||
     (artFilter === "transfer" && s === "share") ||
     (artFilter === "passed" && s === "person");
+
+  // Сортируем отфильтрованные артефакты (фильтр-табы состояния — выше сортировки).
+  const visibleArts = ARTIFACTS.filter((a) => artMatch(a.state));
+  const {
+    sorted: sortedArts,
+    sortKey: artSortKey,
+    sortDir: artSortDir,
+    onSort: onArtSort,
+  } = useTableSort(visibleArts, { key: "date", dir: "desc" });
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -316,8 +338,8 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
               <div className="flex flex-col gap-4">
                 <TableToolbar placeholder="Все шаблоны" addLabel="Добавить документ" onAdd={() => router.push("/cabinet/document/new")} />
                 <div className="flex flex-col gap-2">
-                  <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" />
-                  {docRows.map((d) => (
+                  <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" sortKey={docSortKey} sortDir={docSortDir} onSort={onDocSort} />
+                  {sortedDocs.map((d) => (
                     <button
                       key={d.id}
                       type="button"
@@ -330,7 +352,7 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
                               : `/cabinet/document/${d.id}`,
                         )
                       }
-                      className="flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3 text-left transition-colors hover:border-[var(--color-blue-midhub-300)]"
+                      className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3 text-left"
                     >
                       <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
                         <span className="ds-caption text-foreground-subtle">{d.type}</span>
@@ -357,8 +379,8 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
                 </Tabs>
                 <TableToolbar placeholder="Все шаблоны артефактов" addLabel="Добавить артефакт" />
                 <div className="flex flex-col gap-2">
-                  <TableHeader columns={ART_COLUMNS} size="s" tone="muted" />
-                  {ARTIFACTS.filter((a) => artMatch(a.state)).map((a, i) => (
+                  <TableHeader columns={ART_COLUMNS} size="s" tone="muted" sortKey={artSortKey} sortDir={artSortDir} onSort={onArtSort} />
+                  {sortedArts.map((a, i) => (
                     <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
                       <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
                         <span className="ds-caption text-foreground-subtle">{a.type}</span>

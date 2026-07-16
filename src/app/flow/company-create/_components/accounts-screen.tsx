@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useState, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import {
   Tabs,
   Tab,
@@ -98,6 +99,7 @@ const DOC_COLUMNS: TableColumn[] = [
 const ACCOUNT_DOCS = [
   { type: "Устав", name: "Полный устав кооператива", status: "Не отвалидирован", badge: "Локальный", date: "28.01.2025" },
 ];
+type AccountDoc = (typeof ACCOUNT_DOCS)[number];
 const ART_COLUMNS: TableColumn[] = [
   { key: "type", label: "Тип артефакта", flex: 1, sortable: true },
   { key: "date", label: "Дата", flex: 1, align: "right", sortable: true },
@@ -187,6 +189,37 @@ export function AccountsScreen({
   const openValidatorChat = () => validatorChatHref != null && router.push(validatorChatHref);
   // Документ отвалидирован после работы с валидатором.
   const docValidated = stage === "validated";
+
+  // Сортировка таблицы «Документооборот». Ключи колонок ≠ полям строки:
+  // «Тип документа» показывает `type` (подпись над названием), «Статус» —
+  // вычисляемое значение (после валидации подменяется на «Отвалидирован»),
+  // «Тип верификации» — бейдж `badge`. Сортируем по тому, что реально видно.
+  const docAccessor = useCallback(
+    (d: AccountDoc, key: string) =>
+      key === "status"
+        ? docValidated
+          ? "Отвалидирован"
+          : d.status
+        : key === "verify"
+          ? d.badge
+          : (d as unknown as Record<string, unknown>)[key],
+    [docValidated],
+  );
+  const {
+    sorted: docsSorted,
+    sortKey: docSortKey,
+    sortDir: docSortDir,
+    onSort: onDocSort,
+  } = useTableSort(ACCOUNT_DOCS, { key: "date", dir: "desc", accessor: docAccessor });
+
+  // Сортировка таблицы «Артефакты»: ключи колонок (type/date) совпадают с полями
+  // строки, accessor не нужен. По умолчанию — как в Figma: даты по убыванию.
+  const {
+    sorted: artifactsSorted,
+    sortKey: artSortKey,
+    sortDir: artSortDir,
+    onSort: onArtSort,
+  } = useTableSort(ARTIFACTS, { key: "date", dir: "desc" });
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -352,8 +385,8 @@ export function AccountsScreen({
               <div className="flex flex-col gap-4">
                 <TableToolbar placeholder="Все шаблоны" addLabel="Добавить документ" />
                 <div className="flex flex-col gap-2">
-                  <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" />
-                  {ACCOUNT_DOCS.map((d, i) => {
+                  <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" sortKey={docSortKey} sortDir={docSortDir} onSort={onDocSort} />
+                  {docsSorted.map((d, i) => {
                     // Клик по документу при работе с валидатором (processing/validated)
                     // открывает окно с валидатором и чатом. Статус после валидации —
                     // «Отвалидирован».
@@ -393,8 +426,8 @@ export function AccountsScreen({
               <div className="flex flex-col gap-4">
                 <TableToolbar placeholder="Все шаблоны артефактов" addLabel="Добавить артефакт" />
                 <div className="flex flex-col gap-2">
-                  <TableHeader columns={ART_COLUMNS} size="s" tone="muted" />
-                  {ARTIFACTS.map((a, i) => (
+                  <TableHeader columns={ART_COLUMNS} size="s" tone="muted" sortKey={artSortKey} sortDir={artSortDir} onSort={onArtSort} />
+                  {artifactsSorted.map((a, i) => (
                     <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
                       <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
                         <span className="ds-caption text-foreground-subtle">{a.type}</span>

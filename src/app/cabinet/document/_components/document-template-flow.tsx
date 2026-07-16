@@ -151,7 +151,7 @@ export function DocumentTemplateFlow() {
               key={t.id}
               type="button"
               onClick={() => { setTplId(t.id); setStep("form"); }}
-              className="flex items-center rounded-[4px] border border-border bg-surface px-6 py-4 text-left transition-colors hover:border-[var(--color-blue-midhub-300)]"
+              className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-6 py-4 text-left"
             >
               <span className="ds-p3 flex-1 text-foreground">{t.name}</span>
               <span className="ds-p3 shrink-0 text-foreground">{t.price}</span>

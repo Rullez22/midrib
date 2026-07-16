@@ -78,7 +78,7 @@ export function PartnerCard({
       onKeyDown={onOpen ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(); } } : undefined}
       className={cn(
         "flex w-full items-stretch gap-4 rounded-[4px] border border-border bg-white p-[7px]",
-        onOpen && "cursor-pointer text-left transition-colors hover:border-[var(--color-blue-midhub-300)]",
+        onOpen && "ds-row cursor-pointer text-left",
         className,
       )}
     >

@@ -4,6 +4,7 @@ import { useState, type CSSProperties } from "react";
 import { useRouter } from "next/navigation";
 import { Tabs, Tab, TableHeader, type TableColumn, Input, Textarea, Button, Modal, Dropdown, Badge } from "@/components/ds";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import { CompanySidebar } from "./company-sidebar";
 import { GoalProgressBar } from "./goal-progress";
 import { type Goal } from "./goals-data";
@@ -124,6 +125,11 @@ const DOC_COLUMNS: TableColumn[] = [
   { key: "date", label: "Дата", flex: 1, align: "right", sortable: true },
 ];
 
+/** Дата созданных договоров цели (в таблице — фиксированная). */
+const CONTRACT_DATE = "22.04.2025";
+/** Подпись типа у документов-оснований цели. */
+const GOAL_DOC_TYPE = "Основание";
+
 export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig; goal: Goal }) {
   const router = useRouter();
   const [expanded, setExpanded] = useState(true);
@@ -136,6 +142,35 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
   // Договоры цели — переиспользуем движок RegFlow (orgId = id цели).
   const { createdContracts } = useRegFlow();
   const contracts = createdContracts.filter((c) => c.orgId === goal.id && c.parentId === null);
+
+  /** Строка таблицы «Документы»: созданный договор (RegFlow) либо основание цели. */
+  type DocEntry =
+    | { row: "contract"; c: (typeof contracts)[number] }
+    | { row: "goal"; d: (typeof goal.documents)[number]; i: number };
+
+  // Обе группы строк живут под одной шапкой — сортируем их как единую таблицу.
+  // По умолчанию порядок исходный: сначала договоры, затем основания цели.
+  const docRows: DocEntry[] = [
+    ...contracts.map((c) => ({ row: "contract" as const, c })),
+    ...goal.documents.map((d, i) => ({ row: "goal" as const, d, i })),
+  ];
+  const { sorted: sortedDocs, sortKey, sortDir, onSort } = useTableSort(docRows, {
+    // Ключи колонок ≠ поля строк: тип берётся из справочника KINDS, статус —
+    // вычисляемый, дата договора фиксированная. У оснований нет суммы.
+    accessor: (r, k) => {
+      if (r.row === "contract") {
+        if (k === "type") return KINDS[r.c.kind].doc;
+        if (k === "amount") return r.c.amount;
+        if (k === "status") return r.c.finalized ? "Согласован" : "Ожидает участия";
+        if (k === "date") return CONTRACT_DATE;
+        return undefined;
+      }
+      if (k === "type") return GOAL_DOC_TYPE;
+      if (k === "status") return r.d.pending ? "Ожидает участия" : undefined;
+      if (k === "date") return r.d.date;
+      return undefined;
+    },
+  });
 
   // Договор можно создать, только когда собрана вся сумма цели.
   const money = (s: string) => Number(s.replace(/[^\d]/g, "")) || 0;
@@ -257,36 +292,38 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
             {/* Документы */}
             {tab === "docs" && (
               <div className="flex flex-col gap-2 p-6">
-                <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" />
+                <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
                 {/* Созданные договоры (RegFlow): оранжевая обводка пока не согласован */}
-                {contracts.map((c) => {
-                  const status = c.finalized ? "Согласован" : "Ожидает участия";
-                  const open = () => router.push(`${base}/doc/${c.id}`);
-                  return (
-                    <div
-                      key={c.id}
-                      role="button"
-                      tabIndex={0}
-                      onClick={open}
-                      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }}
-                      className={cn(
-                        "ds-row flex cursor-pointer items-center gap-2 rounded-[4px] border bg-surface px-6 py-3",
-                        c.finalized ? "border-border" : "border-[color:var(--color-orange-400)]",
-                      )}
-                    >
-                      <div className="flex min-w-0 flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
-                        <span className="ds-caption text-foreground-subtle">{KINDS[c.kind].doc}</span>
-                        <span className="ds-p3 truncate text-foreground">{c.name}</span>
+                {sortedDocs.map((r) => {
+                  if (r.row === "contract") {
+                    const c = r.c;
+                    const status = c.finalized ? "Согласован" : "Ожидает участия";
+                    const open = () => router.push(`${base}/doc/${c.id}`);
+                    return (
+                      <div
+                        key={c.id}
+                        role="button"
+                        tabIndex={0}
+                        onClick={open}
+                        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }}
+                        className={cn(
+                          "ds-row flex cursor-pointer items-center gap-2 rounded-[4px] border bg-surface px-6 py-3",
+                          c.finalized ? "border-border" : "border-[color:var(--color-orange-400)]",
+                        )}
+                      >
+                        <div className="flex min-w-0 flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
+                          <span className="ds-caption text-foreground-subtle">{KINDS[c.kind].doc}</span>
+                          <span className="ds-p3 truncate text-foreground">{c.name}</span>
+                        </div>
+                        <div className="ds-p3 text-center text-foreground" style={colStyle(DOC_COLUMNS[1])}>{c.amount}</div>
+                        <div className="flex justify-center" style={colStyle(DOC_COLUMNS[2])}>
+                          <Badge variant="soft" color={DOC_STATUS_COLOR[status]} className="min-w-[150px] justify-center">{status}</Badge>
+                        </div>
+                        <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>{CONTRACT_DATE}</div>
                       </div>
-                      <div className="ds-p3 text-center text-foreground" style={colStyle(DOC_COLUMNS[1])}>{c.amount}</div>
-                      <div className="flex justify-center" style={colStyle(DOC_COLUMNS[2])}>
-                        <Badge variant="soft" color={DOC_STATUS_COLOR[status]} className="min-w-[150px] justify-center">{status}</Badge>
-                      </div>
-                      <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>22.04.2025</div>
-                    </div>
-                  );
-                })}
-                {goal.documents.map((d, i) => {
+                    );
+                  }
+                  const { d, i } = r;
                   const open = () => router.push(`${base}/doc/gdoc-${i}`);
                   return (
                     <div
@@ -301,7 +338,7 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
                       )}
                     >
                       <div className="flex min-w-0 flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
-                        <span className="ds-caption text-foreground-subtle">Основание</span>
+                        <span className="ds-caption text-foreground-subtle">{GOAL_DOC_TYPE}</span>
                         <span className="ds-p3 truncate text-foreground">{d.name}</span>
                       </div>
                       <div style={colStyle(DOC_COLUMNS[1])} />

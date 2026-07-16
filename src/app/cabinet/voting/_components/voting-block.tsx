@@ -2,6 +2,7 @@
 
 import { type ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import { QuestionCard, Button, ProgressRing, TableHeader, Tooltip, Link, type TableColumn } from "@/components/ds";
 import { useRegFlow, type PaymentVote } from "../../../flow/company-create/_components/reg-flow";
 
@@ -89,12 +90,21 @@ function TxLine({ time, minus = false, striped = false }: { time: string; minus?
 
 /** Карточка «История транзакций» голосования (5 строк после голоса, иначе 3). */
 export function VotingHistory({ voted, against = false }: { voted: boolean; against?: boolean }) {
+  // Строка = время голоса; сортируется только колонка «Дата» (остальные без стрелки).
+  // Формат «22.04.2025 - 16:40» разбирает сам хук (useTableSort → asDate).
+  const times = TX_TIMES.slice(0, voted ? 5 : 3);
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(times, {
+    key: "date",
+    dir: "desc",
+    accessor: (t, k) => (k === "date" ? t : undefined),
+  });
+
   return (
     <QuestionCard title="История транзакций" defaultOpen>
       <div className="-mx-[23px] flex flex-col">
-        <TableHeader columns={TX_COLS} sortKey="date" sortDir="desc" />
-        {Array.from({ length: voted ? 5 : 3 }).map((_, i) => (
-          <TxLine key={i} time={TX_TIMES[i]} minus={against} striped={i % 2 === 0} />
+        <TableHeader columns={TX_COLS} sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+        {sorted.map((t, i) => (
+          <TxLine key={t} time={t} minus={against} striped={i % 2 === 0} />
         ))}
       </div>
     </QuestionCard>

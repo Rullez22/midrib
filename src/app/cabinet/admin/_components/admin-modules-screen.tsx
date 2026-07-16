@@ -112,7 +112,7 @@ export function AdminModulesScreen({ initialTab = "apps" }: { initialTab?: "apps
                 key={m.slug}
                 type="button"
                 onClick={() => router.push(`/cabinet/admin/modules/${m.slug}`)}
-                className="flex gap-4 rounded-[8px] border border-border bg-[#fff] p-4 text-left transition-colors hover:border-[var(--color-blue-midhub-300)]"
+                className="ds-row flex gap-4 rounded-[8px] border border-border bg-[#fff] p-4 text-left"
               >
                 <div className="size-[110px] shrink-0 rounded-[6px]" style={{ backgroundColor: m.color }} />
                 <div className="flex min-w-0 flex-col gap-2">

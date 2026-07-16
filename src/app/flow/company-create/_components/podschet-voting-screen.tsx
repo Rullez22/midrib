@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import {
   SectionHeader,
   Button,
@@ -135,6 +136,12 @@ export function PodschetVotingScreen({ backHref, doneHref }: { backHref?: string
   const choice = readOnly ? "За" : rawChoice;
   const voted = choice != null;
 
+  // История транзакций: строки-данные вместо Array.from — чтобы стрелка «Дата»
+  // реально сортировала. Ключ колонки «date» совпадает с полем строки.
+  // Дефолт desc = исходный порядок TX_TIMES (свежие сверху).
+  const txRows = useMemo(() => TX_TIMES.slice(0, voted ? 5 : 3).map((date) => ({ date })), [voted]);
+  const { sorted: txSorted, sortKey, sortDir, onSort } = useTableSort(txRows, { key: "date", dir: "desc" });
+
   return (
     <div className="flex min-h-screen bg-background">
       <CoopRail />
@@ -251,9 +258,9 @@ export function PodschetVotingScreen({ backHref, doneHref }: { backHref?: string
           {/* История транзакций */}
           <QuestionCard title="История транзакций" defaultOpen>
             <div className="-mx-[23px] flex flex-col">
-              <TableHeader columns={TX_COLS} sortKey="date" sortDir="desc" />
-              {Array.from({ length: voted ? 5 : 3 }).map((_, i) => (
-                <TxLine key={i} time={TX_TIMES[i]} striped={i % 2 === 0} />
+              <TableHeader columns={TX_COLS} sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+              {txSorted.map((t, i) => (
+                <TxLine key={t.date} time={t.date} striped={i % 2 === 0} />
               ))}
             </div>
           </QuestionCard>

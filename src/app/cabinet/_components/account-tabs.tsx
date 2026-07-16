@@ -11,6 +11,7 @@ import {
   type TableColumn,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 
 /**
  * account-tabs — общие табы «Документооборот» и «Артефакты» экранов-счетов
@@ -125,6 +126,13 @@ export function AccountDocFlow({
   templateLabel?: string;
   addLabel?: string;
 }) {
+  // Колонка «Тип верификации» (key=verify) показывает бейдж — поле row.badge.
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(docs, {
+    key: "date",
+    dir: "desc",
+    accessor: (d, k) => (k === "verify" ? d.badge : d[k as keyof AccountDocRow]),
+  });
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -135,8 +143,8 @@ export function AccountDocFlow({
       </div>
 
       <div className="flex flex-col gap-2">
-        <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" />
-        {docs.map((d, i) => (
+        <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+        {sorted.map((d, i) => (
           <div key={i} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3 transition-colors">
             <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
               <span className="ds-caption text-foreground-subtle">{d.type}</span>
@@ -168,6 +176,10 @@ export function AccountArtifacts({
   const match = (s: ArtifactState) =>
     filter === "all" || (filter === "fixed" && s === "lock") || (filter === "transfer" && s === "share") || (filter === "passed" && s === "person");
 
+  // Сортируем отфильтрованные строки (фильтр-табы состояния — выше сортировки).
+  const visible = artifacts.filter((a) => match(a.state));
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(visible, { key: "date", dir: "desc" });
+
   return (
     <div className="flex flex-col gap-4">
       <Tabs value={filter} onValueChange={setFilter} variant="basic" size="m" equal aria-label="Фильтр артефактов" className="w-full">
@@ -184,8 +196,8 @@ export function AccountArtifacts({
       </div>
 
       <div className="flex flex-col gap-2">
-        <TableHeader columns={ART_COLUMNS} size="s" tone="muted" />
-        {artifacts.filter((a) => match(a.state)).map((a, i) => (
+        <TableHeader columns={ART_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+        {sorted.map((a, i) => (
           <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3 transition-colors">
             <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
               <span className="ds-caption text-foreground-subtle">{a.type}</span>

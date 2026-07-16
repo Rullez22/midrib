@@ -22,6 +22,7 @@ import {
   type TableColumn,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
+import { useTableSort } from "@/lib/use-table-sort";
 import { BackHeader } from "../../document/_components/document-shared";
 import { CompanySidebar } from "./company-sidebar";
 import { type CabinetConfig } from "../_config/cabinets";
@@ -247,6 +248,9 @@ function TemplateDocRow({ tpl, onOpen }: { tpl: TemplateDoc; onOpen: () => void 
   );
 }
 
+/** Строка таблицы шаблонов: документ каталога либо созданный пользователем шаблон. */
+type TplEntry = { row: "doc"; r: DocRow } | { row: "mine"; t: TemplateDoc };
+
 function TemplateSection({
   section,
   templates = [],
@@ -256,16 +260,34 @@ function TemplateSection({
   templates?: TemplateDoc[];
   onOpenTemplate?: (tpl: TemplateDoc) => void;
 }) {
+  // Каталог и «мои» шаблоны — под одной шапкой, сортируются как одна таблица.
+  // По умолчанию порядок исходный: сначала каталог, затем созданные шаблоны.
+  const rows: TplEntry[] = [
+    ...section.rows.map((r) => ({ row: "doc" as const, r })),
+    ...templates.map((t) => ({ row: "mine" as const, t })),
+  ];
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(rows, {
+    // У созданных шаблонов колонки-заглушки (0 валидаторов, $0/$0) — их и сортируем.
+    accessor: (x, k) => {
+      if (x.row === "doc") return x.r[k as keyof DocRow];
+      if (k === "name") return x.t.name;
+      if (k === "validators") return 0;
+      if (k === "activation" || k === "view") return "$0";
+      return undefined;
+    },
+  });
+
   return (
     <Accordion title={section.title} size="m" defaultOpen={section.defaultOpen || templates.length > 0}>
       <div className="flex flex-col gap-3 pt-2">
-        <TableHeader columns={TEMPLATE_COLUMNS} size="s" tone="muted" />
-        {section.rows.map((r, i) => (
-          <TemplateRow key={i} row={r} />
-        ))}
-        {templates.map((t) => (
-          <TemplateDocRow key={t.id} tpl={t} onOpen={() => onOpenTemplate?.(t)} />
-        ))}
+        <TableHeader columns={TEMPLATE_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+        {sorted.map((x) =>
+          x.row === "doc" ? (
+            <TemplateRow key={`doc-${x.r.name}`} row={x.r} />
+          ) : (
+            <TemplateDocRow key={x.t.id} tpl={x.t} onOpen={() => onOpenTemplate?.(x.t)} />
+          ),
+        )}
       </div>
     </Accordion>
   );
@@ -478,6 +500,12 @@ function RequirementsTab({
   const rows = requirements.filter((r) => r.segment === seg);
   const pending = rows.filter((r) => r.status === "voting");
 
+  // Колонка «Тип» показывает бейдж уровня — сортируем по видимой подписи
+  // («Жёлтый» / «Зелёный»), а не по коду level.
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(rows, {
+    accessor: (r, k) => (k === "type" ? (r.level === "green" ? "Зелёный" : "Жёлтый") : r[k as keyof Requirement]),
+  });
+
   return (
     <div className="flex w-full flex-col gap-8">
       <Tabs
@@ -513,8 +541,8 @@ function RequirementsTab({
         <div className="flex flex-col gap-6">
           <Button variant="secondary" size="l" className="self-end" onClick={() => onCreate(seg)}>Создать требования</Button>
           <div className="flex flex-col gap-3">
-            <TableHeader columns={REQ_COLUMNS} size="s" tone="muted" />
-            {rows.map((r) => (
+            <TableHeader columns={REQ_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+            {sorted.map((r) => (
               <button
                 key={r.id}
                 type="button"
@@ -554,14 +582,20 @@ const OP_COLUMNS: TableColumn[] = [
   { key: "date", label: "Дата обработки", flex: 1, align: "right", sortable: true },
 ];
 
-/** Таблица «Операции» (одинакова для обоих подвкладок вознаграждений). */
+/** Таблица «Операции» (одинакова для обоих подвкладок вознаграждений).
+ *  Формат даты «03.06.2025 - 15:00» разбирает сам хук (useTableSort → asDate). */
 function OperationsTable() {
+  const { sorted, sortKey, sortDir, onSort } = useTableSort(OP_ROWS, {
+    key: "date",
+    dir: "desc",
+  });
+
   return (
     <div className="flex flex-col gap-5">
       <h2 className="ds-h5 text-foreground">Операции</h2>
       <div className="flex flex-col gap-3">
-        <TableHeader columns={OP_COLUMNS} size="s" tone="muted" />
-        {OP_ROWS.map((r, i) => (
+        <TableHeader columns={OP_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
+        {sorted.map((r, i) => (
           <div key={i} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-6 py-4">
             <span className="flex flex-[2] flex-col">
               <span className="ds-caption text-foreground-subtle">{r.category}</span>
