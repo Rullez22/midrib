@@ -1,9 +1,10 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
-import { HeaderIconButton, HeaderGridIcon, HeaderExitIcon, QuestionCard, Link, Tooltip, ChatBubble } from "@/components/ds";
+import { useChatThread } from "@/lib/use-chat-thread";
+import { HeaderIconButton, HeaderGridIcon, HeaderExitIcon, QuestionCard, Link, Tooltip, ChatBubble, MessageComposer } from "@/components/ds";
 
 /**
  * Общие строительные блоки экранов документов кабинета (детальный экран +
@@ -151,13 +152,6 @@ export const VERIFY_ORANGE = "var(--color-secondary-orange-200, #FAC06C)";
 export const VERIFY_GREEN = "var(--color-green-300, #6FCF97)";
 
 /* ── Иконки флоу ──────────────────────────────────────────────────────────── */
-export function SendIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className="size-[18px]">
-      <path d="m22 2-7 20-4-9-9-4 20-7Z" />
-    </svg>
-  );
-}
 export function ChevronDown() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-4"><path d="m7 10 5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -246,7 +240,17 @@ export function ChatPanel({
   /** Занимать всю ширину колонки (lg:flex-1) вместо фикс. 300px. */
   fill?: boolean;
 }) {
-  const hasMessages = messages != null && messages.length > 0;
+  // История приходит пропсом (сценарий документа), дописанное — из хука.
+  const { messages: all, send, sentCount, firstSentIndex } = useChatThread(messages ?? []);
+  const threadRef = useRef<HTMLDivElement>(null);
+  const hasMessages = all.length > 0;
+
+  // Держим ленту прокрученной к последнему сообщению.
+  useEffect(() => {
+    const el = threadRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [sentCount]);
+
   return (
     <div className={cn(
       // ds-row — лифт тени при наведении на блок целиком, как у карточек
@@ -273,9 +277,17 @@ export function ChatPanel({
         )}
       </div>
       {hasMessages ? (
-        <div className="flex flex-1 flex-col justify-end gap-3 overflow-y-auto p-4">
-          {messages!.map((m, i) => (
-            <ChatBubble key={i} me={m.me} time={m.time}>{m.text}</ChatBubble>
+        <div ref={threadRef} className="flex flex-1 flex-col justify-end gap-3 overflow-y-auto p-4">
+          {all.map((m, i) => (
+            // Свои сообщения появляются плавно; история из пропса — сразу.
+            <ChatBubble
+              key={i}
+              me={m.me}
+              time={m.time}
+              className={i >= firstSentIndex ? "ds-content" : undefined}
+            >
+              {m.text}
+            </ChatBubble>
           ))}
         </div>
       ) : (
@@ -284,22 +296,11 @@ export function ChatPanel({
           <span className="ds-caption text-foreground-subtle">Тут будет отображена история<br />переписки по договору</span>
         </div>
       )}
-      {/* Поле и кнопка отклика не имели вовсе: цвет кнопки задавался inline-стилем,
-          а его CSS-классом не перебить — поэтому hover был невозможен в принципе.
-          Перевели на токены primary/primary-hover (те же blue-500/600). */}
-      <div className="flex items-center gap-2 border-t border-border p-3">
-        <input
-          type="text"
-          placeholder="Сообщение"
-          className="ds-p3 min-w-0 flex-1 rounded-[4px] border border-border bg-surface px-3 py-2 text-foreground outline-none transition-colors placeholder:text-foreground-subtle hover:border-border-strong focus:border-[var(--color-blue-midhub-500)]"
-        />
-        <button
-          type="button"
-          aria-label="Отправить"
-          className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-[#fff] transition-colors hover:bg-primary-hover active:scale-95"
-        >
-          <SendIcon />
-        </button>
+      {/* DS MessageComposer — то же поле, что во всех остальных чатах платформы.
+          Здесь было самодельное input+кнопка (иконка снаружи, отправка не
+          работала); заменено на композит. */}
+      <div className="border-t border-border p-3">
+        <MessageComposer placeholder="Сообщение" onSend={send} className="border-0 p-0" />
       </div>
     </div>
   );

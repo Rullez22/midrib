@@ -7,6 +7,7 @@ import {
   ChatBubble,
   MessageComposer,
 } from "@/components/ds";
+import { useChatThread } from "@/lib/use-chat-thread";
 import { CoopSidebar } from "../../../../flow/company-create/_components/coop-sidebar";
 import { SideChatLayout } from "../../../_components/side-chat-layout";
 import { CABINET_ROUTES } from "../../../_components/cabinet-seed";
@@ -24,16 +25,23 @@ import { SUBDIVISION, PEER_AVATAR, CHAT_MESSAGES } from "./subdivision-data";
  */
 
 function SubdivisionChat() {
+  const { messages, send, firstSentIndex } = useChatThread(CHAT_MESSAGES);
   return (
     <ChatWindow
       height="100vh"
       className="rounded-none border-0 border-l border-border"
       topBar={<ChatTopBar title={SUBDIVISION.name} subtitle={SUBDIVISION.membersLabel} />}
-      footer={<MessageComposer placeholder="Сообщение" />}
+      footer={<MessageComposer placeholder="Сообщение" onSend={send} />}
     >
       <ChatThread>
-        {CHAT_MESSAGES.map((m, i) => (
-          <ChatBubble key={i} me={m.me} time={m.time} avatar={m.me ? undefined : PEER_AVATAR}>
+        {messages.map((m, i) => (
+          <ChatBubble
+            key={i}
+            me={m.me}
+            time={m.time}
+            avatar={m.me ? undefined : PEER_AVATAR}
+            className={i >= firstSentIndex ? "ds-content" : undefined}
+          >
             {m.text}
           </ChatBubble>
         ))}

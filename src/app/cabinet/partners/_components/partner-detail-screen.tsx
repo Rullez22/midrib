@@ -9,6 +9,7 @@ import {
   ChatBubble,
   MessageComposer,
 } from "@/components/ds";
+import { useChatThread } from "@/lib/use-chat-thread";
 import { PartnerSidebar } from "./partner-sidebar";
 import { PartnerProfile } from "./partner-profile";
 import { PartnerAccount } from "./partner-account";
@@ -29,16 +30,23 @@ import {
 
 /** Чат с партнёром (правая колонка, p2–p4). */
 function PartnerChat({ partner }: { partner: Partner }) {
+  const { messages, send, firstSentIndex } = useChatThread(CHAT_MESSAGES);
   return (
     <ChatWindow
       height="100vh"
       className="rounded-none border-0 border-l border-border"
       topBar={<ChatTopBar title={partner.title} avatar={CHAT_PEER_AVATAR} />}
-      footer={<MessageComposer placeholder="Сообщение" />}
+      footer={<MessageComposer placeholder="Сообщение" onSend={send} />}
     >
       <ChatThread>
-        {CHAT_MESSAGES.map((m, i) => (
-          <ChatBubble key={i} me={m.me} time={m.time} avatar={m.me ? undefined : CHAT_PEER_AVATAR}>
+        {messages.map((m, i) => (
+          <ChatBubble
+            key={i}
+            me={m.me}
+            time={m.time}
+            avatar={m.me ? undefined : CHAT_PEER_AVATAR}
+            className={i >= firstSentIndex ? "ds-content" : undefined}
+          >
             {m.text}
           </ChatBubble>
         ))}

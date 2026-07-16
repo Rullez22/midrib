@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button, HeaderArrowLeftIcon, ChatBubble } from "@/components/ds";
+import { Button, HeaderArrowLeftIcon, ChatBubble, MessageComposer } from "@/components/ds";
+import { useChatThread } from "@/lib/use-chat-thread";
 import { CoopRail } from "./coop-sidebar";
 import { CooperativeInfo } from "./cooperative-info";
 import { useEnsureAccountsReady, useRegFlow } from "./reg-flow";
@@ -27,15 +28,6 @@ function CloseIcon() {
   );
 }
 
-function SendIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-5">
-      <path d="M4 12 20 4l-4 16-4-7-8-1Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-const blue = "var(--color-blue-midhub-500)";
 
 export function ValidatorChatScreen({ backHref, finalHref }: { backHref?: string; finalHref?: string }) {
   const router = useRouter();
@@ -54,6 +46,9 @@ export function ValidatorChatScreen({ backHref, finalHref }: { backHref?: string
   const [chatPhase, setChatPhase] = useState(() => (flow.validationStage === "validated" ? 2 : 0));
   const chatOpen = chatPhase < 2;
   const advanceChat = () => setChatPhase((p) => Math.min(p + 1, 2));
+  // Сценарная переписка тут захардкожена в разметке, поэтому хук держит только
+  // дописанное пользователем — оно рендерится следом за ней.
+  const { messages: myMessages, send } = useChatThread();
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -105,18 +100,15 @@ export function ValidatorChatScreen({ backHref, finalHref }: { backHref?: string
                       <ChatBubble time="12:03" reserveAvatar>Спасибо</ChatBubble>
                     </>
                   )}
+                  {/* Дописанное пользователем — после сценарного диалога. */}
+                  {myMessages.map((m, i) => (
+                    <ChatBubble key={i} me time={m.time} className="ds-content">{m.text}</ChatBubble>
+                  ))}
                 </div>
 
-                {/* Ввод */}
-                <div className="flex items-center gap-2 border-t border-border p-3">
-                  <input
-                    type="text"
-                    placeholder="Сообщение"
-                    className="ds-p3 min-w-0 flex-1 rounded-[4px] border border-border bg-surface px-3 py-2 text-foreground outline-none placeholder:text-foreground-subtle focus:border-[var(--color-blue-midhub-500)]"
-                  />
-                  <button type="button" aria-label="Отправить" className="flex size-9 shrink-0 items-center justify-center rounded-[4px]" style={{ color: blue }}>
-                    <SendIcon />
-                  </button>
+                {/* Ввод — DS-композит (было самодельное input+кнопка без отправки). */}
+                <div className="border-t border-border p-3">
+                  <MessageComposer placeholder="Сообщение" onSend={send} className="border-0 p-0" />
                 </div>
               </div>
             )}

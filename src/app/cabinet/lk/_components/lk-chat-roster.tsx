@@ -9,6 +9,7 @@ import {
   ChatBubble,
   MessageComposer,
 } from "@/components/ds";
+import { useChatThread } from "@/lib/use-chat-thread";
 import { cn } from "@/lib/cn";
 import { type LkChatItem } from "./lk-data";
 
@@ -61,6 +62,41 @@ function GroupAvatar() {
   );
 }
 
+/** Открытый диалог. Отдельный компонент, потому что хук нельзя звать после
+ *  early-return в LkChatRoster; плюс `key` по собеседнику даёт каждому свою
+ *  переписку — иначе отправленное перетекало бы в чужой чат. */
+function LkChatDialog({ chat, onBack }: { chat: LkChatItem; onBack: () => void }) {
+  const { messages, send, firstSentIndex } = useChatThread(LK_THREAD);
+  return (
+    <ChatWindow
+      height="100vh"
+      className="rounded-none border-0 border-l border-border"
+      topBar={
+        <ChatTopBar
+          title={chat.name}
+          subtitle={chat.group ? "20 пайщиков" : undefined}
+          onBack={onBack}
+        />
+      }
+      footer={<MessageComposer placeholder="Сообщение" onSend={send} />}
+    >
+      <ChatThread>
+        {messages.map((m, i) => (
+          <ChatBubble
+            key={i}
+            me={m.me}
+            time={m.time}
+            avatar={m.me ? undefined : chat.avatar}
+            className={i >= firstSentIndex ? "ds-content" : undefined}
+          >
+            {m.text}
+          </ChatBubble>
+        ))}
+      </ChatThread>
+    </ChatWindow>
+  );
+}
+
 export function LkChatRoster({ items }: { items: LkChatItem[] }) {
   const [query, setQuery] = useState("");
   const [openChat, setOpenChat] = useState<LkChatItem | null>(null);
@@ -68,28 +104,7 @@ export function LkChatRoster({ items }: { items: LkChatItem[] }) {
 
   // Открытый чат — диалог (как в подразделении), но с кнопкой «Назад» к списку.
   if (openChat) {
-    return (
-      <ChatWindow
-        height="100vh"
-        className="rounded-none border-0 border-l border-border"
-        topBar={
-          <ChatTopBar
-            title={openChat.name}
-            subtitle={openChat.group ? "20 пайщиков" : undefined}
-            onBack={() => setOpenChat(null)}
-          />
-        }
-        footer={<MessageComposer placeholder="Сообщение" />}
-      >
-        <ChatThread>
-          {LK_THREAD.map((m, i) => (
-            <ChatBubble key={i} me={m.me} time={m.time} avatar={m.me ? undefined : openChat.avatar}>
-              {m.text}
-            </ChatBubble>
-          ))}
-        </ChatThread>
-      </ChatWindow>
-    );
+    return <LkChatDialog key={openChat.name} chat={openChat} onBack={() => setOpenChat(null)} />;
   }
 
   return (

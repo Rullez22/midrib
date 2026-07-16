@@ -7,7 +7,7 @@
  *   header(Профиль) 1330:155951 · Аватар 1333:151505 · line 797:74223 ·
  *   окно чата 1153:108684 / 1724:251032 · empty 1728:251847 · чат-лист 796:74478.
  */
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   ChatBubble,
   ChatTopBar,
@@ -24,6 +24,7 @@ import {
   Badge,
   Text,
 } from "@/components/ds";
+import { useChatThread } from "@/lib/use-chat-thread";
 
 /* Градиентный аватар-плейсхолдер (без внешних зависимостей). */
 function avatar(from: string, to: string) {
@@ -55,19 +56,44 @@ function EmptyChatIcon() {
 }
 
 /* Лента сообщений (повторяется в окнах). */
-function Thread() {
+const DEMO_THREAD = [
+  { me: true, time: "09:24", text: "Анна, отправил вам заявку на вступление от нового пайщика — не хватает только справки с места работы." },
+  { me: true, time: "09:25", text: "Остальные документы в порядке." },
+  { me: false, time: "09:38", text: "Спасибо, вижу заявку. Напишу ему сегодня — справку обещали донести до пятницы." },
+];
+
+/**
+ * Демо-окно чата. Витрина показывает компонент в работе, поэтому отправка тут
+ * настоящая (useChatThread + onSend), а не заглушка.
+ */
+function DemoChatWindow({
+  topBar,
+  height = "560px",
+}: {
+  topBar: ReactNode;
+  height?: string;
+}) {
+  const { messages, send, firstSentIndex } = useChatThread(DEMO_THREAD);
   return (
-    <ChatThread>
-      <ChatBubble me time="09:24">
-        Анна, отправил вам заявку на вступление от нового пайщика — не хватает только справки с места работы.
-      </ChatBubble>
-      <ChatBubble me time="09:25">
-        Остальные документы в порядке.
-      </ChatBubble>
-      <ChatBubble avatar={AVA_A} time="09:38">
-        Спасибо, вижу заявку. Напишу ему сегодня — справку обещали донести до пятницы.
-      </ChatBubble>
-    </ChatThread>
+    <ChatWindow
+      height={height}
+      topBar={topBar}
+      footer={<MessageComposer placeholder="Сообщение" onSend={send} />}
+    >
+      <ChatThread>
+        {messages.map((m, i) => (
+          <ChatBubble
+            key={i}
+            me={m.me}
+            time={m.time}
+            avatar={m.me ? undefined : AVA_A}
+            className={i >= firstSentIndex ? "ds-content" : undefined}
+          >
+            {m.text}
+          </ChatBubble>
+        ))}
+      </ChatThread>
+    </ChatWindow>
   );
 }
 
@@ -87,24 +113,12 @@ export function ChatDemos() {
       <div className="flex flex-wrap gap-6">
         <div className="flex w-[360px] flex-col gap-3">
           <Text variant="caption-up" tone="subtle">ChatWindow — аватар + имя</Text>
-          <ChatWindow
-            height="560px"
-            topBar={<ChatTopBar title="Анна Грум" avatar={AVA_A} onBack={() => {}} />}
-            footer={<MessageComposer placeholder="Сообщение" />}
-          >
-            <Thread />
-          </ChatWindow>
+          <DemoChatWindow topBar={<ChatTopBar title="Анна Грум" avatar={AVA_A} onBack={() => {}} />} />
         </div>
 
         <div className="flex w-[360px] flex-col gap-3">
           <Text variant="caption-up" tone="subtle">ChatWindow — заголовок + подзаголовок</Text>
-          <ChatWindow
-            height="560px"
-            topBar={<ChatTopBar title="Внутренний чат (подразделение)" subtitle="20 пайщиков" onBack={() => {}} />}
-            footer={<MessageComposer placeholder="Сообщение" />}
-          >
-            <Thread />
-          </ChatWindow>
+          <DemoChatWindow topBar={<ChatTopBar title="Внутренний чат (подразделение)" subtitle="20 пайщиков" onBack={() => {}} />} />
         </div>
 
         <div className="flex w-[360px] flex-col gap-3">

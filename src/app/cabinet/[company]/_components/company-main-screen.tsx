@@ -7,6 +7,7 @@ import {
   ChatBubble,
   MessageComposer,
 } from "@/components/ds";
+import { useChatThread } from "@/lib/use-chat-thread";
 import { CompanySidebar } from "./company-sidebar";
 import { DeptProfile } from "./dept-profile";
 import { SideChatLayout } from "../../_components/side-chat-layout";
@@ -19,16 +20,23 @@ import { type CabinetConfig, cabinetDeptData, PEER_AVATAR } from "../_config/cab
  */
 
 function CompanyChat({ cabinet }: { cabinet: CabinetConfig }) {
+  const { messages, send, firstSentIndex } = useChatThread(cabinet.chatMessages);
   return (
     <ChatWindow
       height="100vh"
       className="rounded-none border-0 border-l border-border"
       topBar={<ChatTopBar title={cabinet.name} subtitle={cabinet.chatSubtitle} />}
-      footer={<MessageComposer placeholder="Сообщение" />}
+      footer={<MessageComposer placeholder="Сообщение" onSend={send} />}
     >
       <ChatThread>
-        {cabinet.chatMessages.map((m, i) => (
-          <ChatBubble key={i} me={m.me} time={m.time} avatar={m.me ? undefined : PEER_AVATAR}>
+        {messages.map((m, i) => (
+          <ChatBubble
+            key={i}
+            me={m.me}
+            time={m.time}
+            avatar={m.me ? undefined : PEER_AVATAR}
+            className={i >= firstSentIndex ? "ds-content" : undefined}
+          >
             {m.text}
           </ChatBubble>
         ))}

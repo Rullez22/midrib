@@ -301,7 +301,12 @@ body {
    бьёт любой @layer. Поэтому глушим здесь, тоже вне слоя. Внутренние кнопки
    поля (календарь, показать пароль) свой outline сохраняют. */
 .ds-field__box input:focus-visible,
-.ds-field__box textarea:focus-visible {
+.ds-field__box textarea:focus-visible,
+/* MessageComposer — та же логика: рамку фокуса рисует обёртка
+   (.ds-composer:focus-within), поэтому синий outline вокруг самого textarea
+   был вторым индикатором внутри поля. Tailwind-утилита outline-none его не
+   гасила: она в @layer utilities, а правило :focus-visible выше — безслойное. */
+.ds-composer textarea:focus-visible {
   outline: none;
 }
 
