@@ -20,6 +20,7 @@ import {
   type MenuBadgeColor,
 } from "@/components/ds";
 import { useChatThread } from "@/lib/use-chat-thread";
+import { peerMeta } from "@/lib/peer-meta";
 import { cn } from "@/lib/cn";
 import { CompanyRail, CARD_TINT } from "./company-sidebar";
 import { DeptProfile } from "./dept-profile";
@@ -93,14 +94,19 @@ function PeersTable() {
             одинаковый список. */}
         {(tab === "legal" ? LEGAL.map((l) => l.name) : COOP_PEERS)
           .filter((n) => n.toLowerCase().includes(q.trim().toLowerCase()))
-          .map((name, i) => (
-          <div key={`${name}-${i}`} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-4">
-            <span className="ds-p3 flex-[2] text-foreground">{name}</span>
-            <span className="flex flex-[2]"><Link href="#" size="p3">5c243af... 07db8</Link></span>
-            <span className="ds-p3 flex-1 text-foreground">ENG</span>
-            <span className="ds-p3 flex-1 text-foreground">12.07.2020</span>
-          </div>
-        ))}
+          .map((name, i) => {
+            // Реквизиты выводятся из имени: в вёрстке они были захардкожены и
+            // повторялись во всех строках.
+            const meta = peerMeta(name);
+            return (
+              <div key={`${name}-${i}`} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-4">
+                <span className="ds-p3 flex-[2] text-foreground">{name}</span>
+                <span className="flex flex-[2]"><Link href="#" size="p3">{meta.address}</Link></span>
+                <span className="ds-p3 flex-1 text-foreground">{meta.country}</span>
+                <span className="ds-p3 flex-1 text-foreground">{meta.date}</span>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

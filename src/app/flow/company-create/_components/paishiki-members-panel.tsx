@@ -19,6 +19,7 @@ import {
   type TableColumn,
   type SortDir,
 } from "@/components/ds";
+import { peerMeta } from "@/lib/peer-meta";
 import { useRegFlow } from "./reg-flow";
 import { MoveToFolderModal } from "./move-to-folder-modal";
 import { PaishikShuttle, LEGAL, ADDR } from "../../../cabinet/payment/_components/payment-shared";
@@ -372,7 +373,11 @@ export function PaishikiMembersPanel({ members, className, focusCouncilSignal = 
                   sortDir={sort.dir}
                   onSort={onSort}
                 />
-                {rows.map((name, i) => (
+                {rows.map((name, i) => {
+                  // Адрес/страна/дата выводятся из имени: в вёрстке они были
+                  // захардкожены и повторялись во всех строках.
+                  const meta = peerMeta(name);
+                  return (
                   <Item
                     key={`${name}-${i}`}
                     size="l"
@@ -404,12 +409,13 @@ export function PaishikiMembersPanel({ members, className, focusCouncilSignal = 
                         </button>
                       </span>
                       <span className="flex-[2] text-foreground">{name}</span>
-                      <span className="flex flex-[2] justify-center"><Link href="#" size="p3">5c243af... 07db8</Link></span>
-                      <span className="flex-1 text-foreground">ENG</span>
-                      <span className="flex-1 text-foreground">12.07.2020</span>
+                      <span className="flex flex-[2] justify-center"><Link href="#" size="p3">{meta.address}</Link></span>
+                      <span className="flex-1 text-foreground">{meta.country}</span>
+                      <span className="flex-1 text-foreground">{meta.date}</span>
                     </div>
                   </Item>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <EmptyState title="Нет пользователей" />
