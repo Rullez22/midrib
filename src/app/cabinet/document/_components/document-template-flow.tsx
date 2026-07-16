@@ -288,7 +288,7 @@ export function DocumentTemplateFlow() {
           <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch">
             <div className="min-w-0 flex-1">
               {docTab === "doc" && (
-                <div className="overflow-hidden rounded-[4px] border border-border">
+                <div className="ds-row overflow-hidden rounded-[4px] border border-border">
                   <DefTable rows={verifyRows} flush />
                   <div className="flex flex-wrap items-center justify-end gap-4 border-t border-border bg-[var(--color-grey-10)] px-6 py-4">
                     {ready ? (

@@ -92,7 +92,7 @@ function ReviewCard({ p, onSubmit, onDetails }: { p: (typeof PARTICIPANTS)[numbe
 
 function ClosedDocsTable() {
   return (
-    <div className="overflow-hidden rounded-[4px] border border-border">
+    <div className="ds-row overflow-hidden rounded-[4px] border border-border">
       <div className="flex items-center justify-between gap-4 border-b border-border px-6 py-4">
         <span className="ds-p2-medium text-foreground">Документы</span>
         <Button size="s">Добавить документ</Button>
@@ -160,7 +160,7 @@ export function CultureDocScreen({ org, doc, cabinet }: { org: Org; doc: OrgDoc;
           </div>
 
           {/* Карточка договора: статус Оценка/Закрыт. */}
-          <div className="overflow-hidden rounded-[4px] border border-border">
+          <div className="ds-row overflow-hidden rounded-[4px] border border-border">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-4">
               <span className="ds-p1-medium text-foreground">{doc.name}</span>
               <span className="ds-p2-medium text-foreground">{doc.amount}</span>

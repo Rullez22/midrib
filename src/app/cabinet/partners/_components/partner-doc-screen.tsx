@@ -120,7 +120,7 @@ export function PartnerDocScreen({ org, doc, docId, cabinet }: { org: Org; doc: 
             /* «На согласовании»: договор + чат, кнопки залочены. */
             <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch">
               <div className="flex min-w-0 flex-1 flex-col gap-6">
-                <div className="overflow-hidden rounded-[4px] border border-border">
+                <div className="ds-row overflow-hidden rounded-[4px] border border-border">
                   <div className="flex flex-col gap-6 p-6 md:flex-row">
                     <ContractFields org={org} doc={doc} />
                     <AttachedDoc name="Договор с фондом" meta="PDF · 1 MB" />
@@ -136,7 +136,7 @@ export function PartnerDocScreen({ org, doc, docId, cabinet }: { org: Org; doc: 
             </div>
           ) : (
             /* Готовый: единый блок «шапка·договор·транзакции». */
-            <div className="overflow-hidden rounded-[4px] border border-border">
+            <div className="ds-row overflow-hidden rounded-[4px] border border-border">
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-4">
                 <span className="ds-p1-medium text-foreground">{doc.name}</span>
                 <span className="ds-p2-medium text-foreground">{doc.amount}</span>

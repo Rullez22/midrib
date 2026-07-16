@@ -185,7 +185,7 @@ function ConsultationWindow({ c, onFinish }: { c: CreatedContract; onFinish: () 
   const cons = c.consultant!;
   return (
     <div className="flex flex-col gap-6">
-      <div className="overflow-hidden rounded-[4px] border border-border">
+      <div className="ds-row overflow-hidden rounded-[4px] border border-border">
         <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center justify-center gap-2 border-b border-border px-6 py-4">
           <span className="ds-p3 text-foreground-subtle">Ваш консультант:</span>
           <span className="ds-p2-medium text-foreground">{cons.name}</span>
@@ -355,7 +355,7 @@ export function CreatedContractScreen({
             )
           ) : final ? (
             <>
-              <div className="overflow-hidden rounded-[4px] border border-border">
+              <div className="ds-row overflow-hidden rounded-[4px] border border-border">
                 <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-4">
                   <span className="ds-p1-medium text-foreground">{c.name}</span>
                   <span className="ds-p2-medium text-foreground">{c.amount}</span>
@@ -374,7 +374,7 @@ export function CreatedContractScreen({
             <>
               <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch">
                 <div className="flex min-w-0 flex-1 flex-col gap-6">
-                  <div className="overflow-hidden rounded-[4px] border border-border">
+                  <div className="ds-row overflow-hidden rounded-[4px] border border-border">
                     <div className="flex flex-col gap-6 p-6 md:flex-row">
                       <ContractFields c={c} />
                       <AttachedDoc name={c.attachedName} meta={c.attachedMeta} />

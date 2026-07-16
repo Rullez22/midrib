@@ -181,7 +181,7 @@ export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contra
             /* Подписанный: единый бордер — шапка · договор · транзакции.
                Внутренние границы — дивайдеры; у BlockchainCard своя рамка
                снята (border-0 rounded-none), аккордеон работает как прежде. */
-            <div className="overflow-hidden rounded-[4px] border border-border">
+            <div className="ds-row overflow-hidden rounded-[4px] border border-border">
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-4">
                 <span className="ds-p1-medium text-foreground">{contract.name}</span>
                 <span className="ds-p2-medium text-foreground">{contract.amount}</span>
@@ -198,7 +198,7 @@ export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contra
             /* Неподписанный: договор + транзакции слева, чат справа. */
             <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch">
               <div className="flex min-w-0 flex-1 flex-col gap-6">
-                <div className="overflow-hidden rounded-[4px] border border-border">
+                <div className="ds-row overflow-hidden rounded-[4px] border border-border">
                   <div className="flex flex-col gap-6 p-6 md:flex-row">
                     <ContractInfo c={contract} />
                     <AttachedDoc name={contract.attachedName} meta={contract.attachedMeta} />

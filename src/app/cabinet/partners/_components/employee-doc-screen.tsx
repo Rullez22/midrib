@@ -81,7 +81,7 @@ export function EmployeeDocScreen({ doc, docKey, onBack }: { doc: EmployeeDoc; d
         /* Договор + чат, кнопки по статусу. */
         <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch">
           <div className="flex min-w-0 flex-1 flex-col gap-6">
-            <div className="overflow-hidden rounded-[4px] border border-border">
+            <div className="ds-row overflow-hidden rounded-[4px] border border-border">
               <div className="flex flex-col gap-6 p-6 md:flex-row">
                 <Fields doc={doc} />
                 <AttachedDoc name="Договор с сотрудником" meta="PDF · 1 MB" />
@@ -97,7 +97,7 @@ export function EmployeeDocScreen({ doc, docKey, onBack }: { doc: EmployeeDoc; d
         </div>
       ) : (
         /* Готовый (согласованный) вид: единый блок «шапка·договор·транзакции». */
-        <div className="overflow-hidden rounded-[4px] border border-border">
+        <div className="ds-row overflow-hidden rounded-[4px] border border-border">
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-6 py-4">
             <span className="ds-p1-medium text-foreground">{doc.name}</span>
             <Badge variant="soft" color={DOC_STATUS_COLOR[displayStatus]}>{displayStatus}</Badge>

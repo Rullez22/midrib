@@ -189,7 +189,7 @@ export function PoolSummaryTable({ paishiki, shares }: { paishiki: number; share
     ["Всего долей в счет-пуле", shares],
   ];
   return (
-    <div className="overflow-hidden rounded-[4px] border border-border">
+    <div className="ds-row overflow-hidden rounded-[4px] border border-border">
       {rows.map(([label, value], i) => (
         <div key={i} className={cn("flex items-center gap-4 px-6 py-3.5", i < rows.length - 1 && "border-b border-border")}>
           <span className="ds-p3 w-[200px] shrink-0 text-foreground-subtle">{label}</span>
