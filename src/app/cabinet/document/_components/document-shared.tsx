@@ -246,11 +246,13 @@ export function ChatPanel({
   /** Занимать всю ширину колонки (lg:flex-1) вместо фикс. 300px. */
   fill?: boolean;
 }) {
-  const blue = "var(--color-blue-midhub-500)";
   const hasMessages = messages != null && messages.length > 0;
   return (
     <div className={cn(
-      "flex w-full flex-col overflow-hidden rounded-[8px] border border-border bg-surface lg:min-h-[420px] lg:self-stretch",
+      // ds-row — лифт тени при наведении на блок целиком, как у карточек
+      // документа слева. Без него панель чата была единственным блоком экрана,
+      // который никак не отзывался на мышь.
+      "ds-row flex w-full flex-col overflow-hidden rounded-[8px] border border-border bg-surface lg:min-h-[420px] lg:self-stretch",
       fill ? "lg:flex-1" : "flex-none lg:w-[300px]",
     )}>
       <div className="relative flex h-[54px] items-center justify-center border-b border-border px-4">
