@@ -233,7 +233,8 @@ export function SectionCard({
         aria-expanded={current}
         onClick={toggle}
         className={cn(
-          "flex h-[66px] w-full items-center justify-between bg-[var(--color-grey-10)] px-6 text-left",
+          // Канон заголовков-аккордеонов: синий тинт при наведении.
+          "flex h-[66px] w-full items-center justify-between bg-[var(--color-grey-10)] px-6 text-left transition-colors hover:bg-[color:var(--color-blue-midhub-50)]",
           current ? "rounded-t-[4px]" : "rounded-[4px]",
         )}
       >
