@@ -151,7 +151,7 @@ function DocFlow({ org, cabinet }: { org: Org; cabinet?: CabinetConfig }) {
           align="end"
           aria-label="Тип документа"
           items={PARTNER_DOC_ITEMS}
-          onSelect={(v) => { if (cabinet) router.push(`${base}/contract-new?kind=${v}`); }}
+          onSelect={(v) => router.push(`${base}/contract-new?kind=${v}`)}
           trigger={<Button size="m" iconLeft={<PlusIcon />}>Добавить документ</Button>}
         />
       </div>
@@ -166,18 +166,17 @@ function DocFlow({ org, cabinet }: { org: Org; cabinet?: CabinetConfig }) {
           // показывает второй статус «Ожидает участия».
           const nestedPending = createdContracts.some((n) => n.parentId === c.id && !n.finalized);
           const orange = status === "Ожидает участия" || nestedPending;
-          const openCreated = cabinet ? () => router.push(`${base}/doc/${c.id}`) : undefined;
+          const openCreated = () => router.push(`${base}/doc/${c.id}`);
           return (
             <div
               key={c.id}
-              role={openCreated ? "button" : undefined}
-              tabIndex={openCreated ? 0 : undefined}
+              role="button"
+              tabIndex={0}
               onClick={openCreated}
-              onKeyDown={openCreated ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCreated(); } } : undefined}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCreated(); } }}
               className={cn(
-                "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3",
+                "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer transition-shadow hover:shadow-sm",
                 orange ? "border-[color:var(--color-orange-400)]" : "border-border",
-                openCreated && "cursor-pointer transition-shadow hover:shadow-sm",
               )}
             >
               <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
@@ -214,18 +213,17 @@ function DocFlow({ org, cabinet }: { org: Org; cabinet?: CabinetConfig }) {
           // показывает второй статус «Ожидает участия».
           const nestedPending = createdContracts.some((n) => n.parentId === docId && !n.finalized);
           const orange = status === "Ожидает участия" || status === "Оценка" || nestedPending;
-          const open = cabinet ? () => router.push(`${base}/doc/${docId}`) : undefined;
+          const open = () => router.push(`${base}/doc/${docId}`);
           return (
             <div
               key={i}
-              role={open ? "button" : undefined}
-              tabIndex={open ? 0 : undefined}
+              role="button"
+              tabIndex={0}
               onClick={open}
-              onKeyDown={open ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } } : undefined}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }}
               className={cn(
-                "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3",
+                "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer transition-shadow hover:shadow-sm",
                 orange ? "border-[color:var(--color-orange-400)]" : "border-border",
-                open && "cursor-pointer transition-shadow hover:shadow-sm",
               )}
             >
               <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
