@@ -72,6 +72,10 @@ export interface TransactionsTableProps {
    * Источник: Figma «транзакции-маркетинговый счёт». По умолчанию false.
    */
   showShare?: boolean;
+  /** Сколько строк показывать сразу; «Показать ещё» открывает следующую порцию.
+   *  По умолчанию 5. Кнопка скрывается, когда показаны все строки. */
+  pageSize?: number;
+  /** Доп. обработчик клика по «Показать ещё» (добор строк работает и без него). */
   onShowMore?: () => void;
   className?: string;
 }
@@ -138,6 +142,7 @@ export function TransactionsTable({
   showFilters = true,
   showMore = true,
   showShare = false,
+  pageSize = 5,
   onShowMore,
   className,
 }: TransactionsTableProps) {
@@ -160,10 +165,22 @@ export function TransactionsTable({
     : transactions;
   // Сортировка по клику на стрелку в шапке (код / доля / транзакция / сумма /
   // комиссия). Ключи колонок совпадают с полями Transaction, поэтому accessor не
-  // нужен. Сортируем ПОСЛЕ фильтра, но ДО показа — «Показать ещё» отдаёт добор
-  // строк наружу через `onShowMore`, так что порядок применяется ко всему набору.
+  // нужен. Сортируем ПОСЛЕ фильтра, но ДО среза — порядок применяется ко всему
+  // набору, а не к видимой странице.
   // Без ключа по умолчанию — исходный порядок транзакций сохраняется.
   const { sorted, sortKey, sortDir, onSort } = useTableSort(visible);
+
+  // «Показать ещё»: раньше кнопка рендерилась всегда и не делала ничего —
+  // onShowMore не передавал никто. Теперь добор строк живёт внутри таблицы:
+  // показываем pageSize, по клику открываем следующую порцию, кнопка исчезает,
+  // когда показано всё. onShowMore сохранён для обратной совместимости.
+  const [shown, setShown] = useState(pageSize);
+  const page = sorted.slice(0, shown);
+  const hasMore = shown < sorted.length;
+  const revealMore = () => {
+    setShown((s) => s + pageSize);
+    onShowMore?.();
+  };
   return (
     <div className={cn("flex w-full flex-col gap-4", className)}>
       {/* Верхняя панель: заголовок + (опц.) фильтры + селект кодов */}
@@ -188,7 +205,7 @@ export function TransactionsTable({
       {/* Навигационная шапка (30px) + строки-карточки — общий блок с gap 8px */}
       <div className="flex flex-col gap-2">
         <TableHeader columns={columns} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
-        {sorted.map((t, i) => (
+        {page.map((t, i) => (
           <div
             key={i}
             className="ds-row flex items-center rounded-[8px] border border-border bg-white px-4 py-3 transition-colors"
@@ -254,9 +271,9 @@ export function TransactionsTable({
         ))}
       </div>
 
-      {showMore && (
+      {showMore && hasMore && (
         <div className="flex justify-center pt-1">
-          <Button variant="secondary" size="m" onClick={onShowMore}>
+          <Button variant="secondary" size="m" onClick={revealMore}>
             Показать ещё
           </Button>
         </div>

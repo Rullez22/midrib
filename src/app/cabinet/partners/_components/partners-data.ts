@@ -284,6 +284,13 @@ export const PARTNER_TRANSACTIONS: Transaction[] = [
   { code: "214", color: "cyan", hash: "b83f16d…c40a9", time: "3 часа назад", from: "ПК «Слонёнок»", to: "ПК «Immatra»", document: "Счет на оплату", documentSub: "Складское хранение, март", amount: "0.061450", commission: "0.0006" },
   { code: "216", color: "purple", hash: "27ad5c8…f1e63", time: "вчера, 18:42", from: "БФ «VELESTA»", to: "ПК «Immatra»", document: "Взносы и целевые поступления", documentSub: "Целевой взнос по договору НВО", amount: "3.907820", commission: "0.0361" },
   { code: "215", color: "green", hash: "f4102be…89dd7", time: "5 дней назад", from: "Фонд «Живу с Культурой»", to: "ПК «Immatra»", document: "Поступления с маршрутных счетов", documentSub: "Возврат по смете благоустройства", amount: "0.845300", commission: "0.0079" },
+  { code: "214", color: "cyan", hash: "6d09af3…21b7c", time: "35 минут назад", from: "ПК «Immatra»", to: "ПК «Гвозди и доски»", document: "Счет на оплату", documentSub: "Метизы и крепёж, партия 12", amount: "0.317420", commission: "0.0030" },
+  { code: "214", color: "cyan", hash: "c15e872…d94f0", time: "6 часов назад", from: "ПК «Immatra»", to: "ПК «Слонёнок»", document: "Счет на оплату", documentSub: "Совместная закупка, заявка 48", amount: "2.104660", commission: "0.0196" },
+  { code: "216", color: "purple", hash: "8b3c40e…7ae52", time: "вчера, 10:07", from: "Фонд «Я расту со спортом»", to: "ПК «Immatra»", document: "Взносы и целевые поступления", documentSub: "Целевой взнос на детскую секцию", amount: "1.230500", commission: "0.0114" },
+  { code: "214", color: "cyan", hash: "0f7d1ba…e63c8", time: "2 дня назад", from: "ПК «Immatra»", to: "ИП Салютов Р. К.", document: "Счет на оплату", documentSub: "Сезонный осмотр площадок", amount: "0.052780", commission: "0.0005" },
+  { code: "215", color: "green", hash: "a94b26f…10d3e", time: "3 дня назад", from: "Фонд «Дари добро»", to: "ПК «Immatra»", document: "Поступления с маршрутных счетов", documentSub: "Распределение по договору поставки", amount: "0.478190", commission: "0.0044" },
+  { code: "216", color: "purple", hash: "5e82cd7…b40a1", time: "8 дней назад", from: "Фонд «Друзья»", to: "ПК «Immatra»", document: "Взносы и целевые поступления", documentSub: "Взнос по программе помощи приютам", amount: "0.008340", commission: "0.0001" },
+  { code: "214", color: "cyan", hash: "d3610ec…8f27b", time: "14 дней назад", from: "ПК «Immatra»", to: "ПК «Гвозди и доски»", document: "Счет на оплату", documentSub: "Распил доски под размер заказчика", amount: "4.762030", commission: "0.0438" },
 ];
 
 /** График транзакций (Figma 6563:357867). Подсветка — Янв 2019 (223 ETH). */

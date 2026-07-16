@@ -160,6 +160,13 @@ const TRANSACTIONS: Transaction[] = [
   { code: "214", color: "cyan", hash: "8af03e5…16bc9", time: "2 часа назад", from: "Кооператив Immatra", to: "ООО «Петрушка»", document: "Счет на оплату", documentSub: "Консультационные услуги", amount: "0.041280", commission: "0.0009" },
   { code: "216", color: "purple", hash: "d17b9a2…5e3f8", time: "вчера", from: "Кооператив «Слоненок»", to: "Кооператив Immatra", document: "Взносы и целевые поступления", documentSub: "Паевой взнос за II квартал", amount: "0.512400", commission: "0.0031" },
   { code: "215", color: "green", hash: "6b48fc0…920d1", time: "5 дней назад", from: "Маршрутный счет", to: "Целевой счет", document: "Поступления с маршрутных счетов", documentSub: "Распределение поступлений", amount: "0.187650", commission: "0.0014" },
+  { code: "214", color: "cyan", hash: "f207ad9…3c85b", time: "42 минуты назад", from: "Кооператив Immatra", to: "Кооператив «Слоненок»", document: "Счет на оплату", documentSub: "Складское хранение, март", amount: "0.673100", commission: "0.0062" },
+  { code: "214", color: "cyan", hash: "5ae91d3…f74b2", time: "4 часа назад", from: "Кооператив Immatra", to: "ООО «Ромашка»", document: "Счет на оплату", documentSub: "Уборка территории по договору", amount: "0.029840", commission: "0.0006" },
+  { code: "216", color: "purple", hash: "b94f602…7d1ea", time: "вчера, 15:38", from: "Антонов И. А.", to: "Целевой счет", document: "Взносы и целевые поступления", documentSub: "Вступительный взнос пайщика", amount: "1.408250", commission: "0.0131" },
+  { code: "215", color: "green", hash: "0c7e58a…e2946", time: "2 дня назад", from: "Маркетинговый счет", to: "Целевой счет", document: "Поступления с маршрутных счетов", documentSub: "Возврат неиспользованного лимита", amount: "0.008970", commission: "0.0001" },
+  { code: "214", color: "cyan", hash: "37d6be8…104cf", time: "3 дня назад", from: "Кооператив Immatra", to: "ИП «Март»", document: "Счет на оплату", documentSub: "Доставка партии на склад", amount: "0.246310", commission: "0.0023" },
+  { code: "216", color: "purple", hash: "e81a4c5…9b307", time: "7 дней назад", from: "Кооператив «Гвозди и доски»", to: "Целевой счет", document: "Взносы и целевые поступления", documentSub: "Членский взнос за III квартал", amount: "2.917400", commission: "0.0270" },
+  { code: "214", color: "cyan", hash: "9d520fb…a6e13", time: "11 дней назад", from: "Кооператив Immatra", to: "Кооператив «Гвозди и доски»", document: "Счет на оплату", documentSub: "Пиломатериалы, партия 7", amount: "4.035720", commission: "0.0372" },
 ];
 
 export interface CabinetScreenProps {

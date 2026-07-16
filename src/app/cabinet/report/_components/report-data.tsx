@@ -181,6 +181,14 @@ export const TRANSACTIONS: Transaction[] = [
   { code: "214", color: "cyan", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Счет на оплату", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
   { code: "216", color: "purple", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Взносы и целевые поступления", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
   { code: "215", color: "green", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Поступления с маршрутных счетов", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
+  { code: "214", color: "cyan", hash: "a71fe30…4c9d2", time: "4 минуты назад", from: "ООО «Ромашка»", to: "ООО «Малина»", document: "Счет на оплату", documentSub: "Поставка садового инвентаря", amount: "0.418260", commission: "0.0039" },
+  { code: "214", color: "cyan", hash: "3d0b8c6…e152a", time: "21 минуту назад", from: "ООО «Калина»", to: "ООО «Хмель»", document: "Счет на оплату", documentSub: "Аренда складского помещения", amount: "1.052400", commission: "0.0098" },
+  { code: "216", color: "purple", hash: "9c4a7f1…08b63", time: "1 час назад", from: "ООО «Чай»", to: "Целевой счет", document: "Взносы и целевые поступления", documentSub: "Членский взнос за квартал", amount: "2.640150", commission: "0.0244" },
+  { code: "215", color: "green", hash: "b58e214…7fa09", time: "3 часа назад", from: "Маршрутный счет", to: "Целевой счет", document: "Поступления с маршрутных счетов", documentSub: "Распределение прибыли направления", amount: "0.073480", commission: "0.0007" },
+  { code: "214", color: "cyan", hash: "27fd591…c3e84", time: "вчера, 09:14", from: "ООО «Ромашка»", to: "ИП «Март»", document: "Счет на оплату", documentSub: "Монтаж резинового покрытия", amount: "0.006120", commission: "0.0001" },
+  { code: "216", color: "purple", hash: "e630ba8…19d47", time: "2 дня назад", from: "Иван Аверин", to: "Целевой счет", document: "Взносы и целевые поступления", documentSub: "Целевой взнос на благоустройство", amount: "0.914730", commission: "0.0085" },
+  { code: "215", color: "green", hash: "4a1c7e9…d26b5", time: "6 дней назад", from: "Антонина Шмитер", to: "Маркетинговый счет", document: "Поступления с маршрутных счетов", documentSub: "Возврат по смете озеленения", amount: "0.352900", commission: "0.0033" },
+  { code: "214", color: "cyan", hash: "76b40df…a8c31", time: "12 дней назад", from: "ООО «Хмель»", to: "ООО «Петрушка»", document: "Счет на оплату", documentSub: "Закупка семян газонной травы", amount: "5.183400", commission: "0.0472" },
 ];
 
 /* ── Форматирование периода из диапазона календаря ──────────────────────── */
