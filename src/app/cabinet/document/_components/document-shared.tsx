@@ -282,9 +282,22 @@ export function ChatPanel({
           <span className="ds-caption text-foreground-subtle">Тут будет отображена история<br />переписки по договору</span>
         </div>
       )}
+      {/* Поле и кнопка отклика не имели вовсе: цвет кнопки задавался inline-стилем,
+          а его CSS-классом не перебить — поэтому hover был невозможен в принципе.
+          Перевели на токены primary/primary-hover (те же blue-500/600). */}
       <div className="flex items-center gap-2 border-t border-border p-3">
-        <input type="text" placeholder="Сообщение" className="ds-p3 min-w-0 flex-1 rounded-[4px] border border-border bg-surface px-3 py-2 text-foreground outline-none placeholder:text-foreground-subtle focus:border-[var(--color-blue-midhub-500)]" />
-        <button type="button" aria-label="Отправить" className="flex size-9 shrink-0 items-center justify-center rounded-full text-[#fff]" style={{ backgroundColor: blue }}><SendIcon /></button>
+        <input
+          type="text"
+          placeholder="Сообщение"
+          className="ds-p3 min-w-0 flex-1 rounded-[4px] border border-border bg-surface px-3 py-2 text-foreground outline-none transition-colors placeholder:text-foreground-subtle hover:border-border-strong focus:border-[var(--color-blue-midhub-500)]"
+        />
+        <button
+          type="button"
+          aria-label="Отправить"
+          className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-[#fff] transition-colors hover:bg-primary-hover active:scale-95"
+        >
+          <SendIcon />
+        </button>
       </div>
     </div>
   );
