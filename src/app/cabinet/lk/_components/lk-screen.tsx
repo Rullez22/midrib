@@ -7,8 +7,7 @@ import {
   RequirementsCard,
   AchievementsCard,
   RoleHistoryCard,
-  FeedComposerBar,
-  FeedPost,
+  FeedBlock,
   type ProfileTab,
 } from "@/components/ds";
 import { SideChatLayout } from "../../_components/side-chat-layout";
@@ -34,7 +33,7 @@ import {
  * персональный сайдбар + контент-профиль + чат-ростер справа.
  *
  * Reuse DS: ProfileHeader · ProfileInfoCard · RequirementsCard · AchievementsCard ·
- * RoleHistoryCard · FeedComposerBar · FeedPost. Каркас: LkSidebar · SideChatLayout.
+ * RoleHistoryCard · FeedBlock. Каркас: LkSidebar · SideChatLayout.
  */
 
 function LkProfile({ role }: { role: LkRole }) {
@@ -59,12 +58,9 @@ function LkProfile({ role }: { role: LkRole }) {
           <RoleHistoryCard items={LK_HISTORY} />
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
-          <FeedComposerBar avatar={me.avatar} />
-          {LK_FEED_POSTS.map((p, i) => (
-            <FeedPost key={i} title={p.title} date={p.date} text={p.text} media={p.media} />
-          ))}
-        </div>
+        // FeedBlock = композер + лента: раскрывается, принимает текст и файлы,
+        // публикует пост наверх ленты. Раньше был мёртвый FeedComposerBar.
+        <FeedBlock avatar={me.avatar} authorName={me.name} posts={LK_FEED_POSTS} />
       )}
     </div>
   );

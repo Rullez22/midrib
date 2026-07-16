@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Button } from "../button";
 import { Input } from "../input";
@@ -138,6 +138,23 @@ const COMPOSER_MEDIA: { kind: FeedComposerAction; label: string; icon: ReactNode
   { kind: "document", label: "Файл", icon: <FeedFileIcon /> },
 ];
 
+/** Что набрал пользователь к моменту публикации. */
+export interface FeedDraft {
+  tab: FeedComposerTab;
+  title: string;
+  text: string;
+  /** Приложенные файлы (фото/видео/документы). */
+  files: File[];
+}
+
+/** Какие типы открывать в системном диалоге для каждой кнопки. */
+const ACCEPT: Record<FeedComposerAction, string> = {
+  photo: "image/*",
+  video: "video/*",
+  document: ".pdf,.doc,.docx,.xls,.xlsx,.txt",
+  article: "",
+};
+
 export interface FeedComposerProps {
   /** Активный таб (неуправляемый режим). По умолчанию "article". */
   defaultTab?: FeedComposerTab;
@@ -145,12 +162,15 @@ export interface FeedComposerProps {
   tab?: FeedComposerTab;
   /** Колбэк смены таба. */
   onTabChange?: (tab: FeedComposerTab) => void;
-  /** Клик по медиа-кнопке (Фото / Видео / Файл). */
+  /** Клик по медиа-кнопке (Фото / Видео / Файл) — уведомление; сам выбор файла
+   *  композер берёт на себя. */
   onAction?: (kind: FeedComposerAction) => void;
   /** Выбор документа в drop-зоне (таб «Документ»). */
   onSelectFile?: () => void;
-  /** Клик «Опубликовать». */
-  onPublish?: () => void;
+  /** Публикация. Получает набранное; после вызова поля очищаются. */
+  onPublish?: (draft: FeedDraft) => void;
+  /** Клик «Отмена». Если не задан — кнопки нет. */
+  onCancel?: () => void;
   /** Текст основной кнопки футера. По умолчанию «Опубликовать». */
   publishLabel?: ReactNode;
   className?: string;
@@ -163,18 +183,51 @@ export function FeedComposer({
   onAction,
   onSelectFile,
   onPublish,
+  onCancel,
   publishLabel = "Опубликовать",
   className,
 }: FeedComposerProps) {
   const [internal, setInternal] = useState<FeedComposerTab>(defaultTab);
+  // Поля были presentational (Input/Textarea без value) — набранное никуда не
+  // шло, и «Опубликовать» ничего не публиковал. Держим черновик внутри.
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
+  const fileRef = useRef<HTMLInputElement>(null);
+
   const active = tab ?? internal;
   const cfg = TAB_CONFIG[active];
   const isDocument = active === "document";
+  // Пустой пост публиковать нечего.
+  const canPublish = title.trim().length > 0 || text.trim().length > 0 || files.length > 0;
 
   const setTab = (v: string) => {
     const next = v as FeedComposerTab;
     if (tab === undefined) setInternal(next);
     onTabChange?.(next);
+  };
+
+  /** Кнопка медиа открывает системный диалог выбора файла. */
+  const pick = (kind: FeedComposerAction) => {
+    onAction?.(kind);
+    const input = fileRef.current;
+    if (!input) return;
+    input.accept = ACCEPT[kind];
+    input.value = ""; // иначе повторный выбор того же файла не даст change
+    input.click();
+  };
+
+  const onFiles = (e: ChangeEvent<HTMLInputElement>) => {
+    const picked = Array.from(e.target.files ?? []);
+    if (picked.length) setFiles((prev) => [...prev, ...picked]);
+  };
+
+  const publish = () => {
+    if (!canPublish) return;
+    onPublish?.({ tab: active, title: title.trim(), text: text.trim(), files });
+    setTitle("");
+    setText("");
+    setFiles([]);
   };
 
   return (
@@ -184,6 +237,8 @@ export function FeedComposer({
         className,
       )}
     >
+      <input ref={fileRef} type="file" multiple hidden onChange={onFiles} />
+
       <div className="flex flex-col gap-6 px-6">
         <Tabs variant="basic" size="m" value={active} onValueChange={setTab} aria-label="Тип поста">
           <Tab value="article">{TAB_CONFIG.article.label}</Tab>
@@ -191,15 +246,47 @@ export function FeedComposer({
           <Tab value="document">{TAB_CONFIG.document.label}</Tab>
         </Tabs>
 
-        <Input size="m" placeholder={cfg.titlePlaceholder} />
+        <Input
+          size="m"
+          placeholder={cfg.titlePlaceholder}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
         {isDocument ? (
-          <UploadV2 onSelect={onSelectFile} />
+          <UploadV2 onSelect={() => { onSelectFile?.(); pick("document"); }} />
         ) : (
           <>
-            <Textarea size="l" placeholder={cfg.textPlaceholder} />
+            <Textarea
+              size="l"
+              placeholder={cfg.textPlaceholder}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
             <div className="h-px w-full bg-border" />
           </>
+        )}
+
+        {/* Приложенное видно до публикации, каждый файл можно снять. */}
+        {files.length > 0 && (
+          <div className="ds-content flex flex-wrap gap-2">
+            {files.map((f, i) => (
+              <span
+                key={`${f.name}-${i}`}
+                className="ds-caption inline-flex max-w-full items-center gap-2 rounded-[4px] border border-border bg-surface-muted px-3 py-1.5 text-foreground-muted"
+              >
+                <span className="truncate">{f.name}</span>
+                <button
+                  type="button"
+                  aria-label={`Убрать ${f.name}`}
+                  onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}
+                  className="text-foreground-subtle transition-colors hover:text-foreground"
+                >
+                  ✕
+                </button>
+              </span>
+            ))}
+          </div>
         )}
       </div>
 
@@ -211,7 +298,7 @@ export function FeedComposer({
               variant="ghost"
               size="s"
               iconLeft={icon}
-              onClick={() => onAction?.(kind)}
+              onClick={() => pick(kind)}
             >
               {label}
             </Button>
@@ -219,8 +306,13 @@ export function FeedComposer({
         </div>
       )}
 
-      <div className="flex items-center justify-end border-t border-border bg-surface-muted px-6 py-4">
-        <Button size="m" onClick={onPublish}>
+      <div className="flex items-center justify-end gap-3 border-t border-border bg-surface-muted px-6 py-4">
+        {onCancel && (
+          <Button variant="secondary" size="m" onClick={onCancel}>
+            Отмена
+          </Button>
+        )}
+        <Button size="m" onClick={publish} disabled={!canPublish}>
           {publishLabel}
         </Button>
       </div>

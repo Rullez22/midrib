@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Tabs, Tab, Button, Badge, Modal, Input, Textarea, Link, FeedComposerBar, FeedPost, type FeedMedia } from "@/components/ds";
+import { Tabs, Tab, Button, Badge, Modal, Input, Textarea, Link, FeedBlock, FeedPost, type FeedMedia } from "@/components/ds";
 import { cn } from "@/lib/cn";
 import { useRegFlow, type CreatedContract } from "../../../flow/company-create/_components/reg-flow";
 import { CompanySidebar } from "../../[company]/_components/company-sidebar";
@@ -228,7 +228,7 @@ function ConsultationWindow({ c, onFinish }: { c: CreatedContract; onFinish: () 
           </Tabs>
           {/* key — смена таба играет .ds-content, иначе контент менялся бы рывком. */}
           <div key={docTab} className="ds-content">
-            {docTab === "docs" ? <DocsTable /> : <FeedComposerBar avatar={ME_PHOTO} />}
+            {docTab === "docs" ? <DocsTable /> : <FeedBlock avatar={ME_PHOTO} />}
           </div>
         </div>
         <ChatPanel title="Чат с консультантом" messages={CONSULT_CHAT} />
@@ -309,7 +309,7 @@ export function CreatedContractScreen({
   const lowerSection = final ? (
     <div className="flex flex-col gap-6">
       {showNested && !cfg.terminal && <NestedDocsBlock org={org} cabinet={cabinet} parentDocId={c.id} />}
-      <PublicationForm />
+      <PublicationForm avatar={ME_PHOTO} />
       <div className="mt-2 flex flex-col gap-5">
         <h2 className="ds-h5 text-foreground">{cfg.processTitle}</h2>
         <ContractFeed />
@@ -428,7 +428,7 @@ function ContractDocsPub() {
         <Tab value="docs">Документы</Tab>
         <Tab value="pub">Публикация</Tab>
       </Tabs>
-      {t === "docs" ? <DocsEmptyForContract /> : <FeedComposerBar avatar={ME_PHOTO} />}
+      {t === "docs" ? <DocsEmptyForContract /> : <FeedBlock avatar={ME_PHOTO} />}
     </>
   );
 }

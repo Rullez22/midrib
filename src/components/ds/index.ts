@@ -435,7 +435,11 @@ export type {
   FeedComposerBarProps,
   FeedComposerTab,
   FeedComposerAction,
+  FeedDraft,
 } from "./composite/feed-composer";
+
+export { FeedBlock } from "./composite/feed-block";
+export type { FeedBlockProps, FeedBlockPost } from "./composite/feed-block";
 
 export { FeedPost } from "./composite/feed-post";
 export type { FeedPostProps, FeedMedia, FeedGalleryItem } from "./composite/feed-post";

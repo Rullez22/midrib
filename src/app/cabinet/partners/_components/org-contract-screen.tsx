@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { Tabs, Tab, Button, Badge, Modal, Input, Textarea, Link, FeedPost, FeedComposerBar, TableHeader, type FeedMedia } from "@/components/ds";
+import { Tabs, Tab, Button, Badge, Modal, Link, FeedPost, FeedBlock, TableHeader, type FeedMedia } from "@/components/ds";
 import { cn } from "@/lib/cn";
 import { useRegFlow } from "../../../flow/company-create/_components/reg-flow";
 import { CompanySidebar } from "../../[company]/_components/company-sidebar";
@@ -117,22 +117,16 @@ export function DocsTable() {
   );
 }
 
-/** Форма публикации поста (подписанный документ). */
-export function PublicationForm() {
-  return (
-    <div className="ds-row flex flex-col gap-4 rounded-[4px] border border-border p-6">
-      <span className="ds-p2-medium text-foreground">Публикация</span>
-      <Input placeholder="Заголовок*" />
-      <Textarea placeholder="Описание*" rows={3} />
-      <div className="flex items-center gap-3">
-        <Button variant="ghost" size="s">Фото</Button>
-        <Button variant="ghost" size="s">Ссылка</Button>
-      </div>
-      <div className="-mx-6 -mb-6 mt-2 flex justify-end border-t border-border bg-surface-sunken px-6 py-4">
-        <Button size="m">Опубликовать пост</Button>
-      </div>
-    </div>
-  );
+/**
+ * Форма публикации поста (подписанный документ).
+ *
+ * Была самодельной: Input/Textarea без состояния, кнопки «Фото»/«Ссылка» и
+ * «Опубликовать пост» ни к чему не подключены — набранное никуда не уходило.
+ * Теперь это общий композер платформы (FeedBlock): раскрытие, вложения,
+ * публикация поста в ленту под собой. Имя сохранено — компонент зовут 4 экрана.
+ */
+export function PublicationForm({ avatar, authorName }: { avatar?: ReactNode; authorName?: string }) {
+  return <FeedBlock avatar={avatar} authorName={authorName} />;
 }
 
 export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contract: OrgContract; cabinet?: CabinetConfig }) {
@@ -219,7 +213,7 @@ export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contra
             {signed ? (
               <>
                 <NestedDocsBlock org={org} cabinet={cabinet} parentDocId={contract.id} />
-                <PublicationForm />
+                <PublicationForm avatar={org.media} authorName={org.name} />
               </>
             ) : (
               // ds-row — тот же лифт тени, что у блоков выше (транзакции, чат):
@@ -234,7 +228,10 @@ export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contra
                   {docTab === "docs" ? (
                     <DocsTable />
                   ) : (
-                    <FeedComposerBar avatar={org.media} />
+                    // FeedBlock = композер + лента: раскрывается, принимает текст
+                    // и файлы, публикует пост. Раньше стоял мёртвый
+                    // FeedComposerBar — кнопки и поле ничего не делали.
+                    <FeedBlock avatar={org.media} authorName={org.name} />
                   )}
                 </div>
               </div>

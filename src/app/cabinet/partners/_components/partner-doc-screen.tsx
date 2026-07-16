@@ -54,7 +54,7 @@ function DocLowerSection({ org, cabinet, docId }: { org: Org; cabinet?: CabinetC
   return (
     <div className="flex flex-col gap-6">
       <NestedDocsBlock org={org} cabinet={cabinet} parentDocId={docId} />
-      <PublicationForm />
+      <PublicationForm avatar={org.media} authorName={org.name} />
       <div className="mt-2 flex flex-col gap-5">
         <h2 className="ds-h5 text-foreground">Процесс исполнения договора</h2>
         {PROCESS.map((p, i) => {

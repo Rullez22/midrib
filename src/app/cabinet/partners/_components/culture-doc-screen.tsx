@@ -187,7 +187,7 @@ export function CultureDocScreen({ org, doc, cabinet }: { org: Org; doc: OrgDoc;
                 Уважаемый пользователь, данный договор был закрыт. Но вы также можете вести свою деятельность, добавлять неизбежные документы, опубликовывать текстовые и медиа посты посвященные вашей деятельности в рамках данного документа.
               </Banner>
               <ClosedDocsTable />
-              <PublicationForm />
+              <PublicationForm avatar={org.media} authorName={org.name} />
             </>
           ) : (
             /* Оценка: баннер + заголовок + карточки участников. */

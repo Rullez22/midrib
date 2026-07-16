@@ -12,7 +12,7 @@ import {
   GeoBars,
   Tabs,
   Tab,
-  FeedComposerBar,
+  FeedBlock,
   FeedPost,
   type InfoGroup,
 } from "@/components/ds";
@@ -179,12 +179,8 @@ export function SubdivisionProfile() {
           </SectionCard>
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
-          <FeedComposerBar avatar={<OrgAvatar size={48}>{SUBDIVISION.org}</OrgAvatar>} />
-          {FEED_POSTS.map((p, i) => (
-            <FeedPost key={i} title={p.title} date={p.date} text={p.text} media={p.media} />
-          ))}
-        </div>
+        // FeedBlock = композер + лента: публикует пост наверх ленты.
+        <FeedBlock avatar={<OrgAvatar size={48}>{SUBDIVISION.org}</OrgAvatar>} posts={FEED_POSTS} />
       )}
     </div>
   );
