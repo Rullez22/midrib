@@ -234,7 +234,7 @@ export function SectionCard({
         onClick={toggle}
         className={cn(
           // Канон заголовков-аккордеонов: синий тинт при наведении.
-          "flex h-[66px] w-full items-center justify-between bg-[var(--color-grey-10)] px-6 text-left transition-colors hover:bg-[color:var(--color-grey-90)]",
+          "flex h-[66px] w-full items-center justify-between bg-[var(--color-grey-10)] px-6 text-left transition-colors duration-[250ms] hover:bg-[color:var(--color-surface-hover)]",
           current ? "rounded-t-[4px]" : "rounded-[4px]",
         )}
       >

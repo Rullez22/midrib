@@ -25,6 +25,9 @@
 
   --color-grey-10:  #f9fafc;
   --color-grey-20:  #f3f6f9;
+  /* Оттенок под hover-поверхности: чуть темнее дефолтных grey-10/20, но заметно
+     светлее grey-90 (тот читается как цвет рамки). Заполняет разрыв 20 → 90. */
+  --color-grey-30:  #e9eef3;
   --color-grey-90:  #dee5ec;
   --color-grey-100: #c9d3de;
   --color-grey-200: #b1becb;

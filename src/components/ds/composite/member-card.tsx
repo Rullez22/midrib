@@ -97,7 +97,7 @@ export function MemberCard({
       <button
         type="button"
         className={cn(
-          "flex h-[66px] w-full items-center justify-between gap-4 bg-surface-sunken px-6 text-left transition-colors hover:bg-[color:var(--color-grey-90)]",
+          "flex h-[66px] w-full items-center justify-between gap-4 bg-surface-sunken px-6 text-left transition-colors duration-[250ms] hover:bg-[color:var(--color-surface-hover)]",
           current && "border-b border-border",
         )}
         aria-expanded={current}
