@@ -288,7 +288,9 @@
     transition: background-color 0.15s ease, color 0.15s ease;
   }
   .ds-lm-nav:hover:not(:disabled):not(.ds-lm-nav--active) {
-    background: var(--color-grey-20);
+    /* Канон меню: тот же синий тинт, что у .ds-lm-btn и футер-ячеек, —
+       чтобы пункты под чертой реагировали так же, как кнопки над ней. */
+    background: var(--color-blue-midhub-50);
   }
   .ds-lm-nav:focus-visible {
     outline: 2px solid var(--color-blue-midhub-500);

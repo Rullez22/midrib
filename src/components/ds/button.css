@@ -97,7 +97,9 @@
     color: var(--color-blue-midhub-500);
     border-color: var(--color-blue-midhub-500);
   }
-  .ds-btn--secondary:hover:not(:disabled)  { border-color: var(--color-blue-midhub-600); }
+  /* Заметный отклик: одной смены оттенка рамки (500→600) глазом не видно —
+     добавлен фон-тинт, как у остальных интерактивов. */
+  .ds-btn--secondary:hover:not(:disabled)  { background-color: var(--color-blue-midhub-50); border-color: var(--color-blue-midhub-600); }
   .ds-btn--secondary:active:not(:disabled) { background-color: var(--color-blue-midhub-50); border-color: var(--color-blue-midhub-800); }
   .ds-btn--secondary:disabled              { color: var(--color-blue-midhub-100); border-color: var(--color-blue-midhub-100); }
 
@@ -135,7 +137,8 @@
     color: var(--color-red-300);
     border-color: var(--color-red-300);
   }
-  .ds-btn--negative-sec:hover:not(:disabled)  { border-color: var(--color-red-400); }
+  /* Аналогично secondary: рамка одна не читается → добавлен фон-тинт. */
+  .ds-btn--negative-sec:hover:not(:disabled)  { background-color: var(--color-red-50); border-color: var(--color-red-400); }
   .ds-btn--negative-sec:active:not(:disabled) { background-color: var(--color-red-100); border-color: var(--color-red-700); color: var(--color-red-200); }
   .ds-btn--negative-sec:disabled              { color: var(--color-red-100); border-color: var(--color-red-100); }
 

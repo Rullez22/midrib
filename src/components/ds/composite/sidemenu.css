@@ -65,7 +65,8 @@
     color: var(--color-dark-800);
   }
   .ds-sidemenu--label .ds-sidemenu__item:hover:not(:disabled):not([aria-selected="true"]) {
-    background-color: var(--color-grey-10);
+    /* Канон меню — синий тинт (как .ds-lm-nav / .ds-lm-btn). */
+    background-color: var(--color-blue-midhub-50);
   }
   .ds-sidemenu--label .ds-sidemenu__item[aria-selected="true"] {
     background-color: var(--color-white);
