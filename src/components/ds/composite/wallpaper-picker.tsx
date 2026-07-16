@@ -128,7 +128,7 @@ export function WallpaperPicker({
             aria-checked={isSelected}
             aria-label={w.label}
             onClick={() => handleSelect(w.id)}
-            className="rounded-[8px] outline-none transition-transform focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.98]"
+            className="rounded-[8px] outline-none transition-transform hover:ring-2 hover:ring-[color:var(--color-blue-midhub-200)] focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.98]"
           >
             <WallpaperTile wallpaper={w} selected={isSelected} />
           </button>

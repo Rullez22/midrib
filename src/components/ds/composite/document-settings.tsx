@@ -152,7 +152,7 @@ function ChevronBox({ open, onClick }: { open: boolean; onClick: () => void }) {
       type="button"
       onClick={onClick}
       aria-label={open ? "Свернуть" : "Развернуть"}
-      className="flex size-8 shrink-0 items-center justify-center rounded-[4px] border border-border bg-surface-sunken text-foreground-muted"
+      className="flex size-8 shrink-0 items-center justify-center rounded-[4px] border border-border bg-surface-sunken text-foreground-muted transition-colors hover:text-foreground"
     >
       <Chevron open={open} />
     </button>
@@ -333,7 +333,7 @@ export function DocumentSettings({
               type="button"
               aria-label={open ? "Свернуть" : "Развернуть"}
               onClick={() => setExpandedDoc((e) => ({ ...e, [country.code]: open ? "" : key }))}
-              className="text-foreground-muted"
+              className="text-foreground-muted transition-colors hover:text-foreground"
             >
               <Chevron open={open} />
             </button>
@@ -376,7 +376,7 @@ export function DocumentSettings({
                 return next;
               })
             }
-            className="text-foreground-muted"
+            className="text-foreground-muted transition-colors hover:text-foreground"
           >
             <Chevron open={open} />
           </button>
