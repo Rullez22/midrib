@@ -211,7 +211,7 @@ export function Combobox({
         </button>
 
         {open && (
-          <ul className="ds-combo__menu" role="listbox" aria-label={typeof label === "string" ? label : undefined}>
+          <ul className="ds-anim-menu ds-combo__menu" role="listbox" aria-label={typeof label === "string" ? label : undefined}>
             {options.map((o, i) => (
               <li
                 key={o.value}

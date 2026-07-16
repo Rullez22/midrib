@@ -12,7 +12,8 @@
   .ds-accordion {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    /* Без gap: отступ до панели живёт внутри анимируемой обёртки (padding-top
+       панели), чтобы в закрытом состоянии он схлопывался вместе с высотой. */
   }
 
   .ds-accordion--l { --acc-fs: 16px; --acc-lh: 24px; --acc-icon: 24px; }
@@ -67,12 +68,32 @@
     transform: rotate(90deg);
   }
 
+  /* Обёртка панели: плавная анимация высоты через grid-rows 0fr → 1fr
+     (CSS-only, без JS-замера scrollHeight). Контент внутри — overflow:hidden. */
+  .ds-accordion__panelwrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  }
+  .ds-accordion__panelwrap--open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
   .ds-accordion__panel {
+    overflow: hidden;
+    min-height: 0;
     font-family: var(--font-sans);
     font-weight: var(--weight-regular);
     font-size: var(--acc-fs);
     line-height: var(--acc-lh);
     color: var(--color-foreground-muted);
+    padding-top: 8px;
     padding-left: calc(var(--acc-icon) + 8px);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-accordion__panelwrap { transition: none; }
 }

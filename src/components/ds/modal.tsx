@@ -62,14 +62,14 @@ export function Modal({ open, onClose, title, children, footer, size = "m", clas
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(37,55,75,0.35)] p-4"
+      className="ds-anim-overlay fixed inset-0 z-50 flex items-center justify-center bg-[rgba(37,55,75,0.35)] p-4"
       onClick={() => onClose?.()}
     >
       <div
         role="dialog"
         aria-modal="true"
         className={cn(
-          "relative w-full rounded-[4px] border border-border bg-surface p-8 shadow-[0_2px_5px_rgba(37,55,75,0.25)]",
+          "ds-anim-pop relative w-full rounded-[4px] border border-border bg-surface p-8 shadow-[0_2px_5px_rgba(37,55,75,0.25)]",
           SIZE_CLASS[size],
           className,
         )}

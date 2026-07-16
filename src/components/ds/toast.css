@@ -26,6 +26,11 @@
     align-items: flex-start;
   }
 
+  /* Вход тоста — slide-in сверху (тосты транзиентны). */
+  @media (prefers-reduced-motion: no-preference) {
+    .ds-toast { animation: appMenu 0.22s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  }
+
   /* ── Варианты (фон / рамка / иконка) ───────────────────────── */
   .ds-toast--positive {
     --toast-bg: var(--color-green-50);

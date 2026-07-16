@@ -86,11 +86,14 @@ export function Accordion({
         <Chevron />
         <span className="ds-accordion__title">{title}</span>
       </button>
-      {current && (
+      <div
+        className={cn("ds-accordion__panelwrap", current && "ds-accordion__panelwrap--open")}
+        inert={!current}
+      >
         <div id={panelId} className="ds-accordion__panel" role="region">
           {children}
         </div>
-      )}
+      </div>
     </div>
   );
 }

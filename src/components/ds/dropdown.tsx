@@ -161,7 +161,7 @@ export function Dropdown({
 
       {open && (
         <ul
-          className={cn("ds-combo__menu", "ds-dropdown__menu", align === "end" && "ds-dropdown__menu--end")}
+          className={cn("ds-anim-menu ds-combo__menu", "ds-dropdown__menu", align === "end" && "ds-dropdown__menu--end")}
           role="menu"
           aria-label={rest["aria-label"]}
         >
