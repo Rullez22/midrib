@@ -83,7 +83,7 @@ function StructCard({
       className={cn(
         "flex flex-col gap-0.5 rounded-[4px] border px-4 py-3",
         !active && "border-border bg-white",
-        onClick && "cursor-pointer",
+        onClick && "ds-row cursor-pointer",
       )}
       style={active ? { borderColor: RED, backgroundColor: RED_BG } : undefined}
     >
@@ -101,7 +101,7 @@ function QuestionRow({ title, children, defaultOpen = false }: { title: ReactNod
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
+        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors duration-[250ms] hover:bg-[color:var(--color-surface-hover)]"
         style={open ? { backgroundColor: RED_BG } : undefined}
       >
         <span className="ds-p3 text-foreground">{title}</span>
@@ -180,7 +180,7 @@ function CouncilCard({
       onClick={onSelect}
       className={cn(
         "relative flex w-[157px] flex-col items-center gap-1 overflow-hidden rounded-[4px] border pb-2",
-        onSelect && "cursor-pointer",
+        onSelect && "ds-row cursor-pointer",
       )}
       style={{ borderColor, backgroundColor: bg }}
     >
@@ -213,7 +213,7 @@ function CouncilCard({
                 type="button"
                 aria-label="Редактировать"
                 onClick={onEdit}
-                className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-[6px] bg-[var(--color-grey-20)]"
+                className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-[6px] bg-[var(--color-grey-20)] transition-colors duration-[250ms] hover:bg-[color:var(--color-surface-hover)]"
               >
                 <PencilIcon />
               </button>
@@ -279,7 +279,7 @@ function RolesModal({
 /** Карточка «Добавить члена совета» — серая рамка, без статуса. */
 function AddCouncilCard() {
   return (
-    <button type="button" className="relative flex w-[157px] flex-col items-center gap-1 overflow-hidden rounded-[4px] border border-border bg-white pb-2 text-left">
+    <button type="button" className="ds-row relative flex w-[157px] flex-col items-center gap-1 overflow-hidden rounded-[4px] border border-border bg-white pb-2 text-left">
       <div className="relative h-[128px] w-full border-b border-border bg-white">
         <div className="flex h-full flex-col items-center justify-center gap-1.5">
           <svg viewBox="0 0 32 32" fill="none" aria-hidden className="size-8">
@@ -368,7 +368,7 @@ function CkpBlock() {
         <div className="flex flex-col items-center gap-4">
           <p className="ds-p3 w-full text-foreground-muted">{CKP_DESC}</p>
           <div className="h-px w-full bg-border" />
-          <button type="button" onClick={() => setOpen(false)} className="ds-caption-medium text-[var(--color-blue-midhub-500)]">
+          <button type="button" onClick={() => setOpen(false)} className="ds-caption-medium text-[var(--color-blue-midhub-500)] transition-colors hover:text-[color:var(--color-blue-midhub-600)]">
             Свернуть
           </button>
         </div>
@@ -390,7 +390,7 @@ function CkpBlock() {
         <span className="ds-p2-medium text-foreground">Ценный конечный продукт</span>
         <p className="ds-p3 line-clamp-3 text-foreground-muted">{CKP_DESC}</p>
         <div className="h-px w-full bg-border" />
-        <button type="button" onClick={() => setOpen(true)} className="ds-caption-medium self-center text-[var(--color-blue-midhub-500)]">
+        <button type="button" onClick={() => setOpen(true)} className="ds-caption-medium self-center text-[var(--color-blue-midhub-500)] transition-colors hover:text-[color:var(--color-blue-midhub-600)]">
           Смотреть всю информацию
         </button>
       </div>
@@ -527,7 +527,7 @@ function ProgressCard({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-col gap-3 rounded-[4px] border border-border bg-white p-4", className)}>
+    <div className={cn("ds-row flex flex-col gap-3 rounded-[4px] border border-border bg-white p-4", className)}>
       <div className="flex items-center gap-1.5">
         <HourglassIcon />
         <span className="ds-caption text-foreground-subtle">Выполнено: {percent}%</span>
@@ -537,7 +537,7 @@ function ProgressCard({
         <span className="ds-p3-medium text-foreground">{title}</span>
         <span className="ds-caption text-foreground-muted">{description}</span>
       </div>
-      <button type="button" className="ds-caption-medium self-start text-[var(--color-blue-midhub-500)]">
+      <button type="button" className="ds-caption-medium self-start text-[var(--color-blue-midhub-500)] transition-colors hover:text-[color:var(--color-blue-midhub-600)]">
         {action}
       </button>
     </div>

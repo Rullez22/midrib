@@ -42,7 +42,7 @@ function CollectiveCard({ m, accent, selected, onClick }: { m: CollectiveMember;
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } } : undefined}
-      className={cn("relative flex w-[157px] flex-col items-center gap-1 overflow-hidden rounded-[4px] border pb-2", onClick && "cursor-pointer")}
+      className={cn("relative flex w-[157px] flex-col items-center gap-1 overflow-hidden rounded-[4px] border pb-2", onClick && "ds-row cursor-pointer")}
       style={{ borderColor: accent.border, backgroundColor: selected ? accent.bg : "#fff" }}
     >
       <div className="relative h-[128px] w-full" style={{ borderBottom: `1px solid ${accent.border}` }}>
@@ -83,7 +83,7 @@ function StructCard({ children, sub, active, accent, onClick }: { children: Reac
   return (
     <div
       onClick={onClick}
-      className={cn("flex flex-col gap-0.5 rounded-[4px] border px-4 py-3", !active && "border-border bg-white", onClick && "cursor-pointer")}
+      className={cn("flex flex-col gap-0.5 rounded-[4px] border px-4 py-3", !active && "border-border bg-white", onClick && "ds-row cursor-pointer")}
       style={active ? { borderColor: accent.border, backgroundColor: accent.bg } : undefined}
     >
       <span className="ds-p3 text-foreground">{children}</span>
@@ -118,7 +118,7 @@ function QuestionRow({ q, accent }: { q: { title: string; body?: string; open?: 
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
+        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors duration-[250ms] hover:bg-[color:var(--color-surface-hover)]"
         style={open ? { backgroundColor: accent.bg } : undefined}
       >
         <span className="ds-p3 text-foreground">{q.title}</span>
@@ -166,7 +166,7 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
       <div className="absolute right-4 top-3.5 z-10 flex items-center gap-4">
         {editable && (
           <button type="button" aria-label="Редактировать">
-            <EditPencilIcon className="size-4 text-foreground-subtle" />
+            <EditPencilIcon className="size-4 text-foreground-subtle transition-colors hover:text-foreground" />
           </button>
         )}
         {layout && (
@@ -205,7 +205,7 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
         <div className="flex flex-col items-center gap-4">
           <p className="ds-p3 w-full text-foreground-muted">{desc}</p>
           <div className="h-px w-full bg-border" />
-          <button type="button" onClick={() => setOpen(false)} className="ds-caption-medium text-[var(--color-blue-midhub-500)]">
+          <button type="button" onClick={() => setOpen(false)} className="ds-caption-medium text-[var(--color-blue-midhub-500)] transition-colors hover:text-[color:var(--color-blue-midhub-600)]">
             Свернуть
           </button>
         </div>
@@ -225,7 +225,7 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
         <span className="ds-p2-medium text-foreground">{title}</span>
         <p className="ds-p3 line-clamp-3 text-foreground-muted">{desc}</p>
         <div className="mt-auto h-px w-full bg-border" />
-        <button type="button" onClick={() => setOpen(true)} className="ds-caption-medium self-center text-[var(--color-blue-midhub-500)]">
+        <button type="button" onClick={() => setOpen(true)} className="ds-caption-medium self-center text-[var(--color-blue-midhub-500)] transition-colors hover:text-[color:var(--color-blue-midhub-600)]">
           Смотреть всю информацию
         </button>
       </div>

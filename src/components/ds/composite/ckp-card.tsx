@@ -65,7 +65,9 @@ export function CKPCard({
   className,
 }: CKPCardProps) {
   return (
-    <div className={cn("relative flex w-full gap-6 rounded-[10px] border border-border bg-white p-5 shadow-[var(--shadow-sm)]", className)}>
+    // ds-row — лифт мягкой тени, как у карточек-документов: внутри карточки
+    // есть действия (правка / смена вида), поэтому отклик уместен.
+    <div className={cn("ds-row relative flex w-full gap-6 rounded-[10px] border border-border bg-white p-5 shadow-[var(--shadow-sm)]", className)}>
       {/* Аватар-блок */}
       <div className="flex w-[120px] shrink-0 flex-col items-center gap-2 text-center">
         <div className="flex size-20 items-center justify-center overflow-hidden rounded-[12px]" style={{ background: "linear-gradient(135deg, var(--color-purple-200), var(--color-blue-midhub-200))" }}>
