@@ -188,7 +188,7 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
 
   if (open) {
     return (
-      <div className="relative flex w-full flex-col gap-4 rounded-[4px] border border-border bg-white p-4" style={borderColor ? { borderColor } : undefined}>
+      <div className="ds-row relative flex w-full flex-col gap-4 rounded-[4px] border border-border bg-white p-4" style={borderColor ? { borderColor } : undefined}>
         {icons}
         {/* Аватар + заголовок с подписями */}
         <div className="flex items-start gap-4 pr-9">
@@ -214,7 +214,7 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
   }
 
   return (
-    <div className="relative flex w-full gap-4 rounded-[4px] border border-border bg-white p-[7px]" style={borderColor ? { borderColor } : undefined}>
+    <div className="ds-row relative flex w-full gap-4 rounded-[4px] border border-border bg-white p-[7px]" style={borderColor ? { borderColor } : undefined}>
       {icons}
       <div className="flex w-[142px] shrink-0 flex-col items-center gap-1 overflow-clip rounded-[4px] border border-border pb-1">
         <CkpAva avatar={avatar} cover={cover} />

@@ -156,7 +156,11 @@ function StructureView({ initialFocus = "administration" }: { initialFocus?: str
                       borderColor={ca.border}
                       editable
                       onEdit={() => setFocus(s.slug)}
-                      className="!h-full !w-full"
+                      /* ds-row — карточка кликабельна (обёртка role="button"), но
+                         сама не реагировала. Лифт вешаем на карточку, а не на
+                         обёртку: у обёртки нет скругления — тень легла бы
+                         прямоугольником вокруг круглых углов. */
+                      className="ds-row !h-full !w-full"
                     />
                   </div>
                   {/* Слот под стрелку h-10 (40px) — резервируется во всех колонках
