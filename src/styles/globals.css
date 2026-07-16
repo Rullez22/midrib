@@ -269,6 +269,18 @@ body {
   outline-offset: 2px;
 }
 
+/* Поля DS показывают фокус на рамке-обёртке (.ds-field__box:focus-within —
+   синий border + кольцо), поэтому у самого input/textarea outline не нужен:
+   иначе получаются ДВА индикатора — кольцо поля и рамка вокруг текста.
+   DS ставит `.ds-field__input { outline: none }`, но он внутри @layer
+   components, а правило :focus-visible выше — безслойное, а безслойный CSS
+   бьёт любой @layer. Поэтому глушим здесь, тоже вне слоя. Внутренние кнопки
+   поля (календарь, показать пароль) свой outline сохраняют. */
+.ds-field__box input:focus-visible,
+.ds-field__box textarea:focus-visible {
+  outline: none;
+}
+
 /* Скелетон-заглушка для состояний загрузки */
 .skeleton {
   background: linear-gradient(90deg, rgba(17, 18, 22, 0.05) 25%, rgba(17, 18, 22, 0.09) 37%, rgba(17, 18, 22, 0.05) 63%);
