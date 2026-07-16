@@ -65,9 +65,19 @@
     width: 75%;
     height: 75%;
   }
+  /* Было display: none/block — переключается скачком. Держим обе иконки в
+     потоке, накладываем друг на друга (box уже position: absolute, т.е. сам
+     containing block) и разводим прозрачностью + масштабом: галочка
+     «проявляется», а не возникает. Transition намеренно не задаём — приходит из
+     глобального [class*="ds-"] (opacity .25s / transform .12s) под guard
+     prefers-reduced-motion. */
   .ds-check__box .ds-check__check,
   .ds-check__box .ds-check__minus {
-    display: none;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    opacity: 0;
+    transform: scale(0.6);
   }
 
   /* ── Value: unchecked — состояния ──────────────────────────── */
@@ -109,13 +119,17 @@
   .ds-check--purple { --check-checked-bg: var(--color-purple-300, #b39ddb); }
 
   .ds-check__input:checked + .ds-check__box .ds-check__check {
-    display: block;
+    opacity: 1;
+    transform: scale(1);
   }
+  /* indeterminate бьёт checked: галочка уходит, остаётся минус. */
   .ds-check__input:indeterminate + .ds-check__box .ds-check__check {
-    display: none;
+    opacity: 0;
+    transform: scale(0.6);
   }
   .ds-check__input:indeterminate + .ds-check__box .ds-check__minus {
-    display: block;
+    opacity: 1;
+    transform: scale(1);
   }
 
   .ds-check__input:checked:hover:not(:disabled) + .ds-check__box,

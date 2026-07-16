@@ -304,105 +304,117 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
               <Tab value="art">Артефакты</Tab>
             </Tabs>
 
-            {/* Взаиморасчёты (кабинеты): период + тело отчёта (готовые композиты) */}
-            {cabinetMode && subTab === "recon" && (
-              <div className="flex flex-col gap-6">
-                <ReportPeriodBar period="1 апреля 2025 - 30 апреля 2025" periodLabel="Период отчета:" historyLabel="История отчетов" onPickPeriod={() => {}} />
-                <ReportBody />
-              </div>
-            )}
-
-            {/* Адреса пула (маркетинговый счёт): таблица долей */}
-            {pool && subTab === "pool" && (
-              <TransactionsTable transactions={POOL_ADDRESSES} title={null} showFilters={false} showMore={false} showShare />
-            )}
-
-            {/* Подсчёта: % распределения / название / сумма / Подробнее */}
-            {!pool && subTab === "podsc" && (
-              <div className="flex flex-col gap-3">
-                {SUBACCOUNTS.map((s, i) => (
-                  <div
-                    key={i}
-                    className="ds-row flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4 transition-colors"
-                  >
-                    <span className="ds-h4 shrink-0 text-primary">{s.pct} %</span>
-                    <span className="ds-p3 flex-1 text-foreground">{s.name}</span>
-                    {s.amount && <span className="ds-p3 hidden text-foreground sm:block">{s.amount}</span>}
-                    <Button
-                      variant="secondary"
-                      size="s"
-                      onClick={s.name === "Маркетинговый счет" ? () => router.push("/cabinet/account/marketing") : undefined}
-                    >
-                      Подробнее
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Документооборот: тулбар + таблица документов */}
-            {subTab === "doc" && (
-              <div className="flex flex-col gap-4">
-                <TableToolbar placeholder="Все шаблоны" addLabel="Добавить документ" onAdd={() => router.push("/cabinet/document/new")} />
-                <div className="flex flex-col gap-2">
-                  <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" sortKey={docSortKey} sortDir={docSortDir} onSort={onDocSort} />
-                  {sortedDocs.map((d) => (
-                    <button
-                      key={d.id}
-                      type="button"
-                      onClick={() =>
-                        router.push(
-                          d.id === TEMPLATE_DOC_ID
-                            ? "/cabinet/document/create?resume=1"
-                            : d.id === EXTERNAL_DOC_ID
-                              ? "/cabinet/document/external?resume=1"
-                              : `/cabinet/document/${d.id}`,
-                        )
-                      }
-                      className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3 text-left"
-                    >
-                      <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
-                        <span className="ds-caption text-foreground-subtle">{d.type}</span>
-                        <span className="ds-p3 text-foreground">{d.name}</span>
-                      </div>
-                      <div className="ds-p3 text-center text-foreground" style={colStyle(DOC_COLUMNS[1])}>{d.status}</div>
-                      <div className="flex justify-center" style={colStyle(DOC_COLUMNS[2])}>
-                        {d.badge && <Badge variant={d.badgeVariant ?? "solid"} color={d.badgeColor ?? "orange"} className="w-[139px]">{d.badge}</Badge>}
-                      </div>
-                      <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>{d.date}</div>
-                    </button>
-                  ))}
+            {/* Контент под-таба. key={subTab} монтирует блок заново — только так
+                отрабатывает .ds-content: без key узел бы остался прежним и смена
+                была бы мгновенной. Обёртка — один flex-item, gap-4 от Tabs
+                сохраняется (за раз показан ровно один блок). */}
+            <div key={subTab} className="ds-content flex flex-col gap-4">
+              {/* Взаиморасчёты (кабинеты): период + тело отчёта (готовые композиты) */}
+              {cabinetMode && subTab === "recon" && (
+                <div className="flex flex-col gap-6">
+                  <ReportPeriodBar period="1 апреля 2025 - 30 апреля 2025" periodLabel="Период отчета:" historyLabel="История отчетов" onPickPeriod={() => {}} />
+                  <ReportBody />
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Артефакты: фильтр-табы + тулбар + таблица артефактов */}
-            {subTab === "art" && (
-              <div className="flex flex-col gap-4">
-                <Tabs value={artFilter} onValueChange={setArtFilter} variant="basic" size="m" equal aria-label="Фильтр артефактов" className="w-full">
-                  {ART_FILTERS.map((f) => (
-                    <Tab key={f.value} value={f.value}>{f.label}</Tab>
-                  ))}
-                </Tabs>
-                <TableToolbar placeholder="Все шаблоны артефактов" addLabel="Добавить артефакт" />
-                <div className="flex flex-col gap-2">
-                  <TableHeader columns={ART_COLUMNS} size="s" tone="muted" sortKey={artSortKey} sortDir={artSortDir} onSort={onArtSort} />
-                  {sortedArts.map((a, i) => (
-                    <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
-                      <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
-                        <span className="ds-caption text-foreground-subtle">{a.type}</span>
-                        <span className="ds-p3 text-foreground">{a.name}</span>
-                      </div>
-                      <div className="ds-p3 text-right text-foreground" style={colStyle(ART_COLUMNS[1])}>{a.date}</div>
-                      <div className="flex items-center justify-end gap-3" style={colStyle(ART_COLUMNS[2])}>
-                        <div className="h-6 w-px bg-border" />
-                        <ArtStateIcon state={a.state} />
-                      </div>
+              {/* Адреса пула (маркетинговый счёт): таблица долей */}
+              {pool && subTab === "pool" && (
+                <TransactionsTable transactions={POOL_ADDRESSES} title={null} showFilters={false} showMore={false} showShare />
+              )}
+
+              {/* Подсчёта: % распределения / название / сумма / Подробнее */}
+              {!pool && subTab === "podsc" && (
+                <div className="ds-content--stagger flex flex-col gap-3">
+                  {SUBACCOUNTS.map((s, i) => (
+                    <div
+                      key={i}
+                      className="ds-row flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4 transition-colors"
+                    >
+                      <span className="ds-h4 shrink-0 text-primary">{s.pct} %</span>
+                      <span className="ds-p3 flex-1 text-foreground">{s.name}</span>
+                      {s.amount && <span className="ds-p3 hidden text-foreground sm:block">{s.amount}</span>}
+                      <Button
+                        variant="secondary"
+                        size="s"
+                        onClick={s.name === "Маркетинговый счет" ? () => router.push("/cabinet/account/marketing") : undefined}
+                      >
+                        Подробнее
+                      </Button>
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
+
+              {/* Документооборот: тулбар + таблица документов */}
+              {subTab === "doc" && (
+                <div className="flex flex-col gap-4">
+                  <TableToolbar placeholder="Все шаблоны" addLabel="Добавить документ" onAdd={() => router.push("/cabinet/document/new")} />
+                  <div className="flex flex-col gap-2">
+                    <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" sortKey={docSortKey} sortDir={docSortDir} onSort={onDocSort} />
+                    {/* key по сортировке: строки перестраиваются — каскад играет заново. */}
+                    <div key={`${docSortKey}-${docSortDir}`} className="ds-content--stagger flex flex-col gap-2">
+                      {sortedDocs.map((d) => (
+                        <button
+                          key={d.id}
+                          type="button"
+                          onClick={() =>
+                            router.push(
+                              d.id === TEMPLATE_DOC_ID
+                                ? "/cabinet/document/create?resume=1"
+                                : d.id === EXTERNAL_DOC_ID
+                                  ? "/cabinet/document/external?resume=1"
+                                  : `/cabinet/document/${d.id}`,
+                            )
+                          }
+                          className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3 text-left"
+                        >
+                          <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
+                            <span className="ds-caption text-foreground-subtle">{d.type}</span>
+                            <span className="ds-p3 text-foreground">{d.name}</span>
+                          </div>
+                          <div className="ds-p3 text-center text-foreground" style={colStyle(DOC_COLUMNS[1])}>{d.status}</div>
+                          <div className="flex justify-center" style={colStyle(DOC_COLUMNS[2])}>
+                            {d.badge && <Badge variant={d.badgeVariant ?? "solid"} color={d.badgeColor ?? "orange"} className="w-[139px]">{d.badge}</Badge>}
+                          </div>
+                          <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>{d.date}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Артефакты: фильтр-табы + тулбар + таблица артефактов */}
+              {subTab === "art" && (
+                <div className="flex flex-col gap-4">
+                  <Tabs value={artFilter} onValueChange={setArtFilter} variant="basic" size="m" equal aria-label="Фильтр артефактов" className="w-full">
+                    {ART_FILTERS.map((f) => (
+                      <Tab key={f.value} value={f.value}>{f.label}</Tab>
+                    ))}
+                  </Tabs>
+                  <TableToolbar placeholder="Все шаблоны артефактов" addLabel="Добавить артефакт" />
+                  <div className="flex flex-col gap-2">
+                    <TableHeader columns={ART_COLUMNS} size="s" tone="muted" sortKey={artSortKey} sortDir={artSortDir} onSort={onArtSort} />
+                    {/* key по фильтру и сортировке — иначе смена фильтра мгновенна. */}
+                    <div key={`${artFilter}-${artSortKey}-${artSortDir}`} className="ds-content--stagger flex flex-col gap-2">
+                      {sortedArts.map((a, i) => (
+                        <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
+                          <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
+                            <span className="ds-caption text-foreground-subtle">{a.type}</span>
+                            <span className="ds-p3 text-foreground">{a.name}</span>
+                          </div>
+                          <div className="ds-p3 text-right text-foreground" style={colStyle(ART_COLUMNS[1])}>{a.date}</div>
+                          <div className="flex items-center justify-end gap-3" style={colStyle(ART_COLUMNS[2])}>
+                            <div className="h-6 w-px bg-border" />
+                            <ArtStateIcon state={a.state} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Последние транзакции (DS TransactionsTable, 1:1 «транзакции-лк») — только целевой счёт */}

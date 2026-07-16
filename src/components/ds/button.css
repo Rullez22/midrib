@@ -160,9 +160,16 @@
   .ds-btn--loading {
     cursor: default;
   }
+  /* Гасим текст через opacity, а не visibility: visibility переключается
+     скачком. Сам transition НЕ задаём здесь намеренно — плавность приходит из
+     глобального правила [class*="ds-"] (globals.css, opacity .25s), которое
+     живёт под guard prefers-reduced-motion. Локальный transition в @layer
+     сработал бы наоборот — именно при `reduce`, т.к. безслойный глобальный
+     guard там отключается и перебивать @layer становится нечему.
+     Ширина кнопки не прыгает: label остаётся в потоке, спиннер — absolute. */
   .ds-btn--loading .ds-btn__icon,
   .ds-btn--loading .ds-btn__label {
-    visibility: hidden;
+    opacity: 0;
   }
   .ds-btn__spinner {
     position: absolute;
@@ -173,7 +180,9 @@
     margin-top: calc(var(--btn-icon) / -2);
     margin-left: calc(var(--btn-icon) / -2);
     color: currentColor;
-    animation: ds-btn-spin 0.7s linear infinite;
+    /* Две анимации разом: вращение + мягкое проявление (спиннер монтируется
+       условно, иначе возникал бы рывком поверх ещё гаснущего текста). */
+    animation: ds-btn-spin 0.7s linear infinite, appFade 0.2s ease both;
   }
   .ds-btn__spinner svg {
     display: block;

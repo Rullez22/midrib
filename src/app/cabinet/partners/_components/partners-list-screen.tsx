@@ -260,9 +260,12 @@ export function PartnersListScreen({ cabinet }: { cabinet?: CabinetConfig }) {
           <Tab value="find">Найти нового партнера</Tab>
         </Tabs>
 
-        {tab === "partners" && <PartnersTab basePath={basePath} />}
-        {tab === "employees" && <EmployeesTab />}
-        {tab === "find" && <FindTab />}
+        {/* key={tab} — панель монтируется заново, .ds-content играет при смене таба. */}
+        <div key={tab} className="ds-content">
+          {tab === "partners" && <PartnersTab basePath={basePath} />}
+          {tab === "employees" && <EmployeesTab />}
+          {tab === "find" && <FindTab />}
+        </div>
       </main>
     </div>
   );

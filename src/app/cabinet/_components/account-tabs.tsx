@@ -197,18 +197,22 @@ export function AccountArtifacts({
 
       <div className="flex flex-col gap-2">
         <TableHeader columns={ART_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
-        {sorted.map((a, i) => (
-          <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3 transition-colors">
-            <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
-              <span className="ds-caption text-foreground-subtle">{a.type}</span>
-              <span className="ds-p3 text-foreground">{a.name}</span>
+        {/* key по фильтру и сортировке: при перестройке списка каскад играет
+            заново. Шапка таблицы снаружи — иначе мигала бы вместе со строками. */}
+        <div key={`${filter}-${sortKey}-${sortDir}`} className="ds-content--stagger flex flex-col gap-2">
+          {sorted.map((a, i) => (
+            <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3 transition-colors">
+              <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
+                <span className="ds-caption text-foreground-subtle">{a.type}</span>
+                <span className="ds-p3 text-foreground">{a.name}</span>
+              </div>
+              <div className="ds-p3 text-right text-foreground" style={colStyle(ART_COLUMNS[1])}>{a.date}</div>
+              <div className="flex justify-end" style={colStyle(ART_COLUMNS[2])}>
+                <StateIcon state={a.state} />
+              </div>
             </div>
-            <div className="ds-p3 text-right text-foreground" style={colStyle(ART_COLUMNS[1])}>{a.date}</div>
-            <div className="flex justify-end" style={colStyle(ART_COLUMNS[2])}>
-              <StateIcon state={a.state} />
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

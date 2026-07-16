@@ -135,4 +135,14 @@
   .ds-field--error .ds-field__caption {
     color: var(--color-red-200);
   }
+  /* Текст ошибки не должен возникать рывком. Анимация стартует в момент, когда
+     селектор начинает совпадать (полю добавили --error), поэтому ре-монт узла
+     не нужен — сработает и на уже отрисованном поле.
+     Guard здесь явный: глобальный [class*="ds-"] покрывает только transition,
+     а это animation — сама она под prefers-reduced-motion не попадает. */
+  @media (prefers-reduced-motion: no-preference) {
+    .ds-field--error .ds-field__caption {
+      animation: contentIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+  }
 }

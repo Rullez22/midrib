@@ -205,70 +205,79 @@ export function TransactionsTable({
       {/* Навигационная шапка (30px) + строки-карточки — общий блок с gap 8px */}
       <div className="flex flex-col gap-2">
         <TableHeader columns={columns} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
-        {page.map((t, i) => (
-          <div
-            key={i}
-            className="ds-row flex items-center rounded-[8px] border border-border bg-white px-4 py-3 transition-colors"
-          >
-            {/* Код */}
-            <div style={colStyle(COLUMNS[0])}>
-              <Badge
-                variant="solid"
-                color={t.color}
-                className="min-w-[56px] justify-center px-3 py-1.5 text-[14px]"
-              >
-                {t.code}
-              </Badge>
-            </div>
-
-            {/* Доля в счёте (режим пул-счёта) */}
-            {showShare && (
-              <div className="ds-h4 text-center text-primary" style={colStyle(SHARE_COLUMN)}>
-                {t.share}
+        {/* key по фильтру кодов и сортировке — список перестраивается, каскад
+            играет заново. `shown` в key намеренно НЕТ: иначе «Показать ещё»
+            ре-монтировал бы уже видимые строки и они бы мигали. Без него
+            дозагруженные строки появляются анимированно, старые стоят на месте. */}
+        <div
+          key={`${[...activeCodes].sort().join(",")}-${sortKey}-${sortDir}`}
+          className="ds-content--stagger flex flex-col gap-2"
+        >
+          {page.map((t, i) => (
+            <div
+              key={i}
+              className="ds-row flex items-center rounded-[8px] border border-border bg-white px-4 py-3 transition-colors"
+            >
+              {/* Код */}
+              <div style={colStyle(COLUMNS[0])}>
+                <Badge
+                  variant="solid"
+                  color={t.color}
+                  className="min-w-[56px] justify-center px-3 py-1.5 text-[14px]"
+                >
+                  {t.code}
+                </Badge>
               </div>
-            )}
 
-            {/* Транзакция */}
-            <div className="flex flex-col gap-0.5 pr-3" style={colStyle(COLUMNS[1])}>
-              <span className="inline-flex items-center gap-1.5">
-                <Link href="#" size="p3">{t.hash}</Link>
-                <InfoIcon />
-              </span>
-              {t.time != null && <span className="ds-caption text-foreground-subtle">{t.time}</span>}
-            </div>
+              {/* Доля в счёте (режим пул-счёта) */}
+              {showShare && (
+                <div className="ds-h4 text-center text-primary" style={colStyle(SHARE_COLUMN)}>
+                  {t.share}
+                </div>
+              )}
 
-            {/* От кого / Кому */}
-            <div className="flex flex-col gap-0.5 pr-3" style={colStyle(COLUMNS[2])}>
-              <Link href="#" size="p3">{t.from}</Link>
-              <Link href="#" size="p3">{t.to}</Link>
-            </div>
+              {/* Транзакция */}
+              <div className="flex flex-col gap-0.5 pr-3" style={colStyle(COLUMNS[1])}>
+                <span className="inline-flex items-center gap-1.5">
+                  <Link href="#" size="p3">{t.hash}</Link>
+                  <InfoIcon />
+                </span>
+                {t.time != null && <span className="ds-caption text-foreground-subtle">{t.time}</span>}
+              </div>
 
-            {/* Документооборот */}
-            <div className="flex flex-col gap-0.5 pr-3" style={colStyle(COLUMNS[3])}>
-              <span className="inline-flex items-center gap-1.5">
-                {t.documentLink === false ? (
-                  <span className="ds-p3 text-foreground">{t.document}</span>
-                ) : (
-                  <>
-                    <Link href="#" size="p3">{t.document}</Link>
-                    <InfoIcon />
-                  </>
-                )}
-              </span>
-              {t.documentSub != null && <span className="ds-p3 text-foreground">{t.documentSub}</span>}
-            </div>
+              {/* От кого / Кому */}
+              <div className="flex flex-col gap-0.5 pr-3" style={colStyle(COLUMNS[2])}>
+                <Link href="#" size="p3">{t.from}</Link>
+                <Link href="#" size="p3">{t.to}</Link>
+              </div>
 
-            {/* Сумма */}
-            <div className="ds-p3 text-right text-foreground" style={colStyle(COLUMNS[4])}>
-              {t.amount}
-            </div>
+              {/* Документооборот */}
+              <div className="flex flex-col gap-0.5 pr-3" style={colStyle(COLUMNS[3])}>
+                <span className="inline-flex items-center gap-1.5">
+                  {t.documentLink === false ? (
+                    <span className="ds-p3 text-foreground">{t.document}</span>
+                  ) : (
+                    <>
+                      <Link href="#" size="p3">{t.document}</Link>
+                      <InfoIcon />
+                    </>
+                  )}
+                </span>
+                {t.documentSub != null && <span className="ds-p3 text-foreground">{t.documentSub}</span>}
+              </div>
 
-            {/* Комиссия */}
-            <div className="ds-p3 text-right text-foreground" style={colStyle(COLUMNS[5])}>
-              {t.commission}
+              {/* Сумма */}
+              <div className="ds-p3 text-right text-foreground" style={colStyle(COLUMNS[4])}>
+                {t.amount}
+              </div>
+
+              {/* Комиссия */}
+              <div className="ds-p3 text-right text-foreground" style={colStyle(COLUMNS[5])}>
+                {t.commission}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {showMore && hasMore && (

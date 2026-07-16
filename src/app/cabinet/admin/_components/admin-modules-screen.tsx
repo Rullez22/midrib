@@ -96,7 +96,10 @@ export function AdminModulesScreen({ initialTab = "apps" }: { initialTab?: "apps
           <Tab value="shop">Магазин</Tab>
         </Tabs>
 
-        <div className="flex w-full flex-col gap-4 px-5 py-8 md:px-[50px]">
+        {/* key={tab} — панель монтируется заново, анимация играет при смене таба.
+            Только stagger (без .ds-content): иначе контейнер и его дети гасли бы
+            одновременно и opacity перемножалась. */}
+        <div key={tab} className="ds-content--stagger flex w-full flex-col gap-4 px-5 py-8 md:px-[50px]">
           {tab === "apps" ? (
             installed.length > 0 ? (
               <InstalledDirection />

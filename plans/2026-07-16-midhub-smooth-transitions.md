@@ -1,0 +1,106 @@
+# Плавность кликабельных действий — переходы страниц и смена контента
+
+**Цель:** ни одно действие после клика не должно быть резким. Клик → плавный переход → результат.
+**Охват:** переходы между страницами (119 page.tsx), смена табов/фильтров, DS-компоненты.
+
+## Аудит (что было)
+
+| Область | Состояние до |
+|---|---|
+| Переходы страниц | **НЕТ**. 0 `template.tsx`, 0 `loading.tsx`, корневой layout пустой |
+| Смена табов | **НЕТ**. `Tabs` в DS рендерит только `role=tablist` + кнопки, панелей нет — контент целиком на стороне экрана |
+| Modal / Dropdown / Drawer / Toast | вход **ЕСТЬ** (`ds-anim-overlay/pop/menu/drawer`), выход **НЕТ** (`{open && …}` — мгновенный unmount) |
+| Accordion | **ЕСТЬ** (`grid-template-rows 0fr→1fr` + chevron) |
+| Button loading | **НЕТ**. `visibility: hidden` — скачок |
+| Checkbox | галочка `display: none/block` — скачок |
+| Ошибка поля | **НЕТ**. `.ds-field__caption` без анимации; shake отсутствует |
+| Hover / press / focus | **ЕСТЬ** (глобальное правило `[class*="ds-"]`) |
+| Мёртвый CSS | `.anim-in` и `.skeleton` определены, но не используются нигде |
+
+Анимационных библиотек в проекте нет — всё на чистом CSS (framer-motion не установлен).
+
+## Ключевое архитектурное решение
+
+Очевидный путь — корневой `template.tsx` или `key={pathname}` на обёртке — **ломает проект**.
+`template.tsx` и `key` ре-монтируют ВСЁ поддерево при каждой навигации, а под layout'ами живут:
+
+- `RegFlowProvider` — форма создания компании на `useState`, **без localStorage** → ре-монт обнуляет её между шагами 7 → 8 (ровно то, что layout и создан предотвращать);
+- `CabinetUnlockProvider` (`[company]/layout`) → ре-монт снова прячет разблокированные пункты меню ВУЗа;
+- `SplashGate` → splash проигрывался бы на каждый переход внутри `/app`.
+
+Обёртка с `key` ре-монтирует и **вложенные layout'ы** вместе с их провайдерами, поэтому
+`PageTransition` **не ре-монтирует ничего**: DOM сохраняется, при смене `pathname` просто
+перезапускается CSS-анимация (снять класс → reflow → вернуть класс).
+
+Второй вариант — Next `experimental.viewTransition` — отпал: React 19.2.4 (stable) не экспортирует
+`ViewTransition`, `next/link` не вызывает `startViewTransition`; потребовался бы перевод проекта на
+`react@experimental`.
+
+**Только opacity, без transform** на уровне страницы: `transform` на предке создаёт containing block
+для `position: fixed` — модалки, drawer и бургер уезжали бы вместе с контентом.
+
+## Фазы
+
+### [x] Фаза 1. CSS-фундамент — `src/styles/globals.css`
+`.ds-content` (fade + подъём 6px), `.ds-content--slide`, `.ds-content--fade` (только opacity),
+`.ds-content--stagger` (каскад по прямым потомкам, 30ms шаг). Keyframes `contentIn/contentSlide/contentFade`.
+Guard `prefers-reduced-motion: reduce` → `animation: none`.
+Задержка каскада не растёт после 10-го элемента (`nth-child(n+11)`) — иначе хвост длинного списка ждал бы секунды.
+
+### [x] Фаза 2. Компоненты DS
+- `page-transition.tsx` — `PageTransition`: ре-триггер анимации по `pathname` **без ре-монта**. Проп `className` — для случая, когда обёртка встаёт между flex-контейнером и страницей-flex-item (AppShell).
+- `content-transition.tsx` — `ContentTransition` (`transitionKey`, `variant`), экспорт из `index.ts`.
+
+### [x] Фаза 3. Переходы страниц
+- `app/cabinet/layout.tsx` — покрывает все 71 страницу кабинета, включая `[company]` и `direction/issue` (отдельные обёртки там не нужны — ре-монта нет, анимация одна).
+- `app/flow/company-create/layout.tsx` — шаги флоу.
+- `components/app/app-shell.tsx` — 41 страница `/app`; обёртка держит те же flex-классы (`flex min-h-0 flex-1 flex-col`), что и заменённый div.
+
+### [x] Фаза 4. Табы и смена контента
+`cabinet-screen.tsx` (суб-табы + списки доков/артефактов), `account-tabs.tsx`, `lk-activity-screen.tsx`,
+`partners-list-screen.tsx`, `admin-modules-screen.tsx`, `voting-block.tsx` (кнопки «За/Против» → подтверждение).
+
+### [x] Фаза 5. Фильтры и списки (каскад)
+`transactions-table.tsx`, `articles-table.tsx`, `domain-registers-screen.tsx`, `voting-questions-screen.tsx`.
+`key` по фильтру+сортировке, **без** `shown`: иначе «Показать ещё» перемигивал бы уже видимые строки.
+
+### [x] Фаза 6. DS — резкие переходы
+- `button.css` — loading: `visibility: hidden` → `opacity: 0`; спиннер получил `appFade` рядом с вращением.
+- `checkbox.css` — галочка/минус: `display` → наложение (`inset: 0; margin: auto`) + `opacity`/`scale`.
+- `input.css` — текст ошибки: `animation: contentIn` (стартует при появлении класса `--error`, ре-монт не нужен).
+
+**Тонкость, которая определила реализацию:** глобальное правило `[class*="ds-"]` — безслойное и бьёт
+`@layer components`. Поэтому локальный `transition` внутри `@layer` сработал бы **именно при
+`prefers-reduced-motion: reduce`** (когда глобальный guard отключается и перебивать нечем). Плавность
+для button/checkbox взята от глобального правила, свой transition не добавлялся.
+
+### [x] Фаза 7. Проверка
+`tsc --noEmit` чисто · `npm run build` — все 119 страниц собраны · прогон в браузере (Playwright):
+
+- Чекбокс: галочка `opacity 1`, центр `dx=0 dy=0`, 23×23 в боксе 32×32; unchecked → `opacity 0`.
+- Навигация `/cabinet` → `/cabinet/partners`: обёртка **пережила** переход (провайдеры живы), анимация перезапустилась (`contentFade`), `opacity 0.59` в середине → `1` в конце.
+- `/app` → `/app/documents`: нижняя навигация цела (64px), `contentFade` отыграл, **splash не вернулся**.
+- Табы `/cabinet/partners`: панель — `contentIn 0.25s`, в конце `opacity 1`.
+- Ошибок в консоли нет (hydration-warning на `/ds` — предсуществующий, вложенные `<button>` в TeamMemberCard).
+
+## Итог
+
+**Реализовано целиком** в рамках заявленного объёма: переходы страниц покрывают все 119 экранов
+(кабинет + флоу + мобильная апка), смена табов/фильтров анимирована на 10 названных экранах,
+резкие переходы в button/checkbox/input вылечены. Регрессий нет — состояние `RegFlow`,
+`CabinetUnlock` и `SplashGate` переживает навигацию (проверено в браузере).
+
+### Осталось (сознательно не делалось)
+
+1. **Exit-анимации** Modal / Dropdown / Drawer / Toast. Вход есть, выход мгновенный (`{open && …}`).
+   Требует состояния `isClosing` + таймер в каждом компоненте — отдельная задача, трогает 4 компонента DS.
+2. **Скользящий индикатор табов.** Сейчас подчёркивание — `border-bottom` на самой кнопке: оно гаснет
+   на старом табе и проявляется на новом, но **не переезжает**. Отдельного элемента-индикатора нет;
+   нужна переделка `tabs.tsx` (измерение позиции + `transform`).
+3. **Активный пункт сайдбара** — только смена цвета, без движущейся полоски (`left-menu.css`).
+4. **Shake при ошибке формы** — не добавлен намеренно: в проекте нет потребителя, а мёртвого CSS
+   уже хватает (`.anim-in`, `.skeleton` не используются нигде).
+5. **Skeleton → content** — `.skeleton` в проекте не применяется; анимировать нечего.
+6. **Табы `voting-questions-screen`** — неуправляемые (`defaultValue`, без `onValueChange`), контент от
+   них не зависит; добавлен только каскад списка.
+</content>

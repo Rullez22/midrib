@@ -281,13 +281,16 @@ function TemplateSection({
     <Accordion title={section.title} size="m" defaultOpen={section.defaultOpen || templates.length > 0}>
       <div className="flex flex-col gap-3 pt-2">
         <TableHeader columns={TEMPLATE_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
-        {sorted.map((x) =>
-          x.row === "doc" ? (
-            <TemplateRow key={`doc-${x.r.name}`} row={x.r} />
-          ) : (
-            <TemplateDocRow key={x.t.id} tpl={x.t} onOpen={() => onOpenTemplate?.(x.t)} />
-          ),
-        )}
+        {/* key по сортировке — при перестройке строк каскад играет заново. */}
+        <div key={`${sortKey}-${sortDir}`} className="ds-content--stagger flex flex-col gap-3">
+          {sorted.map((x) =>
+            x.row === "doc" ? (
+              <TemplateRow key={`doc-${x.r.name}`} row={x.r} />
+            ) : (
+              <TemplateDocRow key={x.t.id} tpl={x.t} onOpen={() => onOpenTemplate?.(x.t)} />
+            ),
+          )}
+        </div>
       </div>
     </Accordion>
   );

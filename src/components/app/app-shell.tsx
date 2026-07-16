@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { PageTransition } from "@/components/ds/page-transition";
 import { AppBottomNav } from "./app-bottom-nav";
 
 /**
@@ -10,7 +11,9 @@ import { AppBottomNav } from "./app-bottom-nav";
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-full min-h-0 flex-col bg-background">
-      <div className="flex min-h-0 flex-1 flex-col">{children}</div>
+      {/* Обёртка держит те же flex-классы, что и раньше стоявший здесь div:
+          экраны /app рассчитывают быть flex-item со своим скроллом. */}
+      <PageTransition className="flex min-h-0 flex-1 flex-col">{children}</PageTransition>
       <AppBottomNav />
     </div>
   );

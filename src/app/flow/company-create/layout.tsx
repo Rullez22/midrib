@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import { PageTransition } from "@/components/ds/page-transition";
 import { RegFlowProvider } from "./_components/reg-flow";
 
 /**
@@ -7,5 +8,9 @@ import { RegFlowProvider } from "./_components/reg-flow";
  * клиентскую навигацию между шагами 7 → 8.
  */
 export default function CompanyCreateLayout({ children }: { children: ReactNode }) {
-  return <RegFlowProvider>{children}</RegFlowProvider>;
+  return (
+    <RegFlowProvider>
+      <PageTransition>{children}</PageTransition>
+    </RegFlowProvider>
+  );
 }

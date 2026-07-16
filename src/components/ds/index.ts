@@ -6,6 +6,9 @@
 export { Text } from "./text";
 export type { TextProps, TextVariant, TextTone } from "./text";
 
+export { ContentTransition } from "./content-transition";
+export type { ContentTransitionProps, ContentTransitionVariant } from "./content-transition";
+
 export { Button } from "./button";
 export type { ButtonProps, ButtonSize, ButtonVariant } from "./button";
 

@@ -105,7 +105,8 @@ export function LkActivityScreen({ role }: { role: LkRole }) {
           <Tab value="edu">Обучение</Tab>
         </Tabs>
 
-        <div className="flex w-full flex-col gap-5 px-5 py-8 md:px-[50px]">
+        {/* key={tab} — панель монтируется заново, .ds-content играет при смене таба. */}
+        <div key={tab} className="ds-content flex w-full flex-col gap-5 px-5 py-8 md:px-[50px]">
           {tab === "struct" ? <StructTab role={role} /> : tab === "plan" ? <PlanPanel /> : <EduPanel />}
         </div>
       </main>

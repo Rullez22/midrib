@@ -73,26 +73,30 @@ export function ArticlesTable({ columns, rows, total, className }: ArticlesTable
     <div className={cn("flex w-full flex-col", className)}>
       <TableHeader columns={columns} size="m" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
 
-      {sorted.map((row, ri) => (
-        <div key={ri} className="ds-row flex items-center border-b border-border px-4 py-4 transition-colors">
-          {columns.map((col, ci) => (
-            <div
-              key={col.key}
-              className={cn("ds-p3 text-foreground", alignClass(col.align))}
-              style={colStyle(col)}
-            >
-              {row.cells[ci]}
-            </div>
-          ))}
-          {row.onDetail && (
-            <div className="shrink-0 pl-2 text-right">
-              <Link href="#" size="p3" onClick={(e) => { e.preventDefault(); row.onDetail?.(); }}>
-                {row.detailLabel ?? "Подробнее"}
-              </Link>
-            </div>
-          )}
-        </div>
-      ))}
+      {/* key по сортировке — при перестройке строк каскад играет заново.
+          Строка «Итого» вне обёртки: она не сортируется и мигать не должна. */}
+      <div key={`${sortKey}-${sortDir}`} className="ds-content--stagger flex flex-col">
+        {sorted.map((row, ri) => (
+          <div key={ri} className="ds-row flex items-center border-b border-border px-4 py-4 transition-colors">
+            {columns.map((col, ci) => (
+              <div
+                key={col.key}
+                className={cn("ds-p3 text-foreground", alignClass(col.align))}
+                style={colStyle(col)}
+              >
+                {row.cells[ci]}
+              </div>
+            ))}
+            {row.onDetail && (
+              <div className="shrink-0 pl-2 text-right">
+                <Link href="#" size="p3" onClick={(e) => { e.preventDefault(); row.onDetail?.(); }}>
+                  {row.detailLabel ?? "Подробнее"}
+                </Link>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
       {total && (
         <div className="flex items-center rounded-[6px] bg-[var(--color-grey-10)] px-4 py-4">

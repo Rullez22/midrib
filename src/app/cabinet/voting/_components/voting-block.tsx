@@ -146,24 +146,29 @@ export function VotingBlock({ vote, onFinish }: { vote: PaymentVote; onFinish?: 
               <ProgressRing value={voted ? 100 : 75} size={160} thickness={12} label={<span className="ds-h3 text-foreground">{voted ? 100 : 75}%</span>} />
             </div>
             <div className="w-full bg-[var(--color-grey-20)] p-6">
-              {voted ? (
-                <span className="ds-p3 flex items-center justify-center gap-2 text-foreground-muted">
-                  <CircleMark minus={choice === "Против"} />
-                  {choice === "За" ? "Вы успешно проголосовали" : "Вы проголосовали против"}
-                </span>
-              ) : (
-                <div className="flex gap-3">
-                  <Button variant="negative-sec" className="flex-1" onClick={() => flow.castPaymentVote(vote.id, "Против")}>Против</Button>
-                  <Button className="flex-1" onClick={() => flow.castPaymentVote(vote.id, "За")}>За</Button>
-                </div>
-              )}
+              {/* Кнопки «За/Против» сменяются подтверждением. key разводит два
+                  состояния — иначе замена была бы мгновенной. */}
+              <div key={voted ? "voted" : "idle"} className="ds-content--fade">
+                {voted ? (
+                  <span className="ds-p3 flex items-center justify-center gap-2 text-foreground-muted">
+                    <CircleMark minus={choice === "Против"} />
+                    {choice === "За" ? "Вы успешно проголосовали" : "Вы проголосовали против"}
+                  </span>
+                ) : (
+                  <div className="flex gap-3">
+                    <Button variant="negative-sec" className="flex-1" onClick={() => flow.castPaymentVote(vote.id, "Против")}>Против</Button>
+                    <Button className="flex-1" onClick={() => flow.castPaymentVote(vote.id, "За")}>За</Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </QuestionCard>
 
+      {/* Появляется после голоса — .ds-content играет при монтировании, key не нужен. */}
       {voted && !readOnly && (
-        <div className="flex justify-end">
+        <div className="ds-content flex justify-end">
           <Button variant="negative-sec" onClick={finish}>Завершить голосование</Button>
         </div>
       )}

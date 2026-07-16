@@ -289,3 +289,77 @@ body {
   border-radius: 8px;
 }
 @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+/* ============================================================================
+   ПЛАВНАЯ СМЕНА КОНТЕНТА — один источник истины на всю платформу.
+
+   CSS-анимация проигрывается, когда элемент ПОЯВЛЯЕТСЯ в DOM. Поэтому сама
+   по себе она не сработает при смене таба/фильтра: DOM-узел остаётся тем же,
+   меняется только его содержимое. Триггер — `key`: смена key заставляет React
+   размонтировать старый узел и смонтировать новый, и анимация играет заново.
+
+       <div key={activeTab} className="ds-content">…</div>
+
+   Обёртку с `key` ставить ВНУТРИ провайдеров состояния (RegFlow и т.п.),
+   иначе ре-монт обнулит форму. См. ContentTransition (components/ds).
+
+   ВАЖНО про --fade: только opacity, без transform. Для обёрток уровня
+   страницы использовать именно его — `transform` на предке создаёт containing
+   block для position: fixed, и на время анимации модалки/drawer/шапка
+   уезжают вместе с контентом.
+   ============================================================================ */
+
+/* Базовый: fade + лёгкий подъём. Для контента внутри страницы. */
+.ds-content {
+  animation: contentIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Горизонтальный: табы, карусель. */
+.ds-content--slide {
+  animation: contentSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Только fade, без сдвига — безопасен для fixed-потомков (уровень страницы). */
+.ds-content--fade {
+  animation: contentFade 0.2s ease-out both;
+}
+
+/* Каскадное появление списка: анимируются прямые потомки. */
+.ds-content--stagger > * {
+  animation: contentIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.ds-content--stagger > *:nth-child(1)  { animation-delay: 0ms; }
+.ds-content--stagger > *:nth-child(2)  { animation-delay: 30ms; }
+.ds-content--stagger > *:nth-child(3)  { animation-delay: 60ms; }
+.ds-content--stagger > *:nth-child(4)  { animation-delay: 90ms; }
+.ds-content--stagger > *:nth-child(5)  { animation-delay: 120ms; }
+.ds-content--stagger > *:nth-child(6)  { animation-delay: 150ms; }
+.ds-content--stagger > *:nth-child(7)  { animation-delay: 180ms; }
+.ds-content--stagger > *:nth-child(8)  { animation-delay: 210ms; }
+.ds-content--stagger > *:nth-child(9)  { animation-delay: 240ms; }
+.ds-content--stagger > *:nth-child(10) { animation-delay: 270ms; }
+/* Дальше задержку не наращиваем: на длинном списке хвост ждал бы секунды.
+   11-й и последующие появляются вместе с 10-м. */
+.ds-content--stagger > *:nth-child(n + 11) { animation-delay: 270ms; }
+
+@keyframes contentIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes contentSlide {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes contentFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-content,
+  .ds-content--slide,
+  .ds-content--fade,
+  .ds-content--stagger > * {
+    animation: none;
+  }
+}

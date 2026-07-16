@@ -186,8 +186,11 @@ export function VotingQuestionsScreen() {
 
           {/* Список вопросов. Все источники (распределение %, совет по этапам,
               повестка) собираются в один список, и активные («На голосовании»)
-              всегда идут первыми. */}
-          <div className="mt-4 flex flex-col gap-2">
+              всегда идут первыми.
+              stagger без key: табы выше неуправляемые (defaultValue, без
+              onValueChange) — список от них не зависит, переключать нечего.
+              Каскад играет на входе и на появлении новых вопросов. */}
+          <div className="ds-content--stagger mt-4 flex flex-col gap-2">
             {(() => {
               interface QItem {
                 key: string;

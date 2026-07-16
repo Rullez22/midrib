@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import { PageTransition } from "@/components/ds/page-transition";
 import { RegFlowProvider } from "../flow/company-create/_components/reg-flow";
 import { CabinetSeed } from "./_components/cabinet-seed";
 
@@ -14,7 +15,7 @@ export default function CabinetLayout({ children }: { children: ReactNode }) {
   return (
     <RegFlowProvider>
       <CabinetSeed />
-      {children}
+      <PageTransition>{children}</PageTransition>
     </RegFlowProvider>
   );
 }
