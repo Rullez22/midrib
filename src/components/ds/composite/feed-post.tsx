@@ -117,7 +117,8 @@ export function FeedPost({ title, date, text, media, onMenu, className }: FeedPo
   return (
     <div
       className={cn(
-        "flex w-full flex-col gap-4 rounded-[4px] border border-border bg-surface p-6 shadow-[var(--shadow-sm)]",
+        // ds-row — тот же отклик, что у строк документов (лифт мягкой тени).
+        "ds-row flex w-full flex-col gap-4 rounded-[4px] border border-border bg-surface p-6 shadow-[var(--shadow-sm)]",
         className,
       )}
     >

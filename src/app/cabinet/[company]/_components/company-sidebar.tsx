@@ -93,7 +93,7 @@ function Pill({ icon, label, active, onClick }: { icon: React.ReactNode; label: 
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center justify-center gap-1 rounded-[4px] bg-surface-sunken px-4 py-1.5 transition-colors hover:bg-[color:var(--color-blue-midhub-50)]"
+      className="flex w-full items-center justify-center gap-1 rounded-[4px] bg-surface-sunken px-4 py-1.5 transition-colors hover:bg-[color:var(--color-grey-100)]"
     >
       <span className={cn("flex size-4 items-center justify-center", active ? "text-primary" : "text-[var(--color-grey-300)]")}>{icon}</span>
       <span className={cn("ds-caption-medium", active ? "text-primary" : "text-[#5A646E]")}>{label}</span>

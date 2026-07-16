@@ -64,7 +64,8 @@ export function FeedPost({ avatar, name, count, onNameClick, title, date = "8 с
       </div>
 
       {/* Пост — обложка встык с карточкой текста. */}
-      <div className="flex h-[430px] overflow-hidden rounded-[4px]">
+      {/* ds-row — тот же отклик, что у постов в доках/фонде и строк документов. */}
+      <div className="ds-row flex h-[430px] overflow-hidden rounded-[4px]">
         <img src={cover} alt="" className="h-full w-[47%] shrink-0 rounded-l-[4px] object-cover" />
         <div className="relative min-w-0 flex-1 overflow-hidden rounded-r-[4px] border border-border bg-[#fff]">
           <div className="flex h-full flex-col gap-4 p-6">
