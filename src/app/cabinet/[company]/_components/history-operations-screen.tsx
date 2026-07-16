@@ -159,7 +159,7 @@ function HistoryDocDetail({
           <BackHeader onBack={onBack} />
 
           {/* ПП, с которого создавался документ */}
-          <Item size="l" trailing={<span className="ds-p3 text-foreground-subtle">11.04.2025</span>}>
+          <Item size="l" className="ds-row" trailing={<span className="ds-p3 text-foreground-subtle">11.04.2025</span>}>
             <span className="flex w-full items-center justify-between gap-4">
               <span className="ds-p3 text-foreground">Форма регистрации для граждан Болгарии</span>
               <span className="ds-p3 text-[var(--color-red-300)]">Лиц. №2345431 (+1240 / 99%)</span>
@@ -195,7 +195,7 @@ function StaffTable({
     <div className="flex flex-col gap-2">
       <TableHeader columns={STAFF_COLUMNS} size="s" tone="muted" sortKey={sortKey} sortDir={sortDir} onSort={onSort} />
       {rows.map((r, i) => (
-        <Item key={i} size="l" trailing={<span className="ds-p3 text-foreground">{r.count}</span>}>
+        <Item key={i} size="l" className="ds-row" trailing={<span className="ds-p3 text-foreground">{r.count}</span>}>
           {r.name}
         </Item>
       ))}

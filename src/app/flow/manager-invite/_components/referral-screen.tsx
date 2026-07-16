@@ -309,7 +309,7 @@ export function ReferralScreen({ state }: { state: ReferralState }) {
       ) : (
         <div className="flex flex-col gap-3">
           {rows.map((r, i) => (
-            <Item key={i} size="m">
+            <Item key={i} size="m" className="ds-row">
               <div className="flex w-full flex-wrap items-center gap-4">
                 <span className="ds-p3 w-40 shrink-0 text-foreground">{r.name}</span>
                 <span className="ds-p3 flex-1 text-center text-primary">{r.address}</span>

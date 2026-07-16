@@ -479,7 +479,7 @@ export function RequirementsCard({
 
 function RequirementRow({ item }: { item: RequirementItem }) {
   return (
-    <Item>
+    <Item className="ds-row">
       <span className="grid w-full grid-cols-3 items-center">
         <span className="ds-p3 text-foreground">{item.name}</span>
         <span className="ds-p3 text-center text-foreground-muted">{item.type}</span>

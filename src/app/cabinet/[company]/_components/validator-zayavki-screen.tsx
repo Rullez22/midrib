@@ -154,6 +154,10 @@ function ZayavkaRow({ z, onOpen }: { z: Zayavka; onOpen: (z: Zayavka) => void })
   return (
     <Item
       size="l"
+      // ds-row — единый отклик строки на наведение, как в остальных таблицах.
+      // Не interactive: заявку открывает кнопка справа, а --interactive навесил
+      // бы cursor: pointer и role="button" на всю строку, обещая клик по ней.
+      className="ds-row"
       trailing={<Button variant="primary" size="s" onClick={() => onOpen(z)}>Открыть заявку</Button>}
     >
       <span className="flex min-w-0 flex-col gap-1">
