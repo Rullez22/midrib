@@ -25,7 +25,7 @@
   }
   /* Отклик на наведение: карточка «оживает» (внутри — шестерёнка/действия). */
   .ds-account:hover {
-    border-color: var(--color-grey-200);
+    border-color: var(--color-grey-100);
     box-shadow: var(--shadow-hover);
   }
 

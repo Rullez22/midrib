@@ -20,7 +20,7 @@
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
   .ds-achievement:hover {
-    border-color: var(--color-grey-200);
+    border-color: var(--color-grey-100);
     box-shadow: var(--shadow-hover);
   }
   .ds-achievement__img {

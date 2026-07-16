@@ -32,7 +32,9 @@ export function OptionCard({ media, title, description, action, className }: Opt
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-6 rounded-[4px] border border-border bg-surface px-6 py-6 text-center shadow-[var(--shadow-sm)] sm:px-12",
+        // Отклик как у карточки счёта (.ds-account): лёгкое осветление рамки +
+        // лифт тени. Внутри карточки — действие («Создать»), поэтому уместно.
+        "flex flex-col items-center justify-center gap-6 rounded-[4px] border border-border bg-surface px-6 py-6 text-center shadow-[var(--shadow-sm)] transition-[box-shadow,border-color] hover:border-[color:var(--color-grey-100)] hover:shadow-[var(--shadow-hover)] sm:px-12",
         className,
       )}
     >
