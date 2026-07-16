@@ -294,7 +294,7 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
                 {SUBACCOUNTS.map((s, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4"
+                    className="flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4 transition-colors hover:border-[color:var(--color-grey-200)] hover:bg-[color:var(--color-grey-10)]"
                   >
                     <span className="ds-h4 shrink-0 text-primary">{s.pct} %</span>
                     <span className="ds-p3 flex-1 text-foreground">{s.name}</span>

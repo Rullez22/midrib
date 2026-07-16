@@ -226,7 +226,7 @@
     transition: background-color 0.15s ease, filter 0.15s ease;
   }
   .ds-lm-btn:hover:not(:disabled) {
-    background: var(--color-grey-10);
+    background: var(--color-blue-midhub-50);
   }
   .ds-lm-btn:focus-visible {
     outline: 2px solid var(--color-blue-midhub-500);
