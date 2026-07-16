@@ -60,7 +60,9 @@ export function ReportBody({
 
       {chartOn && (
         <div className="border-t border-border p-5">
-          <LineChart unit="ETH" yTicks={Y_TICKS} points={GRAPH_POINTS} highlightIndex={5} />
+          {/* area + interactive — заливка под линией и курсор, следящий за мышью
+              с подсветкой ближайшей точки. Возможности уже были в DS, но не включены. */}
+          <LineChart unit="ETH" yTicks={Y_TICKS} points={GRAPH_POINTS} highlightIndex={5} area interactive />
         </div>
       )}
 

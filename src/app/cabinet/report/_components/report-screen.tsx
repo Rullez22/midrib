@@ -101,7 +101,9 @@ export function ReportScreen() {
               onPickPeriod={() => setPickerOpen((v) => !v)}
             />
             {pickerOpen && (
-              <div className="absolute left-0 top-full z-20 mt-2 rounded-[8px] border border-border bg-white p-3 shadow-lg">
+              // z-50 — как у DS-поповера датапикера: при z-20 линия графика из
+              // соседней карточки прорисовывалась поверх календаря.
+              <div className="absolute left-0 top-full z-50 mt-2 rounded-[8px] border border-border bg-white p-3 shadow-lg">
                 <Calendar mode="range" range={range} onSelectRange={onSelectRange} />
               </div>
             )}
