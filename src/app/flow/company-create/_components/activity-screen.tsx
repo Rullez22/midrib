@@ -83,7 +83,7 @@ function StructCard({
       className={cn(
         "flex flex-col gap-0.5 rounded-[4px] border px-4 py-3",
         !active && "border-border bg-white",
-        onClick && "ds-row cursor-pointer",
+        "ds-row", onClick && "cursor-pointer",
       )}
       style={active ? { borderColor: RED, backgroundColor: RED_BG } : undefined}
     >
@@ -97,11 +97,11 @@ function StructCard({
 function QuestionRow({ title, children, defaultOpen = false }: { title: ReactNode; children?: ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className={cn("overflow-hidden rounded-[4px] border", !open && "border-border")} style={open ? { borderColor: RED } : undefined}>
+    <div className={cn("ds-row overflow-hidden rounded-[4px] border", !open && "border-border")} style={open ? { borderColor: RED } : undefined}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors duration-[250ms] hover:bg-[color:var(--color-surface-hover)]"
+        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
         style={open ? { backgroundColor: RED_BG } : undefined}
       >
         <span className="ds-p3 text-foreground">{title}</span>
@@ -180,7 +180,7 @@ function CouncilCard({
       onClick={onSelect}
       className={cn(
         "relative flex w-[157px] flex-col items-center gap-1 overflow-hidden rounded-[4px] border pb-2",
-        onSelect && "ds-row cursor-pointer",
+        "ds-row", onSelect && "cursor-pointer",
       )}
       style={{ borderColor, backgroundColor: bg }}
     >
@@ -351,7 +351,7 @@ function CkpBlock() {
 
   if (open) {
     return (
-      <div className="relative flex w-full flex-col gap-4 rounded-[4px] border border-border bg-white p-4">
+      <div className="ds-row relative flex w-full flex-col gap-4 rounded-[4px] border border-border bg-white p-4">
         <CkpMenuIcon className="absolute right-4 top-4" onClick={goStructure} />
         {/* Аватар + заголовок с подписями */}
         <div className="flex items-start gap-4 pr-9">
@@ -377,7 +377,7 @@ function CkpBlock() {
   }
 
   return (
-    <div className="relative flex w-full gap-4 rounded-[4px] border border-border bg-white p-[7px]">
+    <div className="ds-row relative flex w-full gap-4 rounded-[4px] border border-border bg-white p-[7px]">
       <CkpMenuIcon className="absolute right-4 top-4" onClick={goStructure} />
       {/* Аватар-карточка */}
       <div className="flex w-[142px] shrink-0 flex-col items-center gap-1 overflow-clip rounded-[4px] border border-border pb-1">
