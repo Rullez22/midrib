@@ -125,7 +125,7 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
           <MenuFooter
             role="button"
             tabIndex={0}
-            className="cursor-pointer transition-colors hover:bg-[color:var(--color-grey-10)]"
+            className="cursor-pointer"
             onClick={() => router.push("/cabinet/admin")}
             onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push("/cabinet/admin"); } }}
           >

@@ -122,6 +122,9 @@ export function QuestionCard({
       className={cn(
         "ds-qcard",
         SIZE_CLASS[size],
+        // Единый отклик карточки-строки списка (лифт тени) — только пока карточка
+        // раскрывается; у disabled интерактива нет.
+        !disabled && "ds-row",
         current && "ds-qcard--open",
         disabled && "ds-qcard--disabled",
         className,

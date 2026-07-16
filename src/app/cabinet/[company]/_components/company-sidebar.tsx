@@ -122,7 +122,7 @@ export function CompanyRail({ activeRail }: { activeRail?: number | null }) {
         <MenuFooter
           role="button"
           tabIndex={0}
-          className="cursor-pointer transition-colors hover:bg-[color:var(--color-grey-10)]"
+          className="cursor-pointer"
           onClick={() => router.push("/cabinet/admin")}
           onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push("/cabinet/admin"); } }}
         >
@@ -170,7 +170,7 @@ export function CompanySidebar({ cabinet, current }: { cabinet: CabinetConfig; c
             onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
               if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push("/cabinet/lk/chair"); }
             }}
-            className="cursor-pointer transition-colors hover:bg-[color:var(--color-grey-10)]"
+            className="cursor-pointer"
           >
             Пред. правления
           </MenuFooter>

@@ -344,6 +344,12 @@
     font-size: 12px;
     line-height: 20px;
   }
+  /* Кликабельная ячейка (role="button") — канонический hover навигации,
+     тот же, что у .ds-lm-btn. Transition приходит из глобального правила
+     [class*="ds-"] (globals.css). */
+  .ds-lm-foot[role="button"]:hover:not(.ds-lm-foot--active) {
+    background: var(--color-blue-midhub-50);
+  }
   /* Активная ячейка — текущий раздел (профиль пользователя): заливка grey-20. */
   .ds-lm-foot--active {
     background: var(--color-grey-20);

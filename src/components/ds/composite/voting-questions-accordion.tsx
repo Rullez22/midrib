@@ -70,7 +70,7 @@ function Item({ item, defaultOpen }: { item: VotingQuestionItem; defaultOpen: bo
     <div className="flex flex-col">
       <button
         type="button"
-        className="flex w-full items-center justify-between gap-4 border-b border-border bg-[var(--color-grey-20)] px-6 py-2 text-left"
+        className="flex w-full items-center justify-between gap-4 border-b border-border bg-[var(--color-grey-20)] px-6 py-2 text-left transition-colors hover:bg-[color:var(--color-blue-midhub-50)]"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
