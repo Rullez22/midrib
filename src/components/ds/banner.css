@@ -19,6 +19,12 @@
     border-radius: var(--radius-xs);
     background-color: var(--banner-bg);
   }
+  /* Отклик баннера — тот же лифт мягкой тени, что у .ds-row (карточки, строки,
+     посты). Цвет рамки не трогаем: он несёт тон (info/warning/danger…).
+     Transition приходит из глобального правила [class*="ds-"]. */
+  .ds-banner:hover {
+    box-shadow: var(--shadow-hover);
+  }
 
   /* ── Тоны ──────────────────────────────────────────────────── */
   .ds-banner--info {
@@ -33,6 +39,12 @@
     --banner-bg: var(--color-grey-10);
     --banner-border: var(--color-grey-200);
     --banner-icon: var(--color-grey-300);
+    /* Кнопка нейтрального тона: без этих переменных она оставалась без фона,
+       а hover падал в фолбэк на тот же фон — т.е. не реагировал вовсе. */
+    --banner-btn-bg: var(--color-grey-20);
+    --banner-btn-bg-hover: var(--color-surface-hover);
+    --banner-btn-border: var(--color-grey-200);
+    --banner-btn-fg: var(--color-dark-900);
   }
   .ds-banner--warning {
     --banner-bg: var(--color-orange-50);
