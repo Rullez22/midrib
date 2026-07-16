@@ -124,7 +124,7 @@ function RegistersPanel({
       />
 
       {/* Таблица: на узких экранах прокручивается по горизонтали (длинные ID). */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto pb-2 -mb-2">
         <div className="flex min-w-[720px] flex-col gap-3">
           <TableHeader
             size="s"

@@ -188,7 +188,7 @@ export function DocumentTemplateFlow() {
           <div className="flex flex-col gap-2">
             <span className="ds-caption text-foreground-subtle">Документы, подтверждающие владение документом</span>
             <div className="flex flex-wrap items-center gap-3 rounded-[4px] border border-border p-4">
-              <button type="button" aria-label="Добавить документ" onClick={() => setAttached(true)} className="flex h-[68px] w-[68px] items-center justify-center rounded-[4px] bg-[var(--color-blue-midhub-50)] text-2xl text-primary">+</button>
+              <button type="button" aria-label="Добавить документ" onClick={() => setAttached(true)} className="flex h-[68px] w-[68px] items-center justify-center rounded-[4px] bg-[var(--color-blue-midhub-50)] text-2xl text-primary transition-colors hover:bg-[color:var(--color-blue-midhub-100)]">+</button>
               {attached && <DocThumb />}
             </div>
           </div>

@@ -14,9 +14,10 @@ import {
   Tab,
   Button,
   FeedPost,
+  JoinBanner,
   type InfoGroup,
 } from "@/components/ds";
-import { JoinBanner } from "./join-banner";
+
 import { type DeptProfileData } from "../_config/cabinets";
 
 /**

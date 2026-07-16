@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
+import { JoinBanner } from "@/components/ds";
 import { CabinetScreen } from "../../_components/cabinet-screen";
 import { CompanySidebar } from "../_components/company-sidebar";
-import { JoinBanner } from "../_components/join-banner";
+
 import { getCabinet } from "../_config/cabinets";
 
 /**

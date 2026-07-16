@@ -556,7 +556,7 @@ function RegistrationsPanel({
         center={`Отмечено: ${selected.size}`}
       />
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto pb-2 -mb-2">
         <div className="flex min-w-[640px] flex-col gap-3">
           <TableHeader
             size="s"

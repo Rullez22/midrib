@@ -437,6 +437,9 @@ export type {
 export { FeedPost } from "./composite/feed-post";
 export type { FeedPostProps, FeedMedia, FeedGalleryItem } from "./composite/feed-post";
 
+export { JoinBanner } from "./composite/join-banner";
+export type { JoinBannerProps } from "./composite/join-banner";
+
 export {
   ProfileHeader,
   SectionCard,

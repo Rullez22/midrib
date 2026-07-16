@@ -129,7 +129,7 @@ function StructureView({ initialFocus = "administration" }: { initialFocus?: str
 
           {/* Карточки подразделений (у каждого свои отделы) — тянутся на всю ширину;
               под выделенным — стрелка вниз к ЦКП (как в подразделениях). */}
-          <div className="flex items-stretch gap-3 overflow-x-auto pb-1">
+          <div className="flex items-stretch gap-3 overflow-x-auto pb-2">
             {STRUCTURE_DEPARTMENTS.map((s) => {
               const isSel = s.slug === focus;
               // Цвета карточки — из палитры ACCENT (реальный hex; токенов

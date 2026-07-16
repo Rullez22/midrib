@@ -40,7 +40,8 @@
     border: 1px solid var(--color-grey-90);
     border-radius: var(--radius-xs);
     background-color: var(--color-white);
-    box-shadow: inset 0 1px 3px 0 rgba(90, 100, 111, 0.3);
+    /* Внутренней тени нет: inset на 30% читался как вторая обводка внутри поля
+       и накладывался на focus-кольцо. Границу поля несёт border. */
     cursor: text;
     transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
   }
@@ -51,8 +52,8 @@
   }
   .ds-field:not(.ds-field--error):not(.ds-field--disabled):not(.ds-field--locked) .ds-field__box:focus-within {
     border-color: var(--color-blue-midhub-500);
-    /* Focus-glow: мягкое цветное кольцо (прозрачность, не серая тень). */
-    box-shadow: inset 0 1px 3px 0 rgba(90, 100, 111, 0.3), 0 0 0 3px rgba(40, 96, 235, 0.12);
+    /* Focus-glow: только мягкое цветное кольцо, без inset. */
+    box-shadow: 0 0 0 3px rgba(40, 96, 235, 0.12);
   }
 
   .ds-field--error .ds-field__box {
