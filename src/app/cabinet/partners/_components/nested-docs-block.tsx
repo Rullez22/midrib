@@ -46,8 +46,12 @@ export function NestedDocsBlock({ org, cabinet, parentDocId }: { org: Org; cabin
   const router = useRouter();
   const { createdContracts } = useRegFlow();
   const nested = createdContracts.filter((c) => c.orgId === org.id && c.parentId === parentDocId);
+  // base уже разводит оба кабинета, поэтому guard `if (cabinet)` здесь не нужен:
+  // без company-slug (/cabinet/partners/org/…) он молча глушил переход, и
+  // вложенный документ не создавался. Роуты contract-new и doc/[docId] для
+  // этого случая существуют.
   const base = cabinet ? `/cabinet/${cabinet.slug}/partners/org/${org.id}` : `/cabinet/partners/org/${org.id}`;
-  const create = (kind: string) => { if (cabinet) router.push(`${base}/contract-new?kind=${kind}&parent=${parentDocId}`); };
+  const create = (kind: string) => router.push(`${base}/contract-new?kind=${kind}&parent=${parentDocId}`);
 
   return (
     <div className="overflow-hidden rounded-[4px] border border-border">
@@ -57,7 +61,7 @@ export function NestedDocsBlock({ org, cabinet, parentDocId }: { org: Org; cabin
           align="end"
           aria-label="Добавить документ"
           items={NESTED_DOC_ITEMS}
-          onSelect={(v) => { if (cabinet) router.push(`${base}/contract-new?kind=${v}&parent=${parentDocId}`); }}
+          onSelect={(v) => create(v)}
           trigger={<Button size="s" iconLeft={<PlusIcon />}>Добавить документ</Button>}
         />
       </div>
@@ -76,7 +80,7 @@ export function NestedDocsBlock({ org, cabinet, parentDocId }: { org: Org; cabin
           <TableHeader columns={COLUMNS} size="s" tone="muted" />
           {nested.map((c) => {
             const status = c.finalized ? "Согласован" : "Ожидает участия";
-            const open = () => { if (cabinet) router.push(`${base}/doc/${c.id}`); };
+            const open = () => router.push(`${base}/doc/${c.id}`);
             return (
               <div
                 key={c.id}

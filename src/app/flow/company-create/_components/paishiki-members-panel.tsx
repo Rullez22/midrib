@@ -376,6 +376,12 @@ export function PaishikiMembersPanel({ members, className, focusCouncilSignal = 
                   <Item
                     key={`${name}-${i}`}
                     size="l"
+                    // ds-row — единый отклик строки на наведение (лифт тени), как у
+                    // остальных таблиц платформы. Не interactive: клик по самой
+                    // строке ничего не делает (действия — в чекбоксе/звезде/иконках
+                    // справа), а --interactive навесил бы cursor: pointer и
+                    // role="button", обещая несуществующий переход.
+                    className="ds-row"
                     leading={<Checkbox size="xs" checked={selected.has(name)} onChange={() => toggle(name)} aria-label={`Выбрать ${name}`} />}
                     trailing={
                       <>
