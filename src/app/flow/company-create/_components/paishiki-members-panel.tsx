@@ -185,13 +185,21 @@ export function PaishikiMembersPanel({ members, className, focusCouncilSignal = 
   // Только «Действующие пайщики» содержит приглашённых; остальные табы пусты.
   // Дропдаун-папки фильтруют список: «Избранные» — по звезде, любая папка — по
   // memberFolder; «Все папки» — без фильтра.
-  const baseRows = tab === "active" ? members : [];
-  const rows =
+  // Под-таб «Частные пайщики / Юридическое лицо» переключает НАБОР строк:
+  // members — частные, LEGAL — юрлица. Раньше `sub` тут не учитывался, и оба
+  // под-таба показывали одинаковый список. В «Согласовании совета» этот же
+  // приём уже работал: cList = cTab === "private" ? cPriv : LEGAL.
+  const baseRows = tab === "active" ? (sub === "legal" ? LEGAL.map((l) => l.name) : members) : [];
+  const byFolder =
     folder === "all"
       ? baseRows
       : folder === "fav"
         ? baseRows.filter((r) => favorites.has(r))
         : baseRows.filter((r) => memberFolder[r] === folder);
+  // Поиск: `q` был привязан к SearchBar, но нигде не применялся — строка поиска
+  // не фильтровала ничего.
+  const needle = q.trim().toLowerCase();
+  const rows = needle ? byFolder.filter((r) => r.toLowerCase().includes(needle)) : byFolder;
   const allChecked = rows.length > 0 && rows.every((r) => selected.has(r));
 
   // Пункты дропдауна: Все папки · Избранные · предустановленные/созданные папки.

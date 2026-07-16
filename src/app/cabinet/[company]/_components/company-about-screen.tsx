@@ -24,6 +24,7 @@ import { CompanyRail, CARD_TINT } from "./company-sidebar";
 import { DeptProfile } from "./dept-profile";
 import { SideChatLayout } from "../../_components/side-chat-layout";
 import { CkpBlock, CascadeArrowDown, StructureCascade } from "./cabinet-activity-screen";
+import { LEGAL } from "../../payment/_components/payment-shared";
 import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/activity-screen";
 import { CABINET_LIST, PEER_AVATAR, getCabinet } from "../_config/cabinets";
 import { CHAT_MESSAGES } from "../../subdivision/administration/_components/subdivision-data";
@@ -86,7 +87,12 @@ function PeersTable() {
           <span className="ds-caption-medium flex-1 text-foreground-subtle">Страна</span>
           <span className="ds-caption-medium flex-1 text-foreground-subtle">Дата заявки</span>
         </div>
-        {COOP_PEERS.filter((n) => n.toLowerCase().includes(q.toLowerCase())).map((name, i) => (
+        {/* Под-таб переключает НАБОР: COOP_PEERS — частные, LEGAL — юрлица.
+            Раньше `tab` в фильтре не участвовал → оба под-таба показывали
+            одинаковый список. */}
+        {(tab === "legal" ? LEGAL.map((l) => l.name) : COOP_PEERS)
+          .filter((n) => n.toLowerCase().includes(q.trim().toLowerCase()))
+          .map((name, i) => (
           <div key={`${name}-${i}`} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-4">
             <span className="ds-p3 flex-[2] text-foreground">{name}</span>
             <span className="flex flex-[2]"><Link href="#" size="p3">5c243af... 07db8</Link></span>
