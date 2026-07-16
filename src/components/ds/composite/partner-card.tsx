@@ -118,7 +118,16 @@ export function PartnerCard({
           <div className="mt-2 flex items-center gap-6">
             {!hideSelect &&
               (selectVariant === "danger" ? (
-                <Button size="s" variant="secondary" className="border-[#dc686f] text-[#dc686f]" onClick={onSelect}>{selectLabel}</Button>
+                // Красная secondary: hover перебиваем на красный тинт — иначе от
+                // .ds-btn--secondary прилетел бы синий фон под красной рамкой.
+                <Button
+                  size="s"
+                  variant="secondary"
+                  className="border-[color:var(--color-red-300)] text-[color:var(--color-red-300)] hover:border-[color:var(--color-red-400)] hover:bg-[color:var(--color-red-50)]"
+                  onClick={onSelect}
+                >
+                  {selectLabel}
+                </Button>
               ) : (
                 <Button size="s" onClick={onSelect}>{selectLabel}</Button>
               ))}

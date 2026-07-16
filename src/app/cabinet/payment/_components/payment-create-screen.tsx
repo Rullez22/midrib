@@ -41,7 +41,7 @@ export function PaymentCreateScreen() {
             type="button"
             aria-label="Закрыть"
             onClick={close}
-            className="flex size-10 items-center justify-center rounded-[4px] border border-[#dc686f] text-[#dc686f]"
+            className="flex size-10 items-center justify-center rounded-[4px] border border-[color:var(--color-red-300)] text-[color:var(--color-red-300)] transition-colors hover:bg-[color:var(--color-red-50)] hover:text-[color:var(--color-red-500)]"
           >
             <CloseIcon />
           </button>
