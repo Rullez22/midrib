@@ -84,10 +84,12 @@
   .ds-btn--primary {
     background-color: var(--color-blue-midhub-500);
     color: var(--color-white);
+    /* Цветной glow (прозрачность, не серая тень) — «живость» primary-кнопки. */
+    box-shadow: 0 4px 16px rgba(40, 96, 235, 0.22);
   }
-  .ds-btn--primary:hover:not(:disabled)  { background-color: var(--color-blue-midhub-600); }
-  .ds-btn--primary:active:not(:disabled) { background-color: var(--color-blue-midhub-800); }
-  .ds-btn--primary:disabled              { background-color: var(--color-blue-midhub-100); color: var(--color-white); }
+  .ds-btn--primary:hover:not(:disabled)  { background-color: var(--color-blue-midhub-600); box-shadow: 0 6px 20px rgba(40, 96, 235, 0.32); }
+  .ds-btn--primary:active:not(:disabled) { background-color: var(--color-blue-midhub-800); box-shadow: 0 2px 8px rgba(40, 96, 235, 0.2); }
+  .ds-btn--primary:disabled              { background-color: var(--color-blue-midhub-100); color: var(--color-white); box-shadow: none; }
 
   /* ── Type: Secondary (контур blue) ─────────────────────────── */
   .ds-btn--secondary {
