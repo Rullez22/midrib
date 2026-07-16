@@ -32,21 +32,65 @@ import { useRegFormTitle } from "./reg-form-view";
 
 type MemberStatus = "loading" | "data" | "accepted";
 
-const ADDR = "0xca30e63200a0fe3182dc61fc5605efc41456f32";
 /** Имена приглашённых пайщиков — общий источник из RegFlow (Figma 475309). */
 const NAMES = PAISHIKI_NAMES;
 /** Имена новых кандидатов согласования (мок, отличны от засева совета), чтобы
  *  приглашённый через форму был виден отдельной строкой в табе «Совет». */
-const NEW_CANDIDATE_NAMES = ["Сергей Сергеев", "Павел Павлов", "Игорь Игорев", "Роман Романов", "Денис Денисов"];
-/** Паспортные данные (мок, общий для всех пайщиков) — Figma 375528. */
-const PASSPORT: MemberRow[] = [
-  { label: "Фамилия", value: "Антонов" },
-  { label: "Имя", value: "Илья" },
-  { label: "Отчество", value: "Васильевич" },
-  { label: "Номер паспорта", value: "45 67 345678" },
-  { label: "Кем выдан", value: "ТП № 19 Калининского района, г. Санкт-Петербург" },
-  { label: "Дата выдачи", value: "25.12.2005" },
+const NEW_CANDIDATE_NAMES = ["Кузнецова Ольга", "Никитин Павел", "Егорова Мария", "Лебедев Сергей", "Фомина Лидия"];
+
+/** Кошельки пайщиков — свой у каждого (Figma 375528). */
+const WALLETS = [
+  "0xca30e63200a0fe3182dc61fc5605efc41456f32",
+  "0x7b41d905c8e2f06a3d194bc7180ae52937fd0c1",
+  "0x3e8f27ba604d15c9e0af8362d75be14098ca7d3",
+  "0xf19c04e73a2850d6b1fc9e3407da6528b3710e9",
+  "0x2d6a8c1f95b30e478ac52d90613fe8b7204cd56",
 ];
+/** Паспортные данные — свои у каждого пайщика, в порядке PAISHIKI_NAMES. */
+const PASSPORTS: MemberRow[][] = [
+  [
+    { label: "Фамилия", value: "Антонов" },
+    { label: "Имя", value: "Илья" },
+    { label: "Отчество", value: "Андреевич" },
+    { label: "Номер паспорта", value: "40 12 574903" },
+    { label: "Кем выдан", value: "ТП № 19 Калининского района, г. Санкт-Петербург" },
+    { label: "Дата выдачи", value: "14.03.2012" },
+  ],
+  [
+    { label: "Фамилия", value: "Курт" },
+    { label: "Имя", value: "Розалина" },
+    { label: "Отчество", value: "Игоревна" },
+    { label: "Номер паспорта", value: "40 08 316742" },
+    { label: "Кем выдан", value: "ТП № 44 Выборгского района, г. Санкт-Петербург" },
+    { label: "Дата выдачи", value: "26.09.2008" },
+  ],
+  [
+    { label: "Фамилия", value: "Дмитров" },
+    { label: "Имя", value: "Александр" },
+    { label: "Отчество", value: "Романович" },
+    { label: "Номер паспорта", value: "41 15 208561" },
+    { label: "Кем выдан", value: "ГУ МВД России по г. Санкт-Петербургу и Ленинградской обл." },
+    { label: "Дата выдачи", value: "07.06.2015" },
+  ],
+  [
+    { label: "Фамилия", value: "Александров" },
+    { label: "Имя", value: "Дмитрий" },
+    { label: "Отчество", value: "Андреевич" },
+    { label: "Номер паспорта", value: "40 19 447130" },
+    { label: "Кем выдан", value: "ТП № 21 Приморского района, г. Санкт-Петербург" },
+    { label: "Дата выдачи", value: "12.11.2019" },
+  ],
+  [
+    { label: "Фамилия", value: "Морозов" },
+    { label: "Имя", value: "Виктор" },
+    { label: "Отчество", value: "Николаевич" },
+    { label: "Номер паспорта", value: "41 07 692418" },
+    { label: "Кем выдан", value: "ТП № 33 Невского района, г. Санкт-Петербург" },
+    { label: "Дата выдачи", value: "19.02.2007" },
+  ],
+];
+const walletFor = (i: number) => WALLETS[i % WALLETS.length];
+const passportFor = (i: number) => PASSPORTS[i % PASSPORTS.length];
 
 function IdIcon() {
   const s = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } as const;
@@ -137,7 +181,7 @@ export function PaishikiScreen({
     );
     setRequested(true);
   };
-  const addMember = () => setMembers((prev) => [...prev, { addr: ADDR, status: "loading" }]);
+  const addMember = () => setMembers((prev) => [...prev, { addr: walletFor(prev.length), status: "loading" }]);
   const cancelMember = (i: number) => setMembers((prev) => prev.filter((_, j) => j !== i));
 
   const resetForm = () => {
@@ -265,7 +309,7 @@ export function PaishikiScreen({
                       key={i}
                       title={`Пайщик №${i + 1}`}
                       defaultOpen
-                      rows={[{ label: "Адрес", value: m.addr || ADDR }, ...(m.status !== "loading" ? PASSPORT : [])]}
+                      rows={[{ label: "Адрес", value: m.addr || walletFor(i) }, ...(m.status !== "loading" ? passportFor(i) : [])]}
                       status={m.status === "loading" ? "loading" : "success"}
                       statusText={
                         m.status === "accepted"

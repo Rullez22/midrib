@@ -143,7 +143,7 @@ export function ItemDataDemos() {
         <Item leading={<Badge variant="solid" color="cyan">214</Badge>}>
           <div className="grid grid-cols-5 items-center gap-4">
             <Stacked top={<span className="inline-flex items-center gap-1">5c243af... 07db8 <InfoIcon /></span>} sub="29 секунд назад" />
-            <Stacked top="ПК «Иматра»" sub={<span style={{ color: blue }}>ИП Салютов Р. К.</span>} />
+            <Stacked top="ПК «Immatra»" sub={<span style={{ color: blue }}>ИП Салютов Р. К.</span>} />
             <Stacked top={<span className="inline-flex items-center gap-1">Счет на оплату <InfoIcon /></span>} sub={<span style={{ color: dark }}>Закупка игрового оборудования</span>} />
             <span className="text-center" style={{ color: dark }}>0.229937</span>
             <span className="text-right" style={{ color: dark }}>0.0022</span>

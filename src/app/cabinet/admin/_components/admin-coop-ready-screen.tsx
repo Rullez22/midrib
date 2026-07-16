@@ -51,7 +51,7 @@ export function AdminCoopReadyScreen() {
               </button>
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-              <span className="ds-p2-medium text-foreground">Имматра</span>
+              <span className="ds-p2-medium text-foreground">Immatra</span>
               <p className="ds-p3 text-foreground-muted">Описание <span className="text-foreground-subtle">[Заполняет приглашенная компания]</span></p>
             </div>
           </div>
@@ -65,10 +65,10 @@ export function AdminCoopReadyScreen() {
                   { label: "Адрес", value: "0xca30e63200a0fe3182dc61fc5605efc41456f32" },
                   { label: "Фамилия", value: "Антонов" },
                   { label: "Имя", value: "Илья" },
-                  { label: "Отчество", value: "Васильевич" },
-                  { label: "Номер паспорта", value: "45 67 345678" },
+                  { label: "Отчество", value: "Андреевич" },
+                  { label: "Номер паспорта", value: "40 12 574903" },
                   { label: "Кем выдан", value: "ТП № 19 Калининского района, г. Санкт-Петербург" },
-                  { label: "Дата выдачи", value: "25.12.2005" },
+                  { label: "Дата выдачи", value: "14.03.2012" },
                 ],
               },
               { heading: "Направление", rows: [{ label: "Название", value: "Идеологическое направление" }] },

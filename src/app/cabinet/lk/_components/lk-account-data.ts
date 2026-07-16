@@ -8,11 +8,11 @@ import { type AccountDocRow, type AccountArtifactRow } from "../../_components/a
 
 /* Взаиморасчёты — таблица транзакций (Figma 2658:389147). */
 export const LK_TRANSACTIONS: Transaction[] = [
-  { code: "214", color: "cyan", hash: "5c243af… 07db8", time: "29 секунд назад", from: "Кооператив «Иматра»", to: "ИП Салютов Р. К.", document: "Счёт на оплату", documentSub: "Договор на поставку игрового оборудования", documentLink: true, amount: "0.229937", commission: "0.0022" },
-  { code: "214", color: "cyan", hash: "9b17e04… 3f2a1", time: "3 минуты назад", from: "Кооператив «Иматра»", to: "Кооператив «Гвозди и доски»", document: "Счёт на оплату", documentSub: "Соглашение о совместной закупке материалов", documentLink: true, amount: "0.583104", commission: "0.0041" },
-  { code: "214", color: "cyan", hash: "41d8c6b… e05d7", time: "12 минут назад", from: "Кооператив «Иматра»", to: "Кооператив «Слонёнок»", document: "Счёт на оплату", documentSub: "Договор на техническое обслуживание", documentLink: true, amount: "0.041250", commission: "0.0009" },
-  { code: "216", color: "purple", hash: "7ea2f19… b84c3", time: "1 час назад", from: "Антонов И. А.", to: "Кооператив «Иматра»", document: "Взносы и целевые поступления", documentSub: "Паевой взнос за II квартал", documentLink: true, amount: "0.127860", commission: "0.0015" },
-  { code: "215", color: "green", hash: "2fc59d8… 61e9b", time: "5 часов назад", from: "Подразделение «Администрация»", to: "Кооператив «Иматра»", document: "Поступления с маршрутных счетов", documentSub: "Смета на благоустройство территории", documentLink: true, amount: "0.094512", commission: "0.0011" },
+  { code: "214", color: "cyan", hash: "5c243af… 07db8", time: "29 секунд назад", from: "Кооператив «Immatra»", to: "ИП Салютов Р. К.", document: "Счёт на оплату", documentSub: "Договор на поставку игрового оборудования", documentLink: true, amount: "0.229937", commission: "0.0022" },
+  { code: "214", color: "cyan", hash: "9b17e04… 3f2a1", time: "3 минуты назад", from: "Кооператив «Immatra»", to: "Кооператив «Гвозди и доски»", document: "Счёт на оплату", documentSub: "Соглашение о совместной закупке материалов", documentLink: true, amount: "0.583104", commission: "0.0041" },
+  { code: "214", color: "cyan", hash: "41d8c6b… e05d7", time: "12 минут назад", from: "Кооператив «Immatra»", to: "Кооператив «Слонёнок»", document: "Счёт на оплату", documentSub: "Договор на техническое обслуживание", documentLink: true, amount: "0.041250", commission: "0.0009" },
+  { code: "216", color: "purple", hash: "7ea2f19… b84c3", time: "1 час назад", from: "Антонов И. А.", to: "Кооператив «Immatra»", document: "Взносы и целевые поступления", documentSub: "Паевой взнос за II квартал", documentLink: true, amount: "0.127860", commission: "0.0015" },
+  { code: "215", color: "green", hash: "2fc59d8… 61e9b", time: "5 часов назад", from: "Подразделение «Администрация»", to: "Кооператив «Immatra»", document: "Поступления с маршрутных счетов", documentSub: "Смета на благоустройство территории", documentLink: true, amount: "0.094512", commission: "0.0011" },
 ];
 
 /* Документооборот (Figma 1857:649786). */

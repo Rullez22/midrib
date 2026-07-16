@@ -60,19 +60,19 @@ export const AGE_OPTIONS = ["Без ограничений", "7+", "16+", "18+"]
 export const PAISHIKI_NAMES = [
   "Илья Антонов",
   "Розалина Курт",
-  "Алесандр Дмитров",
+  "Александр Дмитров",
   "Дмитрий Александров",
-  "Джо Валенов",
+  "Виктор Морозов",
 ];
 
 /** Кандидаты в пайщики для таба «Согласование совета» (левая колонка shuttle) —
  *  засев по умолчанию. Приглашённые через форму добавляются сюда же. */
 export const COUNCIL_CANDIDATES = [
   "Илья Антонов",
-  "Андрей Андреев",
-  "Олег Олегов",
+  "Мария Егорова",
+  "Сергей Лебедев",
   "Валерий Варламов",
-  "Николай Николаев",
+  "Оксана Кузнецова",
 ];
 
 /** Код страны → язык локализации (для редактора основания и локализаций). */
@@ -362,7 +362,7 @@ interface RegFlowValue {
   approvedOrgDocs: string[];
   approveOrgDoc: (key: string) => void;
   /** Флоу «Оценка и закрытие договора» (исключение для партнёра «Живу с Культурой»,
-   *  Договор №1). Статус: Ожидает участия → Оценка (открыт) → Закрыт (2 отзыва +3с). */
+   *  «Договор на организацию выставки»). Статус: Ожидает участия → Оценка (открыт) → Закрыт (2 отзыва +3с). */
   cultureStarted: boolean;
   cultureReviews: number;
   cultureClosed: boolean;
@@ -602,7 +602,7 @@ export function RegFlowProvider({ children }: { children: ReactNode }) {
   const approveOrgDoc = (key: string) =>
     setApprovedOrgDocs((prev) => (prev.includes(key) ? prev : [...prev, key]));
 
-  // ── «Оценка и закрытие договора» (culture / Договор №1) ─────────────────
+  // ── «Оценка и закрытие договора» (culture / выставка) ───────────────────
   const [cultureStarted, setCultureStarted] = useState(false);
   const [cultureReviews, setCultureReviews] = useState(0);
   const [cultureClosed, setCultureClosed] = useState(false);

@@ -19,7 +19,7 @@ export default async function AdminPage({
           interactive: true,
           activeTab: "waiting",
           waitingLabel: "Ожидают допуска",
-          rows: [{ name: "Имматра", address: ADDR, status: "Доступ запрошен" }],
+          rows: [{ name: "Immatra", address: ADDR, status: "Доступ запрошен" }],
           submitHref: "/cabinet/admin/invite/1",
           rowHref: "/cabinet/admin/coop-ready",
         }}

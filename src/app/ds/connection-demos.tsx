@@ -54,7 +54,7 @@ export function ConnectionDemos() {
         </Tabs>
         <div className="overflow-hidden rounded-[4px] border border-border">
           <div className="border-b border-border px-2 pt-2"><TableHeader selectable columns={PEOPLE_COLS} {...sort} /></div>
-          {["Илья Антонов", "Андрей Андреев", "Олег Олегов", "Валерий Варламов", "Николай Николаев"].map((n) => <PersonRow key={n} name={n} />)}
+          {["Илья Антонов", "Мария Егорова", "Сергей Лебедев", "Валерий Варламов", "Оксана Кузнецова"].map((n) => <PersonRow key={n} name={n} />)}
           <div className="flex justify-center border-t border-border p-3">
             <Pagination size="s" view="full" page={page} total={200} onChange={setPage} />
           </div>
