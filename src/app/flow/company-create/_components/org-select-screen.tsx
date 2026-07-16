@@ -22,7 +22,7 @@ function OrgCard({
   href?: string;
 }) {
   const inner = (
-    <div className="flex items-center gap-4 rounded-[4px] border border-border p-[15px] text-left transition-colors hover:bg-surface-sunken">
+    <div className="ds-row flex items-center gap-4 rounded-[4px] border border-border p-[15px] text-left">
       <span className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-[4px] bg-surface-muted">
         {logo}
       </span>

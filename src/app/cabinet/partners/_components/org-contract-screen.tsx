@@ -101,7 +101,7 @@ export function DocsTable() {
           { key: "date", label: "Дата создания", align: "right", flex: 1 },
         ]}
       />
-      <div className="flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3">
+      <div className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3">
         <div className="flex flex-[2] flex-col gap-0.5">
           <span className="ds-p3 text-foreground-subtle">Другой документ</span>
           <span className="ds-p3 text-foreground">Гост 111/12 ФНС от 01.06.2017</span>

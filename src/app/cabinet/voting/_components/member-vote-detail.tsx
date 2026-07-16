@@ -51,7 +51,7 @@ export function MemberVoteDetail({ vote, onBack }: { vote: PaymentVote; onBack: 
                 <Col flex={1} align="center">Статус</Col>
                 <Col flex={1} align="right">Дата</Col>
               </div>
-              <div className="flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
+              <div className="ds-row flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
                 <div className="flex flex-col gap-0.5" style={{ flex: 2 }}>
                   <span className="ds-caption text-foreground-subtle">Пользовательское соглашение</span>
                   <span className="ds-p3 text-foreground">Форма регистрации для граждан России, Болгарии</span>

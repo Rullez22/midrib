@@ -97,7 +97,7 @@ export function PpDetailScreen({ backHref, detailHref, routes }: { backHref?: st
                 <EmptyState title="Отсутствуют черновики" />
               )
             ) : flow.published ? (
-              <div className="flex items-center justify-between gap-4 rounded-[4px] border border-border bg-white px-6 py-4">
+              <div className="ds-row flex items-center justify-between gap-4 rounded-[4px] border border-border bg-white px-6 py-4">
                 <span className="ds-p3 text-foreground">{title}</span>
                 <span className="ds-p3 shrink-0 text-foreground-subtle tabular-nums">11.03.2020 - 11.04.2020</span>
               </div>
