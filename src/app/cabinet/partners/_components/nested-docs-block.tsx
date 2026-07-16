@@ -85,7 +85,7 @@ export function NestedDocsBlock({ org, cabinet, parentDocId }: { org: Org; cabin
                 onClick={open}
                 onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }}
                 className={cn(
-                  "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer transition-shadow hover:shadow-sm",
+                  "ds-row flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer",
                   status === "Ожидает участия" ? "border-[color:var(--color-orange-400)]" : "border-border",
                 )}
               >
@@ -97,7 +97,7 @@ export function NestedDocsBlock({ org, cabinet, parentDocId }: { org: Org; cabin
                 <div className="flex justify-center" style={colStyle(COLUMNS[2])}>
                   <Badge variant="soft" color={DOC_STATUS_COLOR[status]}>{status}</Badge>
                 </div>
-                <div className="ds-p3 text-right text-foreground" style={colStyle(COLUMNS[3])}>12.01.2020</div>
+                <div className="ds-p3 text-right text-foreground" style={colStyle(COLUMNS[3])}>11.04.2025</div>
               </div>
             );
           })}

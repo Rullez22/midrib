@@ -40,11 +40,14 @@ import { type CabinetConfig } from "../_config/cabinets";
 type Tab1 = "own" | "staff";
 
 const TX = "0x031711ab4d2769a177eb95d8a79d3553e26d8a5833c243506f44cbe15b06243e";
-const ROWS = Array.from({ length: 5 }, () => ({
-  number: "№ 9873...5530",
-  tx: TX,
-  date: "12.01.2020 - 15:00",
-}));
+/** Обработанные документы — от свежих к старым (сортировка по дате, desc). */
+const ROWS = [
+  { number: "№ 9873...5530", tx: TX, date: "03.06.2025 - 15:00" },
+  { number: "№ 4412...8107", tx: TX, date: "19.05.2025 - 11:20" },
+  { number: "№ 7150...2984", tx: TX, date: "22.04.2025 - 16:45" },
+  { number: "№ 2306...6471", tx: TX, date: "08.03.2025 - 10:05" },
+  { number: "№ 5641...1039", tx: TX, date: "28.01.2025 - 14:30" },
+];
 
 const COLUMNS: TableColumn[] = [
   { key: "number", label: "№ документа" },
@@ -54,11 +57,11 @@ const COLUMNS: TableColumn[] = [
 
 /** Сотрудники + число выданных лицензий (сегмент «Сотрудники», Figma 6970:551681). */
 const STAFF_ROWS = [
-  { name: "Панин Н.Н.", count: 3 },
-  { name: "Вовкин К.Н.", count: 2 },
-  { name: "Печкин П.П", count: 1 },
-  { name: "Птушкин А.С.", count: 8 },
-  { name: "Птушкин А.С.", count: 10 },
+  { name: "Соколов М. А.", count: 12 },
+  { name: "Кузнецова О. И.", count: 8 },
+  { name: "Морозов В. Н.", count: 5 },
+  { name: "Волкова Т. Г.", count: 3 },
+  { name: "Павлов И. К.", count: 1 },
 ];
 
 const STAFF_COLUMNS: TableColumn[] = [
@@ -111,7 +114,7 @@ function ProcessedTable({
             name=""
             transaction={r.tx}
             date={r.date}
-            className="py-5 transition-colors hover:bg-[color:var(--color-grey-10)]"
+            className="ds-row py-5 transition-colors"
             onTransactionClick={onOpenDoc}
           />
         </div>
@@ -134,18 +137,19 @@ function HistoryDocDetail({
 }) {
   const fields: DefRow[] = [
     { label: "Дата рождения", value: "21.02.1988" },
-    { label: "Имя", value: "Штольц" },
-    { label: "Фамилия", value: "Максим" },
-    { label: "Отчество", value: "Констанстинов" },
+    { label: "Имя", value: "Максим" },
+    { label: "Фамилия", value: "Штольц" },
+    { label: "Отчество", value: "Константинович" },
     { label: "Серия", value: "PP" },
     { label: "Номер", value: "9715286548" },
-    { label: "Дата выдачи", value: "21.09.2019" },
+    { label: "Дата выдачи", value: "19.05.2025" },
     { label: "Квалификация", value: 'Юрист по специальности "Международные отношения"' },
     { label: "Прикрепленные документы", value: <DocThumb /> },
   ];
+  // Транзакции — от свежих к старым: отправка (11:20), затем подпись ВУЗа (15:00).
   const tx: TxRow[] = [
-    { action: "Подпись ВУЗа", party: 'ООО "Слон"', date: "11.01.2020 - 15:00" },
-    { action: "Отправка документа", party: 'ООО "Сапфир"', date: "11.01.2020 - 11:00" },
+    { action: "Подпись ВУЗа", party: 'ООО "Слон"', date: "19.05.2025 - 15:00" },
+    { action: "Отправка документа", party: 'ООО "Сапфир"', date: "19.05.2025 - 11:20" },
   ];
   return (
     <div className="flex min-h-screen bg-background">
@@ -155,10 +159,10 @@ function HistoryDocDetail({
           <BackHeader onBack={onBack} />
 
           {/* ПП, с которого создавался документ */}
-          <Item size="l" trailing={<span className="ds-p3 text-foreground-subtle">01.06.2020</span>}>
+          <Item size="l" trailing={<span className="ds-p3 text-foreground-subtle">11.04.2025</span>}>
             <span className="flex w-full items-center justify-between gap-4">
               <span className="ds-p3 text-foreground">Форма регистрации для граждан Болгарии</span>
-              <span className="ds-p3 text-[var(--color-red-300)]">Лиц №2345431(+1240/99%) ???</span>
+              <span className="ds-p3 text-[var(--color-red-300)]">Лиц. №2345431 (+1240 / 99%)</span>
             </span>
           </Item>
 
@@ -202,8 +206,8 @@ function StaffTable({
 /** Выбор периода: «[label] с [дата] по [дата] [Показать]» — два DS Datepicker
  *  (от/до) + кнопка. `align` — центр (вкладка «вами») или вправо (сегменты). */
 function PeriodPicker({ label, align = "center" }: { label?: string; align?: "center" | "end" }) {
-  const [from, setFrom] = useState<Date | null>(new Date(2017, 8, 9));
-  const [to, setTo] = useState<Date | null>(new Date(2017, 3, 29));
+  const [from, setFrom] = useState<Date | null>(new Date(2025, 0, 1));
+  const [to, setTo] = useState<Date | null>(new Date(2025, 5, 30));
   return (
     <div
       className={cn(

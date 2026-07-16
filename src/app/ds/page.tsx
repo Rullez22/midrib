@@ -1707,8 +1707,8 @@ export default function DsPage() {
             <Text variant="caption-up" tone="subtle">2+ строки</Text>
             {(["positive", "notice", "error", "info", "default"] as const).map((v) => (
               <Toast key={v} variant={v} title="Заголовок" onClose={() => {}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quam mauris
-                massa sollicitudin hendrerit quis ipsum dui eget. Est sed id sed.
+                Документ «Протокол заседания правления №47» сохранён. Уведомление
+                отправлено участникам голосования в чат кооператива.
               </Toast>
             ))}
           </div>
@@ -1716,7 +1716,7 @@ export default function DsPage() {
             <Text variant="caption-up" tone="subtle">одна строка</Text>
             {(["positive", "notice", "error", "info", "default"] as const).map((v) => (
               <Toast key={v} variant={v} onClose={() => {}}>
-                Lorem ipsum dolor sit amet, consectetur
+                Изменения сохранены
               </Toast>
             ))}
           </div>

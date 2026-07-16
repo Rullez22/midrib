@@ -146,7 +146,7 @@ export function AdminReferralContent({ state }: { state: AdminReferralState }) {
       ) : (
         <div className="flex flex-col gap-3">
           {rows.map((r, i) => (
-            <div key={i} className="flex flex-wrap items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4">
+            <div key={i} className="ds-row flex flex-wrap items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4">
               <span className="ds-p3 w-40 shrink-0 text-foreground">{r.name}</span>
               <span className="ds-p3 flex-1 break-all text-center text-primary">{r.address}</span>
               {r.status && <span className="ds-p3 shrink-0 text-foreground-subtle">{r.status}</span>}

@@ -85,7 +85,7 @@ export function PpDetailScreen({ backHref, detailHref, routes }: { backHref?: st
                   {flow.drafts.map((d, i) => (
                     <div key={i} className="flex items-center">
                       {/* Строка-карточка + урна снаружи (gap 24px слева и справа) */}
-                      <div className="flex flex-1 items-center justify-between gap-4 rounded-[4px] border border-border bg-white px-6 py-4">
+                      <div className="ds-row flex flex-1 items-center justify-between gap-4 rounded-[4px] border border-border bg-white px-6 py-4">
                         <span className="ds-p3 text-foreground">{d.title}</span>
                         <span className="ds-p3 text-foreground-subtle tabular-nums">{d.date}</span>
                       </div>

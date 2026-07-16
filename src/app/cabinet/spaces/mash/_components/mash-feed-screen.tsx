@@ -10,13 +10,14 @@ import { FeedPost } from "../../_components/feed-post";
  * MashFeedScreen — лента направления «Машиностроение» (Figma 7021-572695).
  * Открывается кликом по «Машиностроение» в сайдбаре «Культура 3». Верхняя полоса:
  * назад + заголовок + переключатель уровней 1–7. Ниже — посты авторов (FeedPost);
- * клик по «John Doe» ведёт к его публикациям.
+ * клик по «Степан А. А.» ведёт к его публикациям.
  */
 
 const P = "https://images.unsplash.com/";
+/** Имена согласованы с фото: те же лица, что в коллективе (cabinet-activity). */
 const POSTS = [
   {
-    name: "John Doe",
+    name: "Степан А. А.",
     avatar: `${P}photo-1500648767791-00dcc994a43e?w=80&q=80`,
     title: "Автозавод Tesla",
     cover: `${P}photo-1518709268805-4e9042af9f23?w=800&q=80`,
@@ -24,15 +25,15 @@ const POSTS = [
     href: "/cabinet/spaces/mash/publications",
   },
   {
-    name: "Elen Der",
+    name: "Новикова Е. П.",
     avatar: `${P}photo-1544005313-94ddf0286df2?w=80&q=80`,
-    title: "Новая гига-фабрика",
+    title: "Запуск участка станков с ЧПУ",
     cover: `${P}photo-1581092160562-40aa08e78837?w=800&q=80`,
   },
   {
-    name: "Marta Reed",
+    name: "Розалина К. И.",
     avatar: `${P}photo-1438761681033-6461ffad8d80?w=80&q=80`,
-    title: "Производство",
+    title: "Модернизация литейного цеха",
     cover: `${P}photo-1504328345606-18bbc8c9d7d1?w=800&q=80`,
   },
 ];

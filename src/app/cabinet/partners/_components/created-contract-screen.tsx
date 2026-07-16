@@ -26,7 +26,7 @@ const CONSULTANT = {
   name: "ИП Наталья Верная",
   photo: "/members/rozalina.png",
   services:
-    "Услуги: lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna sed do eiusmod tempor",
+    "Услуги: юридическая проверка договоров и счетов, подбор нормативных документов и ГОСТов, подготовка ответов на замечания валидатора и сопровождение сделки до закрывающих документов.",
 };
 const CONSULT_CHAT: ChatPanelMsg[] = [
   { me: true, text: "Привет, консультант. Можешь помочь?", time: "15:01" },
@@ -69,13 +69,13 @@ function ContractFields({ c }: { c: CreatedContract }) {
 const PROCESS_POSTS = [
   {
     title: "Старт работ по договору",
-    date: "12 Января, 2020",
+    date: "12 апреля 2025",
     text: "Приступили к исполнению договора: закупили материалы и согласовали план работ с исполнителем.",
     image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1000&q=80",
   },
   {
     title: "Промежуточный отчёт",
-    date: "18 Января, 2020",
+    date: "24 апреля 2025",
     text: "Выполнено около 60% работ. Прикладываем фотоотчёт и обновлённую смету по договору.",
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1000&q=80",
   },
@@ -164,7 +164,7 @@ function ConsultantSelect({ onAdd }: { onAdd: (amount: string, task: string) => 
           <div className="flex flex-col gap-4 rounded-[4px] border border-border p-6">
             <div className="flex flex-wrap items-center gap-4">
               <Input className="w-[220px]" placeholder="Сумма*" value={amount} onChange={(e) => setAmount(e.target.value)} />
-              <span className="rounded-[4px] bg-[var(--color-green-50,#e9f7ee)] px-3 py-2 ds-p3 text-[var(--color-green-600,#2e9e5b)]">Доступная сумма : 250 000 ₽</span>
+              <span className="rounded-[4px] bg-[var(--color-green-50,#e9f7ee)] px-3 py-2 ds-p3 text-[var(--color-green-600,#2e9e5b)]">Доступная сумма : 418 000 ₽</span>
             </div>
             <Textarea placeholder="Описание задачи*" rows={3} value={task} onChange={(e) => setTask(e.target.value)} />
           </div>
@@ -201,7 +201,7 @@ function ConsultationWindow({ c, onFinish }: { c: CreatedContract; onFinish: () 
                 <div className="flex flex-col gap-1.5">
                   <span className="ds-p1-medium inline-flex items-center gap-1 text-foreground">{cons.name}<ExtIcon /></span>
                   <Stars />
-                  <span className="ds-caption text-foreground-subtle">300 отзывов</span>
+                  <span className="ds-caption text-foreground-subtle">127 отзывов</span>
                 </div>
               </div>
               <div className="flex flex-1 flex-col gap-5">
@@ -282,7 +282,7 @@ export function CreatedContractScreen({
 
   // Блокчейн: консультант · авто-шаги (сверху) · Подпись исполнителя · Добавление.
   const tx: TxRow[] = [];
-  if (c.consultationDone) tx.push({ action: "Добавление консультанта", party: "Elephant", date: "11.01.2020 - 15:00" });
+  if (c.consultationDone) tx.push({ action: "Добавление консультанта", party: "Elephant", date: "11.04.2025 - 15:00" });
   for (let i = c.step; i >= 1; i--) {
     const s = cfg.steps[i - 1];
     tx.push({ action: s.tx.action, party: partyName(s.tx.role, org), date: s.tx.date });
@@ -360,7 +360,7 @@ export function CreatedContractScreen({
                   <span className="ds-p1-medium text-foreground">{c.name}</span>
                   <span className="ds-p2-medium text-foreground">{c.amount}</span>
                   <Badge variant="soft" color="green">Согласован</Badge>
-                  <span className="ds-p3 text-foreground-subtle">11.01.2020</span>
+                  <span className="ds-p3 text-foreground-subtle">11.04.2025</span>
                 </div>
                 <div className="flex flex-col gap-6 border-b border-border p-6 md:flex-row">
                   <ContractFields c={c} />

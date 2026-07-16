@@ -35,20 +35,20 @@ const fmt = (d: Date) => `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear
 
 /** Операции — обработанные документы с вознаграждением (клик → деталь). */
 const OPERATIONS = [
-  { number: "№ 123", name: "Паспорт РФ", reward: "15 ETH", date: "12.01.2020 - 15:00" },
-  { number: "№ 222", name: "Лицензия", reward: "15 ETH", date: "12.01.2020 - 15:00" },
+  { number: "№ 123", name: "Паспорт РФ", reward: "18 ETH", date: "03.06.2025 - 15:00" },
+  { number: "№ 222", name: "Лицензия", reward: "9 ETH", date: "22.04.2025 - 10:25" },
 ];
 
-/** Строки таблицы категории (Документ · Количество). */
+/** Строки таблицы категории (Документ · Количество) — те же документы, что в «Операциях». */
 const CATEGORY_ROWS = [
-  { doc: "Счет на оплату", count: 1 },
+  { doc: "Паспорт РФ", count: 1 },
   { doc: "Лицензия", count: 1 },
 ];
 
 /** Уровни партнёрской сети (только tab «partner»). */
 const LEVELS = [
-  { level: "1", partners: 10, reg: 110, lic: 100 },
-  { level: "2", partners: 20, reg: 200, lic: 200 },
+  { level: "1", partners: 14, reg: 137, lic: 96 },
+  { level: "2", partners: 23, reg: 218, lic: 154 },
 ];
 
 // ── Мелкие таблицы (бордерная карточка, DS-токены) ───────────────────────────
@@ -79,7 +79,7 @@ function CategoryTable() {
         <Cell align="right">{CATEGORY_ROWS.reduce((s, r) => s + r.count, 0)}</Cell>
       </div>
       <div className="border-t border-border bg-[var(--color-blue-midhub-50,#eef5ff)] px-6 py-3 text-center">
-        <span className="ds-p3 text-foreground">Доходность: 30 ETH</span>
+        <span className="ds-p3 text-foreground">Доходность: 27 ETH</span>
       </div>
     </div>
   );
@@ -140,7 +140,7 @@ function OperationsTable({ onOpen }: { onOpen: (name: string) => void }) {
           key={i}
           type="button"
           onClick={() => onOpen(r.name)}
-          className="flex items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-6 py-3 text-left hover:bg-[var(--color-grey-10)]"
+          className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-6 py-3 text-left"
         >
           <span style={{ flex: 2 }} className="flex min-w-0 flex-col gap-1">
             <span className="ds-caption text-foreground-subtle">{r.number}</span>
@@ -159,7 +159,7 @@ function OperationsTable({ onOpen }: { onOpen: (name: string) => void }) {
 function CategoryAndStats({ onOpen }: { onOpen: (name: string) => void }) {
   const [cat, setCat] = useState("ruswan");
   const [calOpen, setCalOpen] = useState(false);
-  const [range, setRange] = useState<CalendarRange>({ start: new Date(2019, 7, 15), end: new Date(2019, 7, 31) });
+  const [range, setRange] = useState<CalendarRange>({ start: new Date(2025, 3, 1), end: new Date(2025, 5, 30) });
   const period = range.start ? `${fmt(range.start)} - ${range.end ? fmt(range.end) : "…"}` : "—";
 
   return (
@@ -180,8 +180,8 @@ function CategoryAndStats({ onOpen }: { onOpen: (name: string) => void }) {
       </div>
 
       <Tabs value={cat} onValueChange={setCat} variant="solid-light" size="l" equal aria-label="Категория">
-        <Tab value="cat1">Категория-1</Tab>
-        <Tab value="cat2">Категория-2</Tab>
+        <Tab value="cat1">Удостоверяющие личность</Tab>
+        <Tab value="cat2">Финансовые документы</Tab>
         <Tab value="ruswan">Документы Ruswan</Tab>
       </Tabs>
 

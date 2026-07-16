@@ -80,7 +80,7 @@ function VoteLine({ className }: { className?: string }) {
       bordered={false}
       size="s"
       className={className}
-      trailing={<span style={{ color: dark }}>11.01.2020 - 13:00</span>}
+      trailing={<span style={{ color: dark }}>22.04.2025 - 13:00</span>}
     >
       <div className="grid grid-cols-3 items-center">
         <span style={{ color: dark }} className="truncate">0xca30e63200a0fe3182dc61fc5605efc41456f32</span>
@@ -103,14 +103,14 @@ export function ItemDataDemos() {
         {/* Основание: overline | бейдж | дата */}
         <Item>
           <div className="grid grid-cols-3 items-center">
-            <Overline label="Договор" value="Договор №1" />
+            <Overline label="Договор" value="Договор на поставку игрового оборудования" />
             <span className="flex justify-center"><Badge color="green">Согласован</Badge></span>
-            <span className="text-right" style={{ color: dark }}>09.01.2020</span>
+            <span className="text-right" style={{ color: dark }}>15.06.2024</span>
           </div>
         </Item>
 
         {/* Артефакт: overline | дата · разделитель · share */}
-        <Item trailing={<><span style={{ color: dark }}>09.01.2020</span><ItemDivider /><ShareIcon /></>}>
+        <Item trailing={<><span style={{ color: dark }}>02.09.2024</span><ItemDivider /><ShareIcon /></>}>
           <Overline label="Документ" value="Документ в свободной форме" />
         </Item>
 
@@ -120,7 +120,7 @@ export function ItemDataDemos() {
             <span style={{ color: dark }}>Свидетельство о государственной регистрации программы ЭВМ</span>
             <span style={{ color: "var(--color-dark-800)" }}>Отвалидирован</span>
             <Badge color="orange">Локальный</Badge>
-            <span style={{ color: dark }}>09.01.2020</span>
+            <span style={{ color: dark }}>19.05.2025</span>
           </div>
         </Item>
 
@@ -143,8 +143,8 @@ export function ItemDataDemos() {
         <Item leading={<Badge variant="solid" color="cyan">214</Badge>}>
           <div className="grid grid-cols-5 items-center gap-4">
             <Stacked top={<span className="inline-flex items-center gap-1">5c243af... 07db8 <InfoIcon /></span>} sub="29 секунд назад" />
-            <Stacked top="ООО “Ромашка”" sub={<span style={{ color: blue }}>ООО “Петрушка”</span>} />
-            <Stacked top={<span className="inline-flex items-center gap-1">Счет на оплату <InfoIcon /></span>} sub={<span style={{ color: dark }}>Закупка площадок</span>} />
+            <Stacked top="ПК «Иматра»" sub={<span style={{ color: blue }}>ИП Салютов Р. К.</span>} />
+            <Stacked top={<span className="inline-flex items-center gap-1">Счет на оплату <InfoIcon /></span>} sub={<span style={{ color: dark }}>Закупка игрового оборудования</span>} />
             <span className="text-center" style={{ color: dark }}>0.229937</span>
             <span className="text-right" style={{ color: dark }}>0.0022</span>
           </div>

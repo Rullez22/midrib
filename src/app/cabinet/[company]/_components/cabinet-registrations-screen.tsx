@@ -312,7 +312,7 @@ function RegItem({
   onOpen: () => void;
 }) {
   return (
-    <div className="flex min-h-[66px] w-full items-center gap-2 rounded-[4px] border border-border bg-white px-6">
+    <div className="ds-row flex min-h-[66px] w-full items-center gap-2 rounded-[4px] border border-border bg-white px-6">
       <Checkbox size="xs" checked={checked} onChange={(e) => onCheck(e.target.checked)} aria-label="Отметить регистрацию" />
       <button
         type="button"

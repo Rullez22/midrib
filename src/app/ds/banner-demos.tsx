@@ -18,8 +18,8 @@ export function BannerDemos() {
           title="Отправка уставных документов на валидацию"
           actionLabel="Отправить на валидатора"
         >
-          Перед отправкой документа на валидацию, вам необходимо зарегистрровать кооператив
-          в государстевенных органах.
+          Перед отправкой документа на валидацию, вам необходимо зарегистрировать кооператив
+          в государственных органах.
         </Banner>
 
         <Banner tone="neutral" title="Отправка уставных документов на валидацию" loading>
@@ -33,7 +33,7 @@ export function BannerDemos() {
           actionLabel="Подтвердить валидатора"
         >
           Валидатор выразил согласие обрабатывать ваши документы.
-          Пожалуйста, подтвердите валидататора для дальнейшей обработки ваших документов.
+          Пожалуйста, подтвердите валидатора для дальнейшей обработки ваших документов.
         </Banner>
 
         <Banner
@@ -56,8 +56,8 @@ export function BannerDemos() {
           title="Информация"
           actionLabel="Продолжить работу"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet id nisi, eget a amet. A platea
-          feliselementum vestibulum sed pharetra, duis. Eu quisque pellentesque sit in ipsum at et aliquam.
+          Реквизиты кооператива обновятся в реестре в течение суток после подтверждения валидатором.
+          До этого момента подключение новых пайщиков и создание счетов будут недоступны.
         </Banner>
       </div>
 
@@ -70,11 +70,11 @@ export function BannerDemos() {
           title="Отправка уставных документов на валидацию"
           actionLabel="Завершить настройку"
         >
-          Чтобы перейти к настройке счетов, необходимов завершить настройку вопросов.
+          Чтобы перейти к настройке счетов, необходимо завершить настройку вопросов.
         </Banner>
 
         <Banner tone="neutral" title="Отправка уставных документов на валидацию" loading>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dapibus non nullam nibh tristique.
+          Идёт поиск валидатора. Обычно это занимает до двух рабочих дней.
         </Banner>
 
         <Banner
@@ -82,7 +82,7 @@ export function BannerDemos() {
           title="Отправка уставных документов на валидацию"
           actionLabel="Подтвердить валидатора"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dapibus non nullam nibh tristique.
+          Валидатор готов взять ваши документы в работу — подтвердите его.
         </Banner>
 
         <Banner
@@ -103,7 +103,7 @@ export function BannerDemos() {
           title="Информация"
           actionLabel="Продолжить работу"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet id nisi, eget a amet. A platea
+          Реквизиты обновятся в реестре в течение суток после подтверждения.
         </Banner>
 
         <Banner
@@ -112,7 +112,7 @@ export function BannerDemos() {
           title="Информация"
           actionLabel="Продолжить работу"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquet id nisi, eget a amet. A platea
+          Пайщик получит уведомление о смене роли на почту и в чат кооператива.
         </Banner>
       </div>
     </div>

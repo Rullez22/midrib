@@ -22,6 +22,15 @@ const TX_FULL = "0x5c243af9b2e1c0d4a6f8e3b1c5d7a9e2f4b6c8d0a1b2c3d4e5f6a7b807db8
 const blue = "var(--color-blue-midhub-500)";
 const dark = "var(--color-dark-900)";
 
+/** Время голосов в истории транзакций — от свежего к раннему (сортировка по дате desc). */
+const TX_TIMES = [
+  "22.04.2025 - 16:40",
+  "22.04.2025 - 15:05",
+  "22.04.2025 - 12:18",
+  "21.04.2025 - 18:32",
+  "21.04.2025 - 10:47",
+];
+
 const TX_COLS: TableColumn[] = [
   { key: "user", label: "Участники" },
   { key: "res", label: "Результат", align: "center" },
@@ -85,7 +94,7 @@ export function VotingHistory({ voted, against = false }: { voted: boolean; agai
       <div className="-mx-[23px] flex flex-col">
         <TableHeader columns={TX_COLS} sortKey="date" sortDir="desc" />
         {Array.from({ length: voted ? 5 : 3 }).map((_, i) => (
-          <TxLine key={i} time={i === 0 ? "11.01.2020 - 13:00" : "11.01.2020 - 12:00"} minus={against} striped={i % 2 === 0} />
+          <TxLine key={i} time={TX_TIMES[i]} minus={against} striped={i % 2 === 0} />
         ))}
       </div>
     </QuestionCard>

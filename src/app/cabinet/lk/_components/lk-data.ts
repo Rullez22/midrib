@@ -72,9 +72,9 @@ export const LK_INFO_GROUPS: InfoGroup[] = [
   {
     heading: "Контакты",
     rows: [
-      { label: "Местонахождение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-      { label: "Контактный телефон", value: "+7 (992) 223-22-22" },
-      { label: "E-mail", value: "immatra@immatra.ru" },
+      { label: "Местонахождение", value: "Санкт-Петербург, ул. Комиссара Смирнова, 15, кв. 42" },
+      { label: "Контактный телефон", value: "+7 (921) 706-84-33" },
+      { label: "E-mail", value: "i.antonov@mail.ru" },
     ],
   },
   {
@@ -97,15 +97,15 @@ export const LK_REQUIREMENTS = [
 ];
 
 export const LK_ACHIEVEMENTS = [
-  { logo: A2, title: "Google cooperation hackfest - the 1st place", org: "Google corp.", date: "август 2019" },
-  { logo: A3, title: "Apple cooperation hackfest - the 1st place", org: "Apple corp.", date: "август 2018" },
-  { logo: LK_USER.avatar, title: "Angelhack cooperation hackfest - the 1st place", org: "AngelList", date: "август 2016" },
+  { logo: A2, title: "Победитель конкурса «Кооператив года» в номинации «Цифровые сервисы»", org: "Ассоциация кооперативов СЗФО", date: "февраль 2025" },
+  { logo: A3, title: "Благодарность за организацию благотворительного сбора", org: "Фонд «Живу с Культурой»", date: "сентябрь 2024" },
+  { logo: LK_USER.avatar, title: "Диплом программы «Управление потребительским кооперативом»", org: "Учебный центр кооператива «Иматра»", date: "июнь 2022" },
 ];
 
 export const LK_HISTORY = [
-  { avatar: LK_USER.avatar, name: "Антонов Илья Андреевич", period: "август 2019 — настоящее время · 2 года 3 месяца" },
-  { avatar: A2, name: "Ан Дмитрий Шпакович", period: "август 2017 — август 2019 · 2 года" },
-  { avatar: A3, name: "Варламов Илья Варламович", period: "август 2014 — август 2017 · 3 года" },
+  { avatar: LK_USER.avatar, name: "Антонов Илья Андреевич", period: "март 2023 — настоящее время · 2 года 4 месяца" },
+  { avatar: A2, name: "Михайлов Денис Сергеевич", period: "июнь 2022 — март 2023 · 9 месяцев" },
+  { avatar: A3, name: "Соколов Максим Алексеевич", period: "февраль 2021 — июнь 2022 · 1 год 4 месяца" },
 ];
 
 const POST_IMG = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80";
@@ -138,7 +138,7 @@ const CHAIR_CHATS: LkChatItem[] = [
   { name: "Чат совета", group: true },
   { name: "Анна Грум", avatar: ANNA },
   { name: "Валерий Канов", avatar: VALERIY },
-  { name: "Кооператива Слоненок", avatar: ELEPHANT },
+  { name: "Кооператив «Слонёнок»", avatar: ELEPHANT },
 ];
 
 /** Пайщик — только внутренний чат подразделения + личные (Figma 1857:649802). */
@@ -146,7 +146,7 @@ const PAYER_CHATS: LkChatItem[] = [
   { name: "Внутренний чат (подразделение)", group: true, unread: 1 },
   { name: "Анна Грум", avatar: ANNA },
   { name: "Валерий Канов", avatar: VALERIY },
-  { name: "Кооператива Слоненок", avatar: ELEPHANT },
+  { name: "Кооператив «Слонёнок»", avatar: ELEPHANT },
 ];
 
 /** Помощник пред. — единственный чат (только с ней), без списка. */

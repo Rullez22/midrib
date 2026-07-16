@@ -201,17 +201,17 @@ const ROLE_ORG_COLUMNS = [
   {
     addLabel: "Добавить функцию",
     items: [
-      { label: "Vestibulum justo sollicitudin vitae sum dolor sit amet", sub: "Петров А. А. - Член совета", active: true },
-      { label: "Vestibulum justo sollicitudin vitae sum dolor sit amet", sub: "Петров А. А. - Член совета" },
-      { label: "Vestibulum justo sollicitudin vitae sum dolor sit amet", sub: "Не назначено", subTone: "danger" as const },
+      { label: "Контроль сроков подписания договоров с партнёрами", sub: "Соколов М. А. - Член совета", active: true },
+      { label: "Сверка реквизитов организаций перед сделкой", sub: "Кузнецова О. И. - Член совета" },
+      { label: "Подготовка справок по запросам пайщиков", sub: "Не назначено", subTone: "danger" as const },
     ],
   },
   {
     addLabel: "Добавить технологию",
     items: [
-      { label: "Lorem ipsum dolor sit amet, consectetur" },
-      { label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit", active: true },
-      { label: "Lorem ipsum dolor sit amet, consectetur" },
+      { label: "Регламент проверки контрагента" },
+      { label: "Шаблон договора поставки", active: true },
+      { label: "Чек-лист приёмки выполненных работ" },
     ],
   },
 ];
@@ -235,7 +235,7 @@ function RoleStructure() {
         title="Общие сведения"
         subtitle="Илья А. А."
         avatarLabel="Илья"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim plerisque tem."
+        description="ЦКП роли: входящие обращения и звонки обработаны в день поступления, документы председателя подготовлены к подписанию в срок. В зону ответственности входят переписка от имени организации, контроль сроков по договорам и делопроизводство правления."
         editable
       />
 

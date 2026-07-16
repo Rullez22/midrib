@@ -30,15 +30,20 @@ import { PageHeader, SectionTitle, Th } from "../../../payment/_components/payme
 
 /** Основания для создания токена (мок, 1:1 из Figma). */
 const TOKEN_BASES: { type: string; name: string; date: string }[] = [
-  { type: "Основание", name: "Кооператив Слоненок стал пайщиком кооператива Immatra", date: "12.01.2020" },
-  { type: "Договор", name: "Договор №2", date: "11.01.2020" },
-  { type: "Договор", name: "Договор №3", date: "10.01.2020" },
+  { type: "Основание", name: "Кооператив Слоненок стал пайщиком кооператива Immatra", date: "14.02.2025" },
+  { type: "Договор", name: "Соглашение о совместной закупке материалов", date: "28.01.2025" },
+  { type: "Договор", name: "Договор на поставку пиломатериалов", date: "23.11.2024" },
 ];
 
-const TOKEN_QUESTIONS = ["Вопрос 1", "Вопрос 2", "Вопрос 3", "Вопрос 4"];
+const TOKEN_QUESTIONS = [
+  "Утвердить выпуск токена и его название",
+  "Закрепить токен за паевыми счетами пайщиков",
+  "Определить срок вступления решения в силу",
+  "Назначить ответственного за выпуск токена",
+];
 
 const Q_DESC =
-  "Тут описание вопроса, выносимый на голосование, варианты ответов, возможные значения для кастомизации вопроса, срок вступления решения в силу.";
+  "Решение принимается простым большинством голосов совета. Варианты ответа — «За» или «Против»; решение вступает в силу на следующий рабочий день после завершения голосования.";
 
 function PlusIcon() {
   return (
@@ -94,12 +99,12 @@ function BaseTable({
           </>
         );
         return mode === "select" ? (
-          <label key={i} className="flex cursor-pointer items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
+          <label key={i} className="ds-row flex cursor-pointer items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
             <Checkbox size="xs" checked={selected.has(i)} onChange={() => onToggle?.(i)} />
             {inner}
           </label>
         ) : (
-          <div key={i} className="flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
+          <div key={i} className="ds-row flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
             {inner}
           </div>
         );

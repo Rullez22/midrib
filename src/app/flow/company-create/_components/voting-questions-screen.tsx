@@ -108,7 +108,7 @@ function QuestionRow({ q, onClick }: { q: Question; onClick?: () => void }) {
       type="button"
       onClick={onClick}
       className={cn(
-        "flex h-[66px] w-full items-center gap-4 rounded-[4px] border bg-white px-6 text-left transition-colors hover:bg-[var(--color-grey-10)]",
+        "ds-row flex h-[66px] w-full items-center gap-4 rounded-[4px] border bg-white px-6 text-left transition-colors",
         q.active ? "border-[var(--color-orange-500)]" : "border-border",
       )}
     >

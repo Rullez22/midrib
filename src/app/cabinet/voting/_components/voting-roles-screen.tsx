@@ -163,7 +163,7 @@ function ListRow({ label, sub, trailing, onClick }: { label: ReactNode; sub?: Re
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4 text-left"
+      className="ds-row flex w-full items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4 text-left"
     >
       <span className="ds-p3 text-foreground">{label}</span>
       {sub != null && <span className="ds-p3 flex-1 text-center text-foreground-subtle">{sub}</span>}
@@ -234,7 +234,7 @@ export function VotingRolesScreen({ sidebar, compact = false }: { sidebar?: Reac
           {role === "sovet" && flow.paymentVotes.map((v) => {
             const isOpen = openPay.has(v.id);
             return (
-              <div key={v.id} className={cn("overflow-hidden rounded-[4px] border bg-surface", !v.done ? "border-[var(--color-orange-500)]" : "border-border")}>
+              <div key={v.id} className={cn("ds-row overflow-hidden rounded-[4px] border bg-surface", !v.done ? "border-[var(--color-orange-500)]" : "border-border")}>
                 <button
                   type="button"
                   onClick={() => togglePay(v.id)}
@@ -337,7 +337,7 @@ export function VotingRolesScreen({ sidebar, compact = false }: { sidebar?: Reac
           />
           <div className="flex flex-col gap-3">
             {drillToken.questions.map((q) => (
-              <div key={q} className="flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4">
+              <div key={q} className="ds-row flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4">
                 <span className="ds-p3 flex-1 text-foreground">{q}</span>
                 <Chevron />
               </div>

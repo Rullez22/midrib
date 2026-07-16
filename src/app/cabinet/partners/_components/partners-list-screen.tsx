@@ -119,7 +119,7 @@ function PartnersTab({ basePath }: { basePath: string }) {
           // Со статусом — единый блок: оранжевая шапка + карточка встык.
           if (banner != null) {
             return (
-              <div key={o.id} className="overflow-hidden rounded-[10px] border border-border bg-[#fff]">
+              <div key={o.id} className="ds-row overflow-hidden rounded-[10px] border border-border bg-[#fff]">
                 <div className="flex items-center justify-between gap-4 border-b border-border bg-[color:var(--color-orange-50)] px-4 py-2">
                   <span className="ds-p3-medium flex items-center gap-2 text-[color:var(--color-orange-500)]">
                     <StatusInfoIcon />

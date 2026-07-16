@@ -123,7 +123,7 @@ type Zayavka = { id: number; number: string; name: string; status: ZayavkaStatus
 
 /** Пул мок-документов — на каждый «Запросить заявку» берётся следующий по кругу. */
 const MOCK_DOCS: ZayavkaData[] = [
-  { docType: "Паспорт РФ", document: "kwebrw", surname: "Иванов", firstName: "Иван", patronymic: "Петрович", birth: "12.01.1991", gender: "Мужской", docNumber: "1234 567890", authority: "78 ОМ Невского района Санкт-Петербурга", subdivision: "0120033", issueDate: "12.04.2002" },
+  { docType: "Паспорт РФ", document: "pas7719", surname: "Зайцев", firstName: "Кирилл", patronymic: "Олегович", birth: "16.08.1992", gender: "Мужской", docNumber: "4015 882301", authority: "78 ОМ Невского района Санкт-Петербурга", subdivision: "0120033", issueDate: "23.09.2012" },
   { docType: "Водительское удостоверение", document: "drv0091", surname: "Смирнова", firstName: "Анна", patronymic: "Сергеевна", birth: "03.07.1988", gender: "Женский", docNumber: "99 12 345678", authority: "ГИБДД 7704 г. Москва", subdivision: "7704", issueDate: "21.09.2019" },
   { docType: "СНИЛС", document: "snl4471", surname: "Кузнецов", firstName: "Дмитрий", patronymic: "Александрович", birth: "28.11.1995", gender: "Мужской", docNumber: "112-233-445 95", authority: "ПФР по г. Казань", subdivision: "1600", issueDate: "05.02.2012" },
   { docType: "Заграничный паспорт", document: "zgp7782", surname: "Соколова", firstName: "Мария", patronymic: "Игоревна", birth: "16.05.1990", gender: "Женский", docNumber: "75 1234567", authority: "УВМ МВД России по г. Москве", subdivision: "5000", issueDate: "30.06.2021" },
@@ -300,8 +300,9 @@ function ZayavkaDetail({
     { label: "Прикрепленные документы", value: <DocThumb /> },
   ];
 
-  const TX_SEND: TxRow = { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "11.01.2020 - 11:00" };
-  const TX_SIGN: TxRow = { action: "Подпись валидатора", party: 'ООО "Слон"', date: "11.01.2020 - 11:00" };
+  // Подпись валидатора всегда позже отправки ему заявки.
+  const TX_SEND: TxRow = { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "02.06.2025 - 11:10" };
+  const TX_SIGN: TxRow = { action: "Подпись валидатора", party: 'ООО "Слон"', date: "02.06.2025 - 14:35" };
   const txRows: TxRow[] = zayavka.status === "signed" ? [TX_SIGN, TX_SEND] : [TX_SEND];
 
   const messages = agreed

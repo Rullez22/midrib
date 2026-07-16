@@ -48,7 +48,7 @@ export function BusinessScreen() {
           <button
             key={c.title}
             type="button"
-            className="flex items-center gap-4 rounded-[10px] border border-border bg-[#fff] p-3 text-left transition-shadow hover:shadow-sm"
+            className="ds-row flex items-center gap-4 rounded-[10px] border border-border bg-[#fff] p-3 text-left"
           >
             <img src={c.img} alt="" className="size-16 shrink-0 rounded-[8px] object-cover" />
             <span className="ds-p3-medium whitespace-pre-line text-foreground">{c.title}</span>

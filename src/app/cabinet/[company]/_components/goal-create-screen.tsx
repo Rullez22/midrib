@@ -109,17 +109,17 @@ export function GoalCreateScreen({ cabinet, goal }: { cabinet: CabinetConfig; go
   // Режим редактирования — префилл полей контентом самой цели.
   const [gCity, gAddr] = goal
     ? [goal.location.split(",")[0]?.trim() ?? "", goal.location.split(",").slice(1).join(",").trim()]
-    : ["Москва", "Академический, Либкнехта К. Ул., дом 107"];
+    : ["Москва", "Академический р-н, ул. Профсоюзная, 21"];
 
   const [title, setTitle] = useState(goal?.title ?? "Создать парк");
   const [city, setCity] = useState(gCity);
   const [address, setAddress] = useState(gAddr);
   const [description, setDescription] = useState(
     goal?.description ??
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Разбиваем парк на пустыре между жилыми кварталами: дорожки, освещение, скамейки и площадка для выгула собак. Проект согласован с управой района, работы ведём вместе с жителями и подрядчиком по благоустройству.",
   );
-  const [amount, setAmount] = useState(goal?.total ?? "150 000 ₽");
-  const [range, setRange] = useState<CalendarRange>({ start: new Date(2019, 9, 14), end: new Date(2019, 9, 28) });
+  const [amount, setAmount] = useState(goal?.total ?? "324 500 ₽");
+  const [range, setRange] = useState<CalendarRange>({ start: new Date(2025, 4, 12), end: new Date(2025, 6, 31) });
   const [covers, setCovers] = useState<string[]>(
     goal?.covers ?? [
       "https://images.unsplash.com/photo-1500534623283-312aade485b7?w=800&q=80",
@@ -127,9 +127,9 @@ export function GoalCreateScreen({ cabinet, goal }: { cabinet: CabinetConfig; go
     ],
   );
   const [foundations, setFoundations] = useState<string[]>(
-    goal ? goal.documents.map((d) => d.name) : ["The request of the kids from school#3", "The request of the kids from"],
+    goal ? goal.documents.map((d) => d.name) : ["Обращение жителей квартала о благоустройстве", "Смета на благоустройство территории"],
   );
-  const [tags, setTags] = useState<string[]>(["Education", "Lifestyle"]);
+  const [tags, setTags] = useState<string[]>(["Благоустройство", "Экология"]);
   const [tasks, setTasks] = useState<string[]>(goal?.tasks ?? ["Найти архитектора", "Создать планировку", "Найти строителей"]);
   const [slide, setSlide] = useState(0);
 
@@ -230,7 +230,7 @@ export function GoalCreateScreen({ cabinet, goal }: { cabinet: CabinetConfig; go
                 <div className="flex flex-col gap-2">
                   <span className="ds-p3-medium text-foreground">Прикрепленные файлы</span>
                   {foundations.map((name, i) => (
-                    <div key={name + i} className="flex items-center gap-3 rounded-[6px] border border-border bg-[#fff] px-4 py-3">
+                    <div key={name + i} className="ds-row flex items-center gap-3 rounded-[6px] border border-border bg-[#fff] px-4 py-3">
                       <DocIcon />
                       <span className="ds-p3 flex-1 truncate text-foreground">{name}</span>
                       <button type="button" className="text-primary" aria-label="Редактировать">
@@ -348,7 +348,7 @@ export function GoalCreateScreen({ cabinet, goal }: { cabinet: CabinetConfig; go
               <div className="flex flex-col gap-3 rounded-[8px] border border-border bg-[#fff] p-6">
                 <div className="flex items-center justify-between">
                   <span className="ds-p2-medium text-foreground">Основания для создания цели</span>
-                  <span className="ds-caption text-foreground-subtle">January 01, 2020</span>
+                  <span className="ds-caption text-foreground-subtle">22 апреля 2025</span>
                 </div>
                 {foundations.map((name, i) => (
                   <div key={name + i} className="flex items-center gap-3 rounded-[6px] bg-[var(--color-grey-95,#f4f6f9)] px-4 py-3">

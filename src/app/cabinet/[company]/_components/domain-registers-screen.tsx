@@ -150,11 +150,11 @@ interface RegNode {
 
 // Общая таблица шаблонов листа (Общероссийские → Удостоверяющие личность – Россия).
 const ID_DOCS: DocRow[] = [
-  { name: "Паспорт", validators: 2, activation: "$0.1", view: "$0.3" },
-  { name: "Свидетельство о рождении", validators: 2, activation: "$0.1", view: "$0.3" },
-  { name: "Дипломатический паспорт", validators: 2, activation: "$0.1", view: "$0.3" },
-  { name: "Служебный паспорт", validators: 2, activation: "$0.1", view: "$0.3" },
-  { name: "Водительское удостоверение", validators: 2, activation: "$0.1", view: "$0.3" },
+  { name: "Паспорт", validators: 3, activation: "$0.1", view: "$0.3" },
+  { name: "Свидетельство о рождении", validators: 2, activation: "$0.05", view: "$0.15" },
+  { name: "Дипломатический паспорт", validators: 5, activation: "$0.4", view: "$1.2" },
+  { name: "Служебный паспорт", validators: 4, activation: "$0.25", view: "$0.8" },
+  { name: "Водительское удостоверение", validators: 2, activation: "$0.15", view: "$0.35" },
 ];
 
 /** Лист-таблица для региона/категории без вложенности. */
@@ -171,9 +171,9 @@ function leafTable(category: string, country: string): RegNode["table"] {
 /** Регионы внутри категории (Общероссийские / Москва / Санкт-Петербург). */
 function regions(category: string, country: string): RegNode[] {
   return [
-    { id: "all-ru", title: "Общероссийские", documents: 1, subdomains: 0, mine: true, table: leafTable(category, country) },
-    { id: "msk", title: "Москва", documents: 1, subdomains: 0, mine: true, table: leafTable(category, country) },
-    { id: "spb", title: "Санкт-Петербург", documents: 1, subdomains: 0, mine: true, table: leafTable(category, country) },
+    { id: "all-ru", title: "Общероссийские", documents: 7, subdomains: 0, mine: true, table: leafTable(category, country) },
+    { id: "msk", title: "Москва", documents: 4, subdomains: 0, mine: true, table: leafTable(category, country) },
+    { id: "spb", title: "Санкт-Петербург", documents: 5, subdomains: 0, mine: true, table: leafTable(category, country) },
   ];
 }
 
@@ -190,15 +190,15 @@ function categories(country: string): RegNode[] {
 }
 
 const COUNTRIES: RegNode[] = [
-  { id: "all", title: "Все страны", documents: 1, subdomains: 0, world: true, children: [] },
-  { id: "ru", title: "Россия", documents: 5, subdomains: 1, mine: true, flag: "ru", children: categories("Россия") },
-  { id: "at", title: "Австрия", documents: 5, subdomains: 1, mine: true, flag: "at", children: categories("Австрия") },
-  { id: "be", title: "Бельгия", documents: 5, subdomains: 1, mine: true, flag: "be", children: categories("Бельгия") },
-  { id: "bg", title: "Болгария", documents: 5, subdomains: 1, mine: true, flag: "bg", children: categories("Болгария") },
-  { id: "hu", title: "Венгрия", documents: 5, subdomains: 1, mine: true, flag: "hu", children: categories("Венгрия") },
-  { id: "gr", title: "Греция", documents: 5, subdomains: 1, mine: true, flag: "gr", children: categories("Греция") },
-  { id: "de", title: "Германия", documents: 5, subdomains: 1, mine: true, flag: "de", children: categories("Германия") },
-  { id: "gb", title: "Великобритания", documents: 5, subdomains: 1, mine: true, flag: "gb", children: categories("Великобритания") },
+  { id: "all", title: "Все страны", documents: 214, subdomains: 8, world: true, children: [] },
+  { id: "ru", title: "Россия", documents: 36, subdomains: 6, mine: true, flag: "ru", children: categories("Россия") },
+  { id: "at", title: "Австрия", documents: 12, subdomains: 3, mine: true, flag: "at", children: categories("Австрия") },
+  { id: "be", title: "Бельгия", documents: 9, subdomains: 2, mine: true, flag: "be", children: categories("Бельгия") },
+  { id: "bg", title: "Болгария", documents: 14, subdomains: 3, mine: true, flag: "bg", children: categories("Болгария") },
+  { id: "hu", title: "Венгрия", documents: 7, subdomains: 2, mine: true, flag: "hu", children: categories("Венгрия") },
+  { id: "gr", title: "Греция", documents: 11, subdomains: 2, mine: true, flag: "gr", children: categories("Греция") },
+  { id: "de", title: "Германия", documents: 28, subdomains: 5, mine: true, flag: "de", children: categories("Германия") },
+  { id: "gb", title: "Великобритания", documents: 23, subdomains: 4, mine: true, flag: "gb", children: categories("Великобритания") },
 ];
 
 const ROOT: RegNode = { id: "root", title: "Midhub Global", documents: 0, subdomains: 0, children: COUNTRIES };
@@ -214,7 +214,7 @@ const TEMPLATE_COLUMNS: TableColumn[] = [
 
 function TemplateRow({ row }: { row: DocRow }) {
   return (
-    <div className="flex items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-4 py-4">
+    <div className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-4 py-4">
       <span className="ds-p3 flex-[2] text-foreground">{row.name}</span>
       <span className="ds-p3 flex-1 text-center text-foreground">{row.validators}</span>
       <span className="ds-p3 flex-1 text-center text-foreground">{row.activation}</span>
@@ -232,7 +232,7 @@ function TemplateDocRow({ tpl, onOpen }: { tpl: TemplateDoc; onOpen: () => void 
   return (
     <div
       className={cn(
-        "flex items-center gap-2 rounded-[4px] border bg-[#fff] px-4 py-4",
+        "ds-row flex items-center gap-2 rounded-[4px] border bg-[#fff] px-4 py-4",
         tpl.status === "voting" ? "border-[var(--color-orange-300)]" : "border-border",
       )}
     >
@@ -302,7 +302,7 @@ function TemplateLeaf({
           {pending.map((t) => (
             <div
               key={t.id}
-              className="flex items-center gap-4 rounded-[4px] border border-[var(--color-orange-300)] bg-[#fff] px-6 py-4"
+              className="ds-row flex items-center gap-4 rounded-[4px] border border-[var(--color-orange-300)] bg-[#fff] px-6 py-4"
             >
               <span className="ds-p3 flex-1 text-foreground">{t.name}</span>
               <span className="ds-p3 text-foreground-subtle">На голосовании</span>
@@ -499,7 +499,7 @@ function RequirementsTab({
       {pending.map((r) => (
         <div
           key={r.id}
-          className="flex items-center gap-4 rounded-[4px] border border-[var(--color-orange-300)] bg-[#fff] px-6 py-4"
+          className="ds-row flex items-center gap-4 rounded-[4px] border border-[var(--color-orange-300)] bg-[#fff] px-6 py-4"
         >
           <span className="ds-p3 flex-1 text-foreground">{r.name}</span>
           <span className="ds-p3 text-foreground-subtle">На голосовании</span>
@@ -519,7 +519,7 @@ function RequirementsTab({
                 key={r.id}
                 type="button"
                 onClick={() => onOpen(r)}
-                className="flex w-full items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-6 py-4 text-left transition-colors hover:bg-[var(--color-grey-10)]"
+                className="ds-row flex w-full items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-6 py-4 text-left transition-colors"
               >
                 <span className="ds-p3 flex-[2] text-foreground">{r.name}</span>
                 <span className="ds-p3 flex-[2] text-foreground-muted">{r.domain}</span>
@@ -542,9 +542,9 @@ interface OpRow {
   date: string;
 }
 const OP_ROWS: OpRow[] = [
-  { category: "Счет на оплату", name: "Счет на оплату НВО", reward: "2 000 ₽", tx: "5c243af... 07db8", date: "12.01.2020 - 15:00" },
-  { category: "Договор", name: "Договор НВО", reward: "2 000 ₽", tx: "5c243af... 07db8", date: "11.01.2020 - 15:00" },
-  { category: "Акт выполненных работ", name: "Акт выполненных работ НВО", reward: "2 000 ₽", tx: "5c243af... 07db8", date: "11.01.2020 - 15:00" },
+  { category: "Счет на оплату", name: "Счёт-фактура за консультационные услуги", reward: "3 400 ₽", tx: "5c243af... 07db8", date: "03.06.2025 - 15:00" },
+  { category: "Договор", name: "Договор на техническое обслуживание", reward: "8 400 ₽", tx: "5c243af... 07db8", date: "19.05.2025 - 12:10" },
+  { category: "Акт выполненных работ", name: "Акт приёмки выполненных работ", reward: "1 750 ₽", tx: "5c243af... 07db8", date: "22.04.2025 - 09:40" },
 ];
 
 const OP_COLUMNS: TableColumn[] = [
@@ -562,7 +562,7 @@ function OperationsTable() {
       <div className="flex flex-col gap-3">
         <TableHeader columns={OP_COLUMNS} size="s" tone="muted" />
         {OP_ROWS.map((r, i) => (
-          <div key={i} className="flex items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-6 py-4">
+          <div key={i} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-[#fff] px-6 py-4">
             <span className="flex flex-[2] flex-col">
               <span className="ds-caption text-foreground-subtle">{r.category}</span>
               <span className="ds-p3 text-foreground">{r.name}</span>
@@ -582,8 +582,8 @@ function OperationsTable() {
 
 /** Фильтр периода вознаграждений: Combobox + два Datepicker + «Показать». */
 function RewardFilter({ options, value, onChange }: { options: { value: string; label: string }[]; value: string; onChange: (v: string) => void }) {
-  const [from, setFrom] = useState<Date | null>(new Date(2017, 3, 29));
-  const [to, setTo] = useState<Date | null>(new Date(2017, 3, 29));
+  const [from, setFrom] = useState<Date | null>(new Date(2025, 0, 1));
+  const [to, setTo] = useState<Date | null>(new Date(2025, 5, 30));
   return (
     <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-6">
       <Combobox options={options} value={value} onValueChange={onChange} size="l" className="w-full lg:flex-1" />
@@ -672,11 +672,11 @@ function RewardsTab() {
           className={SUMMARY_TABLE}
           columns={PARTNER_COLUMNS}
           rows={[
-            { cells: ["1", "Медицинские сервисы", "3462.76  ETH", "50 %", "1706.42341  ETH"] },
-            { cells: ["1", "Банк", "3462.76  ETH", "25 %", "1722.42241  ETH"] },
-            { cells: ["2", "Визовый центр", "3462.76  ETH", "50 %", "26.441  ETH"] },
+            { cells: ["1", "Медицинские сервисы", "3462.76  ETH", "50 %", "1731.38  ETH"] },
+            { cells: ["1", "Банк", "1841.09  ETH", "25 %", "460.27  ETH"] },
+            { cells: ["2", "Визовый центр", "720.35  ETH", "50 %", "360.18  ETH"] },
           ]}
-          total={{ label: "Итого", cells: ["", "10388.28 ETH", "125 %", "3455.28682 ETH"] }}
+          total={{ label: "Итого", cells: ["", "6024.20 ETH", "125 %", "2551.83 ETH"] }}
         />
       )}
 

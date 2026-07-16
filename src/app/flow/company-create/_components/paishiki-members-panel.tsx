@@ -308,7 +308,7 @@ export function PaishikiMembersPanel({ members, className, focusCouncilSignal = 
                     <span className="ds-caption-medium flex-1 text-right text-foreground-subtle">Дата заявки</span>
                   </div>
                   {pendingRows.map((r, i) => (
-                    <div key={`${r.name}-${i}`} className="flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-4">
+                    <div key={`${r.name}-${i}`} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-4">
                       <span className="flex flex-[2]"><Link href="#" size="p3">{r.mid}</Link></span>
                       <span className="flex-1 text-foreground">ENG</span>
                       <span className="flex-1 text-right text-foreground">12.07.2020</span>

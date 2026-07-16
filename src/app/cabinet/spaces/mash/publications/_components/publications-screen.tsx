@@ -14,23 +14,29 @@ const P = "https://images.unsplash.com/";
 const PUBLICATIONS = [
   {
     title: "Автозавод Tesla",
+    date: "22 апреля 2025",
     cover: `${P}photo-1518709268805-4e9042af9f23?w=800&q=80`,
     inner: `${P}photo-1565043666747-69f6646db940?w=800&q=80`,
+    lead: "Разбор того, как на автозаводе устроена сборочная линия: почему кузовной участок задает темп всему производству и где чаще всего копится очередь.",
+    tail: "Материал собран по открытым отчетам и разбору видео с производства. Продолжение — про сварочный участок.",
   },
   {
-    title: "Новый лазер",
+    title: "Новый лазерный станок на участке",
+    date: "19 марта 2025",
     cover: `${P}photo-1534996858221-380b92700493?w=800&q=80`,
     inner: `${P}photo-1517420704952-d9f39e95b43e?w=800&q=80`,
+    lead: "Запустили лазерную резку по металлу: раскрой листа стал точнее, а подготовка заготовок для площадок занимает вдвое меньше времени.",
+    tail: "Расчет загрузки станка и себестоимости реза — во вложении к публикации. Вопросы по режимам пишите в комментарии.",
   },
   {
-    title: "Технология",
+    title: "Цифровые двойники в производстве",
+    date: "6 декабря 2024",
     cover: `${P}photo-1526374965328-7f61d4dc18c5?w=800&q=80`,
     inner: `${P}photo-1451187580459-43490279c0fa?w=800&q=80`,
+    lead: "Модель участка позволяет проверить перестановку оборудования до того, как его двигать. Собрали первый двойник по данным с датчиков за квартал.",
+    tail: "Пока модель считает только загрузку и простои. Следующий шаг — учесть брак и переналадку.",
   },
 ];
-const LEAD =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat proin posuere sit interdum quam nulla nisl. Blandit vel amet dapibus sit bibendum aliquam nibh.";
-const TAIL = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam tellus neque, vulputate a.";
 
 // ── Иконки меню ───────────────────────────────────────────────────────────────
 function BackIcon({ className }: { className?: string }) {
@@ -133,11 +139,11 @@ export function PublicationsScreen() {
                   <div className="flex h-full flex-col gap-3 p-6">
                     <div className="flex items-baseline justify-between gap-3">
                       <span className="ds-p1-medium text-foreground">{p.title}</span>
-                      <span className="ds-p3 shrink-0 text-foreground-subtle">September 08, 2019</span>
+                      <span className="ds-p3 shrink-0 text-foreground-subtle">{p.date}</span>
                     </div>
-                    <p className="ds-p2 text-[#5a646f]">{LEAD}</p>
+                    <p className="ds-p2 text-[#5a646f]">{p.lead}</p>
                     <img src={p.inner} alt="" className="h-[120px] w-full rounded-[6px] object-cover" />
-                    <p className="ds-p2 text-[#5a646f]">{TAIL}</p>
+                    <p className="ds-p2 text-[#5a646f]">{p.tail}</p>
                   </div>
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#fff] to-transparent" />
                 </div>

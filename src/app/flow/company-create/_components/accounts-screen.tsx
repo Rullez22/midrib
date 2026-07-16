@@ -96,15 +96,15 @@ const DOC_COLUMNS: TableColumn[] = [
 ];
 /** Документы целевого счёта (Figma 2504:300298 — «Устав»). */
 const ACCOUNT_DOCS = [
-  { type: "Устав", name: "Полный устав кооператива", status: "Не отвалидирован", badge: "Локальный", date: "09.01.2020" },
+  { type: "Устав", name: "Полный устав кооператива", status: "Не отвалидирован", badge: "Локальный", date: "28.01.2025" },
 ];
 const ART_COLUMNS: TableColumn[] = [
   { key: "type", label: "Тип артефакта", flex: 1, sortable: true },
   { key: "date", label: "Дата", flex: 1, align: "right", sortable: true },
 ];
 const ARTIFACTS = [
-  { type: "Документ", name: "Документ в свободной форме", date: "09.01.2020" },
-  { type: "Патент", name: "Изобретение плазменного реактора", date: "09.01.2020" },
+  { type: "Документ", name: "Регламент проведения дезинфекции помещений", date: "14.02.2025" },
+  { type: "Патент", name: "Способ обеззараживания помещений импульсным ультрафиолетом", date: "09.10.2023" },
 ];
 
 const colStyle = (c: TableColumn): CSSProperties =>
@@ -335,7 +335,7 @@ export function AccountsScreen({
                 {subRows.map((s) => (
                   <div
                     key={s.name}
-                    className="flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4"
+                    className="ds-row flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4"
                   >
                     <span className="ds-h4 shrink-0 text-primary">{s.pct} %</span>
                     <span className="ds-p3 flex-1 text-foreground">{s.name}</span>
@@ -365,8 +365,8 @@ export function AccountsScreen({
                         tabIndex={clickable ? 0 : undefined}
                         onClick={clickable ? openValidatorChat : undefined}
                         className={cn(
-                          "flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3",
-                          clickable && "cursor-pointer hover:bg-[var(--color-grey-10)]",
+                          "ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3",
+                          clickable && "cursor-pointer",
                         )}
                       >
                         <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
@@ -395,7 +395,7 @@ export function AccountsScreen({
                 <div className="flex flex-col gap-2">
                   <TableHeader columns={ART_COLUMNS} size="s" tone="muted" />
                   {ARTIFACTS.map((a, i) => (
-                    <div key={i} className="flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
+                    <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
                       <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
                         <span className="ds-caption text-foreground-subtle">{a.type}</span>
                         <span className="ds-p3 text-foreground">{a.name}</span>

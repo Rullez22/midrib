@@ -62,7 +62,7 @@ export function ArticlesTable({ columns, rows, total, className }: ArticlesTable
       <TableHeader columns={columns} size="m" tone="muted" />
 
       {rows.map((row, ri) => (
-        <div key={ri} className="flex items-center border-b border-border px-4 py-4 transition-colors hover:bg-[color:var(--color-grey-10)]">
+        <div key={ri} className="ds-row flex items-center border-b border-border px-4 py-4 transition-colors">
           {columns.map((col, ci) => (
             <div
               key={col.key}

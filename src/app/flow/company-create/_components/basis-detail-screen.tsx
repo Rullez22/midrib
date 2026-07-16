@@ -18,11 +18,11 @@ import { useRegFlow, COUNTRY_LANG } from "./reg-flow";
  * @param backHref Назад — к опубликованной форме.
  */
 
-/** Лорем-описание по умолчанию (Figma 398795 / 398809). */
+/** Описание основания по умолчанию (Figma 398795 / 398809). */
 const DEFAULT_DESC = [
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas amet ultrices faucibus non.",
-  "Sit aliquet vestibulum, cras massa quam consequat, augue. Cursus orci donec bibendum nisl a, cursus. Imperdiet rhoncus lacus amet, non viverra nam velit velit. Volutpat non volutpat integer nulla egestas. Non egestas adipiscing quis fringilla tincidunt. Porttitor varius interdum ac id sollicitudin sed eleifend in arcu. Semper enim donec mi nunc a nunc id pulvinar. Elementum malesuada etiam pretium aliquet mi ac. Elit, massa blandit est maecenasnunc blandit tincidunt. Aenean porta bibendum ultrices consequat. Nisl cursus blandit lectus vel consequat odio tempor faucibus massa.",
-  "Nibh volutpat, suscipit ac ut orci, magna magna viverra eros. Aliquam vitae vel nulla id adipiscing nibh. Augue varius id viverra tempus viverra. At odio et sit accumsan adipiscing nunc eu. Massa sed tempus, sit cras nullam tincidunt aenean tortor, phasellus. Mi urna, nibh blandit tortor commodo nunc, morbi.",
+  "Кооператив запрашивает персональные данные, чтобы принять заявление о вступлении, проверить личность заявителя и вести реестр пайщиков.",
+  "Основание для обработки — согласие, которое пайщик даёт при заполнении формы регистрации. Кооператив собирает фамилию, имя и отчество, данные документа, удостоверяющего личность, а также контактный телефон и адрес электронной почты. Эти сведения нужны, чтобы включить пайщика в реестр, оформить его паевой взнос и направлять уведомления о заседаниях и голосованиях. Данные хранятся, пока человек остаётся пайщиком, и ещё пять лет после выхода — этот срок установлен требованиями к хранению бухгалтерских документов. Доступ к реестру есть только у администрации кооператива и председателя правления.",
+  "Пайщик вправе в любой момент запросить копию своих данных, потребовать их уточнения или отозвать согласие. Отзыв согласия оформляется заявлением в личном кабинете; после него кооператив прекращает обработку данных, кроме тех сведений, которые обязан хранить по закону. Третьим лицам данные не передаются без отдельного согласия — исключение составляют запросы государственных органов, оформленные по установленной форме.",
 ];
 
 export function BasisDetailScreen({ backHref, routes }: { backHref?: string; routes?: Partial<CoopRoutes> }) {
@@ -37,7 +37,7 @@ export function BasisDetailScreen({ backHref, routes }: { backHref?: string; rou
 
   const language = loc?.language ?? country;
   const name = `${COUNTRY_LANG[language] ?? language}${loc?.isDefault ?? true ? " - по умолчанию" : ""}`;
-  const date = loc?.date ?? "01.06.2020";
+  const date = loc?.date ?? "22.04.2025";
   const paragraphs = loc?.description ? loc.description.split("\n").filter(Boolean) : DEFAULT_DESC;
 
   return (

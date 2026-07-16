@@ -35,7 +35,7 @@ function Col({ children, flex, align }: { children: React.ReactNode; flex: numbe
 }
 
 export function TokenVoteDetail({ vote, onBack }: { vote: PaymentVote; onBack: () => void }) {
-  const base = vote.baseDoc ?? { type: "Основание", name: vote.docName, date: "12.01.2020" };
+  const base = vote.baseDoc ?? { type: "Основание", name: vote.docName, date: "14.02.2025" };
   const questions = vote.questions ?? [];
 
   return (
@@ -86,7 +86,7 @@ export function TokenVoteDetail({ vote, onBack }: { vote: PaymentVote; onBack: (
               <span className="ds-p2-medium text-foreground">Вопросы голосования</span>
               <div className="flex flex-col gap-2">
                 {questions.map((q) => (
-                  <div key={q} className="flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4">
+                  <div key={q} className="ds-row flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4">
                     <span className="ds-p3 flex-1 text-foreground">{q}</span>
                     <Chevron />
                   </div>

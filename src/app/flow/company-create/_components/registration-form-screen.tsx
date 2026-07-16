@@ -129,7 +129,7 @@ export function RegistrationFormScreen({
             key={i}
             type="button"
             onClick={() => openEditor(basisTitle, i)}
-            className="flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors hover:bg-[var(--color-grey-10)]"
+            className="ds-row flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors"
           >
             <span className="ds-p3 inline-flex items-center gap-2 text-foreground">
               <Flag code={loc.language} width={18} />

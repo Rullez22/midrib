@@ -22,8 +22,9 @@ export default async function Page({ params }: { params: Promise<{ id: string; d
     const idx = Number(docId.slice("orgdoc-".length));
     const doc = org.docs[idx];
     if (!doc) notFound();
-    // Исключение: «Живу с Культурой» / Договор №1 → флоу «Оценка и закрытие».
-    if (org.id === "culture" && doc.name === "Договор №1") {
+    // Исключение: «Живу с Культурой» / «Договор на организацию выставки» →
+    // флоу «Оценка и закрытие».
+    if (org.id === "culture" && doc.name === "Договор на организацию выставки") {
       return <CultureDocScreen org={org} doc={doc} docId={docId} />;
     }
     return <PartnerDocScreen org={org} doc={doc} docId={docId} />;

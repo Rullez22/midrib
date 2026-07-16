@@ -175,7 +175,7 @@ function DocFlow({ org, cabinet }: { org: Org; cabinet?: CabinetConfig }) {
               onClick={openCreated}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openCreated(); } }}
               className={cn(
-                "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer transition-shadow hover:shadow-sm",
+                "ds-row flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer",
                 orange ? "border-[color:var(--color-orange-400)]" : "border-border",
               )}
             >
@@ -190,7 +190,7 @@ function DocFlow({ org, cabinet }: { org: Org; cabinet?: CabinetConfig }) {
                   <Badge variant="soft" color="orange" className="min-w-[150px] justify-center">Ожидает участия</Badge>
                 )}
               </div>
-              <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>11.01.2020</div>
+              <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>11.04.2025</div>
             </div>
           );
         })}
@@ -201,8 +201,9 @@ function DocFlow({ org, cabinet }: { org: Org; cabinet?: CabinetConfig }) {
           // Все документы кликабельны: флоу-договор НВО → его контракт; остальные
           // «обычные» доки → /doc/orgdoc-<индекс в org.docs> (PartnerDocScreen).
           const docId = contract ? contract.id : `orgdoc-${org.docs.indexOf(d)}`;
-          // Исключение culture / Договор №1: Ожидает участия → Оценка → Закрыт.
-          const isCulture = org.id === "culture" && d.name === "Договор №1";
+          // Исключение culture / «Договор на организацию выставки»:
+          // Ожидает участия → Оценка → Закрыт.
+          const isCulture = org.id === "culture" && d.name === "Договор на организацию выставки";
           const status = isCulture
             ? (cultureClosed ? "Закрыт" : cultureStarted ? "Оценка" : d.status)
             : isSigned || approvedOrgDocs.includes(docId)
@@ -222,7 +223,7 @@ function DocFlow({ org, cabinet }: { org: Org; cabinet?: CabinetConfig }) {
               onClick={open}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }}
               className={cn(
-                "flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer transition-shadow hover:shadow-sm",
+                "ds-row flex items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 cursor-pointer",
                 orange ? "border-[color:var(--color-orange-400)]" : "border-border",
               )}
             >

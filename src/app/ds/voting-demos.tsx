@@ -58,7 +58,7 @@ function BlueCheck() {
 
 function TxLine() {
   return (
-    <Item tone="muted" bordered={false} size="s" trailing={<span style={{ color: dark }}>11.01.2020 - 13:00</span>}>
+    <Item tone="muted" bordered={false} size="s" trailing={<span style={{ color: dark }}>22.04.2025 - 13:00</span>}>
       <div className="grid grid-cols-3 items-center">
         <span className="truncate" style={{ color: dark }}>0xca30e63200a0fe3182dc61fc5605efc41456f32</span>
         <span className="flex justify-center"><BlueCheck /></span>
@@ -76,7 +76,7 @@ export function VotingDemos() {
         <div className="flex gap-6">
           <div className="flex flex-1 flex-col gap-4">
             <Row label="Ваш ID" value="0xca30e63200a0fe3182dc61fc5605efc41456f32" />
-            <Row label="Кол-во голосов для принятия решения" value="5" />
+            <Row label="Кол-во голосов для принятия решения" value="4" />
             <Row label="Проголосовало" value="3" />
             <Row label="Ваш статус ответа" value={<Badge color="orange">Ожидает участия</Badge>} />
           </div>

@@ -108,8 +108,8 @@ export function PPSystemDemos() {
           characteristics={CHARACTERISTICS}
           bases={<BasesActive />}
           documents={[
-            { title: "Паспорт:", sub: "Фамилия, Имя" },
-            { title: "Заграничный паспорт:", sub: "Фамилия, Имя" },
+            { title: "Паспорт:", sub: "Фамилия, имя, отчество, дата рождения" },
+            { title: "Заграничный паспорт:", sub: "Фамилия, имя, номер документа" },
           ]}
           activeColumn={2}
         />
@@ -134,8 +134,8 @@ export function PPSystemDemos() {
             </BasisCard>
           }
           documents={[
-            { title: "Паспорт:", sub: "Фамилия, Имя" },
-            { title: "Заграничный паспорт:", sub: "Фамилия, Имя" },
+            { title: "Паспорт:", sub: "Фамилия, имя, отчество, дата рождения" },
+            { title: "Заграничный паспорт:", sub: "Фамилия, имя, номер документа" },
           ]}
         />
       </div>
@@ -146,7 +146,7 @@ export function PPSystemDemos() {
         <div className="max-w-[760px] rounded-[8px] border border-border bg-white p-5">
           <BasisEditor
             languages={LANGUAGES}
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas amet ultrices faucibus non."
+            description="Пайщик даёт согласие на обработку персональных данных для ведения реестра, расчётов по паевым взносам и выдачи верификаций. Согласие можно отозвать в личном кабинете."
             isDefault
           />
         </div>

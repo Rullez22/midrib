@@ -19,29 +19,29 @@ const OKVED = (
 const COOP: MemberRow[] = [
   { label: "Тип верификации", value: <Badge color="orange">Локальный</Badge> },
   { label: "Тип документа", value: "Устав" },
-  { label: "Регистрационный номер", value: "1167700006946" },
-  { label: "Организация", value: "Потребительский кооператив MMATRA" },
+  { label: "Регистрационный номер", value: "1057812345678" },
+  { label: "Организация", value: "Потребительский кооператив «Иматра»" },
   { label: "Местонахождение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-  { label: "Почтовый адрес", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-  { label: "Контактный телефон", value: "+7 (992) 222-22-22" },
-  { label: "E-mail", value: "immatra@mmatra.ru" },
+  { label: "Почтовый адрес", value: "191036, Санкт-Петербург, Дегтярный переулок, 11 лит А" },
+  { label: "Контактный телефон", value: "+7 (812) 401-32-18" },
+  { label: "E-mail", value: "office@immatra.ru" },
   { label: "ОКВЭД", value: OKVED },
-  { label: "ИНН", value: "1234567990" },
-  { label: "Орган выдавший документ", value: "Управление министерства юстиции РФ по Санкт-Петербургу" },
-  { label: "Дата решения", value: "03.08.2020" },
-  { label: "Дата внесения в ЮГРЮЛ", value: "09.08.2020" },
+  { label: "ИНН", value: "7842315690" },
+  { label: "Орган выдавший документ", value: "Управление Министерства юстиции РФ по Санкт-Петербургу" },
+  { label: "Дата решения", value: "18.04.2018" },
+  { label: "Дата внесения в ЕГРЮЛ", value: "26.04.2018" },
 ];
 
 const PAYERS: MemberRow[] = [
   { label: "Председатель правления", value: "Антонов Илья" },
-  { label: "Председатель совета", value: "Самик Михаил" },
-  { label: "Совет", value: <>Андреев Андрей<br />Ан Дмитрий<br />Варгамов Илья</> },
+  { label: "Председатель совета", value: "Михайлов Дмитрий" },
+  { label: "Совет", value: <>Андреев Андрей<br />Ан Дмитрий<br />Варламов Илья</> },
 ];
 
 const VOTE_PARAMS: MemberRow[] = [
   { label: "MIN продолжительность", value: "24 часа" },
-  { label: "MAX продолжительность", value: "24 часа" },
-  { label: "Кворум", value: "100 %" },
+  { label: "MAX продолжительность", value: "72 часа" },
+  { label: "Кворум", value: "80 %" },
   { label: "Первоначальный кворум", value: "100 %" },
   { label: "Консенсус", value: "70 %" },
   { label: "Тип роли", value: "Член совета" },
@@ -90,7 +90,7 @@ export function ValidationDemos() {
       <QuestionCard title="Документы" defaultOpen>
         <div className="flex flex-col gap-2">
           {DOCS.map((d) => (
-            <Item key={d.label} trailing={<span style={{ color: "var(--color-dark-900)" }}>09.01.2020</span>}>
+            <Item key={d.label} trailing={<span style={{ color: "var(--color-dark-900)" }}>22.04.2025</span>}>
               <span className="flex flex-col gap-0.5">
                 <span className="ds-caption text-foreground-subtle">{d.label}</span>
                 <span className="ds-p3 text-foreground">{d.value}</span>

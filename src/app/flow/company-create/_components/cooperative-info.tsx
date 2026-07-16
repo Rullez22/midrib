@@ -23,17 +23,17 @@ const OKVED = [
 const INFO_ROWS: { label: string; value: ReactNode }[] = [
   { label: "Тип верификации", value: <Badge variant="solid" color="orange">Локальный</Badge> },
   { label: "Тип документа", value: "Устав" },
-  { label: "Регистрационный номер", value: "106700000040" },
+  { label: "Регистрационный номер", value: "1057812345678" },
   { label: "Организация", value: "Immatra" },
   { label: "Местоположение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-  { label: "Полный адрес", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-  { label: "Контактный телефон", value: "+7 (992) 223-22-22" },
-  { label: "E-mail", value: "immatra@immatra.ru" },
+  { label: "Полный адрес", value: "191036, Санкт-Петербург, Дегтярный переулок, 11 лит А" },
+  { label: "Контактный телефон", value: "+7 (812) 401-32-18" },
+  { label: "E-mail", value: "office@immatra.ru" },
   { label: "ОКВЭД", value: <span className="flex flex-col gap-2">{OKVED.map((c) => <span key={c}>{c}</span>)}</span> },
-  { label: "ИНН", value: "1234567890" },
-  { label: "Орган выдавший документ", value: "Управление министерства юстиции РФ по Санкт-Петербургу" },
-  { label: "Дата решения", value: "03.08.2020" },
-  { label: "Дата внесения в ЕГРЮЛ", value: "04.08.2020" },
+  { label: "ИНН", value: "7842315690" },
+  { label: "Орган выдавший документ", value: "Управление Министерства юстиции РФ по Санкт-Петербургу" },
+  { label: "Дата решения", value: "18.04.2018" },
+  { label: "Дата внесения в ЕГРЮЛ", value: "26.04.2018" },
 ];
 
 /** ФИО пайщиков по индексу (как в council-voting ROSTER / activity MEMBERS). */
@@ -46,9 +46,9 @@ const NAMES = [
 ];
 
 const DOCS = [
-  { type: "Сертификат", name: "Сертификат соответствия", date: "09.01.2020" },
-  { type: "Свидетельство", name: "Свидетельство о государственной регистрации программы ЭВМ", date: "09.01.2020" },
-  { type: "Лицензия", name: "Лицензия на использование ЭВМ", date: "09.01.2020" },
+  { type: "Сертификат", name: "Сертификат соответствия на услуги по уборке помещений", date: "24.08.2023" },
+  { type: "Свидетельство", name: "Свидетельство о постановке на учёт в налоговом органе", date: "02.09.2024" },
+  { type: "Лицензия", name: "Лицензия на работы по дезинфекции и дератизации", date: "11.04.2025" },
 ];
 
 /** Строка label/value (260px + значение). */
@@ -90,7 +90,7 @@ export function CooperativeInfo({ afterPaishiki }: { afterPaishiki?: ReactNode }
       <QuestionCard title="Документы" defaultOpen>
         <div className="flex flex-col gap-2">
           {DOCS.map((d, i) => (
-            <div key={i} className="flex items-center gap-4 rounded-[4px] border border-border px-4 py-3">
+            <div key={i} className="ds-row flex items-center gap-4 rounded-[4px] border border-border px-4 py-3">
               <div className="flex flex-1 flex-col gap-0.5">
                 <span className="ds-caption text-foreground-subtle">{d.type}</span>
                 <span className="ds-p3 text-foreground">{d.name}</span>

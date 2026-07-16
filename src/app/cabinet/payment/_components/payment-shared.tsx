@@ -21,18 +21,22 @@ import {
  * /cabinet/payment/once · /stable и /cabinet/account/marketing/connect/mass.
  */
 
-export const DOCS = [{ name: "Договор №1" }, { name: "Договор №2" }, { name: "Договор №3" }];
+export const DOCS = [
+  { name: "Договор на поставку игрового оборудования", date: "19.05.2025" },
+  { name: "Договор подряда на монтаж площадки", date: "11.04.2025" },
+  { name: "Договор на техническое обслуживание", date: "23.11.2024" },
+];
 
 /* ── Образцовые данные получателей (общие для всех флоу выбора пайщиков) ───── */
 export const ADDR = "5c243af…07db8";
 export const FULL_ADDR = "0x5c243af6b9e8d1c4a7f20e3b5d8c1a9f4e7b07db8";
-export const PRIVATE = ["Илья Антонов", "Андрей Андреев", "Олег Олегов", "Валерий Варламов", "Николай Николаев"];
+export const PRIVATE = ["Козлова А. В.", "Михайлов Д. С.", "Новикова Е. П.", "Соколов М. А.", "Кузнецова О. И."];
 export const LEGAL = [
-  { name: "Компания 1", id: "3323" },
-  { name: "Компания 2", id: "2323123" },
-  { name: "Компания 3", id: "848494" },
-  { name: "Компания 4", id: "9823882" },
-  { name: "Компания 5", id: "7363" },
+  { name: "Кооператив «Гвозди и доски»", id: "3323" },
+  { name: "ООО «Петрушка»", id: "2323123" },
+  { name: "ИП Салютов Р. К.", id: "848494" },
+  { name: "ООО «Северный лес»", id: "9823882" },
+  { name: "АО «Балтийский подряд»", id: "7363" },
 ];
 
 /* ── Базовые показатели пул-счёта (для «Массового подключения») ───────────── */
@@ -156,16 +160,16 @@ export function DocTable({
             <div className="flex justify-center" style={{ flex: 1 }}>
               <span className="inline-flex items-center rounded-[4px] bg-[#e6f6e7] px-3 py-1.5 ds-caption-medium text-[#54be5a]">Согласован</span>
             </div>
-            <div className="ds-p3 text-right text-foreground" style={{ flex: 1 }}>09.01.2020</div>
+            <div className="ds-p3 text-right text-foreground" style={{ flex: 1 }}>{d.date}</div>
           </>
         );
         return mode === "select" ? (
-          <label key={i} className="flex cursor-pointer items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
+          <label key={i} className="ds-row flex cursor-pointer items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
             <Checkbox size="xs" checked={selected.has(i)} onChange={() => onToggle?.(i)} />
             {inner}
           </label>
         ) : (
-          <div key={i} className="flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
+          <div key={i} className="ds-row flex items-center gap-3 rounded-[4px] border border-border bg-surface px-4 py-3">
             {inner}
           </div>
         );

@@ -22,10 +22,10 @@ import {
 } from "@/components/ds";
 
 const TX: Transaction[] = [
-  { code: "214", color: "cyan", hash: "5c243af… 07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Счёт на оплату", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
-  { code: "214", color: "cyan", hash: "5c243af… 07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Счёт на оплату", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
-  { code: "216", color: "purple", hash: "5c243af… 07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Взносы и целевые поступления", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
-  { code: "215", color: "green", hash: "5c243af… 07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Поступления с маршрутных счетов", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
+  { code: "214", color: "cyan", hash: "5c243af… 07db8", time: "29 секунд назад", from: "ПК «Иматра»", to: "ИП Салютов Р. К.", document: "Счёт на оплату", documentSub: "Закупка игрового оборудования", amount: "0.229937", commission: "0.0022" },
+  { code: "214", color: "cyan", hash: "a94e71c… 2d80f", time: "14 минут назад", from: "ПК «Иматра»", to: "ПК «Гвозди и доски»", document: "Счёт на оплату", documentSub: "Поставка пиломатериалов", amount: "0.084500", commission: "0.0011" },
+  { code: "216", color: "purple", hash: "0d5cb83… 4ef17", time: "3 часа назад", from: "ПК «Слонёнок»", to: "ПК «Иматра»", document: "Взносы и целевые поступления", documentSub: "Членский взнос за II квартал", amount: "0.512300", commission: "0.0034" },
+  { code: "215", color: "green", hash: "e28f0a6… b3c94", time: "вчера, 18:42", from: "ПК «Иматра»", to: "ПК «Слонёнок»", document: "Поступления с маршрутных счетов", documentSub: "Совместная закупка материалов", amount: "1.104800", commission: "0.0058" },
 ];
 
 const DOC_COLUMNS: TableColumn[] = [
@@ -36,9 +36,9 @@ const DOC_COLUMNS: TableColumn[] = [
 ];
 
 const DOCS = [
-  { type: "Свидетельство", name: "Свидетельство о государственной регистрации программы ЭВМ", status: "Отвалидирован", badge: "Локальный", date: "09.01.2020" },
-  { type: "Сертификат", name: "Сертификат соответствия", status: "Отвалидирован", badge: "Локальный", date: "09.01.2020" },
-  { type: "Договор", name: "Оплата за проектирование площадок", status: "", badge: "", date: "09.01.2020" },
+  { type: "Свидетельство", name: "Свидетельство о государственной регистрации программы ЭВМ", status: "Отвалидирован", badge: "Локальный", date: "19.05.2025" },
+  { type: "Сертификат", name: "Сертификат соответствия", status: "Отвалидирован", badge: "Локальный", date: "23.11.2024" },
+  { type: "Договор", name: "Договор подряда на монтаж площадки", status: "", badge: "", date: "11.04.2025" },
 ];
 
 const ART_COLUMNS: TableColumn[] = [
@@ -47,9 +47,9 @@ const ART_COLUMNS: TableColumn[] = [
 ];
 
 const ARTIFACTS = [
-  { type: "Документ", name: "Документ в свободной форме", date: "09.01.2020", action: "share" as const },
-  { type: "Документ", name: 'Сочинение на тему: «Как я провёл Лето»', date: "09.01.2020", action: "lock" as const },
-  { type: "Патент", name: "Изобретение плазменного реактора", date: "09.01.2020", action: "person" as const },
+  { type: "Документ", name: "Документ в свободной форме", date: "02.09.2024", action: "share" as const },
+  { type: "Документ", name: "Отчёт о целевом расходовании средств", date: "28.01.2025", action: "lock" as const },
+  { type: "Патент", name: "Патент на полезную модель игрового комплекса", date: "17.03.2023", action: "person" as const },
 ];
 
 function col(c: TableColumn): CSSProperties {

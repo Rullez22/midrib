@@ -111,7 +111,7 @@ export function DocsTable() {
             <img src="/members/rozalina.png" alt="" className="size-full object-cover" />
           </span>
         </div>
-        <span className="ds-p3 flex-1 text-right text-foreground">11.01.2020</span>
+        <span className="ds-p3 flex-1 text-right text-foreground">22.04.2025</span>
       </div>
     </div>
   );
@@ -186,7 +186,7 @@ export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contra
                 <span className="ds-p1-medium text-foreground">{contract.name}</span>
                 <span className="ds-p2-medium text-foreground">{contract.amount}</span>
                 <Badge variant="soft" color="green">Согласован</Badge>
-                <span className="ds-p3 text-foreground-subtle">11.01.2020</span>
+                <span className="ds-p3 text-foreground-subtle">19.05.2025</span>
               </div>
               <div className="flex flex-col gap-6 border-b border-border p-6 md:flex-row">
                 <ContractInfo c={contract} />
@@ -266,7 +266,7 @@ export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contra
             <span className="ds-caption text-foreground-subtle">Подпись исполнителя</span>
             <span className="ds-p3-medium flex items-center gap-1.5 text-primary">🐘 Elephant</span>
             <Link href="#" size="p3">xxxxxxx… xxxxx</Link>
-            <span className="ds-p3 text-foreground-subtle">13.01.2020 - 13:00</span>
+            <span className="ds-p3 text-foreground-subtle">19.05.2025 - 13:00</span>
           </div>
         </div>
       </Modal>

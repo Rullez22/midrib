@@ -209,8 +209,8 @@ export function RegistrationForm({
                   onClick={onDocumentClick ? () => onDocumentClick(i) : undefined}
                   onKeyDown={onDocumentClick ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onDocumentClick(i); } } : undefined}
                   className={cn(
-                    "flex items-start justify-between gap-2 rounded-[8px] border border-border bg-white px-4 py-3",
-                    onDocumentClick && "cursor-pointer text-left transition-colors hover:bg-[var(--color-grey-10)]",
+                    "ds-row flex items-start justify-between gap-2 rounded-[8px] border border-border bg-white px-4 py-3",
+                    onDocumentClick && "cursor-pointer text-left transition-colors",
                   )}
                 >
                   <div className="flex flex-col gap-0.5">

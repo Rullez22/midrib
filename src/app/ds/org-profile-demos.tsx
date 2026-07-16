@@ -34,49 +34,49 @@ const PURPLE = "var(--color-purple-400)";
 const ORG_GROUPS = [
   {
     heading: "Описание",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec.",
+    text: "Потребительский кооператив «Иматра» объединяет пайщиков Санкт-Петербурга и Ленинградской области. Кооператив ведёт совместные закупки, содержание и благоустройство территорий, а также расчёты между пайщиками через лицевые счета.",
   },
   {
     heading: "Контактная информация",
     rows: [
       { label: "Местонахождение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-      { label: "Контактный телефон", value: "+7 (992) 223-22-22" },
-      { label: "E-mail", value: "immatra@immatra.ru" },
+      { label: "Контактный телефон", value: "+7 (812) 401-32-18" },
+      { label: "E-mail", value: "office@immatra.ru" },
     ],
   },
   {
     heading: "Устав",
     rows: [
-      { label: "Регистрационный номер", value: "464649592200" },
-      { label: "Организация", value: "Потребительский кооператив Immatra" },
-      { label: "Полное юридическое наименование", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
+      { label: "Регистрационный номер", value: "1057812345678" },
+      { label: "Организация", value: "Иматра" },
+      { label: "Полное юридическое наименование", value: "Потребительский кооператив «Иматра»" },
       {
         label: "ОКВЭД",
         value: (
           <span className="flex flex-col gap-1">
             <span>81.22 — Деятельность по чистке и уборке жилых зданий и нежилых помещений прочая</span>
             <span>81.29.1 — Дезинфекция, дезинсекция, дератизация зданий, промышленного оборудования</span>
-            <span>84.30 — Деятельность в области обязательного социального обеспечения</span>
+            <span>81.30 — Предоставление услуг по благоустройству ландшафта</span>
           </span>
         ),
       },
-      { label: "ИНН", value: "45267545611" },
-      { label: "Кем выдан", value: "Управление министерства юстиции РФ по Санкт-Петербургу" },
-      { label: "Дата решения", value: "15.12.2005" },
-      { label: "Дата внесения в ЕГРПО", value: "25.12.2005" },
+      { label: "ИНН", value: "7842315690" },
+      { label: "Кем выдан", value: "Управление Министерства юстиции РФ по Санкт-Петербургу" },
+      { label: "Дата решения", value: "18.04.2018" },
+      { label: "Дата внесения в ЕГРЮЛ", value: "26.04.2018" },
     ],
   },
 ];
 
 const REQUIREMENTS = [
-  { name: "Требование 1", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
-  { name: "Требование 2", type: "Домен", badge: { label: "Зеленый", color: "green" as const } },
+  { name: "Подтверждение регистрации кооператива", type: "Устав", badge: { label: "Локальный", color: "orange" as const } },
+  { name: "Право на ведение совместных закупок", type: "Домен", badge: { label: "Зеленый", color: "green" as const } },
 ];
 
 const ACHIEVEMENTS = [
-  { logo: A1, title: "Самый лучший пайщик", org: "Ким Дмитрий Кимович", date: "август 2019" },
-  { logo: A2, title: "Самый лучший пайщик", org: "Энрике Чучела Каримович", date: "август 2018" },
-  { logo: A3, title: "Самый лучший пайщик", org: "Валитин Дмитрий Кузякин", date: "август 2016" },
+  { logo: A1, title: "Лучший пайщик года", org: "Розалина К. И.", date: "февраль 2025" },
+  { logo: A2, title: "Пайщик года по объёму совместных закупок", org: "Ганиш Г. И.", date: "сентябрь 2024" },
+  { logo: A3, title: "За вклад в развитие подразделения «Веб-ресурс»", org: "Ванесса П. П.", date: "март 2023" },
 ];
 
 const AGE_GROUPS = [
@@ -109,7 +109,7 @@ const GEO_CITIES = [
 ];
 
 const POST_TEXT =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A, sed pulvinar scelerisque maecenas volutpat. Ornare in massa, blandit est, venenatis posuere felis, dolor.";
+  "Правление утвердило смету на благоустройство территории на летний сезон. Работы начнём с площадок во Всеволожске, дальше — дворы на Дегтярном. Подрядчиков выбираем из пайщиков кооператива.";
 
 /** Текст-аватар организации (серый круг с названием). */
 function OrgAvatar({ children }: { children: React.ReactNode }) {
@@ -213,8 +213,8 @@ export function OrgProfileDemos() {
       ) : (
         <div className="flex flex-col gap-4">
           <FeedComposerBar avatar={<OrgAvatar>Immatra</OrgAvatar>} />
-          <FeedPost title="Departure to the site of installation" date="Август 23, 2019" text={POST_TEXT} media={{ type: "image", src: POST_IMG }} />
-          <FeedPost title="Departure to the site of installation" date="Август 23, 2019" media={{ type: "documents", files: ["Лунная соната", "Дневник №1"] }} />
+          <FeedPost title="Утверждена смета на летний сезон" date="19 мая 2025" text={POST_TEXT} media={{ type: "image", src: POST_IMG }} />
+          <FeedPost title="Документы к заседанию правления" date="22 апреля 2025" media={{ type: "documents", files: ["Протокол заседания правления №47", "Отчёт о целевом расходовании средств"] }} />
         </div>
       )}
     </div>

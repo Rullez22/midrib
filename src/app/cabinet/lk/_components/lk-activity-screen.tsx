@@ -48,7 +48,7 @@ function StructTab({ role }: { role: LkRole }) {
         title="Общие сведения"
         name={lkShortName(role)}
         avatar={me.avatar}
-        desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim plerisque tem."
+        desc="Пайщик кооператива «Иматра» с 2019 года, с марта 2023 года — председатель правления. Отвечает за операционную работу администрации: согласование договоров с партнёрами, подготовку вопросов на заседания правления и совета, сопровождение новых пайщиков. Ведёт приём по вторникам и четвергам, с 10:00 до 17:00."
         editable
         layout
         onLayout={() => router.push("/cabinet/about?view=structure&focus=administration")}

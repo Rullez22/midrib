@@ -75,15 +75,15 @@ function DocThumb() {
 const VIEW_GROUPS = [
   {
     heading: "Описание",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet dnunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec.",
+    text: "Потребительский кооператив «Иматра» объединяет пайщиков для совместного заказа услуг по уборке и обслуживанию жилых и нежилых помещений. Кооператив ведёт договоры с подрядчиками, распределяет заказы между пайщиками и отвечает за качество работ. Взносы пайщиков идут на закупку оборудования и расходных материалов по оптовым ценам.",
   },
   {
     heading: "Контактная информация",
     rows: [
       { label: "Местонахождение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-      { label: "Контактный телефон", value: "+7 (992) 223-22-22" },
-      { label: "Домен", value: "Immatra.ru" },
-      { label: "E-mail", value: "immatra@immatra.ru" },
+      { label: "Контактный телефон", value: "+7 (812) 401-32-18" },
+      { label: "Домен", value: "immatra.ru" },
+      { label: "E-mail", value: "office@immatra.ru" },
     ],
   },
   {

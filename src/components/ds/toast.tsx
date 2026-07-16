@@ -12,7 +12,7 @@ import { cn } from "@/lib/cn";
  *   onClose : показывает крестик справа.
  *
  * @example
- *   <Toast variant="positive" title="Заголовок">Lorem ipsum…</Toast>
+ *   <Toast variant="positive" title="Платеж отправлен">Вопрос вынесен на голосование совета</Toast>
  *   <Toast variant="error" onClose={dismiss}>Что-то пошло не так</Toast>
  */
 

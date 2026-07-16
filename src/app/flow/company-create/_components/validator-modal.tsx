@@ -87,7 +87,7 @@ export function ValidatorModal({
           <span className="ds-p3 flex flex-1 items-center justify-center gap-1.5" style={{ color: blue }}>
             xxxx… xxxxx <InfoIcon />
           </span>
-          <span className="ds-p3 flex-1 text-right text-foreground">12.01.2020 - …</span>
+          <span className="ds-p3 flex-1 text-right text-foreground">19.05.2025 - …</span>
         </div>
 
         {/* Документ */}
@@ -96,7 +96,7 @@ export function ValidatorModal({
           <span className="ds-p3 flex-1 truncate text-foreground">Полный устав …</span>
           <span className="ds-p3 flex-1 text-foreground">Не отвалидирован</span>
           <span className="flex-1"><Badge variant="solid" color="orange">Локальный</Badge></span>
-          <span className="ds-p3 flex-1 text-right text-foreground">09.01.2020</span>
+          <span className="ds-p3 flex-1 text-right text-foreground">28.01.2025</span>
         </div>
 
         {/* Валидатор */}
@@ -109,12 +109,12 @@ export function ValidatorModal({
               </div>
               <div className="flex flex-col gap-1.5">
                 <a className="ds-p2-medium inline-flex items-center gap-1.5" style={{ color: blue }} href="#">
-                  Кооператив буренок <ExternalIcon />
+                  Кооператив «Буренок» <ExternalIcon />
                 </a>
                 <div className="flex items-center gap-0.5">
                   {Array.from({ length: 5 }).map((_, i) => <Star key={i} />)}
                 </div>
-                <span className="ds-p3 text-foreground-subtle">300 отзывов</span>
+                <span className="ds-p3 text-foreground-subtle">184 отзыва</span>
               </div>
             </div>
           ) : (

@@ -51,9 +51,9 @@ const ORANGE = VERIFY_ORANGE;
 const GREEN = VERIFY_GREEN;
 
 /** Транзакции в блокчейне по стадиям. */
-const TX_SEND: TxRow = { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "11.01.2020 - 11:00" };
-const TX_VALIDATOR_SIGN: TxRow = { action: "Подпись валидатора", party: 'ООО "Слон"', date: "11.01.2020 - 15:00" };
-const TX_CREATOR_SIGN: TxRow = { action: "Подпись создателя документа", party: 'ООО "Сапфир"', date: "11.01.2020 - 16:00" };
+const TX_SEND: TxRow = { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "19.05.2025 - 12:40" };
+const TX_VALIDATOR_SIGN: TxRow = { action: "Подпись валидатора", party: 'ООО "Слон"', date: "20.05.2025 - 16:10" };
+const TX_CREATOR_SIGN: TxRow = { action: "Подпись создателя документа", party: 'ООО "Сапфир"', date: "21.05.2025 - 09:30" };
 
 /** Этап плашки → шаг флоу при возобновлении по клику в кабинете. */
 const STAGE_TO_STEP: Record<TemplateDocStage, Step> = {
@@ -138,7 +138,7 @@ export function DocumentExternalFlow() {
         ) : (
           <div className="flex flex-col gap-4 rounded-[4px] border border-border p-6">
             <span className="ds-p2-medium text-foreground">Банковская проверка</span>
-            <p className="ds-p3 text-foreground-subtle">Описание: lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</p>
+            <p className="ds-p3 text-foreground-subtle">Описание: банк-партнёр сверяет реквизиты компании с данными расчётного счёта — ИНН, ОГРН и подписанта документа. После сверки документ получает отметку о финансовой благонадёжности, её видят все участники кооператива. Проверка занимает до 3 рабочих дней и продлевается раз в год.</p>
             <Button size="m" className="self-start" onClick={pick(ORANGE)}>Выбрать</Button>
           </div>
         )}
@@ -222,7 +222,7 @@ export function DocumentExternalFlow() {
               <span className="ds-p3 text-foreground-subtle">Отправка валидатору</span>
               <Link href="#" size="p3">ООО "Сапфир"</Link>
               <Spinner />
-              <span className="ds-p3 text-foreground-subtle">12.01.2020 - …</span>
+              <span className="ds-p3 text-foreground-subtle">19.05.2025 - …</span>
             </div>
             <Button size="l" className="w-[250px]" onClick={() => setSendPhase("idle")}>Вернуться назад</Button>
           </div>
@@ -292,7 +292,7 @@ export function DocumentExternalFlow() {
                 <Link href="#" size="p3">5c243af… 07db8</Link>
                 <Tooltip content={<span className="break-all">{TX_FULL}</span>} side="top"><span className="inline-flex cursor-help"><InfoIcon /></span></Tooltip>
               </span>
-              <span className="ds-p3 text-foreground-subtle">12.01.2020 - …</span>
+              <span className="ds-p3 text-foreground-subtle">21.05.2025 - …</span>
             </div>
             <Button size="l" className="w-[250px]" onClick={() => { setSignOpen(false); go("signed", "signed"); }}>Подтвердить действие</Button>
           </div>

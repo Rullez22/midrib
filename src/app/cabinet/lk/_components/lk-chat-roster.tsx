@@ -14,9 +14,12 @@ import { type LkChatItem } from "./lk-data";
 
 /** Демо-лента открытого чата (Figma 1939:806833) — одинакова для всех чатов ЛК. */
 const LK_THREAD: { me: boolean; time: string; text: string }[] = [
-  { me: true, time: "12:01", text: "Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu" },
-  { me: true, time: "12:02", text: "Commodo tristique sapien tellus" },
-  { me: false, time: "12:03", text: "Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu" },
+  { me: true, time: "10:12", text: "Добрый день! Отправил в подразделение смету на благоустройство территории — сумма вышла 118 600 ₽." },
+  { me: true, time: "10:13", text: "Все счета приложил." },
+  { me: false, time: "10:41", text: "Добрый день! Смету посмотрел. По статье «озеленение» валидатор попросит второй счёт — без него заявку не отвалидируют." },
+  { me: true, time: "10:48", text: "Понял, запрошу у поставщика до конца недели." },
+  { me: false, time: "11:02", text: "Тогда выношу вопрос на правление 22 апреля." },
+  { me: true, time: "11:05", text: "Успеем, спасибо." },
 ];
 
 /**

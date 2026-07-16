@@ -39,7 +39,7 @@ export function PartnerDemos() {
         <PartnerCard
           className="max-w-[720px]"
           title="Кооператив Слонёнок"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit."
+          description="Совместные закупки и логистика для пайщиков: собираем заявки, находим поставщика и развозим партию по складам участников."
         />
       </div>
     </div>

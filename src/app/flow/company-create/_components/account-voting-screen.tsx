@@ -40,7 +40,7 @@ const dark = "var(--color-dark-900)";
 
 const SUBACCOUNTS = ["Счет инвестиционных токенов", "Счет управляющих токенов", "Маршрутный счет"];
 const DIST_OPTIONS = [
-  { label: "Установить процент опустится ниже которого при будущих корректировках будет невозможно." },
+  { label: "Установить минимальный процент, ниже которого нельзя опускаться при будущих корректировках." },
   { label: "Зафиксировать % поступлений без возможности изменений в будущем" },
 ];
 
@@ -49,6 +49,15 @@ const TX_COLS: TableColumn[] = [
   { key: "res", label: "Результат", align: "center" },
   { key: "tx", label: "Номер транзакции", align: "center" },
   { key: "date", label: "Дата", align: "right", sortable: true },
+];
+
+/** Даты голосов по распределению % (колонка отсортирована по убыванию). */
+const TX_TIMES = [
+  "11.04.2025 - 19:07",
+  "11.04.2025 - 16:41",
+  "11.04.2025 - 12:23",
+  "10.04.2025 - 18:50",
+  "10.04.2025 - 09:34",
 ];
 
 function VoteRow({ label, value }: { label: string; value: React.ReactNode }) {
@@ -217,7 +226,7 @@ export function AccountVotingScreen({ backHref, doneHref }: { backHref?: string;
               {Array.from({ length: voted ? 5 : 3 }).map((_, i) => (
                 <TxLine
                   key={i}
-                  time={i === 0 ? "11.01.2020 - 13:00" : "11.01.2020 - 12:00"}
+                  time={TX_TIMES[i]}
                   minus={choice === "Против"}
                   striped={i % 2 === 0}
                 />

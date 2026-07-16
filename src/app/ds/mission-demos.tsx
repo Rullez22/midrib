@@ -19,9 +19,6 @@ import {
   Link,
 } from "@/components/ds";
 
-const LOREM =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id vulputate et sagittis urna. Sociis.";
-
 const DEPARTMENTS = [
   { color: "red" as const, title: "Администрация", items: ["Отдел источника", "Отдел председателя", "Отдел генерального директора"], active: true },
   { color: "orange" as const, title: "HR", items: ["Отдел направления и персонала", "Отдел коммуникаций", "Отдел контроля и повышения эффективности персонала"] },
@@ -52,15 +49,15 @@ const ORG_COLUMNS = [
   {
     addLabel: "Добавить функцию",
     items: [
-      { label: "Vestibulum justo sollicitudin vitae sum dolor sit amet", sub: "Петров А. А. - Член совета", active: true },
-      { label: "Vestibulum justo sollicitudin vitae sum dolor sit amet", sub: "Не назначено", subTone: "danger" as const },
+      { label: "Ведение реестра пайщиков и учёт паевых взносов", sub: "Михайлов Д. С. - Член совета", active: true },
+      { label: "Приём и распределение входящей корреспонденции", sub: "Не назначено", subTone: "danger" as const },
     ],
   },
   {
     addLabel: "Добавить технологию",
     items: [
-      { label: "Lorem ipsum dolor sit amet, consectetur" },
-      { label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit", active: true },
+      { label: "Регламент приёма документов от пайщиков" },
+      { label: "Инструкция по сверке реквизитов в реестре", active: true },
     ],
   },
 ];
@@ -76,24 +73,24 @@ export function MissionDemos() {
             meta="Выполнено: 55%"
             progress={55}
             title="Задание №1"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id vulputate et sagittis urna. Sociis."
+            description="Ознакомьтесь с уставом кооператива и подтвердите согласие с порядком уплаты паевых взносов."
             action={<Link href="#" size="p3">Продолжить</Link>}
           />
           <InfoCard
             meta="1 час назад"
-            title="Новость 1"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id vulputate et"
+            title="Открыт приём заявок на совместную закупку"
+            description="До 3 июня собираем заявки пайщиков на закупку пиломатериалов через кооператив «Гвозди и доски»"
             action={<Link href="#" size="p3">Подробнее</Link>}
           />
           <div className="w-[300px]">
             <QuestionCard
               size="s"
               defaultOpen
-              title="Заголовок"
+              title="Отдел дохода"
               footer={<Button variant="secondary" size="s">Подробнее</Button>}
             >
               <div className="flex flex-col gap-2">
-                <span className="ds-caption text-foreground-subtle">Петров А. А. - Член совета</span>
+                <span className="ds-caption text-foreground-subtle">Морозов В. Н. - Член совета</span>
                 <span className="ds-p3 text-foreground-muted">ЦКП: Все деньги, собранные своевременно, правильно учтённые и отражённые в документации</span>
               </div>
             </QuestionCard>
@@ -101,7 +98,7 @@ export function MissionDemos() {
           <ProfileCard
             color="orange"
             title="HR"
-            person="Петров А. А."
+            person="Козлова А. В."
             items={["Отдел направления и персонала", "Отдел коммуникаций", "Отдел контроля и повышения эффективности персонала"]}
             editable
           />
@@ -122,7 +119,7 @@ export function MissionDemos() {
           subtitle="Администрация"
           meta="150 пайщиков"
           avatarLabel="Immatra"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper."
+          description="ЦКП: работа правления и совета организована так, что решения принимаются в срок, а пайщики получают ответ по заявке не дольше трёх рабочих дней. Отдел ведёт реестр пайщиков, договоры с партнёрами и распределение целевых взносов между подразделениями."
           editable
         />
 

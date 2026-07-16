@@ -38,7 +38,7 @@ function PpRow({ title, date, onClick }: { title: string; date: string; onClick?
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center justify-between gap-4 rounded-[4px] border border-border bg-white px-6 py-4 text-left transition-colors hover:bg-[var(--color-grey-10)]"
+      className="ds-row flex w-full items-center justify-between gap-4 rounded-[4px] border border-border bg-white px-6 py-4 text-left transition-colors"
     >
       <span className="ds-p3 text-foreground">{title}</span>
       <span className="ds-p3 shrink-0 text-foreground-subtle tabular-nums">{date}</span>

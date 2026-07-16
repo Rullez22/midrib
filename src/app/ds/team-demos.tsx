@@ -29,26 +29,26 @@ const GROUP = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=20
 const INFO_GROUPS = [
   {
     heading: "Описание",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec.",
+    text: "Подразделение отвечает за подбор и адаптацию пайщиков, распределение ролей внутри кооператива и повышение квалификации сотрудников. Ведёт направление и персонал, коммуникации и контроль эффективности.",
   },
   {
     heading: "Контакты",
     rows: [
       { label: "Местонахождение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-      { label: "Контактный телефон", value: "+7 (992) 223-22-22" },
-      { label: "E-mail", value: "immatra@immatra.ru" },
+      { label: "Контактный телефон", value: "+7 (812) 401-32-18" },
+      { label: "E-mail", value: "hr@immatra.ru" },
     ],
   },
 ];
 
 const REQUIREMENTS = [
-  { name: "Требование 1", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
-  { name: "Требование 2", type: "Домен", badge: { label: "Зеленый", color: "green" as const } },
+  { name: "Подтверждение личности пайщика", type: "Документ", badge: { label: "Локальный", color: "orange" as const } },
+  { name: "Согласие на обработку персональных данных", type: "Документ", badge: { label: "Зеленый", color: "green" as const } },
 ];
 
 const ACHIEVEMENTS = [
-  { logo: M1, title: "Самый лучший пайщик", org: "Ким Дмитрий Кимович", date: "август 2019" },
-  { logo: M2, title: "Самый лучший пайщик", org: "Энрике Чучела Каримович", date: "август 2018" },
+  { logo: M1, title: "Лучшее подразделение по адаптации пайщиков", org: "Правление ПК «Иматра»", date: "ноябрь 2024" },
+  { logo: M2, title: "Благодарность за программу наставничества", org: "Ассоциация кооперативов Северо-Запада", date: "февраль 2025" },
 ];
 
 function PlusIcon() {
@@ -75,7 +75,7 @@ export function TeamDemos() {
           avatarSrc={DEPT}
           subtitle="Администрация"
           meta="20 пайщиков"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim plerisque tem."
+          description="ЦКП: каждый пайщик подразделения знает свою роль и обязанности, а новые участники выходят на работу в течение недели после приёма. Отдел ведёт реестр ролей, обучение и контроль эффективности персонала."
           editable
           onEdit={() => {}}
         />
@@ -87,7 +87,7 @@ export function TeamDemos() {
             <TeamMemberCard role="Председатель совета" status="inactive" onEdit={() => {}} />
             <TeamMemberCard photo={M1} name="Илья А. А." role="Член совета" status="active" selected={picked === "ilya"} onClick={() => setPicked("ilya")} onEdit={() => {}} />
             <TeamMemberCard photo={M2} name="Дмитрий А. А." role="Член совета" status="pending" selected={picked === "dmitry"} onClick={() => setPicked("dmitry")} onEdit={() => {}} />
-            <TeamMemberCard photo={M3} name="Джо В. А." role="Член совета" status="active" selected={picked === "joe"} onClick={() => setPicked("joe")} onEdit={() => {}} />
+            <TeamMemberCard photo={M3} name="Александр Д. Р." role="Член совета" status="active" selected={picked === "joe"} onClick={() => setPicked("joe")} onEdit={() => {}} />
           </div>
         </div>
       </div>

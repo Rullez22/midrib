@@ -7,7 +7,7 @@ import { AdminSidebar } from "./admin-sidebar";
 import { SHOP_DIRECTIONS } from "./admin-modules-data";
 
 const MODULE_DESC =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec gravida fames scelerisque. Faucibus arcu et eu sodales dolor sed pellentesque. Nisi, cursus faucibus pellentesque purus mattis cras. Nec at eu sed pellentesque cursus consectetur. Commodo pretium ultrices nullam consectetur venenatis id accumsan duis. Ut arcu nec turpis aliquam semper massa. Consequat amet, luctus erat lobortis libero, adipiscing quis dui. Urna, aliquet cursus aliquam dictum rhoncus blandit";
+  "Расчётный банк кооператива: маршрутные счета подразделений, приём паевых, вступительных и целевых взносов, платёжные поручения и выписки по каждому договору. Операции привязаны к решениям правления — платёж уходит только после согласованного документа и голосования. Пайщикам доступны лицевой счёт, история взаиморасчётов и выгрузка справок. Комиссия за операцию — 0.01 ETH.";
 
 /** Установленный модуль в «Ваши приложения» — красная шапка направления + карточка. */
 function InstalledDirection() {
@@ -44,8 +44,16 @@ function InstalledDirection() {
  * Ваши приложения / Магазин. Reuse DS: Tabs · Tab.
  */
 
-const DESC =
-  "Формирование концепции и инструменты через которые эта концепция реализовываться и корректируется в процессе достижение наивысшего вектор цели и персональных векторов целей в подсистемах общей системы. veniam, quis nostrud exercitation ullamco laboris nisi ut aliquiНаша деятельность: lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquiptempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip";
+/** Описание направления в «Магазине» — своё для каждого slug из SHOP_DIRECTIONS. */
+const DIRECTION_DESC: Record<string, string> = {
+  ideo: "Формирование концепции кооператива и инструменты, через которые она реализуется: работа с целями и ценностями, уставные документы, банковские и консультационные сервисы для подразделений. Сюда же подключаются социальные проекты и целевые сборы.",
+  infra: "Инженерная и IT-инфраструктура кооператива: учёт объектов и оборудования, заявки на обслуживание, подрядчики и графики работ, доступы сотрудников и мониторинг сервисов.",
+  marketing: "Продвижение кооператива и привлечение новых пайщиков: посадочные страницы и формы регистрации, рассылки, аналитика каналов, партнёрские программы и совместные акции с фондами.",
+  housing: "Жилищные программы кооператива: учёт паёв и очередей, договоры на строительство и приобретение жилья, расчёт взносов, графики платежей и передача объектов пайщикам.",
+  economy: "Хозяйственная деятельность: совместные закупки и склад, логистика, сметы и акты выполненных работ, расчёты с поставщиками и подрядчиками, инвентаризация имущества.",
+  strategy: "Стратегическое планирование: план развития направлений, показатели подразделений, бюджетирование и сценарии, отчётность для правления и совета кооператива.",
+  space: "Исследовательские и экспериментальные проекты: гранты и целевые сборы, партнёрства с научными центрами, ведение программ и отчётность о расходовании средств.",
+};
 
 function FolderIcon() {
   return (
@@ -109,7 +117,7 @@ export function AdminModulesScreen({ initialTab = "apps" }: { initialTab?: "apps
                 <div className="size-[110px] shrink-0 rounded-[6px]" style={{ backgroundColor: m.color }} />
                 <div className="flex min-w-0 flex-col gap-2">
                   <span className="ds-p2-medium text-foreground">{m.title}</span>
-                  <p className="ds-p3 text-foreground-muted">{DESC}</p>
+                  <p className="ds-p3 text-foreground-muted">{DIRECTION_DESC[m.slug]}</p>
                 </div>
               </button>
             ))

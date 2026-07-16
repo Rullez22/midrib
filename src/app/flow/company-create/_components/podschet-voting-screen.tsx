@@ -38,7 +38,7 @@ const dark = "var(--color-dark-900)";
 
 const SUBACCOUNTS = ["Счет инвестиционных токенов", "Счет управляющих токенов", "Маршрутный счет"];
 const PANEL_OPTS = [
-  "Установить процент опустится ниже которого при будущих корректировках будет невозможно.",
+  "Установить минимальный процент, ниже которого нельзя опускаться при будущих корректировках.",
   "Зафиксировать % поступлений без возможности изменений в будущем",
 ];
 
@@ -47,6 +47,15 @@ const TX_COLS: TableColumn[] = [
   { key: "res", label: "Результат", align: "center" },
   { key: "tx", label: "Номер транзакции", align: "center" },
   { key: "date", label: "Дата", align: "right", sortable: true },
+];
+
+/** Даты голосов по созданию подсчёта (колонка отсортирована по убыванию). */
+const TX_TIMES = [
+  "22.04.2025 - 18:12",
+  "22.04.2025 - 15:36",
+  "22.04.2025 - 11:49",
+  "21.04.2025 - 17:22",
+  "21.04.2025 - 10:03",
 ];
 
 function VoteRow({ label, value }: { label: string; value: React.ReactNode }) {
@@ -244,7 +253,7 @@ export function PodschetVotingScreen({ backHref, doneHref }: { backHref?: string
             <div className="-mx-[23px] flex flex-col">
               <TableHeader columns={TX_COLS} sortKey="date" sortDir="desc" />
               {Array.from({ length: voted ? 5 : 3 }).map((_, i) => (
-                <TxLine key={i} time={i === 0 ? "11.01.2020 - 13:00" : "11.01.2020 - 12:00"} striped={i % 2 === 0} />
+                <TxLine key={i} time={TX_TIMES[i]} striped={i % 2 === 0} />
               ))}
             </div>
           </QuestionCard>

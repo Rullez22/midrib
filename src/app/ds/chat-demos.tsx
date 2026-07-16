@@ -58,14 +58,14 @@ function EmptyChatIcon() {
 function Thread() {
   return (
     <ChatThread>
-      <ChatBubble me time="12:01">
-        Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu
+      <ChatBubble me time="09:24">
+        Анна, отправил вам заявку на вступление от нового пайщика — не хватает только справки с места работы.
       </ChatBubble>
-      <ChatBubble me time="12:02">
-        Commodo tristique sapien tellus
+      <ChatBubble me time="09:25">
+        Остальные документы в порядке.
       </ChatBubble>
-      <ChatBubble avatar={AVA_A} time="12:03">
-        Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu
+      <ChatBubble avatar={AVA_A} time="09:38">
+        Спасибо, вижу заявку. Напишу ему сегодня — справку обещали донести до пятницы.
       </ChatBubble>
     </ChatThread>
   );
@@ -73,8 +73,8 @@ function Thread() {
 
 const CHATS = [
   { id: "a", name: "Анна Грум", avatar: AVA_A, unread: 1 },
-  { id: "b", name: "Иван Дорн", avatar: AVA_B },
-  { id: "c", name: "Роберто Карлос", avatar: AVA_C },
+  { id: "b", name: "Михайлов Д. С.", avatar: AVA_B },
+  { id: "c", name: "Козлова А. В.", avatar: AVA_C },
 ];
 
 export function ChatDemos() {
@@ -100,7 +100,7 @@ export function ChatDemos() {
           <Text variant="caption-up" tone="subtle">ChatWindow — заголовок + подзаголовок</Text>
           <ChatWindow
             height="560px"
-            topBar={<ChatTopBar title="Title" subtitle="Subtitle" onBack={() => {}} />}
+            topBar={<ChatTopBar title="Внутренний чат (подразделение)" subtitle="20 пайщиков" onBack={() => {}} />}
             footer={<MessageComposer placeholder="Сообщение" />}
           >
             <Thread />
@@ -177,11 +177,11 @@ export function ChatDemos() {
         <div className="flex flex-col gap-3">
           <Text variant="caption-up" tone="subtle">ChatBubble</Text>
           <div className="flex w-[300px] flex-col gap-4">
-            <ChatBubble avatar={AVA_A} time="12:01">
-              Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu
+            <ChatBubble avatar={AVA_A} time="14:07">
+              Протокол заседания правления №47 выложила в общую папку — посмотрите пункт про смету.
             </ChatBubble>
-            <ChatBubble me time="12:01">
-              Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisqu
+            <ChatBubble me time="14:15">
+              Посмотрел, по смете вопросов нет. Подпишу сегодня до конца дня.
             </ChatBubble>
           </div>
         </div>
@@ -189,11 +189,11 @@ export function ChatDemos() {
         <div className="flex flex-col gap-3">
           <Text variant="caption-up" tone="subtle">ChatBubble — группа с отправителем</Text>
           <div className="flex w-[300px] flex-col gap-2">
-            <ChatBubble avatar={AVA_B} sender="Холмов" time="12:01">
-              Commodo tristique sapien tellus pellentesque.
+            <ChatBubble avatar={AVA_B} sender="Холмов" time="16:32">
+              Коллеги, счёт на техобслуживание площадки пришёл на 34 900 ₽.
             </ChatBubble>
-            <ChatBubble reserveAvatar time="12:02">
-              Nunc amet bibendum convallis quisqu
+            <ChatBubble reserveAvatar time="16:40">
+              Оплату поставили на 22 апреля.
             </ChatBubble>
           </div>
         </div>
@@ -202,7 +202,7 @@ export function ChatDemos() {
           <Text variant="caption-up" tone="subtle">ChatTopBar</Text>
           <div className="flex w-[327px] flex-col gap-4">
             <div className="rounded-[4px] border border-border">
-              <ChatTopBar title="Title" subtitle="Subtitle" onBack={() => {}} />
+              <ChatTopBar title="Чат совета" subtitle="9 участников" onBack={() => {}} />
             </div>
             <div className="rounded-[4px] border border-border">
               <ChatTopBar title="Анна Грум" avatar={AVA_A} onBack={() => {}} />
@@ -212,7 +212,7 @@ export function ChatDemos() {
 
         <div className="flex flex-col gap-3">
           <Text variant="caption-up" tone="subtle">ContactChip</Text>
-          <ContactChip avatar={AVA_C} name="ИП Анна Иванова" />
+          <ContactChip avatar={AVA_C} name="ИП Салютов Р. К." />
         </div>
       </div>
     </div>

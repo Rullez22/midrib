@@ -35,11 +35,11 @@ type Doc = {
 };
 
 const DOCS: Doc[] = [
-  { status: "yellow", number: "№123", name: "Полный устав кооператива", tx: "eg33... k4k4", date: "12.01.2020 - 15:00" },
-  { status: "yellow", number: "№124", name: "Свидетельство о рождении", tx: "eg33... k4k4", date: "12.01.2020 - 15:00" },
-  { status: "green", number: "№123", name: "Водительское удостоверение", tx: "eg33... k4k4", date: "12.01.2020 - 15:00" },
-  { status: "blue", number: "№123", name: "Счет на оплату HBO", tx: "eg33... k4k4", date: "12.01.2020 - 15:00" },
-  { status: "blue", number: "№123", name: "Лицензия", tx: "eg33... k4k4", date: "12.01.2020 - 15:00" },
+  { status: "yellow", number: "№123", name: "Полный устав кооператива", tx: "eg33... k4k4", date: "13.05.2025 - 10:24" },
+  { status: "yellow", number: "№124", name: "Свидетельство о рождении", tx: "eg33... k4k4", date: "14.05.2025 - 16:05" },
+  { status: "green", number: "№125", name: "Водительское удостоверение", tx: "eg33... k4k4", date: "15.05.2025 - 09:47" },
+  { status: "blue", number: "№126", name: "Счёт на оплату услуг хостинга", tx: "eg33... k4k4", date: "16.05.2025 - 14:12" },
+  { status: "blue", number: "№127", name: "Лицензия на использование ЭВМ", tx: "eg33... k4k4", date: "19.05.2025 - 11:38" },
 ];
 
 export function ProcessedVerificationsDemos() {
@@ -78,7 +78,7 @@ export function ProcessedVerificationsDemos() {
           <Tab value="staff">Верификации ваших сотрудников</Tab>
         </Tabs>
 
-        <ReportPeriodBar period="15 декабря 2019 - 22 декабря 2019" showHistory={false} />
+        <ReportPeriodBar period="12 мая 2025 - 19 мая 2025" showHistory={false} />
 
         <StatCounter
           size="lg"

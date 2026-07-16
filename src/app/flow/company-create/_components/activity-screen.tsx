@@ -304,7 +304,7 @@ function AddCouncilCard() {
 
 /** Описание ЦКП (одно — клампится в свёрнутом виде, раскрывается полностью). */
 const CKP_DESC =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim pulvinar lacinia pellentesque risus Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim pulvinar lacinia pellentesque risus Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim pulvinar lacinia pellentesque risus";
+  "Администрация обеспечивает работу органов управления кооператива. Департамент готовит заседания совета и правления, ведёт протоколы и следит за тем, чтобы принятые решения были исполнены в срок. Здесь принимают заявления от пайщиков, проверяют приложенные документы и передают их в профильные подразделения. Администрация ведёт реестр пайщиков, хранит уставные документы и оформляет доверенности, а также готовит проекты внутренних регламентов и выносит их на голосование. Отдельная задача департамента — назначение председателей и наделение их полномочиями: подготовка приглашений, сбор согласий и запуск голосований по каждой роли. Ценный конечный продукт — решения органов управления, оформленные документально, принятые в срок и доведённые до исполнителей.";
 
 /** Обложка-градиент + круглый аватар-силуэт подразделения (как профиль-карточка
  *  в сайдбаре, DeptCard active — Figma 1857:649628). */
@@ -398,8 +398,9 @@ function CkpBlock() {
   );
 }
 
-const LOREM =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam ac nec sit sit massa quam. Eleifend sed massa duis magna lacus ut neque faucibus viverra. At nec morbi nisi.";
+/** Ответ на раскрытый подвопрос каскада («В какой срок рассматривают заявление»). */
+const QUESTION_ANSWER =
+  "Заявление рассматривают на ближайшем заседании совета, но не позднее 30 дней с даты подачи. Решение оформляют протоколом, копию направляют заявителю в личный кабинет. Если к заявлению не приложены документы из списка, срок считают с даты, когда пайщик донесёт недостающее.";
 
 /** Этапы формирования совета (роль / правила / CTA / число слотов / отдел). */
 const STAGES = [
@@ -543,12 +544,17 @@ function ProgressCard({
   );
 }
 
-const PLAN_DESC =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id et curabitur dolor egestas id";
-
 const PLANS = [
-  { title: "План №1", percent: 55 },
-  { title: "План №2", percent: 55 },
+  {
+    title: "План развития на 2025 год",
+    percent: 62,
+    desc: "Собрать совет и правление, утвердить внутренние регламенты и вывести кооператив на рабочий режим. К концу года — не менее 50 активных пайщиков, настроенный целевой счёт с подсчётами и отвалидированный устав. Ответственный — председатель правления, отчёт по этапам раз в квартал на заседании совета.",
+  },
+  {
+    title: "План запуска совместных закупок",
+    percent: 28,
+    desc: "Наладить оптовую закупку инвентаря и расходных материалов для пайщиков через маршрутный счёт. Нужно подобрать двух-трёх поставщиков, согласовать условия и цены, подготовить типовой договор поставки и провести первую пробную закупку. Экономия для пайщика по расчёту — от 15% против розницы.",
+  },
 ];
 
 /** Таб «План развития» — список планов с прогресс-карточками (Figma 1857:649525). */
@@ -558,7 +564,7 @@ export function PlanPanel() {
       {PLANS.map((p) => (
         <div key={p.title} className="flex flex-col gap-4">
           <span className="ds-p2-medium text-foreground">{p.title}</span>
-          <ProgressCard percent={p.percent} title="Описание" description={PLAN_DESC} action="Подробнее" className="w-full" />
+          <ProgressCard percent={p.percent} title="Описание" description={p.desc} action="Подробнее" className="w-full" />
         </div>
       ))}
     </div>
@@ -566,14 +572,43 @@ export function PlanPanel() {
 }
 
 const EDU_STAGES = ["1-этап", "2-этап", "3-этап", "4-этап"];
-const TASK_DESC = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id";
 const EDU_TASKS = [
-  { title: "Задание №1", percent: 55, action: "Продолжить" },
-  { title: "Задание №2", percent: 0, action: "Начать" },
-  { title: "Задание №3", percent: 0, action: "Начать" },
-  { title: "Задание №4", percent: 0, action: "Начать" },
-  { title: "Задание №5", percent: 0, action: "Начать" },
-  { title: "Задание №6", percent: 0, action: "Начать" },
+  {
+    title: "Устав и структура кооператива",
+    percent: 80,
+    action: "Продолжить",
+    desc: "Разобрать устав по разделам и понять, кто за что отвечает: совет, правление, департаменты.",
+  },
+  {
+    title: "Права и обязанности пайщика",
+    percent: 45,
+    action: "Продолжить",
+    desc: "Что пайщик может требовать от кооператива и что кооператив вправе требовать от него.",
+  },
+  {
+    title: "Как проходят голосования",
+    percent: 0,
+    action: "Начать",
+    desc: "Кворум, консенсус, сроки и токен роли. Разбираем на примере голосования по составу совета.",
+  },
+  {
+    title: "Паевые и целевые взносы",
+    percent: 0,
+    action: "Начать",
+    desc: "Чем паевой взнос отличается от целевого, когда его вносят и на что кооператив вправе его тратить.",
+  },
+  {
+    title: "Работа с документами кооператива",
+    percent: 0,
+    action: "Начать",
+    desc: "Как подать заявление, приложить документы и отследить статус согласования в личном кабинете.",
+  },
+  {
+    title: "Подразделения и их задачи",
+    percent: 0,
+    action: "Начать",
+    desc: "Кто такой валидатор, зачем нужен регулятор и в какое подразделение идти со своим вопросом.",
+  },
 ];
 
 /** Таб «Обучение» — подэтапы, общий прогресс этапа и сетка карточек-заданий (Figma 1857:649528). */
@@ -594,7 +629,7 @@ export function EduPanel() {
       {/* Общий прогресс этапа */}
       <div className="flex flex-col gap-4">
         <span className="ds-p2-medium text-foreground">Общий прогресс {stageNo}-го этапа</span>
-        <ProgressBar percent={10} />
+        <ProgressBar percent={21} />
       </div>
 
       {/* Задания */}
@@ -602,7 +637,7 @@ export function EduPanel() {
         <span className="ds-p2-medium text-foreground">Задания</span>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {EDU_TASKS.map((t) => (
-            <ProgressCard key={t.title} percent={t.percent} title={t.title} description={TASK_DESC} action={t.action} />
+            <ProgressCard key={t.title} percent={t.percent} title={t.title} description={t.desc} action={t.action} />
           ))}
         </div>
       </div>
@@ -872,9 +907,9 @@ export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false
               <Arrow top={arrowTops[2]} />
               {/* Подвопросы (раскрываемые) */}
               <div className="flex w-[260px] shrink-0 flex-col gap-3">
-                <QuestionRow title="Вопрос 1" />
-                <QuestionRow title="Вопрос 2" defaultOpen>{LOREM}</QuestionRow>
-                <QuestionRow title="Вопрос 3" />
+                <QuestionRow title="Кто рассматривает заявление о приёме в пайщики?" />
+                <QuestionRow title="В какой срок принимают решение по заявлению?" defaultOpen>{QUESTION_ANSWER}</QuestionRow>
+                <QuestionRow title="На каком основании пайщика исключают из кооператива?" />
               </div>
             </div>
           </div>

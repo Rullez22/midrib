@@ -317,7 +317,7 @@ export function CoopSidebar({
           type="button"
           disabled={!activityEnabled}
           onClick={activityEnabled ? () => router.push(R.activity) : undefined}
-          className="flex w-full items-center justify-center gap-1 rounded-[4px] bg-surface-sunken px-4 py-1.5"
+          className="flex w-full items-center justify-center gap-1 rounded-[4px] bg-surface-sunken px-4 py-1.5 transition-colors enabled:hover:bg-[color:var(--color-blue-midhub-50)]"
         >
           <CabinetMenuIcon.Activity className={cn("h-[13px] w-4", activityIconColor)} />
           <span className={cn("ds-caption-medium", activityColor)}>Деятельность</span>
@@ -329,7 +329,7 @@ export function CoopSidebar({
               aria-label="Счета"
               onClick={() => router.push(R.accounts)}
               className={cn(
-                "flex flex-1 items-center justify-center rounded-[4px] bg-surface-sunken p-2",
+                "flex flex-1 items-center justify-center rounded-[4px] bg-surface-sunken p-2 transition-colors hover:bg-[color:var(--color-blue-midhub-50)]",
                 // Синяя только на странице счетов; на других экранах — дефолтная.
                 accountsCurrent ? "text-primary" : "text-[var(--color-grey-300)]",
               )}
@@ -354,7 +354,7 @@ export function CoopSidebar({
               aria-label="Вопросы голосования"
               onClick={() => router.push(R.voting)}
               className={cn(
-                "flex flex-1 items-center justify-center rounded-[4px] bg-surface-sunken p-2",
+                "flex flex-1 items-center justify-center rounded-[4px] bg-surface-sunken p-2 transition-colors hover:bg-[color:var(--color-blue-midhub-50)]",
                 // Оранжевый — только когда голосование РЕАЛЬНО запущено: идёт
                 // голосование совета (votingStarted) ИЛИ распределения %
                 // (accountsVoteStarted). Иначе кнопка доступна, но нейтральная —

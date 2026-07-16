@@ -38,7 +38,7 @@ import {
  */
 
 const PAYER = "Кооператив Слоненок";
-const PAYER_DESC = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus.";
+const PAYER_DESC = "Потребительский кооператив: совместные закупки и логистика для пайщиков. В пул-счете Иматры с февраля 2019 года.";
 const PAYER_AVATAR_SRC = "/orgs/romashka.png";
 // Аватар «Слонёнка» — из раздела «Партнёры» (partners-data).
 const PAYER_AVATAR = <img src={PAYER_AVATAR_SRC} alt="" className="size-full object-cover" />;
@@ -115,7 +115,7 @@ export function PaymentStableScreen() {
       <PartnerCard
         title={PAYER}
         avatar={PAYER_AVATAR}
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus."
+        description={PAYER_DESC}
         selectVariant="danger"
         selectLabel="Отменить выбор"
         onSelect={() => setPhase("payer")}
@@ -147,7 +147,7 @@ export function PaymentStableScreen() {
               <PartnerCard
                 title={PAYER}
                 avatar={PAYER_AVATAR}
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus."
+                description={PAYER_DESC}
                 selectLabel="Выбрать пайщика"
                 onSelect={() => setPhase("basis")}
               />

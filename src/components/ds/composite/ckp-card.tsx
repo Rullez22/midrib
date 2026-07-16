@@ -15,7 +15,7 @@ import { EditPencilIcon } from "../edit-pencil-icon";
  *
  * @example
  *   <CKPCard subtitle="Администрация" meta="150 пайщиков"
- *     description="Lorem ipsum…" editable />
+ *     description="Согласованные решения правления и порядок в документах кооператива" editable />
  */
 
 export interface CKPCardProps {

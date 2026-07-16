@@ -33,14 +33,14 @@ const POST_IMG = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w
 const INFO_GROUPS = [
   {
     heading: "Описание",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec.",
+    text: "Председатель правления потребительского кооператива «Иматра». Отвечает за работу правления, договорную работу с партнёрами и распределение целевых взносов между подразделениями. В кооперативе с 2019 года.",
   },
   {
     heading: "Контакты",
     rows: [
       { label: "Местонахождение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
-      { label: "Контактный телефон", value: "+7 (992) 223-22-22" },
-      { label: "E-mail", value: "immatra@immatra.ru" },
+      { label: "Контактный телефон", value: "+7 (812) 401-32-18" },
+      { label: "E-mail", value: "a.antonov@immatra.ru" },
     ],
   },
   {
@@ -50,32 +50,32 @@ const INFO_GROUPS = [
       { label: "Фамилия", value: "Антонов" },
       { label: "Имя", value: "Илья" },
       { label: "Отчество", value: "Андреевич" },
-      { label: "Номер паспорта", value: "45 67 345678" },
+      { label: "Номер паспорта", value: "40 12 574903" },
       { label: "Кем выдан", value: "ТП № 19 Калининского района, г. Санкт-Петербург" },
-      { label: "Дата выдачи", value: "25.12.2005" },
+      { label: "Дата выдачи", value: "14.03.2012" },
     ],
   },
 ];
 
 const ACHIEVEMENTS = [
-  { logo: A2, title: "Google cooperation hackfest - the 1st place", org: "Google corp.", date: "август 2019" },
-  { logo: A3, title: "Apple cooperation hackfest - the 1st place", org: "Apple corp.", date: "август 2018" },
-  { logo: AVATAR, title: "Angelhack cooperation hackfest - the 1st place", org: "AngelList", date: "август 2016" },
+  { logo: A2, title: "Лучший председатель года среди кооперативов СЗФО", org: "Ассоциация кооперативов Северо-Запада", date: "ноябрь 2024" },
+  { logo: A3, title: "Диплом за развитие кооперативного движения", org: "Правительство Санкт-Петербурга", date: "март 2023" },
+  { logo: AVATAR, title: "Благодарность за поддержку детских площадок", org: "Фонд «Дари добро»", date: "июнь 2022" },
 ];
 
 const HISTORY = [
-  { avatar: AVATAR, name: "Антонов Илья Андреевич", period: "август 2019 — настоящее время · 2 года 3 месяца" },
-  { avatar: A2, name: "Ан Дмитрий Шпакович", period: "август 2017 — август 2019 · 2 года" },
-  { avatar: A3, name: "Варламов Илья Варламович", period: "август 2014 — август 2017 · 3 года" },
+  { avatar: AVATAR, name: "Антонов Илья Андреевич", period: "март 2023 — настоящее время · 2 года 9 месяцев" },
+  { avatar: A2, name: "Ан Дмитрий Шпакович", period: "июнь 2022 — март 2023 · 9 месяцев" },
+  { avatar: A3, name: "Варламов Илья Варламович", period: "апрель 2019 — июнь 2022 · 3 года 2 месяца" },
 ];
 
 const REQUIREMENTS = [
-  { name: "Требование 1", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
-  { name: "Требование 2", type: "Домен", badge: { label: "Зеленый", color: "green" as const } },
+  { name: "Подтверждение владения доменом immatra.ru", type: "Домен", badge: { label: "Локальный", color: "orange" as const } },
+  { name: "Делегирование поддомена пайщику", type: "Домен", badge: { label: "Зеленый", color: "green" as const } },
 ];
 
 const POST_TEXT =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A, sed pulvinar scelerisque maecenas volutpat. Ornare in massa, blandit est, venenatis posuere felis, dolor.";
+  "Съездили на площадку во Всеволожске: подрядчик закончил монтаж качелей и горки, осталось уложить покрытие. Приёмку назначили на следующую неделю, акт подпишем сразу после проверки.";
 
 function ClockIcon() {
   return (
@@ -122,8 +122,8 @@ export function ProfileDemos() {
       ) : (
         <div className="flex flex-col gap-4">
           <FeedComposerBar avatar={AVATAR} />
-          <FeedPost title="Departure to the site of installation" date="Август 23, 2019" text={POST_TEXT} media={{ type: "image", src: POST_IMG }} />
-          <FeedPost title="Departure to the site of installation" date="Август 23, 2019" media={{ type: "documents", files: ["Лунная соната", "Дневник №1"] }} />
+          <FeedPost title="Выезд на площадку во Всеволожске" date="12 марта 2025" text={POST_TEXT} media={{ type: "image", src: POST_IMG }} />
+          <FeedPost title="Документы по благоустройству за I квартал" date="28 января 2025" media={{ type: "documents", files: ["Смета на благоустройство территории", "Акт приёмки выполненных работ"] }} />
         </div>
       )}
 
@@ -158,7 +158,7 @@ export function ProfileDemos() {
                   metaIcon={<ClockIcon />}
                   progress={55}
                   title="Описание"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                  description="Освоить работу с реестром пайщиков и порядок сверки реквизитов перед сделкой. По итогам этапа — самостоятельно провести проверку одной заявки от партнёра."
                   action={<Link href="#" size="p3">Подробнее</Link>}
                 />
               </div>
@@ -181,7 +181,7 @@ export function ProfileDemos() {
                   metaIcon={<ClockIcon />}
                   progress={t.progress}
                   title={`Задание №${t.n}`}
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et curabitur dolor egestas id"
+                  description="Разберите порядок проверки документов пайщика и оформите заключение по учебной заявке"
                   action={<Link href="#" size="p3">{t.action}</Link>}
                 />
               ))}

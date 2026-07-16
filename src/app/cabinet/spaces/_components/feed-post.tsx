@@ -7,10 +7,10 @@
  * в «Ленте» пространств и в ленте направления «Машиностроение».
  */
 
-export const LOREM =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat proin posuere sit interdum quam nulla nisl. Blandit vel amet dapibus sit bibendum aliquam nibh.";
-export const LOREM_LONG =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam tellus neque, vulputate a. At leo egestas et pharetra velit non id nec enim. Fermentum pharetra, mauris, lectus ut. Quam vitae a pharetra porttitor porta semper egestas elementum eget. Est iaculis in velit, risus. Dui velit nunc, ut habitant quam convallis proin. Arcu ut consectetur vivamus enim, cursus aliquam convallis.";
+export const FEED_LEAD =
+  "Направление собирает практику пайщиков: разборы проектов, отчеты по участкам и заметки инженеров. Материалы открыты всем участникам уровня и пополняются по мере поступления.";
+export const FEED_BODY =
+  "За последний месяц в направление добавили семь материалов: описание технологического процесса, расчет загрузки участка и короткий разбор ошибок при монтаже. Авторы — пайщики кооператива, которые ведут эти работы каждый день, поэтому в текстах есть конкретика: сроки, узкие места и то, что пришлось переделывать. Обсуждение идет в комментариях к публикации, предложения по доработке выносят на совет направления. Если у вас есть опыт по теме — добавьте свой блок в библиотеку, он попадет в ленту уровня.";
 
 /** Иконка «подписчики» справа в шапке направления. */
 export function FollowersIcon({ className }: { className?: string }) {
@@ -37,7 +37,7 @@ export interface FeedPostProps {
   inner?: string;
 }
 
-export function FeedPost({ avatar, name, count, onNameClick, title, date = "September 08, 2019", cover, inner }: FeedPostProps) {
+export function FeedPost({ avatar, name, count, onNameClick, title, date = "8 сентября 2024", cover, inner }: FeedPostProps) {
   return (
     <div className="flex flex-col gap-4">
       {/* Шапка направления: аватар + имя + счётчик · подписчики. */}
@@ -74,9 +74,9 @@ export function FeedPost({ avatar, name, count, onNameClick, title, date = "Sept
             </div>
             <div className="h-px w-full shrink-0 bg-border" />
             <div className="flex min-h-0 flex-col gap-4">
-              <p className="ds-p2 text-[#5a646f]">{LOREM}</p>
+              <p className="ds-p2 text-[#5a646f]">{FEED_LEAD}</p>
               {inner && <img src={inner} alt="" className="h-[190px] w-full rounded-[6px] object-cover" />}
-              <p className="ds-p2 whitespace-pre-line text-[#5a646f]">{LOREM_LONG}</p>
+              <p className="ds-p2 whitespace-pre-line text-[#5a646f]">{FEED_BODY}</p>
             </div>
           </div>
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#fff] to-transparent" />

@@ -137,7 +137,7 @@ export function AccountDocFlow({
       <div className="flex flex-col gap-2">
         <TableHeader columns={DOC_COLUMNS} size="s" tone="muted" />
         {docs.map((d, i) => (
-          <div key={i} className="flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3">
+          <div key={i} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3 transition-colors">
             <div className="flex flex-col gap-0.5" style={colStyle(DOC_COLUMNS[0])}>
               <span className="ds-caption text-foreground-subtle">{d.type}</span>
               <span className="ds-p3 text-foreground">{d.name}</span>
@@ -186,7 +186,7 @@ export function AccountArtifacts({
       <div className="flex flex-col gap-2">
         <TableHeader columns={ART_COLUMNS} size="s" tone="muted" />
         {artifacts.filter((a) => match(a.state)).map((a, i) => (
-          <div key={i} className="flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
+          <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3 transition-colors">
             <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
               <span className="ds-caption text-foreground-subtle">{a.type}</span>
               <span className="ds-p3 text-foreground">{a.name}</span>

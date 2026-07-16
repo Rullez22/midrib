@@ -270,7 +270,7 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
                       onClick={open}
                       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }}
                       className={cn(
-                        "flex cursor-pointer items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 transition-shadow hover:shadow-sm",
+                        "ds-row flex cursor-pointer items-center gap-2 rounded-[4px] border bg-surface px-6 py-3",
                         c.finalized ? "border-border" : "border-[color:var(--color-orange-400)]",
                       )}
                     >
@@ -282,7 +282,7 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
                       <div className="flex justify-center" style={colStyle(DOC_COLUMNS[2])}>
                         <Badge variant="soft" color={DOC_STATUS_COLOR[status]} className="min-w-[150px] justify-center">{status}</Badge>
                       </div>
-                      <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>11.01.2020</div>
+                      <div className="ds-p3 text-right text-foreground" style={colStyle(DOC_COLUMNS[3])}>22.04.2025</div>
                     </div>
                   );
                 })}
@@ -296,7 +296,7 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
                       onClick={open}
                       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }}
                       className={cn(
-                        "flex cursor-pointer items-center gap-2 rounded-[4px] border bg-surface px-6 py-3 transition-shadow hover:shadow-sm",
+                        "ds-row flex cursor-pointer items-center gap-2 rounded-[4px] border bg-surface px-6 py-3",
                         d.pending ? "border-[color:var(--color-orange-400)]" : "border-border",
                       )}
                     >
@@ -374,8 +374,8 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
             При редактировании цели ваши действия сохраняться в блокчейн, и вы сможете увидеть историю изменений
           </p>
           <div className="flex flex-col gap-2">
-            <ChainRow label="Редактирование цели" hash="5c243af... 07db8" date="11.01.2020 - 16:00" />
-            <ChainRow label="Редактирование цели" hash="5c243af... 07db8" date="10.01.2020 - 11:00" />
+            <ChainRow label="Редактирование цели" hash="5c243af... 07db8" date="19.05.2025 - 16:00" />
+            <ChainRow label="Редактирование цели" hash="5c243af... 07db8" date="11.04.2025 - 11:00" />
           </div>
         </div>
       </Modal>
@@ -409,7 +409,7 @@ export function GoalPublishedScreen({ cabinet, goal }: { cabinet: CabinetConfig;
           <p className="ds-p2 text-center text-foreground-muted">
             При подписании документа ваши действия сохраняться в блокчейн
           </p>
-          <ChainRow label="Закрытие цели" hash="xxxxxxx... xxxxx" date="13.01.2020 - 15:00" />
+          <ChainRow label="Закрытие цели" hash="xxxxxxx... xxxxx" date="03.06.2025 - 15:00" />
         </div>
       </Modal>
     </div>

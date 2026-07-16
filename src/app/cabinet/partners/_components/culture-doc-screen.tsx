@@ -11,7 +11,8 @@ import { type Org, type OrgDoc } from "./partners-data";
 import { AttachedDoc, Field, PublicationForm, ExtIcon, BackIcon, CloseIcon } from "./org-contract-screen";
 
 /**
- * CultureDocScreen — исключение для партнёра «Живу с Культурой», Договор №1:
+ * CultureDocScreen — исключение для партнёра «Живу с Культурой», «Договор на
+ * организацию выставки»:
  * флоу «Оценка и закрытие договора» (Figma 6760-501003 … 501941).
  *   Ожидает участия → (открыт) Оценка: 2 карточки участников со звёздами и
  *   отзывом; «Оставить отзыв» → попап (DS Modal). Как только оставлены 2
@@ -25,15 +26,15 @@ const PARTICIPANTS = [
   { key: "executor", name: "ИП Слоненок", logo: "ИП Слоненок", color: "#242b32", orgId: undefined as string | undefined },
 ];
 const SERVICES =
-  "Услуги: lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna sed do eiusmod tempor";
+  "Участник договора: согласование условий, подписание документов, приёмка работ по этапам и сверка взаиморасчётов по проекту.";
 
 /** Готовые (заранее закрытые) документы под договором — таблица в «Закрыт». */
 const CLOSED_DOCS = [
-  { type: "Акт выполненных работ", name: "Акт выполненных работ №1", amount: "45 000 ₽", status: "Согласован" },
-  { type: "Акт выполненных работ", name: "Акт выполненных работ №2", amount: "45 000 ₽", status: "Согласован" },
-  { type: "Счет на оплату", name: "Счет на оплату №1", amount: "30 000 ₽", status: "Оплачено" },
-  { type: "Счет на оплату", name: "Счет на оплату №2", amount: "30 000 ₽", status: "Оплачено" },
-  { type: "Счет на оплату", name: "Счет на оплату №3", amount: "30 000 ₽", status: "Оплачено" },
+  { type: "Акт выполненных работ", name: "Акт приёмки монтажа выставочных конструкций", amount: "118 600 ₽", status: "Согласован" },
+  { type: "Акт выполненных работ", name: "Акт приёмки оформления экспозиции", amount: "95 400 ₽", status: "Согласован" },
+  { type: "Счет на оплату", name: "Счёт за аренду выставочного зала", amount: "73 200 ₽", status: "Оплачено" },
+  { type: "Счет на оплату", name: "Счёт за печать афиш и каталогов", amount: "84 300 ₽", status: "Оплачено" },
+  { type: "Счет на оплату", name: "Счёт за монтаж освещения экспозиции", amount: "56 500 ₽", status: "Оплачено" },
 ];
 
 function StarInput({ value, onChange }: { value: number; onChange: (n: number) => void }) {
@@ -104,14 +105,14 @@ function ClosedDocsTable() {
           { key: "date", label: "Дата", flex: 1, align: "right" },
         ]} />
         {CLOSED_DOCS.map((d, i) => (
-          <div key={i} className="flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3">
+          <div key={i} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-3">
             <div className="flex flex-[2.4] flex-col gap-0.5">
               <span className="ds-caption text-foreground-subtle">{d.type}</span>
               <span className="ds-p3 text-foreground">{d.name}</span>
             </div>
             <div className="ds-p3 flex-[1.2] text-center text-foreground">{d.amount}</div>
             <div className="flex flex-[1.4] justify-center"><Badge variant="soft" color="green">{d.status}</Badge></div>
-            <div className="ds-p3 flex-1 text-right text-foreground">12.01.2020</div>
+            <div className="ds-p3 flex-1 text-right text-foreground">08.03.2025</div>
           </div>
         ))}
       </div>
@@ -132,10 +133,10 @@ export function CultureDocScreen({ org, doc, cabinet }: { org: Org; doc: OrgDoc;
   const status = cultureClosed ? "Закрыт" : "Оценка";
 
   const tx: TxRow[] = [
-    { action: "Подпись менеджера", party: "Культурой", date: "12.01.2020 - 13:00" },
-    { action: "Подпись валидатора", party: "MIDHUB", date: "12.01.2020 - 12:00" },
-    { action: "Подпись исполнителя", party: "Elephant", date: "12.01.2020 - 11:00" },
-    { action: "Добавление договора", party: "Elephant", date: "12.01.2020 - 11:00" },
+    { action: "Подпись менеджера", party: "Культурой", date: "08.03.2025 - 13:00" },
+    { action: "Подпись валидатора", party: "MIDHUB", date: "08.03.2025 - 12:00" },
+    { action: "Подпись исполнителя", party: "Elephant", date: "08.03.2025 - 11:20" },
+    { action: "Добавление договора", party: "Elephant", date: "08.03.2025 - 11:00" },
   ];
 
   const confirmReview = () => {
@@ -219,7 +220,7 @@ export function CultureDocScreen({ org, doc, cabinet }: { org: Org; doc: OrgDoc;
           )}
 
           <div className="mt-2 flex flex-col gap-5">
-            <h2 className="ds-h5 text-foreground">Процесс исполнения счета на оплату</h2>
+            <h2 className="ds-h5 text-foreground">Процесс исполнения договора</h2>
           </div>
         </div>
       </main>
@@ -238,7 +239,7 @@ export function CultureDocScreen({ org, doc, cabinet }: { org: Org; doc: OrgDoc;
             <span className="ds-caption text-foreground-subtle">Оставление отзыва</span>
             <span className="ds-p3-medium flex items-center gap-1.5 text-primary">🐘 Elephant</span>
             <Link href="#" size="p3">xxxxxxx… xxxxx</Link>
-            <span className="ds-p3 text-foreground-subtle">12.01.2020 - 15:00</span>
+            <span className="ds-p3 text-foreground-subtle">08.03.2025 - 15:00</span>
           </div>
         </div>
       </Modal>

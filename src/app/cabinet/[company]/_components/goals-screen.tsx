@@ -19,11 +19,16 @@ import { useRegFlow } from "../../../flow/company-create/_components/reg-flow";
  */
 
 
-const FILTERS: { key: GoalCategory; label: string }[] = [
-  { key: "raising", label: "Сбор средств (2)" },
-  { key: "collected", label: "Средства собраны (3)" },
-  { key: "closed", label: "Закрытые цели (2)" },
+/** Счётчик берётся из GOALS, иначе подпись фильтра разъезжается с данными. */
+const FILTER_TITLES: { key: GoalCategory; title: string }[] = [
+  { key: "raising", title: "Сбор средств" },
+  { key: "collected", title: "Средства собраны" },
+  { key: "closed", title: "Закрытые цели" },
 ];
+const FILTERS: { key: GoalCategory; label: string }[] = FILTER_TITLES.map(({ key, title }) => ({
+  key,
+  label: `${title} (${GOALS.filter((g) => g.category === key).length})`,
+}));
 
 /* ── Иконки ─────────────────────────────────────────────────────────────── */
 function CalendarIcon({ className }: { className?: string }) {
@@ -75,7 +80,7 @@ function GoalCard({ g, href, onEdit, pending }: { g: Goal; href: string; onEdit:
     <Link
       href={href}
       className={cn(
-        "block overflow-hidden rounded-[8px] border bg-[#fff] transition-shadow hover:shadow-[0_2px_10px_rgba(16,42,67,0.08)]",
+        "ds-row block overflow-hidden rounded-[8px] border bg-[#fff]",
         bannerCount > 0 ? "border-[color:var(--color-orange-400)]" : "border-border",
       )}
     >

@@ -17,7 +17,7 @@ import { Button } from "../button";
  * @example
  *   <PartnerCard
  *     title="Кооператив Слонёнок"
- *     description="Lorem ipsum dolor sit amet…"
+ *     description="Совместные закупки и логистика для пайщиков…"
  *     onSelect={fn} onDetails={fn}
  *   />
  */

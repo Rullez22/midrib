@@ -52,11 +52,11 @@ type ProcDoc = {
 };
 
 const DOCS: ProcDoc[] = [
-  { status: "yellow", number: "№ 123", name: "Паспорт РФ", tx: "0x0317f1ab4… 11ab4d", date: "12.01.2020 - 15:00" },
-  { status: "yellow", number: "№ 124", name: "Свидетельство о рождении", tx: "0x0317f1ab4… 11ab4d", date: "12.01.2020 - 15:00" },
-  { status: "green", number: "№ 1222", name: "Водительское удостоверение", tx: "0x0317f1ab4… 11ab4d", date: "12.01.2020 - 15:00" },
-  { status: "blue", number: "№ 1234", name: "Счет на оплату НВО", tx: "0x0317f1ab4… 11ab4d", date: "12.01.2020 - 15:00" },
-  { status: "blue", number: "№ 727", name: "Лицензия", tx: "0x0317f1ab4… 11ab4d", date: "12.01.2020 - 15:00" },
+  { status: "yellow", number: "№ 123", name: "Паспорт РФ", tx: "0x0317f1ab4… 11ab4d", date: "03.06.2025 - 15:00" },
+  { status: "yellow", number: "№ 124", name: "Свидетельство о рождении", tx: "0x0317f1ab4… 11ab4d", date: "19.05.2025 - 12:40" },
+  { status: "green", number: "№ 1222", name: "Водительское удостоверение", tx: "0x0317f1ab4… 11ab4d", date: "22.04.2025 - 09:15" },
+  { status: "blue", number: "№ 1234", name: "Счет на оплату НВО", tx: "0x0317f1ab4… 11ab4d", date: "08.03.2025 - 17:05" },
+  { status: "blue", number: "№ 727", name: "Лицензия", tx: "0x0317f1ab4… 11ab4d", date: "14.02.2025 - 11:30" },
 ];
 
 const COLUMNS: TableColumn[] = [
@@ -66,10 +66,12 @@ const COLUMNS: TableColumn[] = [
 ];
 
 // Транзакции в блокчейне у обработанного документа (деталь, 6722-377772).
+// Порядок — от свежих к старым: отправка (11:10) → подпись валидатора (14:35) →
+// подпись создателя (16:20).
 const DETAIL_TX: TxRow[] = [
-  { action: "Подпись создателя документа", party: 'ООО "Сапфир"', date: "11.01.2020 - 16:00" },
-  { action: "Подпись валидатора", party: 'ООО "Слон"', date: "11.01.2020 - 15:00" },
-  { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "11.01.2020 - 11:00" },
+  { action: "Подпись создателя документа", party: 'ООО "Сапфир"', date: "02.06.2025 - 16:20" },
+  { action: "Подпись валидатора", party: 'ООО "Слон"', date: "02.06.2025 - 14:35" },
+  { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "02.06.2025 - 11:10" },
 ];
 
 const MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
@@ -80,16 +82,16 @@ const fmt = (d: Date) => `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear
 export function ProcessedDocDetail({ name, onClose }: { name: string; onClose: () => void }) {
   const fields: DefRow[] = [
     { label: "Тип верификации", value: <VerificationBadge label="Международный" color={VERIFY_ORANGE} /> },
-    { label: "Документ", value: "kwebrw" },
-    { label: "Фамилия", value: "Иванов" },
-    { label: "Имя", value: "Иван" },
-    { label: "Отчество", value: "Петрович" },
-    { label: "Дата рождения", value: "12.01.1991" },
+    { label: "Документ", value: "pas1043" },
+    { label: "Фамилия", value: "Никитин" },
+    { label: "Имя", value: "Пётр" },
+    { label: "Отчество", value: "Романович" },
+    { label: "Дата рождения", value: "07.09.1986" },
     { label: "Пол", value: "Мужской" },
-    { label: "Номер документа", value: "1234 567890" },
+    { label: "Номер документа", value: "4012 673518" },
     { label: "Орган выдавший документ", value: "78 ОМ Невского района Санкт-Петербурга" },
     { label: "Код подразделения", value: "0120033" },
-    { label: "Дата выдачи", value: "12.04.2002" },
+    { label: "Дата выдачи", value: "19.03.2007" },
     { label: "Прикрепленные документы", value: <DocThumb /> },
   ];
   return (
@@ -123,8 +125,8 @@ export function ValidatorProcessedScreen({ cabinet, current }: { cabinet: Cabine
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [calOpen, setCalOpen] = useState(false);
   const [range, setRange] = useState<CalendarRange>({
-    start: new Date(2019, 11, 15),
-    end: new Date(2019, 11, 22),
+    start: new Date(2025, 0, 1),
+    end: new Date(2025, 5, 30),
   });
   const [openedDoc, setOpenedDoc] = useState<ProcDoc | null>(null);
 
@@ -201,7 +203,7 @@ export function ValidatorProcessedScreen({ cabinet, current }: { cabinet: Cabine
                   onClick={() => setOpenedDoc(d)}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setOpenedDoc(d); }}
                 >
-                  <DocumentRow status={d.status} number={d.number} name={d.name} transaction={d.tx} date={d.date} className="transition-colors hover:bg-[color:var(--color-grey-10)]" />
+                  <DocumentRow status={d.status} number={d.number} name={d.name} transaction={d.tx} date={d.date} className="ds-row transition-colors" />
                 </div>
               ))}
             </div>

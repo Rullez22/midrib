@@ -62,17 +62,9 @@ const PH = {
   branderburg: `${P}photo-1492562080023-ab3db95bfbce?w=200&q=80`,
 };
 
-const LOREM =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam ac nec sit sit massa quam. Eleifend sed massa duis magna lacus ut neque faucibus viverra. At nec morbi nisi.";
-
-const VEST = "Vestibulum justo sollicitudin vitae sum dolor sit amet";
-const VEST_LONG = "Vestibulum justo sollicitudin vitae sum dolor sit amet ipsum dolor sit ame";
-
-const CKP_DESC =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim plerisque tem.";
-
-/** Каскад одинаков у кабинетов 2–7 (текст лорема, активные позиции). Акцент-цвет
- * подставляется автоматически по цвету рейки кабинета (ACCENT). Также
+/** Каскад одинаков у кабинетов 2–7 (общая оргструктура кооператива, активные
+ * позиции). Функции и вопросы относятся к выделенной «Секции счетов и сборов».
+ * Акцент-цвет подставляется автоматически по цвету рейки кабинета (ACCENT). Также
  * переиспользуется в ЛК «Деятельность → Структура» (тот же каскад, красный акцент). */
 export const CASCADE_SHARED: CascadeData = {
   depts: [
@@ -87,17 +79,21 @@ export const CASCADE_SHARED: CascadeData = {
   ],
   funcs: {
     items: [
-      { text: VEST, role: "Петров А. А. - Член совета" },
-      { text: VEST, role: "Петров А. А. - Член совета" },
-      { text: VEST_LONG, role: "Петров А. А. - Член совета" },
-      { text: VEST, role: "Не назначено" },
+      { text: "Приём паевых взносов и разнесение платежей по лицевым счетам пайщиков", role: "Козлова А. В. - Член совета" },
+      { text: "Ежемесячная сверка поступлений с банковской выпиской", role: "Михайлов Д. С. - Член совета" },
+      { text: "Расчёт и рассылка счетов на членские и целевые взносы, контроль сроков оплаты и напоминания должникам", role: "Новикова Е. П. - Помощник пред. совета" },
+      { text: "Подготовка справок о состоянии лицевого счёта по запросу пайщика", role: "Не назначено" },
     ],
     activeIdx: 1,
   },
   questions: [
-    { title: "Lorem ipsum dolor sit amet, consectetur" },
-    { title: "Lorem ipsum", body: LOREM, open: true },
-    { title: "Lorem ipsum dolor sit amet, consectetur" },
+    { title: "Как оформить возврат паевого взноса пайщику, который вышел из кооператива?" },
+    {
+      title: "Что делать, если платёж пришёл без назначения?",
+      body: "Такие поступления мы держим на невыясненных до конца рабочего дня. Секция сверяет сумму и дату с выпиской, находит пайщика по номеру карты или телефону и просит подтвердить назначение письмом в чате. Если за три дня плательщик не найден — платёж возвращается на счёт отправителя, а по факту возврата составляется служебная записка.",
+      open: true,
+    },
+    { title: "Кто согласовывает списание дебиторской задолженности?" },
   ],
 };
 
@@ -114,9 +110,9 @@ const COLLECTIVE_SHARED: CollectiveMember[] = [
 
 export const CABINET_ACTIVITY: Record<string, CabinetActivityData> = {
   validator: {
-    membersLabel: "20 пайщиков",
+    membersLabel: "18 пайщиков",
     ckpDesc:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat euismod. Vel sed non gravida pharetra semper. Enim plerisque tem.",
+      "Проверенная заявка пайщика: документ сверен с реестром, реквизиты и срок действия подтверждены, заявитель получил статус «отвалидирован» и доступ к сервисам кооператива. Подразделение отвечает за то, чтобы ни один документ с ошибкой в данных не ушёл дальше по цепочке, и за срок обработки — не больше двух рабочих дней с момента поступления заявки.",
     collective: [
       { name: "Степан А. А.", role: "Председатель правления", photo: PH.stepan, status: "active" },
       { name: "Ганиш Г. И.", role: "Помощник пред.", photo: PH.ganish, status: "active" },
@@ -139,23 +135,28 @@ export const CABINET_ACTIVITY: Record<string, CabinetActivityData> = {
       ],
       funcs: {
         items: [
-          { text: VEST, role: "Петров А. А. - Член совета" },
-          { text: VEST, role: "Петров А. А. - Член совета" },
-          { text: VEST, role: "Петров А. А. - Член совета" },
+          { text: "Начисление членских взносов и выставление счетов пайщикам подразделения", role: "Соколов М. А. - Член совета" },
+          { text: "Контроль оплаты сборов за верификацию и закрытие периода", role: "Кузнецова О. И. - Член совета" },
+          { text: "Учёт вознаграждений валидаторов и передача данных в бухгалтерию", role: "Морозов В. Н. - Член совета" },
         ],
         activeIdx: 1,
       },
       questions: [
-        { title: "Lorem ipsum dolor sit amet, consectetur" },
-        { title: "Lorem ipsum", body: LOREM, open: true },
-        { title: "Lorem ipsum dolor sit amet, consectetur" },
+        { title: "По какому тарифу считается сбор за международную верификацию?" },
+        {
+          title: "Пайщик оплатил заявку дважды — как вернуть переплату?",
+          body: "Переплата не сгорает: секция видит её на лицевом счёте пайщика. По умолчанию сумма остаётся авансом и зачитывается в следующую заявку. Если пайщик хочет вернуть деньги, он пишет заявление в чат подразделения, секция сверяет обе транзакции с выпиской и в течение пяти рабочих дней возвращает сумму на счёт, с которого пришёл платёж.",
+          open: true,
+        },
+        { title: "Когда закрывается период по сборам и что делать с поздними платежами?" },
       ],
     },
   },
 
   web: {
-    membersLabel: "20 пайщиков",
-    ckpDesc: CKP_DESC,
+    membersLabel: "12 пайщиков",
+    ckpDesc:
+      "Работающий сайт кооператива и личные кабинеты, в которых пайщик сам решает свои вопросы: подаёт заявку, смотрит счета и историю операций. Подразделение отвечает за доступность сервиса, за то, чтобы регистрация нового участника проходила без обращения в поддержку, и за скорость страниц на мобильных устройствах.",
     collective: [
       { name: "Степан А. А.", role: "Председатель правления", photo: PH.stepan, status: "active" },
       { name: "Цукерберг Г. И.", role: "Помощник пред.", photo: PH.tsukerberg, status: "active" },
@@ -169,37 +170,42 @@ export const CABINET_ACTIVITY: Record<string, CabinetActivityData> = {
   },
 
   domains: {
-    membersLabel: "20 пайщиков",
-    ckpDesc: CKP_DESC,
+    membersLabel: "9 пайщиков",
+    ckpDesc:
+      "Домены и реестры кооператива под контролем: имена продлены вовремя, записи в реестрах актуальны, а пайщик получает делегированный поддомен в день обращения. Подразделение ведёт дерево доменов по странам и категориям, следит за шаблонами документов внутри реестров и не допускает потери домена из-за просроченной оплаты.",
     collective: COLLECTIVE_SHARED,
     cascade: CASCADE_SHARED,
   },
 
   executor: {
-    membersLabel: "20 пайщиков",
-    ckpDesc: CKP_DESC,
+    membersLabel: "24 пайщика",
+    ckpDesc:
+      "Закрытая сделка с партнёром: договор согласован, работы приняты, закрывающие документы подписаны обеими сторонами и лежат в документообороте. Подразделение ведёт партнёра от первого обращения до акта, следит за сроками оплаты и за тем, чтобы у каждой сделки было основание и понятная сумма.",
     collective: COLLECTIVE_SHARED,
     cascade: CASCADE_SHARED,
   },
 
   regulator: {
-    membersLabel: "20 пайщиков",
-    ckpDesc: CKP_DESC,
+    membersLabel: "14 пайщиков",
+    ckpDesc:
+      "Понятные правила и рабочие сервисы для пайщиков: регламенты актуальны, справка выдаётся по запросу из личного кабинета, а спорные ситуации решаются по описанной процедуре, а не в переписке. Подразделение отвечает за то, чтобы внутренние документы не противоречили друг другу и уставу кооператива.",
     collective: COLLECTIVE_SHARED,
     cascade: CASCADE_SHARED,
   },
 
   vuz: {
-    membersLabel: "20 пайщиков",
-    ckpDesc: CKP_DESC,
+    membersLabel: "11 пайщиков",
+    ckpDesc:
+      "Выпускник с подтверждённой квалификацией: программа пройдена, итоговая работа зачтена, диплом выдан и записан в блокчейн, а работодатель может проверить его подлинность за минуту. Подразделение ведёт направления обучения, обновляет программы вместе с партнёрами и отвечает за качество выдаваемых документов.",
     collective: COLLECTIVE_SHARED,
     cascade: CASCADE_SHARED,
   },
 
   // Подразделение 8 «Фонд» — копия активности «Исполнителя» (5).
   fond: {
-    membersLabel: "20 пайщиков",
-    ckpDesc: CKP_DESC,
+    membersLabel: "12 пайщиков",
+    ckpDesc:
+      "Закрытая цель и помощь, дошедшая до адресата: средства собраны, потрачены по назначению и подтверждены документами, а жертвователь видит отчёт по каждому рублю. Подразделение проверяет основания заявок, ведёт целевые сборы и публикует процесс исполнения, чтобы помощь была видимой и проверяемой.",
     collective: COLLECTIVE_SHARED,
     cascade: CASCADE_SHARED,
   },

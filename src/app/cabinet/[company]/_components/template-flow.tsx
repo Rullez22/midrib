@@ -470,7 +470,7 @@ function RequirementPicker({ onCancel, onPick, onClose }: { onCancel: () => void
         {REQ_POOL.map((r) => {
           const o = open[r.id] ?? false;
           return (
-            <div key={r.id} className="overflow-hidden rounded-[4px] border border-border bg-surface">
+            <div key={r.id} className="ds-row overflow-hidden rounded-[4px] border border-border bg-surface">
               {/* Вся строка кликабельна для раскрытия; чекбокс — отдельно */}
               <div
                 role="button"

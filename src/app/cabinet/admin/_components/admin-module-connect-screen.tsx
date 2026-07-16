@@ -18,13 +18,13 @@ import { AdminSidebar } from "./admin-sidebar";
  */
 
 const OKVED = [
-  "81.22 - Деятельность по чистке и уборке жилых зданий и нежилых помещений прочая;",
-  "81.29.1 - Дезинфекция, дезинсекция, дератизация зданий, промышленного оборудования;",
-  "64.19 - Денежное посредничество прочее",
+  "64.19 - Денежное посредничество прочее;",
+  "66.19 - Деятельность вспомогательная прочая в сфере финансовых услуг, кроме страхования и пенсионного обеспечения;",
+  "62.09 - Деятельность, связанная с использованием вычислительной техники и информационных технологий, прочая",
 ];
 
 const COMPANY_DESC =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea nunc diam augue viverra facilisis nullam amet, tristique. Augue laoreet diam et, proin. Viverra nec gravida fames scelerisque. Faucibus arcu et eu sodales dolor sed pellentesque. Nisi, cursus faucibus pellentesque purus mattis cras. Nec at eu sed pellentesque cursus consectetur. Commodo pretium ultrices nullam consectetur venenatis id accumsan duis. Ut arcu nec turpis aliquam semper massa. Consequat amet, luctus erat lobortis libero, adipiscing quis dui. Urna, aliquet cursus aliquam dictum rhoncus blandit malesuada velit. Eget aliquet tortor purus vel egestas non at nibh. Ut et, quis semper donec. Pellentesque nam elit orci sed est est tempus. Elementum amet massa amet at sed.tortor purus vel egestas non at nibh. Ut et, quis semper donec. Pellentesque nam elit orci sed est est tempus. Elementum amet massa amet at sed.";
+  "Bank Tatra — расчётный банк для кооперативов и их подразделений. Модуль открывает маршрутный счёт под каждое подразделение, принимает паевые, вступительные и целевые взносы, формирует платёжные поручения и выписки по каждому договору. Все операции привязаны к решениям правления: платёж не уходит, пока по нему нет согласованного документа и завершённого голосования. Пайщикам доступны лицевой счёт, история взаиморасчётов и выгрузка справок для налоговой. Комиссия за операцию — 0.01 ETH, тарификация помесячная, минимального остатка на счёте нет. Подключение занимает до пяти рабочих дней: после согласования устава банк выдаёт доступы председателю подразделения и настраивает обмен с реестром пайщиков. Поддержка работает по будням с 9:00 до 20:00.";
 
 const ACTIONS = [
   { value: "subdivision", label: "Создать подразделение" },
@@ -148,8 +148,8 @@ function RequirementsBlock({ withForm = false }: { withForm?: boolean }) {
         <span className="ds-p3 text-foreground">Требования для подключения к данному подразделению</span>
         <GearIcon />
       </div>
-      <ReqRow label="Для подключения модуля" date="01.06.2020" />
-      {withForm && <ReqRow label="Форма регистрации для граждан России, Болгарии" date="01.06.2020" />}
+      <ReqRow label="Для подключения модуля" date="11.04.2025" />
+      {withForm && <ReqRow label="Форма регистрации для граждан России, Болгарии" date="22.04.2025" />}
     </div>
   );
 }
@@ -386,8 +386,8 @@ export function AdminModuleConnectScreen() {
               <div className="flex flex-col">
                 <RequirementsBlock withForm={agreement} />
                 <GroupHeading>Контакты</GroupHeading>
-                <Row label="E-mail" value={emails[0] || "tatra@immatra.ru"} />
-                <Row label="Телефон" value={phones[0] || "+7 (992) 223-22-22"} />
+                <Row label="E-mail" value={emails[0] || "office@bank.tatra.ru"} />
+                <Row label="Телефон" value={phones[0] || "+7 (812) 449-27-60"} />
                 <GroupHeading>Направление</GroupHeading>
                 <Row label="Название" value="Идеологическое направление" />
                 <GroupHeading>Устав</GroupHeading>
@@ -426,7 +426,7 @@ export function AdminModuleConnectScreen() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <ReqRow label="Форма регистрации для граждан России, Болгарии" date="12.01.2020" />
+                <ReqRow label="Форма регистрации для граждан России, Болгарии" date="19.05.2025" />
                 <button type="button" className="inline-flex items-center gap-1 self-start text-primary">
                   <PlusIcon />
                   <span className="ds-p3-medium">Добавить пользовательское соглашение</span>
@@ -445,13 +445,13 @@ export function AdminModuleConnectScreen() {
                   title="Председатель подразделения"
                   groups={[{
                     rows: [
-                      { label: "Адрес", value: "0xca30e63200a0fe3182dc61fc5605efc41456f32" },
-                      { label: "Фамилия", value: "Гаврилов" },
-                      { label: "Имя", value: "Илья" },
-                      { label: "Отчество", value: "Васильевич" },
-                      { label: "Номер паспорта", value: "45 67 345678" },
-                      { label: "Кем выдан", value: "ТП № 19 Калининского района, г. Санкт-Петербург" },
-                      { label: "Дата выдачи", value: "25.12.2005" },
+                      { label: "Адрес", value: "0x7b41d9e5c8f2a06b3ee19c74d5083af26cb1907e" },
+                      { label: "Фамилия", value: "Никитин" },
+                      { label: "Имя", value: "Павел" },
+                      { label: "Отчество", value: "Романович" },
+                      { label: "Номер паспорта", value: "40 12 673109" },
+                      { label: "Кем выдан", value: "ТП № 42 Выборгского района, г. Санкт-Петербург" },
+                      { label: "Дата выдачи", value: "18.09.2011" },
                     ],
                   }]}
                 />

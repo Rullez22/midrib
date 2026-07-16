@@ -87,7 +87,7 @@ function PeersTable() {
           <span className="ds-caption-medium flex-1 text-foreground-subtle">Дата заявки</span>
         </div>
         {COOP_PEERS.filter((n) => n.toLowerCase().includes(q.toLowerCase())).map((name, i) => (
-          <div key={`${name}-${i}`} className="flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-4">
+          <div key={`${name}-${i}`} className="ds-row flex items-center gap-2 rounded-[4px] border border-border bg-surface px-6 py-4">
             <span className="ds-p3 flex-[2] text-foreground">{name}</span>
             <span className="flex flex-[2]"><Link href="#" size="p3">5c243af... 07db8</Link></span>
             <span className="ds-p3 flex-1 text-foreground">ENG</span>
@@ -149,7 +149,7 @@ function StructureView({ initialFocus = "administration" }: { initialFocus?: str
                     <ProfileCard
                       color={s.color}
                       title={s.name}
-                      person="Петров А. А."
+                      person={s.head}
                       items={s.items}
                       active={isSel}
                       activeBg={ca.bg}

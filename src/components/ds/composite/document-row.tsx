@@ -17,7 +17,7 @@ import { Link } from "../link";
  *
  * @example
  *   <DocumentRow status="yellow" number="№123" name="Полный устав кооператива"
- *     transaction="eg33... k4k4" date="12.01.2020 - 15:00" />
+ *     transaction="eg33... k4k4" date="24.04.2025 - 15:00" />
  */
 
 export type DocumentStatus = "yellow" | "green" | "blue";
@@ -34,7 +34,7 @@ export interface DocumentRowProps {
   /** Ссылка транзакции. По умолчанию «#». */
   transactionHref?: string;
   onTransactionClick?: () => void;
-  /** Дата обработки (например «12.01.2020 - 15:00»). */
+  /** Дата обработки (например «24.04.2025 - 15:00»). */
   date: ReactNode;
   className?: string;
 }

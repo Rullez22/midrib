@@ -13,8 +13,9 @@ import { useRegFlow, COUNTRIES, COUNTRY_LANG, PRIORITY_TO_COL, BASES } from "./r
  * Страна переключается локально; клик по локализации основания → `onBasisClick`.
  */
 
-/** Лорем-описание основания по умолчанию (если в RegFlow нет своего). */
-const DEFAULT_DESC = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas amet ultrices faucibus non.";
+/** Описание основания по умолчанию (если в RegFlow нет своего). */
+const DEFAULT_DESC =
+  "Кооператив запрашивает персональные данные, чтобы принять заявление о вступлении, проверить личность заявителя и вести реестр пайщиков. Данные обрабатываются только для этих целей и не передаются третьим лицам без отдельного согласия.";
 
 /** Документы стран по умолчанию (Figma 398342 / 398404). */
 const DEFAULT_DOCS: Record<string, string[]> = {
@@ -73,7 +74,7 @@ export function RegFormView({ onBasisClick }: { onBasisClick?: (basis: string, l
   const firstCode = countries[0]?.code;
   const firstTitles = Object.keys(flow.bases[firstCode ?? ""] ?? {});
   const basisTitles = firstTitles.length > 0 ? firstTitles : ["Согласие"];
-  const defaultLoc = { language: currentCode ?? "ru", description: DEFAULT_DESC, isDefault: true, date: "01.06.2020" };
+  const defaultLoc = { language: currentCode ?? "ru", description: DEFAULT_DESC, isDefault: true, date: "22.04.2025" };
 
   const columnBases = basisTitles.map((basisTitle) => {
     const locs = flow.bases[currentCode ?? ""]?.[basisTitle] ?? [defaultLoc];
@@ -95,7 +96,7 @@ export function RegFormView({ onBasisClick }: { onBasisClick?: (basis: string, l
                 flow.setActiveLoc(i);
                 onBasisClick?.(basisTitle, i);
               }}
-              className="flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors hover:bg-[var(--color-grey-10)]"
+              className="ds-row flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors"
             >
               <span className="ds-p3 inline-flex items-center gap-2 text-foreground">
                 <Flag code={loc.language} width={18} />

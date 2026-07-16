@@ -48,9 +48,9 @@ function ArrowIcon({ up = false }: { up?: boolean }) {
 
 /** Подсчёта целевого счёта (Figma 1768:270396…270399). */
 const SUBACCOUNTS = [
-  { pct: 10, name: "Счет инвестиционных токенов", amount: "100 000 PAEV" },
-  { pct: 10, name: "Счет управляющих токенов", amount: "100 000 PAEV" },
-  { pct: 10, name: "Маршрутный счет", amount: "100 000 PAEV" },
+  { pct: 10, name: "Счет инвестиционных токенов", amount: "120 000 PAEV" },
+  { pct: 10, name: "Счет управляющих токенов", amount: "85 000 PAEV" },
+  { pct: 10, name: "Маршрутный счет", amount: "34 500 PAEV" },
   { pct: 40, name: "Маркетинговый счет", amount: "" },
 ];
 
@@ -70,9 +70,9 @@ const ART_COLUMNS: TableColumn[] = [
 /** Состояние делегирования артефакта: share=доступен · lock=фиксирован · person=передан. */
 type ArtState = "share" | "lock" | "person";
 const ARTIFACTS: { type: string; name: string; date: string; state: ArtState }[] = [
-  { type: "Документ", name: "Документ в свободной форме", date: "09.01.2020", state: "share" },
-  { type: "Документ", name: "Сочинение на тему: «Как я провел Лето»", date: "09.01.2020", state: "lock" },
-  { type: "Патент", name: "Изобретение плазменного реактора", date: "09.01.2020", state: "person" },
+  { type: "Документ", name: "Протокол заседания правления №47", date: "28.01.2025", state: "share" },
+  { type: "Документ", name: "Отчет о целевом расходовании средств", date: "06.12.2024", state: "lock" },
+  { type: "Патент", name: "Способ переработки древесных отходов", date: "24.08.2023", state: "person" },
 ];
 
 const ART_FILTERS = [
@@ -149,16 +149,16 @@ function TableToolbar({ placeholder, addLabel, onAdd }: { placeholder: string; a
 
 /** Адреса пула маркетингового счёта (Figma «транзакции-маркетинговый счёт» 2642:356140). */
 const POOL_ADDRESSES: Transaction[] = [
-  { code: "214", color: "cyan", share: "4", hash: "5c243af…07db8", time: "29 секунд назад", from: "Кооператив Immatra", to: "ООО «Петрушка»", document: "Договор", documentSub: "Подключение к пул-счету", amount: "0.229937", commission: "0.0022" },
+  { code: "214", color: "cyan", share: "4", hash: "5c243af…07db8", time: "12 минут назад", from: "Кооператив Immatra", to: "Кооператив «Слоненок»", document: "Договор", documentSub: "Подключение к пул-счету", amount: "0.229937", commission: "0.0022" },
 ];
 
 /** Транзакции целевого счёта (Figma «транзакции-лк» 2645:356986). */
 const TRANSACTIONS: Transaction[] = [
-  { code: "214", color: "cyan", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Счет на оплату", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
-  { code: "214", color: "cyan", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Счет на оплату", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
-  { code: "214", color: "cyan", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Счет на оплату", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
-  { code: "216", color: "purple", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Взносы и целевые поступления", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
-  { code: "215", color: "green", hash: "5c243af…07db8", time: "29 секунд назад", from: "ООО «Ромашка»", to: "ООО «Петрушка»", document: "Поступления с маршрутных счетов", documentSub: "Закупка площадок", amount: "0.229937", commission: "0.0022" },
+  { code: "214", color: "cyan", hash: "3e91c47…a25f0", time: "3 минуты назад", from: "Кооператив Immatra", to: "ИП Салютов Р. К.", document: "Счет на оплату", documentSub: "Закупка игрового оборудования", amount: "0.229937", commission: "0.0022" },
+  { code: "214", color: "cyan", hash: "c62d8b1…740ae", time: "17 минут назад", from: "Кооператив Immatra", to: "Кооператив «Гвозди и доски»", document: "Счет на оплату", documentSub: "Пиломатериалы для площадки", amount: "0.104512", commission: "0.0018" },
+  { code: "214", color: "cyan", hash: "8af03e5…16bc9", time: "2 часа назад", from: "Кооператив Immatra", to: "ООО «Петрушка»", document: "Счет на оплату", documentSub: "Консультационные услуги", amount: "0.041280", commission: "0.0009" },
+  { code: "216", color: "purple", hash: "d17b9a2…5e3f8", time: "вчера", from: "Кооператив «Слоненок»", to: "Кооператив Immatra", document: "Взносы и целевые поступления", documentSub: "Паевой взнос за II квартал", amount: "0.512400", commission: "0.0031" },
+  { code: "215", color: "green", hash: "6b48fc0…920d1", time: "5 дней назад", from: "Маршрутный счет", to: "Целевой счет", document: "Поступления с маршрутных счетов", documentSub: "Распределение поступлений", amount: "0.187650", commission: "0.0014" },
 ];
 
 export interface CabinetScreenProps {
@@ -278,7 +278,7 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
             {/* Взаиморасчёты (кабинеты): период + тело отчёта (готовые композиты) */}
             {cabinetMode && subTab === "recon" && (
               <div className="flex flex-col gap-6">
-                <ReportPeriodBar period="15 декабря 2019 - 22 декабря 2019" periodLabel="Период отчета:" historyLabel="История отчетов" onPickPeriod={() => {}} />
+                <ReportPeriodBar period="1 апреля 2025 - 30 апреля 2025" periodLabel="Период отчета:" historyLabel="История отчетов" onPickPeriod={() => {}} />
                 <ReportBody />
               </div>
             )}
@@ -294,7 +294,7 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
                 {SUBACCOUNTS.map((s, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4 transition-colors hover:border-[color:var(--color-grey-200)] hover:bg-[color:var(--color-grey-10)]"
+                    className="ds-row flex items-center gap-4 rounded-[4px] border border-border bg-surface px-6 py-4 transition-colors"
                   >
                     <span className="ds-h4 shrink-0 text-primary">{s.pct} %</span>
                     <span className="ds-p3 flex-1 text-foreground">{s.name}</span>
@@ -359,7 +359,7 @@ export function CabinetScreen({ title = "Целевой счет", onBack, pool 
                 <div className="flex flex-col gap-2">
                   <TableHeader columns={ART_COLUMNS} size="s" tone="muted" />
                   {ARTIFACTS.filter((a) => artMatch(a.state)).map((a, i) => (
-                    <div key={i} className="flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
+                    <div key={i} className="ds-row flex items-center rounded-[4px] border border-border bg-surface px-4 py-3">
                       <div className="flex flex-col gap-0.5 pr-3" style={colStyle(ART_COLUMNS[0])}>
                         <span className="ds-caption text-foreground-subtle">{a.type}</span>
                         <span className="ds-p3 text-foreground">{a.name}</span>

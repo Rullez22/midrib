@@ -31,9 +31,9 @@ type Avail = "available" | "unavailable";
 const ORGS = [
   { id: "midhub", name: "MIDHUB", org: 'ООО "Мирхаб"', count: "99+" },
   { id: "ruswan", name: "RUSWAN", org: 'ООО "Ruswan"', count: "20" },
-  { id: "mrmark", name: "MR.MARK", org: 'ООО "Mr.Mark"', count: "20" },
+  { id: "mrmark", name: "MR.MARK", org: 'ООО "Mr.Mark"', count: "14" },
   { id: "waves", name: "WAVES", org: 'ООО "Waves"', count: "" },
-  { id: "wwf", name: "WWF", org: 'ООО "WWF"', count: "20" },
+  { id: "wwf", name: "WWF", org: 'ООО "WWF"', count: "6" },
 ];
 
 const CATEGORIES: Record<Avail, { id: string; label: string; count: number }[]> = {
@@ -309,7 +309,7 @@ function DomainCard() {
     { label: "Тип организации", value: "Кооператив" },
     { label: "ID компании", value: "0xca30e63200a0fe3182dc61fc5605efc4" },
     { label: "Число сотрудников", value: "7" },
-    { label: "Описание", value: "Sit aliquet vestibulum, cras massa quam consequat, augue. Cursus orci donec bibendum nisl a, cursus. Imperdiet rhoncus lacus amet, non viverra nam velit velit. Volutpat non volutpat integer nulla egestas." },
+    { label: "Описание", value: "Домен объединяет шаблоны документов, по которым валидаторы кооператива проверяют заявки и документы пайщиков. Каждый шаблон задаёт состав полей, требования к локальной проверке и тип верификации. По результатам сверки реквизитов документ получает статус «отвалидирован»." },
   ];
   return (
     <div className="overflow-hidden rounded-[8px] border border-border bg-[#fff]">
@@ -425,7 +425,7 @@ export function ValidatorTemplatesScreen({ cabinet, current }: { cabinet: Cabine
               <ChannelToolbar value={channel} onChange={(c) => { setChannel(c); setOpenedTpl(null); setShowInfo(false); setGlobeCat(null); }} />
               <SearchBar
                 className="-mt-2"
-                placeholder="Label"
+                placeholder="Поиск по шаблонам"
                 actions={
                   <button type="button" aria-label="Фильтры" className="flex size-10 shrink-0 items-center justify-center rounded-[4px] border border-border bg-surface text-foreground-subtle">
                     <FilterIcon />
@@ -491,9 +491,9 @@ export function ValidatorTemplatesScreen({ cabinet, current }: { cabinet: Cabine
                 onBack={() => setOpenedTpl(null)}
                 onTitleClick={() => setShowInfo(true)}
                 messages={[
-                  { text: "Commodo tristique sapien tellus pellentesque. Nunc amet bibendum convallis quisque adipiscing mi. Interdum venenatis, in tempus amet. Aenean erat volutpat aliquam mauris commodo, vitae. Vulputate aliquam", time: "12:01" },
+                  { text: "Добрый день! Шаблон доступен вашей вселенной — по нему валидатор сверяет реквизиты пайщика и ставит статус «отвалидирован». Перед активацией посмотрите требования к локальной проверке: для документов об образовании нужен жёлтый уровень верификации, для аттестации хватит зелёного. Выдача бесплатная, использование — 3$ за проверку.", time: "09:52" },
                   {
-                    time: "12:01",
+                    time: "09:53",
                     text: (
                       <span className="flex flex-col items-center gap-3 px-8 py-1 text-center">
                         <span className="ds-p3-medium text-foreground">{openedTpl}</span>
@@ -504,8 +504,8 @@ export function ValidatorTemplatesScreen({ cabinet, current }: { cabinet: Cabine
                   // После активации тоглом в «Информации» — ответные сообщения.
                   ...(activatedDocs.includes(openedTpl)
                     ? [
-                        { me: true, text: "Привет, спасибо за добавление", time: "12:05" },
-                        { me: true, text: "Сейчас приму это", time: "12:05" },
+                        { me: true, text: "Спасибо, шаблон активировал — он уже в портфеле.", time: "10:04" },
+                        { me: true, text: "Удостоверение нотариуса приложу к первой же проверке.", time: "10:06" },
                       ]
                     : []),
                 ]}

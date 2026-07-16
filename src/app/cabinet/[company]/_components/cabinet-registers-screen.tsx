@@ -78,7 +78,7 @@ function RegisterItem({ row, onClick }: { row: RegisterRow; onClick?: () => void
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-[66px] w-full items-center gap-2 rounded-[4px] border border-border bg-white px-6 text-left transition-colors hover:bg-[var(--color-grey-10)]"
+      className="ds-row flex min-h-[66px] w-full items-center gap-2 rounded-[4px] border border-border bg-white px-6 text-left transition-colors"
     >
       <span className="ds-p3 min-w-0 flex-1 truncate text-foreground">{row.id}</span>
       <span className="ds-p3 flex-1 text-center text-[var(--color-blue-midhub-500)]">{row.service}</span>

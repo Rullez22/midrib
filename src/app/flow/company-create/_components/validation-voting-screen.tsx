@@ -35,30 +35,70 @@ const TX_FULL = "0x5c243af9b2e1c0d4a6f8e3b1c5d7a9e2f4b6c8d0a1b2c3d4e5f6a7b807db8
 const blue = "var(--color-blue-midhub-500)";
 const dark = "var(--color-dark-900)";
 
-/** Параметры голосования по умолчанию (Figma 2512:304778). */
-const VOTE_SETTINGS = [
-  { label: "MIN продолжительность", value: "24 часа" },
-  { label: "MAX продолжительность", value: "24 часа" },
-  { label: "Кворум", value: "100 %", info: true },
-  { label: "Первоначальный кворум", value: "100 %", info: true },
-  { label: "Консенсус", value: "70 %", info: true },
-  { label: "Токен роли", value: "Член совета", info: true },
-  { label: "Доступен к передаче", value: "Нет", info: true },
+/**
+ * Параметры вопроса голосования (Figma 2512:304778). Набор строк одинаков для
+ * всех вопросов, значения — свои: у кадровых решений кворум и консенсус выше,
+ * у текущих — ниже, срок обсуждения зависит от сложности вопроса.
+ */
+const voteSettings = (o: {
+  min: string;
+  max: string;
+  quorum: string;
+  initialQuorum: string;
+  consensus: string;
+  role: string;
+  transferable: string;
+}) => [
+  { label: "MIN продолжительность", value: o.min },
+  { label: "MAX продолжительность", value: o.max },
+  { label: "Кворум", value: o.quorum, info: true },
+  { label: "Первоначальный кворум", value: o.initialQuorum, info: true },
+  { label: "Консенсус", value: o.consensus, info: true },
+  { label: "Токен роли", value: o.role, info: true },
+  { label: "Доступен к передаче", value: o.transferable, info: true },
 ];
+
 const VOTE_QUESTIONS: VotingQuestionItem[] = [
-  "Изменить управляющего",
-  "Установление размера паевого взноса",
-  "Избрание ревизионной комиссии",
-  "Прием в члены кооператива и исключение из членов кооператива",
-  "Образование наблюдательного совета и прекращение полномочий его членов",
-  "Распределение прибыли и убытков кооператива",
-].map((title) => ({ title, rows: VOTE_SETTINGS }));
+  {
+    title: "Досрочное прекращение полномочий председателя правления",
+    rows: voteSettings({ min: "24 часа", max: "72 часа", quorum: "100 %", initialQuorum: "100 %", consensus: "75 %", role: "Член совета", transferable: "Нет" }),
+  },
+  {
+    title: "Установление размера паевого взноса",
+    rows: voteSettings({ min: "48 часов", max: "7 дней", quorum: "75 %", initialQuorum: "60 %", consensus: "70 %", role: "Пайщик", transferable: "Нет" }),
+  },
+  {
+    title: "Избрание ревизионной комиссии",
+    rows: voteSettings({ min: "24 часа", max: "5 дней", quorum: "80 %", initialQuorum: "65 %", consensus: "60 %", role: "Пайщик", transferable: "Да" }),
+  },
+  {
+    title: "Приём в члены кооператива и исключение из членов кооператива",
+    rows: voteSettings({ min: "12 часов", max: "48 часов", quorum: "60 %", initialQuorum: "50 %", consensus: "55 %", role: "Член совета", transferable: "Нет" }),
+  },
+  {
+    title: "Образование наблюдательного совета и прекращение полномочий его членов",
+    rows: voteSettings({ min: "48 часов", max: "7 дней", quorum: "90 %", initialQuorum: "70 %", consensus: "70 %", role: "Член совета", transferable: "Нет" }),
+  },
+  {
+    title: "Распределение прибыли и убытков кооператива",
+    rows: voteSettings({ min: "72 часа", max: "14 дней", quorum: "100 %", initialQuorum: "75 %", consensus: "80 %", role: "Пайщик", transferable: "Нет" }),
+  },
+];
 
 const TX_COLS: TableColumn[] = [
   { key: "user", label: "Участники" },
   { key: "res", label: "Результат", align: "center" },
   { key: "tx", label: "Номер транзакции", align: "center" },
   { key: "date", label: "Дата", align: "right", sortable: true },
+];
+
+/** Даты голосов по отправке устава на валидацию (колонка отсортирована по убыванию). */
+const TX_TIMES = [
+  "19.05.2025 - 16:42",
+  "19.05.2025 - 14:18",
+  "19.05.2025 - 10:05",
+  "18.05.2025 - 19:33",
+  "18.05.2025 - 09:47",
 ];
 
 function VoteRow({ label, value }: { label: string; value: React.ReactNode }) {
@@ -182,7 +222,7 @@ export function ValidationVotingScreen({ backHref, doneHref }: { backHref?: stri
           <QuestionCard title="История транзакций" defaultOpen>
             <div className="-mx-[23px] flex flex-col">
               <TableHeader columns={TX_COLS} sortKey="date" sortDir="desc" />
-              {Array.from({ length: voted ? 5 : 3 }).map((_, i) => <TxLine key={i} time={i === 0 ? "11.01.2020 - 13:00" : "11.01.2020 - 12:00"} striped={i % 2 === 0} />)}
+              {Array.from({ length: voted ? 5 : 3 }).map((_, i) => <TxLine key={i} time={TX_TIMES[i]} striped={i % 2 === 0} />)}
             </div>
           </QuestionCard>
         </div>

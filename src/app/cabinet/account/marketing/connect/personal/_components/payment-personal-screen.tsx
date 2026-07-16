@@ -42,7 +42,7 @@ import {
 
 const PAYER = "Кооператив Слоненок";
 const PAYER_DESC =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat eLorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque tempus, consequat";
+  "Потребительский кооператив: совместные закупки и логистика для пайщиков. Работает с Иматрой с 2019 года — общие поставки, склад в Санкт-Петербурге и распределение расходов между участниками пул-счета.";
 const PAYER_AVATAR_SRC = "/orgs/romashka.png";
 const PAYER_AVATAR = <img src={PAYER_AVATAR_SRC} alt="" className="size-full object-cover" />;
 

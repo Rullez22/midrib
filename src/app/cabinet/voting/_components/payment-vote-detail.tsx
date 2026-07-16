@@ -124,7 +124,7 @@ export function PaymentVoteDetail({ vote, onBack }: { vote: PaymentVote; onBack:
             <div className="flex justify-center" style={{ flex: 1 }}>
               <span className="inline-flex items-center rounded-[4px] bg-[#e6f6e7] px-3 py-1.5 ds-caption-medium text-[#54be5a]">Согласован</span>
             </div>
-            <div className="ds-p3 text-right text-foreground" style={{ flex: 1 }}>09.01.2020</div>
+            <div className="ds-p3 text-right text-foreground" style={{ flex: 1 }}>19.05.2025</div>
           </div>
         </div>
       </div>
@@ -175,7 +175,7 @@ export function PaymentVoteDetail({ vote, onBack }: { vote: PaymentVote; onBack:
               <Col flex={0.8} align="right">Страна</Col>
             </div>
             {rows.map((r, i) => (
-              <div key={i} className="flex items-center gap-3 rounded-[4px] border border-border bg-surface px-[23px] py-4">
+              <div key={i} className="ds-row flex items-center gap-3 rounded-[4px] border border-border bg-surface px-[23px] py-4">
                 {mass ? (
                   <span className="ds-p2-medium text-[var(--color-blue-midhub-500)]" style={{ flex: 1 }}>{vote.shares}</span>
                 ) : (

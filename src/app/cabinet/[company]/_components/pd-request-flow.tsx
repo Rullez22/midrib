@@ -58,10 +58,12 @@ const DOC_CATEGORIES: { name: string; docs: string[] }[] = [
   { name: "Образование", docs: ["Диплом", "Аттестат"] },
 ];
 
-const LOREM = [
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas amet ultrices faucibus non.",
-  "Sit aliquet vestibulum, cras massa quam consequat, augue. Cursus orci donec bibendum nisl a, cursus. Imperdiet rhoncus lacus amet, non viverra nam velit velit. Volutpat non volutpat integer nulla egestas. Non egestas adipiscing quis fringilla tincidunt. Porttitor varius interdum ac id sollicitudin sed eleifend in arcu. Semper enim donec mi nunc a nunc id pulvinar. Elementum malesuada etiam pretium aliquet mi ac. Elit, massa blandit est maecenas nunc blandit tincidunt. Aenean porta bibendum ultrices consequat. Nisl cursus blandit lectus vel consequat odio tempor faucibus massa.",
-  "Nibh volutpat, suscipit ac ut orci, magna magna viverra eros. Aliquam vitae vel nulla id adipiscing nibh. Augue varius id viverra tempus viverra. At odio et sit accumsan adipiscing nunc eu. Massa sed tempus, sit cras nullam tincidunt aenean tortor, phasellus. Mi urna, nibh blandit tortor commodo nunc, morbi.",
+/** Текст основания по умолчанию (пример «Законные интересы») — показывается,
+ *  пока пользователь не написал своё описание. */
+const BASIS_TEXT = [
+  "Основание для запроса: законные интересы оператора при рассмотрении обращения пользователя.",
+  "Пользователь обратился в поддержку сервиса с заявлением о несанкционированном доступе к своему аккаунту. Для проверки обращения нам необходимо сверить данные, указанные в заявлении, с данными, подтверждёнными валидатором кооператива: фамилию, имя, дату рождения и реквизиты документа, удостоверяющего личность. Без такой сверки мы не можем убедиться, что заявление подано владельцем аккаунта, и рискуем передать доступ третьему лицу. Запрос ограничен минимально необходимым перечнем полей, данные будут использованы однократно и только для рассмотрения этого обращения.",
+  "Срок обработки — пять рабочих дней с момента получения ответа. После завершения проверки доступ к персональным данным пользователя закрывается автоматически, а факт обращения и его результат фиксируются в блокчейне. Копия заявления пользователя приложена к основанию.",
 ];
 
 /** Документ-миниатюра (серая плитка с «строками» текста) — превью файла основания. */
@@ -251,7 +253,7 @@ export function PdRequestFlow({
           <button
             type="button"
             onClick={() => setStep("basisView")}
-            className="flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors hover:bg-[var(--color-grey-10)]"
+            className="ds-row flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors"
           >
             <span className="ds-p3 text-foreground">Текст и файл основания</span>
             <span className="shrink-0">
@@ -371,7 +373,7 @@ export function PdRequestFlow({
 
   // ── Шаг: сохранённое основание (просмотр + Удалить/Редактировать/Продолжить) ─
   if (step === "basisSaved") {
-    const paragraphs = basisDesc.trim() ? basisDesc.split("\n").filter(Boolean) : LOREM;
+    const paragraphs = basisDesc.trim() ? basisDesc.split("\n").filter(Boolean) : BASIS_TEXT;
     return (
       <FlowShell
         cabinet={cabinet}
@@ -416,7 +418,7 @@ export function PdRequestFlow({
 
   // ── Шаг: просмотр основания (read-only, из заполненной карточки) ──────────
   if (step === "basisView") {
-    const paragraphs = basisDesc.trim() ? basisDesc.split("\n").filter(Boolean) : LOREM;
+    const paragraphs = basisDesc.trim() ? basisDesc.split("\n").filter(Boolean) : BASIS_TEXT;
     return (
       <FlowShell
         cabinet={cabinet}
@@ -556,7 +558,7 @@ export function PdRequestDetail({
         title="Основание для запроса данных пользователей"
         onBack={() => setSub("main")}
       >
-        <BasisTextBody paragraphs={LOREM} />
+        <BasisTextBody paragraphs={BASIS_TEXT} />
       </FlowShell>
     );
   }
@@ -575,7 +577,7 @@ export function PdRequestDetail({
       <button
         type="button"
         onClick={() => setSub("basisView")}
-        className="flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors hover:bg-[var(--color-grey-10)]"
+        className="ds-row flex items-center justify-between gap-2 rounded-[4px] border border-border bg-white px-3 py-2 text-left transition-colors"
       >
         <span className="ds-p3 text-foreground">Текст и файл основания</span>
       </button>
@@ -637,7 +639,7 @@ export function PdRequestDetail({
             <span className="text-foreground">Завершение проверки</span>
             <span style={{ color: ACCENT }}>ООО «Сапфир»</span>
             <span style={{ color: ACCENT }}>xxxx... xxxxx</span>
-            <span className="text-foreground-subtle">12.01.2020 - ...</span>
+            <span className="text-foreground-subtle">03.06.2025 - ...</span>
           </div>
         </div>
       </Modal>

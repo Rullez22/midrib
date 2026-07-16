@@ -32,9 +32,9 @@ export interface AccountDoc {
 }
 
 export const ACCOUNT_DOCS: AccountDoc[] = [
-  { id: "ustav", type: "Устав", name: "Полный устав кооператива", status: "Отвалидирован", badge: "Локальный", badgeColor: "orange", badgeVariant: "solid", date: "09.01.2020", kind: "charter" },
-  { id: "sertifikat", type: "Сертификат", name: "Сертификат соответствия", status: "Отвалидирован", badge: "Международный", badgeColor: "green", badgeVariant: "solid", date: "09.01.2020", kind: "verification" },
-  { id: "bzhd", type: "Договор", name: "Правила БЖД", date: "09.01.2020", kind: "document" },
+  { id: "ustav", type: "Устав", name: "Полный устав кооператива", status: "Отвалидирован", badge: "Локальный", badgeColor: "orange", badgeVariant: "solid", date: "24.08.2023", kind: "charter" },
+  { id: "sertifikat", type: "Сертификат", name: "Сертификат соответствия", status: "Отвалидирован", badge: "Международный", badgeColor: "green", badgeVariant: "solid", date: "17.03.2023", kind: "verification" },
+  { id: "bzhd", type: "Регламент", name: "Правила БЖД", date: "11.04.2025", kind: "document" },
 ];
 
 export const getDoc = (id: string) => ACCOUNT_DOCS.find((d) => d.id === id);
@@ -53,7 +53,7 @@ export function templateDocRow(stage: TemplateDocStage): AccountDoc {
   const base = {
     id: TEMPLATE_DOC_ID,
     name: "Лицензия на оказание тематических услуг связи",
-    date: "09.01.2020",
+    date: "22.04.2025",
     kind: "document" as const,
     badge: "Международный",
     badgeColor: "orange" as BadgeColor,
@@ -112,7 +112,7 @@ export function externalDocRow(stage: TemplateDocStage): AccountDoc {
     badge: "Международный",
     badgeColor: "orange",
     badgeVariant: "solid",
-    date: "09.01.2020",
+    date: "19.05.2025",
     kind: "document",
   };
 }
@@ -176,22 +176,22 @@ export const VERIFICATION_ROWS = (badge: ReactNode): DefRow[] => [
   { label: "Тип верификации", value: badge },
   { label: "Документ", value: "Сертификат соответствия" },
   { label: "№ сертификата", value: "RA.RU.11FD" },
-  { label: "Срок действия", value: "01.10.2018 - 05.02.2022" },
+  { label: "Срок действия", value: "17.03.2023 - 17.03.2026" },
   { label: "Наименование компании", value: 'Общество с ограниченной ответственностью "Сапфир"' },
   { label: "Продукция", value: "Справочно-правовая информационно-поисковая система Norma" },
   { label: "Код ОК", value: "58.29.29.000" },
   { label: "Соответствует требованиям", value: "Гост 28195-89, Гост 28806-90" },
   { label: "Сертификат выдан", value: 'ООО "Нанасофт разработка", Россия, 108811, г. Москва, п. Московский, 22-й км Киевского шоссе, д 4.' },
-  { label: "Основание", value: "ООО ЦСПС № 01-06-19 от 5.02.2018" },
+  { label: "Основание", value: "ООО ЦСПС № 04-11-23 от 09.02.2023" },
   { label: "Руководитель органа", value: "С.Д.Ратнер" },
   { label: "Руководитель органа", value: "Т.Н.Бубнова" },
 ];
 
 /** Транзакции в блокчейне (Действие · Участники · Номер транзакции · Дата). */
 export const BLOCKCHAIN_TX = [
-  { action: "Подпись создателя документа", party: 'ООО "Сапфир"', date: "11.01.2020 - 16:00" },
-  { action: "Подпись валидатора по зеленой международной верификации", party: 'ООО "Слон"', date: "11.01.2020 - 15:00" },
-  { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "11.01.2020 - 11:00" },
+  { action: "Подпись создателя документа", party: 'ООО "Сапфир"', date: "17.03.2023 - 16:40" },
+  { action: "Подпись валидатора по зеленой международной верификации", party: 'ООО "Слон"', date: "17.03.2023 - 15:05" },
+  { action: "Отправка валидатору", party: 'ООО "Сапфир"', date: "16.03.2023 - 11:25" },
 ];
 
 /* ── Документ «Правила БЖД» (Figma 6419:314679 / 314517) ─────────────────── */
@@ -213,30 +213,30 @@ const OKVED = [
 export const CHARTER_INFO = (badge: ReactNode): DefRow[] => [
   { label: "Тип верификации", value: badge },
   { label: "Тип документа", value: "Устав" },
-  { label: "Регистрационный номер", value: "1106700000846" },
-  { label: "Организация", value: "Потребительский кооператив IMMATRA" },
-  { label: "Местонахождение", value: "Санкт-Петербург, Дягтерный переулок, 7 лит А." },
-  { label: "Почтовый адрес", value: "Санкт-Петербург, Дягтерный переулок, 7 лит А." },
-  { label: "Контактный телефон", value: "+7 (812) 333-22-22" },
-  { label: "E-mail", value: "immatra@immatra.ru" },
+  { label: "Регистрационный номер", value: "1057812345678" },
+  { label: "Организация", value: "Потребительский кооператив «Иматра»" },
+  { label: "Местонахождение", value: "Санкт-Петербург, Дегтярный переулок, 11 лит А" },
+  { label: "Почтовый адрес", value: "191036, Санкт-Петербург, Дегтярный переулок, 11 лит А" },
+  { label: "Контактный телефон", value: "+7 (812) 401-32-18" },
+  { label: "E-mail", value: "office@immatra.ru" },
   { label: "ОКВЭД", value: OKVED },
-  { label: "ИНН", value: "1234567890" },
-  { label: "Орган выдавший документ", value: "Управление министерство юстиции РФ по Санкт-Петербургу" },
-  { label: "Дата решения", value: "03.08.2020" },
-  { label: "Дата внесения в ЕГРЮЛ", value: "09.08.2020" },
+  { label: "ИНН", value: "7842315690" },
+  { label: "Орган выдавший документ", value: "Управление Министерства юстиции РФ по Санкт-Петербургу" },
+  { label: "Дата решения", value: "18.04.2018" },
+  { label: "Дата внесения в ЕГРЮЛ", value: "26.04.2018" },
 ];
 
 export const CHARTER_PAYERS: DefRow[] = [
-  { label: "Председатель правления", value: "Антонов Илья" },
-  { label: "Председатель совета", value: "Савин Михаил" },
-  { label: "Совет", value: ["Андреев Андрей", "Ан Дмитрий", "Варламов Илья"] },
+  { label: "Председатель правления", value: "Степан А. А." },
+  { label: "Председатель совета", value: "Розалина К. И." },
+  { label: "Совет", value: ["Ганиш Г. И.", "Ванесса П. П.", "Александр Д. Р."] },
 ];
 
 export const CHARTER_VOTING_MAIN: DefRow[] = [
   { label: "MIN продолжительность", value: "24-часа" },
-  { label: "MAX продолжительность", value: "24-часа" },
+  { label: "MAX продолжительность", value: "72-часа" },
   { label: "Кворум", value: "100 %" },
-  { label: "Первоначальный кворум", value: "100 %" },
+  { label: "Первоначальный кворум", value: "50 %" },
   { label: "Консенсус", value: "70 %" },
   { label: "Также роль", value: "Член совета" },
   { label: "Доступна к передаче", value: "Нет" },
@@ -258,7 +258,7 @@ export const CHARTER_ACCOUNT: DefRow[] = [
 ];
 
 export const CHARTER_DOCS = [
-  { type: "Сертификат", name: "Сертификат соответствия", date: "09.01.2020" },
-  { type: "Свидетельство", name: "Свидетельство о государственной регистрации программ ЭВМ", date: "09.01.2020" },
-  { type: "Лицензия", name: "Лицензия на использование ЭВМ", date: "09.01.2020" },
+  { type: "Сертификат", name: "Сертификат соответствия", date: "17.03.2023" },
+  { type: "Свидетельство", name: "Свидетельство о государственной регистрации программ ЭВМ", date: "06.12.2024" },
+  { type: "Лицензия", name: "Лицензия на использование ЭВМ", date: "28.01.2025" },
 ];

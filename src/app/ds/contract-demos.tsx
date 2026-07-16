@@ -27,16 +27,16 @@ const READ_ROWS: MemberRow[] = [
   { label: "Статус соглашения", value: <Badge color="green">Согласован</Badge> },
   { label: "Тип верификации", value: <Badge color="orange">Международный</Badge> },
   { label: "Документ", value: "Договор" },
-  { label: "Заголовок", value: "Контракт MIDHUB" },
-  { label: "Исполнитель", value: "ИП «Сложная»" },
+  { label: "Заголовок", value: "Поставка игрового оборудования" },
+  { label: "Исполнитель", value: "ИП Салютов Р. К." },
   { label: "Номер", value: "3201" },
   { label: "Код", value: "202" },
-  { label: "Сумма", value: "20 000 ₽" },
-  { label: "Комментарий", value: "Крутой договор" },
+  { label: "Сумма", value: "118 600 ₽" },
+  { label: "Комментарий", value: "Оплата двумя частями: аванс 40% и остаток после подписания акта приёмки" },
 ];
 
 const FORM_FIELDS: PropertyField[] = [
-  { label: "Заголовок", value: "Контракт MIDHUB", wide: true },
+  { label: "Заголовок", value: "Поставка игрового оборудования", wide: true },
   { label: "Исполнитель", kind: "select" },
   { label: "Название договора" },
   { label: "Номер договора" },
@@ -53,15 +53,15 @@ const TX_COLS: TableColumn[] = [
 ];
 
 const TX = [
-  "Добавление договора", "Подписи", "Конвертация MIDHUB", "Добавление договора",
+  "Добавление договора", "Согласование условий", "Подписи", "Конвертация MIDHUB",
 ];
 
 function TxLine({ doc }: { doc: string }) {
   return (
-    <Item tone="muted" bordered={false} size="s" trailing={<span style={{ color: dark }}>11.01.2020 - 13:00</span>}>
+    <Item tone="muted" bordered={false} size="s" trailing={<span style={{ color: dark }}>22.04.2025 - 13:00</span>}>
       <div className="grid grid-cols-3 items-center">
         <span style={{ color: dark }}>{doc}</span>
-        <span className="text-center" style={{ color: blue }}>Конвертация MIDHUB</span>
+        <span className="text-center" style={{ color: blue }}>Антонов Илья</span>
         <span className="text-center" style={{ color: blue }}>5c243af... 07db8</span>
       </div>
     </Item>
@@ -73,7 +73,7 @@ export function ContractDemos() {
     <div className="flex max-w-[1019px] flex-col gap-6">
       <div className="flex flex-col gap-3">
         <span className="ds-caption-medium text-foreground-subtle">Просмотр договора (MemberCard + Badge)</span>
-        <MemberCard title="Договор №12" defaultOpen rows={READ_ROWS} />
+        <MemberCard title="Договор на поставку игрового оборудования" defaultOpen rows={READ_ROWS} />
       </div>
 
       <div className="flex flex-col gap-3">

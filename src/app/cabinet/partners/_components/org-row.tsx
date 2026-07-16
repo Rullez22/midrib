@@ -32,11 +32,25 @@ function StarIcon({ filled, className }: { filled: boolean; className?: string }
   );
 }
 
+/** Звезда с частичной заливкой: filled-иконка поверх контурной, обрезанная по доле. */
+function Star({ fill }: { fill: number }) {
+  return (
+    <span className="relative inline-block size-[18px] shrink-0">
+      <StarIcon filled={false} className="size-[18px] text-[color:var(--color-grey-100)]" />
+      {fill > 0 && (
+        <span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${fill * 100}%` }}>
+          <StarIcon filled className="size-[18px]" />
+        </span>
+      )}
+    </span>
+  );
+}
+
 export function StarRating({ value, max = 5, className }: { value: number; max?: number; className?: string }) {
   return (
     <span className={cn("inline-flex items-center gap-1 text-[#f5b301]", className)} aria-label={`Рейтинг ${value} из ${max}`}>
       {Array.from({ length: max }).map((_, i) => (
-        <StarIcon key={i} filled={i < value} className={i < value ? "size-[18px]" : "size-[18px] text-[color:var(--color-grey-100)]"} />
+        <Star key={i} fill={Math.min(1, Math.max(0, value - i))} />
       ))}
     </span>
   );
@@ -63,8 +77,8 @@ export function OrgRow({ media, name, address, description, rating, onOpen, bare
       onKeyDown={onOpen ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(); } } : undefined}
       className={cn(
         "flex gap-5 p-4",
-        bare ? "bg-transparent" : "rounded-[10px] border border-border bg-[#fff]",
-        onOpen && (bare ? "cursor-pointer" : "cursor-pointer transition-shadow hover:shadow-sm"),
+        bare ? "bg-transparent" : "ds-row rounded-[10px] border border-border bg-[#fff]",
+        onOpen && "cursor-pointer",
         className,
       )}
     >

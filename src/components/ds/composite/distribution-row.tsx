@@ -56,7 +56,7 @@ export function DistributionRow({
   className,
 }: DistributionRowProps) {
   return (
-    <div className={cn("overflow-hidden rounded-[4px] border border-border bg-surface shadow-[var(--shadow-sm)] transition-colors hover:border-[color:var(--color-grey-200)]", className)}>
+    <div className={cn("ds-row overflow-hidden rounded-[4px] border border-border bg-surface shadow-[var(--shadow-sm)] transition-colors", className)}>
       <div className="flex items-center justify-between gap-4 p-4">
         <span className="ds-p3-medium text-foreground">{title}</span>
         <Incriment size="m" suffix={suffix} value={value} defaultValue={defaultValue} onValueChange={onValueChange} min={min} max={max} step={step} readOnly={readOnly} />

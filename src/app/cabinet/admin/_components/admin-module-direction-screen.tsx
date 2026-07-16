@@ -10,7 +10,13 @@ import { useRouter } from "next/navigation";
  * Полноширинная (без сайдбара, как в макете). Иконки — inline SVG (не asset-URL Figma).
  */
 
-const DESC = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa mi non posuere";
+/** Описание под-модуля — своё для каждого slug из SUBMODULES. */
+const SUB_DESC: Record<string, string> = {
+  social: "Целевые сборы и адресная помощь: заявки пайщиков, голосование правления, отчёты о расходовании средств.",
+  bank: "Маршрутные счета подразделений, приём взносов, платёжные поручения и выписки по договорам.",
+  consultant: "Консультации юриста и бухгалтера по уставным, налоговым и договорным вопросам кооператива.",
+  executor: "Договорная работа с партнёрами: ведение сделок, акты и закрывающие документы по каждому этапу.",
+};
 
 function HeartIcon() {
   return (
@@ -99,7 +105,7 @@ export function AdminModuleDirectionScreen({ slug, title }: { slug: string; titl
           <div key={m.title} className="flex min-h-[244px] w-full flex-col rounded-[4px] border border-border bg-[#fff] p-4">
             <div className="mb-2">{m.icon}</div>
             <span className="ds-p1-medium text-foreground">{m.title}</span>
-            <p className="ds-caption mt-3 text-foreground-muted">{DESC}</p>
+            <p className="ds-caption mt-3 text-foreground-muted">{SUB_DESC[m.slug]}</p>
             <div className="mt-auto flex items-end justify-between">
               <span className="flex flex-col">
                 <span className="ds-caption text-[var(--color-grey-300)]">Комиссия:</span>
