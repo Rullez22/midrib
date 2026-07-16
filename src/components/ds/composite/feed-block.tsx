@@ -103,22 +103,31 @@ export function FeedBlock({ avatar, placeholder, posts = [], authorName, classNa
 
   return (
     <div className={cn("flex w-full flex-col gap-5", className)}>
-      {open ? (
-        <FeedComposer
-          className="ds-content"
-          onPublish={publish}
-          onCancel={() => setOpen(false)}
-        />
-      ) : (
-        <FeedComposerBar
-          avatar={avatar}
-          placeholder={placeholder}
-          onOpen={() => setOpen(true)}
-          // Кнопки Фото/Видео/Документ раскрывают редактор — выбор файла живёт
-          // в нём, чтобы приложенное было видно до публикации.
-          onAction={() => setOpen(true)}
-        />
-      )}
+      {/* Свёрнутая строка ↔ редактор перетекают друг в друга: обе панели
+          остаются в DOM, высота идёт через grid-rows 0fr↔1fr (тот же приём, что
+          у Accordion). Условный рендер давал скачок — строка исчезала мгновенно,
+          а редактор возникал на её месте другой высоты.
+          inert снимает скрытую панель с фокуса и из хит-теста. */}
+      <div className="ds-feed-swap">
+        <div className="ds-feed-swap__pane" data-shown={!open} inert={open || undefined}>
+          <div className="ds-feed-swap__inner">
+            <FeedComposerBar
+              avatar={avatar}
+              placeholder={placeholder}
+              onOpen={() => setOpen(true)}
+              // Кнопки Фото/Видео/Документ раскрывают редактор — выбор файла
+              // живёт в нём, чтобы приложенное было видно до публикации.
+              onAction={() => setOpen(true)}
+            />
+          </div>
+        </div>
+
+        <div className="ds-feed-swap__pane" data-shown={open} inert={!open || undefined}>
+          <div className="ds-feed-swap__inner">
+            <FeedComposer onPublish={publish} onCancel={() => setOpen(false)} />
+          </div>
+        </div>
+      </div>
 
       {all.map((p, i) => (
         <FeedPost

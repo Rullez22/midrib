@@ -384,6 +384,38 @@ body {
   }
 }
 
+/* ── Композер ленты: строка ↔ редактор ──
+   Панели меняются местами без скачка: высота перетекает через
+   grid-template-rows 0fr↔1fr (приём Accordion — анимировать auto-высоту иначе
+   нельзя), плюс fade. Обе панели в DOM, скрытая схлопнута в 0.
+   Fade у обеих идёт одновременно и без задержки: панели стоят друг под другом
+   и не накладываются, а с задержкой на середине перехода обе оказывались
+   почти прозрачными — получался провал в пустоту. */
+.ds-feed-swap {
+  display: flex;
+  flex-direction: column;
+}
+.ds-feed-swap__pane {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
+}
+.ds-feed-swap__pane[data-shown="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+/* Обязательная пара для техники 0fr: без них контент не даёт схлопнуться. */
+.ds-feed-swap__inner {
+  overflow: hidden;
+  min-height: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-feed-swap__pane { transition: none; }
+}
+
 @keyframes contentIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: none; }
