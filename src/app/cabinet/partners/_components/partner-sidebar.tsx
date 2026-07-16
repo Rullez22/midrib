@@ -11,6 +11,7 @@ import {
   type MenuBadgeColor,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
+import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { type Partner } from "./partners-data";
 
 /**
@@ -103,7 +104,7 @@ export function PartnerSidebar({
 }) {
   const router = useRouter();
   return (
-    <div className="sticky top-0 hidden h-screen shrink-0 lg:flex">
+    <SidebarShell>
       <MenuRail
         height="100vh"
         brand={
@@ -161,6 +162,6 @@ export function PartnerSidebar({
           Счет
         </Button>
       </MenuPanel>
-    </div>
+    </SidebarShell>
   );
 }

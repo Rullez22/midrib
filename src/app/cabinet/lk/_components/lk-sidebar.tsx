@@ -15,6 +15,7 @@ import {
   type MenuBadgeColor,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
+import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { railHref } from "../../[company]/_config/cabinet-rail";
 import { CabinetMenuIcon } from "../../[company]/_components/cabinet-menu-icons";
 import { WalletFilledIcon, VotingCheckIcon } from "../../../flow/company-create/_components/coop-sidebar";
@@ -112,7 +113,7 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
   const footerRole: LkRole = role === "assistant" ? "chair" : role;
 
   return (
-    <div className="sticky top-0 z-30 hidden h-screen shrink-0 lg:flex">
+    <SidebarShell desktopClassName="sticky top-0 z-30 hidden h-screen shrink-0 lg:flex">
       <MenuRail
         height="100vh"
         brand={
@@ -257,6 +258,6 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
         )}
       </MenuPanel>
       )}
-    </div>
+    </SidebarShell>
   );
 }

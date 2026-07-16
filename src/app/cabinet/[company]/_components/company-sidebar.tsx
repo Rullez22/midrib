@@ -13,6 +13,7 @@ import {
   type MenuBadgeColor,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
+import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { WalletFilledIcon } from "../../../flow/company-create/_components/coop-sidebar";
 import { CabinetMenuIcon } from "./cabinet-menu-icons";
 import { type CabinetConfig } from "../_config/cabinets";
@@ -155,7 +156,7 @@ export function CompanySidebar({ cabinet, current }: { cabinet: CabinetConfig; c
   const menu = cabinet.menu.filter((m) => !m.lockedUntil || unlocked[m.lockedUntil]);
 
   return (
-    <div className="sticky top-0 hidden h-screen shrink-0 lg:flex">
+    <SidebarShell>
       <CompanyRail activeRail={cabinet.rail} />
 
       <MenuPanel
@@ -188,6 +189,6 @@ export function CompanySidebar({ cabinet, current }: { cabinet: CabinetConfig; c
           </MenuNavItem>
         ))}
       </MenuPanel>
-    </div>
+    </SidebarShell>
   );
 }

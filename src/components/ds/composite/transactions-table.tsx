@@ -184,7 +184,7 @@ export function TransactionsTable({
         {visible.map((t, i) => (
           <div
             key={i}
-            className="flex items-center rounded-[8px] border border-border bg-white px-4 py-3"
+            className="flex items-center rounded-[8px] border border-border bg-white px-4 py-3 transition-colors hover:bg-[color:var(--color-grey-10)]"
           >
             {/* Код */}
             <div style={colStyle(COLUMNS[0])}>

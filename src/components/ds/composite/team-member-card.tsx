@@ -88,6 +88,7 @@ export function TeamMemberCard({
       className={cn(
         "flex w-[157px] flex-col overflow-hidden rounded-[4px] border bg-white text-left",
         selected ? "border-[var(--color-red-400)]" : "border-[var(--color-red-200)]",
+        onClick && !selected && "cursor-pointer transition-colors hover:border-[var(--color-red-400)]",
         className,
       )}
     >

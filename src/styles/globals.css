@@ -219,7 +219,12 @@ body {
   /* Вход всплывающей панели (карточка модалки, меню dropdown) — fade + лёгкий pop. */
   .ds-anim-pop  { animation: appPop  0.22s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .ds-anim-menu { animation: appMenu 0.16s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+  /* Вход мобильного drawer — выезд слева. */
+  .ds-anim-drawer { animation: appDrawer 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
 }
+
+@keyframes appDrawer { from { transform: translateX(-100%); } to { transform: none; } }
 
 @keyframes appFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes appFade   { from { opacity: 0; } to { opacity: 1; } }

@@ -10,6 +10,7 @@ import {
   MenuIcon,
   type MenuBadgeColor,
 } from "@/components/ds";
+import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { railHref } from "../../[company]/_config/cabinet-rail";
 import { LK_USER } from "../../lk/_components/lk-data";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
@@ -56,7 +57,7 @@ export function AdminSidebar({ current = "referral" }: { current?: "referral" | 
   const router = useRouter();
 
   return (
-    <div className="sticky top-0 z-30 hidden h-screen shrink-0 lg:flex">
+    <SidebarShell desktopClassName="sticky top-0 z-30 hidden h-screen shrink-0 lg:flex">
       <MenuRail
         height="100vh"
         brand={
@@ -118,6 +119,6 @@ export function AdminSidebar({ current = "referral" }: { current?: "referral" | 
           Модули
         </MenuNavItem>
       </MenuPanel>
-    </div>
+    </SidebarShell>
   );
 }

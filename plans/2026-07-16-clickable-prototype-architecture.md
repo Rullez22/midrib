@@ -52,7 +52,19 @@
 active-scale, toggle thumb-slide, tabs active, spinner `spin`.
 Sidebar slide — N/A (мобильного drawer в проекте нет, не пре-билдим).
 
-### [ ] Фаза 4 — Reveal / карусель (по требованию)
+### [x] Фаза 4 — Финальная «живость» (hover / glow / mobile drawer)
+- Glow primary-кнопок + focus-кольцо инпутов (прозрачные цветные эффекты).
+- Hover на карточках без него: `team-member-card`, `achievement-card`.
+- Hover на строках таблиц: `transactions-table`, `articles-table`.
+- Icon-button hover: общий `BackHeader` (document-shared).
+- **Mobile drawer**: новый `SidebarShell` (`ds/composite/sidebar-shell.tsx`) —
+  на <lg плавающий гамбургер + выезжающий слева drawer (backdrop + slide
+  `ds-anim-drawer`, закрытие по клику/Escape/смене маршрута, lock скролла).
+  Подключён ко всем 5 сайдбарам (Company, Coop-main, CoopRail, Admin, Lk, Partner)
+  заменой внешней обёртки — десктоп-вид не меняется (тот же `desktopClassName`).
+  До этого на мобилке сайдбар был просто скрыт (`hidden lg:flex`) — навигации не было.
+
+### [ ] Фаза 5 — Reveal / карусель (по требованию)
 - Show/Hide reveal и Carousel добавляем, когда конкретный экран их запросит,
   сразу в DS (`src/components/ds/`), а не заранее.
 

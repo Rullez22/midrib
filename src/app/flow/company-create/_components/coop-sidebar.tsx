@@ -13,6 +13,7 @@ import {
 import { type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
+import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { useRegFlow } from "./reg-flow";
 import { railHref } from "../../../cabinet/[company]/_config/cabinet-rail";
 import { CabinetMenuIcon } from "../../../cabinet/[company]/_components/cabinet-menu-icons";
@@ -158,7 +159,7 @@ export function CoopRail() {
   const router = useRouter();
   const R = ROUTES;
   return (
-    <div className="sticky top-0 hidden h-screen shrink-0 lg:block">
+    <SidebarShell desktopClassName="sticky top-0 hidden h-screen shrink-0 lg:block">
       <MenuRail
         height="100vh"
         brand={
@@ -192,7 +193,7 @@ export function CoopRail() {
           );
         })}
       </MenuRail>
-    </div>
+    </SidebarShell>
   );
 }
 
@@ -251,7 +252,7 @@ export function CoopSidebar({
   const votingEnabled = votingCurrent || councilActive || paymentVoteActive;
 
   return (
-    <div className="sticky top-0 hidden h-screen shrink-0 lg:flex">
+    <SidebarShell>
       <MenuRail
         height="100vh"
         brand={
@@ -394,6 +395,6 @@ export function CoopSidebar({
           Партнеры
         </MenuNavItem>
       </MenuPanel>
-    </div>
+    </SidebarShell>
   );
 }

@@ -95,7 +95,7 @@ export function VerificationBadge({ label, color }: { label: string; color: stri
 export function BackHeader({ title, onBack, actions }: { title?: ReactNode; onBack: () => void; actions?: ReactNode }) {
   return (
     <div className="relative flex min-h-[40px] items-center">
-      <button type="button" aria-label="Назад" onClick={onBack} className="flex size-10 items-center justify-center rounded-[4px] border border-border bg-surface-sunken text-foreground-subtle">
+      <button type="button" aria-label="Назад" onClick={onBack} className="flex size-10 items-center justify-center rounded-[4px] border border-border bg-surface-sunken text-foreground-subtle transition-colors hover:text-foreground">
         <BackIcon />
       </button>
       {title && <h1 className="ds-h5 absolute left-1/2 -translate-x-1/2 text-center text-foreground">{title}</h1>}
