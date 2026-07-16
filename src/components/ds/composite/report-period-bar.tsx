@@ -79,15 +79,26 @@ export function ReportPeriodBar({
       >
         <div className="flex items-center gap-2">
           <span className="ds-p3 text-foreground-muted">{periodLabel}</span>
-          <span className="ds-p3 text-foreground">{period}</span>
-          <button
-            type="button"
-            onClick={onPickPeriod}
-            aria-label="Выбрать период"
-            className="ml-1 inline-flex items-center text-foreground-subtle transition-colors hover:text-foreground"
-          >
-            <CalendarIcon />
-          </button>
+          {/* Дата кликабельна вместе с иконкой: раньше попасть в календарь можно
+              было только по иконке 18×18 — сама дата выглядела кликабельной, но
+              не была. Лейбл («Период отчёта:») остаётся вне кнопки.
+              Без onPickPeriod кнопки нет вовсе — иначе она обещала бы действие,
+              которого не существует (бар используется и в режиме «только чтение»). */}
+          {onPickPeriod ? (
+            <button
+              type="button"
+              onClick={onPickPeriod}
+              aria-label="Выбрать период"
+              className="ds-p3 -mx-1 inline-flex items-center gap-2 rounded-[4px] px-1 py-0.5 text-foreground transition-colors hover:text-primary"
+            >
+              {period}
+              <span className="inline-flex items-center text-foreground-subtle transition-colors">
+                <CalendarIcon />
+              </span>
+            </button>
+          ) : (
+            <span className="ds-p3 text-foreground">{period}</span>
+          )}
         </div>
 
         {(statusBadge || showHistory) && (
