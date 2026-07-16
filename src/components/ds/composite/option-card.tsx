@@ -32,7 +32,7 @@ export function OptionCard({ media, title, description, action, className }: Opt
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-6 rounded-[4px] border border-border bg-surface px-6 py-6 text-center sm:px-12",
+        "flex flex-col items-center justify-center gap-6 rounded-[4px] border border-border bg-surface px-6 py-6 text-center shadow-[var(--shadow-sm)] sm:px-12",
         className,
       )}
     >

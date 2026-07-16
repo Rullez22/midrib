@@ -71,7 +71,7 @@ export function BasisCard({
   return (
     <div
       className={cn(
-        "flex flex-col border-b border-border bg-white last:border-b-0",
+        "flex flex-col border-b border-border bg-white shadow-[var(--shadow-sm)] last:border-b-0",
         active && "relative z-10 ring-1 ring-inset ring-[var(--color-blue-midhub-500)]",
         className,
       )}

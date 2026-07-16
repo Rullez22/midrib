@@ -116,7 +116,7 @@ export function PartnerSidebar({
           <MenuFooter
             role="button"
             tabIndex={0}
-            className="cursor-pointer"
+            className="cursor-pointer transition-colors hover:bg-[color:var(--color-grey-10)]"
             onClick={() => router.push("/cabinet/admin")}
             onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push("/cabinet/admin"); } }}
           >

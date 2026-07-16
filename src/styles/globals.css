@@ -187,13 +187,12 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 
-  /* Плавные переходы на всех интерактивных элементах */
-  a, button, summary,
+  /* Плавные переходы на всех интерактивных элементах (расширенный список). */
+  a, button, summary, label,
   [role="button"], [role="tab"], [role="menuitem"], [role="switch"],
+  [role="checkbox"], [role="radio"], [role="option"], [role="link"],
   input, select, textarea,
-  [class*="ds-btn"], [class*="ds-tab"], [class*="ds-lm-badge"],
-  [class*="ds-lm-nav"], [class*="ds-account"], [class*="ds-card"],
-  [class*="ds-chip"], [class*="ds-input"], [class*="ds-dropdown"] {
+  [class*="ds-"], [data-clickable], [tabindex="0"] {
     transition:
       background-color .16s ease,
       border-color .16s ease,
@@ -225,6 +224,18 @@ body {
 }
 
 @keyframes appDrawer { from { transform: translateX(-100%); } to { transform: none; } }
+
+/* ============================================================================
+   Мягкие тени для глубины (subtle, светлая тема). Использовать через
+   var(--shadow-*) или Tailwind-утилиту shadow-[var(--shadow-sm)].
+   ============================================================================ */
+:root {
+  --shadow-xs: 0 1px 2px rgba(16, 42, 67, 0.04);
+  --shadow-sm: 0 1px 3px rgba(16, 42, 67, 0.06), 0 1px 2px rgba(16, 42, 67, 0.04);
+  --shadow-md: 0 4px 6px rgba(16, 42, 67, 0.05), 0 2px 4px rgba(16, 42, 67, 0.03);
+  --shadow-lg: 0 10px 25px rgba(16, 42, 67, 0.10), 0 4px 10px rgba(16, 42, 67, 0.05);
+  --shadow-hover: 0 4px 12px rgba(16, 42, 67, 0.08), 0 2px 4px rgba(16, 42, 67, 0.04);
+}
 
 @keyframes appFadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes appFade   { from { opacity: 0; } to { opacity: 1; } }

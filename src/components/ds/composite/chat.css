@@ -129,6 +129,10 @@
     background: transparent;
     color: var(--color-grey-300);
     cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .ds-chat-topbar__back:hover {
+    color: var(--color-dark-900);
   }
   .ds-chat-topbar__back svg {
     width: 24px;
@@ -217,6 +221,10 @@
     background: transparent;
     color: var(--color-grey-300);
     cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .ds-chat-sheethead__close:hover {
+    color: var(--color-dark-900);
   }
   .ds-chat-sheethead__close svg {
     width: 24px;

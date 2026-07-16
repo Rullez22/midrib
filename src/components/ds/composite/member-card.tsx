@@ -93,7 +93,7 @@ export function MemberCard({
   const hasFooter = status !== "idle" || statusText != null || onCancel != null;
 
   return (
-    <div className={cn("overflow-hidden rounded-[4px] border border-border bg-surface", className)}>
+    <div className={cn("overflow-hidden rounded-[4px] border border-border bg-surface shadow-[var(--shadow-sm)]", className)}>
       <button
         type="button"
         className={cn(

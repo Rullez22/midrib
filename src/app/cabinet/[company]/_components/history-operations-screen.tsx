@@ -111,7 +111,7 @@ function ProcessedTable({
             name=""
             transaction={r.tx}
             date={r.date}
-            className="py-5"
+            className="py-5 transition-colors hover:bg-[color:var(--color-grey-10)]"
             onTransactionClick={onOpenDoc}
           />
         </div>

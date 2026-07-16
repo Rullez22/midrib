@@ -42,7 +42,7 @@ export function InfoCard({
   className,
 }: InfoCardProps) {
   return (
-    <div className={cn("flex w-full max-w-[320px] flex-col gap-3 rounded-[10px] border border-border bg-white p-4", className)}>
+    <div className={cn("flex w-full max-w-[320px] flex-col gap-3 rounded-[10px] border border-border bg-white p-4 shadow-[var(--shadow-sm)]", className)}>
       {(meta != null || metaIcon != null) && (
         <span className="ds-caption inline-flex items-center gap-1.5 text-foreground-subtle">
           {metaIcon}

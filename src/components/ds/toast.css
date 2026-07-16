@@ -20,6 +20,8 @@
     border: 1px solid var(--toast-border);
     border-radius: var(--radius-xs);
     background-color: var(--toast-bg);
+    /* Тост «плавает» над контентом — мягкая тень уровня уведомления. */
+    box-shadow: var(--shadow-lg);
   }
   .ds-toast--with-title {
     width: 312px;

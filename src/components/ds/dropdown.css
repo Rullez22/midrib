@@ -32,6 +32,8 @@
     border-radius: var(--radius-xs);
     border: 1px solid var(--color-grey-90);
     background-color: var(--color-white);
+    /* Поповер приподнят над контентом. */
+    box-shadow: var(--shadow-lg);
   }
   .ds-dropdown__menu--end {
     left: auto;

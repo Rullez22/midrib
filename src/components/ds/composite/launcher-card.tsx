@@ -26,7 +26,7 @@ export interface LauncherCardProps {
 
 export function LauncherCard({ title, subtitle, footer, children, className }: LauncherCardProps) {
   return (
-    <div className={cn("flex flex-col gap-6 rounded-[4px] border border-border bg-surface p-8", className)}>
+    <div className={cn("flex flex-col gap-6 rounded-[4px] border border-border bg-surface p-8 shadow-[var(--shadow-sm)]", className)}>
       <SectionHeader title={title} subtitle={subtitle} />
       {children}
       {footer}

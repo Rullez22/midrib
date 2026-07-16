@@ -32,7 +32,7 @@ export interface VerificationCardProps {
 
 export function VerificationCard({ title, rows, className }: VerificationCardProps) {
   return (
-    <div className={cn("overflow-hidden rounded-[4px] border border-border bg-surface", className)}>
+    <div className={cn("overflow-hidden rounded-[4px] border border-border bg-surface shadow-[var(--shadow-sm)]", className)}>
       <div className="flex h-[66px] items-center gap-6 border-b border-border bg-surface-sunken px-6">
         <Checkbox size="xs" aria-label="Выбрать всё" />
         <span className="ds-p3-medium text-foreground">{title}</span>

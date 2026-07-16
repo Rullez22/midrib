@@ -27,6 +27,8 @@
     border-radius: var(--radius-xs);
     background-color: var(--color-dark-900);
     color: var(--color-white);
+    /* Подсказка приподнята над контентом. */
+    box-shadow: var(--shadow-md);
     text-align: left;
     pointer-events: none;
     opacity: 0;

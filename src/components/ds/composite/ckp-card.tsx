@@ -65,7 +65,7 @@ export function CKPCard({
   className,
 }: CKPCardProps) {
   return (
-    <div className={cn("relative flex w-full gap-6 rounded-[10px] border border-border bg-white p-5", className)}>
+    <div className={cn("relative flex w-full gap-6 rounded-[10px] border border-border bg-white p-5 shadow-[var(--shadow-sm)]", className)}>
       {/* Аватар-блок */}
       <div className="flex w-[120px] shrink-0 flex-col items-center gap-2 text-center">
         <div className="flex size-20 items-center justify-center overflow-hidden rounded-[12px]" style={{ background: "linear-gradient(135deg, var(--color-purple-200), var(--color-blue-midhub-200))" }}>
@@ -91,12 +91,12 @@ export function CKPCard({
       {(editable || onLayout) && (
         <div className="absolute right-5 top-5 flex items-center gap-4">
           {editable && (
-            <button type="button" aria-label="Редактировать" onClick={onEdit}>
+            <button type="button" aria-label="Редактировать" onClick={onEdit} className="transition-colors hover:text-foreground">
               <EditIcon />
             </button>
           )}
           {onLayout && (
-            <button type="button" aria-label="Вид" onClick={onLayout}>
+            <button type="button" aria-label="Вид" onClick={onLayout} className="transition-colors hover:text-foreground">
               <GridIcon />
             </button>
           )}

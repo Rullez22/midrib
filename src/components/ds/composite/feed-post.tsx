@@ -117,7 +117,7 @@ export function FeedPost({ title, date, text, media, onMenu, className }: FeedPo
   return (
     <div
       className={cn(
-        "flex w-full flex-col gap-4 rounded-[4px] border border-border bg-surface p-6",
+        "flex w-full flex-col gap-4 rounded-[4px] border border-border bg-surface p-6 shadow-[var(--shadow-sm)]",
         className,
       )}
     >

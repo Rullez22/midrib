@@ -58,7 +58,7 @@ export function ProfileCard({
   const accent = borderColor ?? `var(--color-${color}-400)`;
   return (
     <div
-      className={cn("flex w-[180px] flex-col rounded-[10px] border bg-white", className)}
+      className={cn("flex w-[180px] flex-col rounded-[10px] border bg-white shadow-[var(--shadow-sm)]", className)}
       style={{
         // Всегда цветной бордер; выделенный — с цветной заливкой.
         borderColor: borderColor ?? `var(--color-${color}-300)`,

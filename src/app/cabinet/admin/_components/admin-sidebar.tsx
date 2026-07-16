@@ -95,7 +95,7 @@ export function AdminSidebar({ current = "referral" }: { current?: "referral" | 
             avatarRing
             role="button"
             tabIndex={0}
-            className="cursor-pointer"
+            className="cursor-pointer transition-colors hover:bg-[color:var(--color-grey-10)]"
             onClick={() => router.push("/cabinet/lk/chair")}
             onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); router.push("/cabinet/lk/chair"); } }}
           >

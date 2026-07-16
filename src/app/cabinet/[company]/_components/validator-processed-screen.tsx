@@ -201,7 +201,7 @@ export function ValidatorProcessedScreen({ cabinet, current }: { cabinet: Cabine
                   onClick={() => setOpenedDoc(d)}
                   onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setOpenedDoc(d); }}
                 >
-                  <DocumentRow status={d.status} number={d.number} name={d.name} transaction={d.tx} date={d.date} />
+                  <DocumentRow status={d.status} number={d.number} name={d.name} transaction={d.tx} date={d.date} className="transition-colors hover:bg-[color:var(--color-grey-10)]" />
                 </div>
               ))}
             </div>
