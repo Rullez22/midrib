@@ -4,12 +4,19 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-const FADE_CLASS = "ds-content--fade";
+/* Класс-маркер на обёртке. Сама обёртка НЕ анимируется — правило
+   `.ds-page-anim main` (globals.css) гасит только контентную область, иначе
+   сайдбар и рейка (они в разметке страниц, вне main) мигали бы на каждом
+   переходе. Снятие/возврат класса рвёт совпадение селектора и перезапускает
+   анимацию у main. */
+const FADE_CLASS = "ds-page-anim";
 
 /**
  * PageTransition — плавная смена страниц внутри раздела.
  *
- * Ставится в layout раздела и оборачивает `children`.
+ * Ставится в layout раздела и оборачивает `children`. Гасит только `main`
+ * (см. `.ds-page-anim main` в globals.css) — сайдбар, рейка и шапка апки живут
+ * в разметке самих страниц вне main и при навигации остаются неподвижными.
  *
  * Почему НЕ key={pathname} и не корневой template.tsx (оба ре-монтируют
  * поддерево при навигации): под layout'ами живут провайдеры, чьё состояние

@@ -342,6 +342,19 @@ body {
    11-й и последующие появляются вместе с 10-м. */
 .ds-content--stagger > *:nth-child(n + 11) { animation-delay: 270ms; }
 
+/* ── Переход между страницами ──
+   Анимируется ТОЛЬКО контентная область (main), а не вся обёртка: сайдбар и
+   рейка лежат в разметке самих страниц (вне main), и fade всей обёртки
+   заставлял их мигать на каждой навигации. main есть у 121 экрана; где его
+   нет — переход просто останется без анимации, вёрстка не страдает.
+   Только opacity, без transform: модалки/drawer внутри main позиционируются
+   fixed, а transform на предке сделал бы его containing block и сдвинул их. */
+@media (prefers-reduced-motion: no-preference) {
+  .ds-page-anim main {
+    animation: contentFade 0.34s ease-out both;
+  }
+}
+
 @keyframes contentIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: none; }
