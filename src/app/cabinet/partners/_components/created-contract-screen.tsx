@@ -220,12 +220,16 @@ function ConsultationWindow({ c, onFinish }: { c: CreatedContract; onFinish: () 
       </div>
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch">
-        <div className="flex min-w-0 flex-1 flex-col gap-4 rounded-[4px] border border-border p-6">
+        {/* ds-row — блок отзывается на мышь как соседний ChatPanel и карточки выше. */}
+        <div className="ds-row flex min-w-0 flex-1 flex-col gap-4 rounded-[4px] border border-border p-6">
           <Tabs value={docTab} onValueChange={setDocTab} variant="basic" size="m" aria-label="Документы">
             <Tab value="docs">Документы</Tab>
             <Tab value="pub">Публикация</Tab>
           </Tabs>
-          {docTab === "docs" ? <DocsTable /> : <FeedComposerBar avatar={ME_PHOTO} />}
+          {/* key — смена таба играет .ds-content, иначе контент менялся бы рывком. */}
+          <div key={docTab} className="ds-content">
+            {docTab === "docs" ? <DocsTable /> : <FeedComposerBar avatar={ME_PHOTO} />}
+          </div>
         </div>
         <ChatPanel title="Чат с консультантом" messages={CONSULT_CHAT} />
       </div>
@@ -313,7 +317,7 @@ export function CreatedContractScreen({
     </div>
   ) : (
     <div className="flex flex-col gap-6 lg:pr-[324px]">
-      <div className="flex flex-col gap-4 rounded-[4px] border border-border p-6">
+      <div className="ds-row flex flex-col gap-4 rounded-[4px] border border-border p-6">
         <ContractDocsPub />
       </div>
       <div className="mt-2 flex flex-col gap-5">

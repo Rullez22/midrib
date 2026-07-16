@@ -120,7 +120,7 @@ export function DocsTable() {
 /** Форма публикации поста (подписанный документ). */
 export function PublicationForm() {
   return (
-    <div className="flex flex-col gap-4 rounded-[4px] border border-border p-6">
+    <div className="ds-row flex flex-col gap-4 rounded-[4px] border border-border p-6">
       <span className="ds-p2-medium text-foreground">Публикация</span>
       <Input placeholder="Заголовок*" />
       <Textarea placeholder="Описание*" rows={3} />
@@ -222,16 +222,21 @@ export function OrgContractScreen({ org, contract, cabinet }: { org: Org; contra
                 <PublicationForm />
               </>
             ) : (
-              <div className="flex flex-col gap-4 rounded-[4px] border border-border p-6">
+              // ds-row — тот же лифт тени, что у блоков выше (транзакции, чат):
+              // без него этот блок был единственным на экране без отклика.
+              <div className="ds-row flex flex-col gap-4 rounded-[4px] border border-border p-6">
                 <Tabs value={docTab} onValueChange={setDocTab} variant="basic" size="m" aria-label="Документы">
                   <Tab value="docs">Документы</Tab>
                   <Tab value="pub">Публикация</Tab>
                 </Tabs>
-                {docTab === "docs" ? (
-                  <DocsTable />
-                ) : (
-                  <FeedComposerBar avatar={org.media} />
-                )}
+                {/* key — смена таба играет .ds-content, иначе контент менялся бы рывком. */}
+                <div key={docTab} className="ds-content">
+                  {docTab === "docs" ? (
+                    <DocsTable />
+                  ) : (
+                    <FeedComposerBar avatar={org.media} />
+                  )}
+                </div>
               </div>
             )}
 

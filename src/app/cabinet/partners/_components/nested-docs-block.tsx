@@ -54,7 +54,7 @@ export function NestedDocsBlock({ org, cabinet, parentDocId }: { org: Org; cabin
   const create = (kind: string) => router.push(`${base}/contract-new?kind=${kind}&parent=${parentDocId}`);
 
   return (
-    <div className="overflow-hidden rounded-[4px] border border-border">
+    <div className="ds-row overflow-hidden rounded-[4px] border border-border">
       <div className="flex items-center justify-between gap-4 border-b border-border px-6 py-4">
         <span className="ds-p2-medium text-foreground">Документы</span>
         <Dropdown
