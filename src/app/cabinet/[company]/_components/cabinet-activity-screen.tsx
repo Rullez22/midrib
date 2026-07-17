@@ -8,7 +8,7 @@ import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/ac
 import { CompanySidebar } from "./company-sidebar";
 import { type CabinetConfig } from "../_config/cabinets";
 import { ACCENT, type CabinetActivityData, type CollectiveMember, type CascadeData } from "../_config/cabinet-activity";
-import { ckpIconColor } from "../_config/cabinets";
+import { ckpIconColor, CARD_TINT } from "../_config/cabinets";
 import { lkKeyByCabinetPhoto } from "../../lk/_components/lk-data";
 
 /**
@@ -142,7 +142,10 @@ function QuestionRow({ q, accent }: { q: { title: string; body?: string; open?: 
 function CkpAva({ avatar, cover }: { avatar?: string; cover?: string }) {
   return (
     <div className="relative h-[88px] w-full overflow-hidden rounded-t-[3px]">
-      <div className="h-[57px] w-full" style={{ backgroundImage: cover ?? "linear-gradient(120deg,#f9c5d1,#a18cd1,#84fab0)" }} />
+      {/* bg-cover/bg-center — обложкой может быть не только градиент подразделения,
+          но и фото (обложка человека в ЛК): без масштабирования оно рисуется
+          в натуральную величину. Дефолт — градиент Администрации (кооператив). */}
+      <div className="h-[57px] w-full bg-cover bg-center" style={{ backgroundImage: cover ?? "linear-gradient(120deg,#f9c5d1,#a18cd1,#84fab0)" }} />
       <div className="absolute bottom-0 left-1/2 size-[72px] -translate-x-1/2 overflow-hidden rounded-full border-2 border-[#fff] bg-[#e8edf2]">
         {avatar ? (
           <img src={avatar} alt="" className="size-full object-cover" />
@@ -315,6 +318,9 @@ function StructureTab({ cabinet, data, accent, member }: { cabinet: CabinetConfi
         avatar={cabinet.avatar}
         membersLabel={data.membersLabel}
         desc={data.ckpDesc}
+        /* Обложка своего подразделения (та же, что у его карточки в сайдбаре):
+           без неё CkpAva рисует дефолтный градиент Администрации. */
+        cover={CARD_TINT[cabinet.railColor].cover}
         layout
         layoutColor={ckpIconColor(cabinet.slug)}
         onLayout={() => router.push(`/cabinet/about?view=structure&focus=${cabinet.slug}`)}
