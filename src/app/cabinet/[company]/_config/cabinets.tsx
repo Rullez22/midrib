@@ -62,8 +62,12 @@ export interface CabinetConfig {
   /** Номер на рейке (2–7). */
   rail: number;
   railColor: MenuBadgeColor;
-  /** Имя подразделения (заголовок профиля и карточки в сайдбаре). */
+  /** Имя подразделения-воркспейса: заголовок профиля, карточка в сайдбаре,
+   *  оргструктура (HR, Производство …). */
   name: string;
+  /** Имя раздела в меню подразделений Администрации — прежнее, по функции
+   *  (Валидатор, Веб-ресурс …). По умолчанию совпадает с `name`. */
+  sectionName?: string;
   /** Подзаголовок профиля. */
   role: string;
   /** Фото-аватар подразделения. */
@@ -163,6 +167,10 @@ function deptData(name: string, opts: { avatar: string; domain: string; email: s
 
 const I = CabinetMenuIcon;
 
+/** Аватар Администрации (кабинет №1). Её самой в CABINETS нет — она живёт в
+ *  /cabinet, — но фото нужно и карточке в сайдбаре, и её блоку ЦКП. */
+export const ADMIN_AVATAR = "https://images.unsplash.com/photo-1497366216548-37526070297c?w=240&q=80";
+
 const AV = {
   validator: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=240&q=80",
   web: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=240&q=80",
@@ -179,6 +187,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     rail: 2,
     railColor: "orange",
     name: "HR",
+    sectionName: "Валидатор",
     role: ROLE,
     avatar: AV.validator,
     cover: SUBDIVISION_COVER,
@@ -196,6 +205,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     rail: 3,
     railColor: "yellow",
     name: "Производство",
+    sectionName: "Веб-ресурс",
     role: ROLE,
     avatar: AV.web,
     cover: SUBDIVISION_COVER,
@@ -208,6 +218,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     rail: 4,
     railColor: "green",
     name: "Коммуникации",
+    sectionName: "Домены",
     role: ROLE,
     avatar: AV.domains,
     cover: SUBDIVISION_COVER,
@@ -220,6 +231,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     rail: 5,
     railColor: "blue",
     name: "Развитие",
+    sectionName: "Исполнитель",
     role: ROLE,
     avatar: AV.executor,
     cover: SUBDIVISION_COVER,
@@ -232,6 +244,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     rail: 6,
     railColor: "blue-strong",
     name: "Квалификации",
+    sectionName: "Регулятор",
     role: ROLE,
     avatar: AV.regulator,
     cover: SUBDIVISION_COVER,
@@ -244,6 +257,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     rail: 7,
     railColor: "purple",
     name: "Распределение",
+    sectionName: "ВУЗы",
     role: ROLE,
     avatar: AV.vuz,
     cover: SUBDIVISION_COVER,

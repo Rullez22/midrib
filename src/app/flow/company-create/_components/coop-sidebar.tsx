@@ -17,6 +17,7 @@ import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { useRegFlow } from "./reg-flow";
 import { DeptMenu } from "../../../cabinet/_components/dept-menu";
 import { railHref, RAIL_WORKSPACES } from "../../../cabinet/[company]/_config/cabinet-rail";
+import { ADMIN_AVATAR } from "../../../cabinet/[company]/_config/cabinets";
 import { CabinetMenuIcon } from "../../../cabinet/[company]/_components/cabinet-menu-icons";
 
 /**
@@ -102,7 +103,9 @@ function DeptCard({ active = false, current = false, onClick }: { active?: boole
             active ? "border-[#fff]" : "border-border",
           )}
         >
-          {active && <img src={AVATAR} alt="" className="size-full object-cover" />}
+          {/* Настроенный кооператив — фото Администрации; в онбординге структуры
+              ещё нет, поэтому там пустой серый кружок. */}
+          {active && <img src={ADMIN_AVATAR} alt="" className="size-full object-cover" />}
         </div>
       </div>
       <div className="flex flex-col items-center gap-0.5 px-2 text-center">

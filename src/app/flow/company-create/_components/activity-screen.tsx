@@ -7,7 +7,7 @@ import { Tabs, Tab, Checkbox, Button, Modal, Input, EditPencilIcon, CkpGridIcon 
 import { CoopSidebar, type CoopRoutes } from "./coop-sidebar";
 import { useRegFlow, useEnsureInvited } from "./reg-flow";
 import { lkKeyByAdminPhoto } from "../../../cabinet/lk/_components/lk-data";
-import { ckpIconColor } from "../../../cabinet/[company]/_config/cabinets";
+import { ckpIconColor, ADMIN_AVATAR } from "../../../cabinet/[company]/_config/cabinets";
 
 /**
  * ActivityScreen — «Деятельность» кооператива (таб «Структура»). Открывается из
@@ -315,10 +315,8 @@ function CkpAva() {
     <div className="relative h-[88px] w-full overflow-hidden rounded-t-[3px]">
       <div className="h-[57px] w-full bg-[linear-gradient(120deg,#f9c5d1_0%,#a18cd1_45%,#84fab0_100%)]" />
       <div className="absolute bottom-0 left-1/2 size-[72px] -translate-x-1/2 overflow-hidden rounded-full border-2 border-[#fff] bg-[#e8edf2]">
-        <svg viewBox="0 0 64 64" aria-hidden className="size-full">
-          <circle cx="32" cy="25" r="11" fill="#b1becb" />
-          <path d="M13 60c0-12 9-19 19-19s19 7 19 19z" fill="#b1becb" />
-        </svg>
+        {/* Фото Администрации — то же, что на её карточке в сайдбаре. */}
+        <img src={ADMIN_AVATAR} alt="" className="size-full object-cover" />
       </div>
     </div>
   );

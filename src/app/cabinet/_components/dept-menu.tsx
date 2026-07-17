@@ -48,7 +48,9 @@ const SECTIONS: DeptSection[] = [
   },
   ...CABINET_ALL.map((c) => ({
     slug: c.slug,
-    name: c.name,
+    // В списке разделы называются по функции (Валидатор, Веб-ресурс …) — это не
+    // подразделения-воркспейсы, которые переименованы в HR, Производство и т.д.
+    name: c.sectionName ?? c.name,
     items: c.menu.map((m) => ({
       key: m.key,
       label: m.label,
