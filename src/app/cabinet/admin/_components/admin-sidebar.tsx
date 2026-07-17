@@ -11,7 +11,7 @@ import {
   type MenuBadgeColor,
 } from "@/components/ds";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
-import { railHref } from "../../[company]/_config/cabinet-rail";
+import { railHref, RAIL_WORKSPACES } from "../../[company]/_config/cabinet-rail";
 import { LK_USER } from "../../lk/_components/lk-data";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
 
@@ -22,17 +22,6 @@ import { CABINET_ROUTES } from "../../_components/cabinet-seed";
  *
  * Reuse DS: MenuRail · MenuBadge · MenuPanel · MenuNavItem · MenuFooter.
  */
-
-const WORKSPACES: { label: string; color: MenuBadgeColor }[] = [
-  { label: "1", color: "red" },
-  { label: "2", color: "orange" },
-  { label: "3", color: "yellow" },
-  { label: "4", color: "green" },
-  { label: "5", color: "blue" },
-  { label: "6", color: "blue-strong" },
-  { label: "7", color: "purple" },
-  { label: "8", color: "cyan" },
-];
 
 /** Иконка «Реферальная» (Figma digital-marketing, 24px, currentColor). */
 function ReferralIcon({ className }: { className?: string }) {
@@ -77,7 +66,7 @@ export function AdminSidebar({ current = "referral" }: { current?: "referral" | 
           </MenuFooter>
         }
       >
-        {WORKSPACES.map((w) => {
+        {RAIL_WORKSPACES.map((w) => {
           const href = railHref(w.label);
           return (
             <MenuBadge key={w.label} color={w.color} onClick={href ? () => router.push(href) : undefined}>

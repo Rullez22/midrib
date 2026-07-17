@@ -12,6 +12,7 @@ import {
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
+import { RAIL_WORKSPACES } from "../../[company]/_config/cabinet-rail";
 import { type Partner } from "./partners-data";
 
 /**
@@ -23,17 +24,6 @@ import { type Partner } from "./partners-data";
  * Reuse DS: MenuRail · MenuBadge · MenuPanel · MenuFooter · MenuIcon · Button (ghost).
  * Скрыт на <lg (моб./планшет).
  */
-
-const WORKSPACES: { label: string; color: MenuBadgeColor }[] = [
-  { label: "1", color: "red" },
-  { label: "2", color: "orange" },
-  { label: "3", color: "yellow" },
-  { label: "4", color: "green" },
-  { label: "5", color: "blue" },
-  { label: "6", color: "blue-strong" },
-  { label: "7", color: "purple" },
-  { label: "8", color: "cyan" },
-];
 
 /** Аватар представителя в футере — как в основном сайдбаре (CoopSidebar). */
 const FOOTER_AVATAR =
@@ -124,7 +114,7 @@ export function PartnerSidebar({
           </MenuFooter>
         }
       >
-        {WORKSPACES.map((w) => (
+        {RAIL_WORKSPACES.map((w) => (
           <MenuBadge key={w.label} color={w.color} active={w.label === "1"}>
             {w.label}
           </MenuBadge>

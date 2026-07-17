@@ -74,6 +74,9 @@ export interface CabinetConfig {
   chatMessages: ChatMessage[];
   /** Кабинет-специфичные пункты меню (помимо Деятельность + Счета). */
   menu: CabinetMenuItem[];
+  /** Скрыт из навигации: нет ни в рейке, ни в оргструктуре, ни в меню
+   *  подразделений. Сам кабинет остаётся рабочим по прямой ссылке. */
+  hidden?: boolean;
 }
 
 const ORG = "Immatra";
@@ -175,7 +178,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     slug: "validator",
     rail: 2,
     railColor: "orange",
-    name: "Валидатор",
+    name: "HR",
     role: ROLE,
     avatar: AV.validator,
     cover: SUBDIVISION_COVER,
@@ -192,7 +195,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     slug: "web",
     rail: 3,
     railColor: "yellow",
-    name: "Веб-ресурс",
+    name: "Производство",
     role: ROLE,
     avatar: AV.web,
     cover: SUBDIVISION_COVER,
@@ -204,7 +207,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     slug: "domains",
     rail: 4,
     railColor: "green",
-    name: "Домены",
+    name: "Коммуникации",
     role: ROLE,
     avatar: AV.domains,
     cover: SUBDIVISION_COVER,
@@ -216,7 +219,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     slug: "executor",
     rail: 5,
     railColor: "blue",
-    name: "Исполнитель",
+    name: "Развитие",
     role: ROLE,
     avatar: AV.executor,
     cover: SUBDIVISION_COVER,
@@ -228,7 +231,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     slug: "regulator",
     rail: 6,
     railColor: "blue-strong",
-    name: "Регулятор",
+    name: "Квалификации",
     role: ROLE,
     avatar: AV.regulator,
     cover: SUBDIVISION_COVER,
@@ -240,7 +243,7 @@ export const CABINETS: Record<string, CabinetConfig> = {
     slug: "vuz",
     rail: 7,
     railColor: "purple",
-    name: "ВУЗы",
+    name: "Распределение",
     role: ROLE,
     avatar: AV.vuz,
     cover: SUBDIVISION_COVER,
@@ -260,6 +263,8 @@ export const CABINETS: Record<string, CabinetConfig> = {
     rail: 8,
     railColor: "cyan",
     name: "Фонд",
+    // Скрыт из навигации по решению структуры (рейка 1–7, оргструктура — 7 карточек).
+    hidden: true,
     role: ROLE,
     avatar: AV.fond,
     cover: SUBDIVISION_COVER,
@@ -273,7 +278,10 @@ export const CABINETS: Record<string, CabinetConfig> = {
   },
 };
 
-export const CABINET_LIST = Object.values(CABINETS).sort((a, b) => a.rail - b.rail);
+/** Кабинеты навигации (рейка, оргструктура, меню подразделений) — без скрытых. */
+export const CABINET_LIST = Object.values(CABINETS)
+  .filter((c) => !c.hidden)
+  .sort((a, b) => a.rail - b.rail);
 
 export function getCabinet(slug: string): CabinetConfig | undefined {
   return CABINETS[slug];

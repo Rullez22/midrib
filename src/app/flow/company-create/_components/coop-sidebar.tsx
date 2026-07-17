@@ -16,7 +16,7 @@ import { cn } from "@/lib/cn";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { useRegFlow } from "./reg-flow";
 import { DeptMenu } from "../../../cabinet/_components/dept-menu";
-import { railHref } from "../../../cabinet/[company]/_config/cabinet-rail";
+import { railHref, RAIL_WORKSPACES } from "../../../cabinet/[company]/_config/cabinet-rail";
 import { CabinetMenuIcon } from "../../../cabinet/[company]/_components/cabinet-menu-icons";
 
 /**
@@ -42,17 +42,6 @@ const USER_PHOTO = "/members/ilya.png";
 /** Личный кабинет пользователя — открывается кликом по профилю-футеру из любого
  *  экрана кабинета (как логотип → /cabinet/about). */
 const LK_HREF = "/cabinet/lk/chair";
-
-const WORKSPACES: { label: string; color: MenuBadgeColor }[] = [
-  { label: "1", color: "red" },
-  { label: "2", color: "orange" },
-  { label: "3", color: "yellow" },
-  { label: "4", color: "green" },
-  { label: "5", color: "blue" },
-  { label: "6", color: "blue-strong" },
-  { label: "7", color: "purple" },
-  { label: "8", color: "cyan" },
-];
 
 /** Иконка «Вопросы голосования» — планшет + галочка-в-кружке (Figma «verify 2»). */
 export function VotingCheckIcon({ className }: { className?: string }) {
@@ -180,7 +169,7 @@ export function CoopRail() {
           </MenuFooter>
         }
       >
-        {WORKSPACES.map((w) => {
+        {RAIL_WORKSPACES.map((w) => {
           const href = railHref(w.label);
           return (
             <MenuBadge
@@ -277,7 +266,7 @@ export function CoopSidebar({
           </MenuFooter>
         }
       >
-        {WORKSPACES.map((w) => {
+        {RAIL_WORKSPACES.map((w) => {
           const href = railHref(w.label);
           return (
             <MenuBadge

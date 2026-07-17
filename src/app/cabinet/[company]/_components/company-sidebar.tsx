@@ -15,7 +15,7 @@ import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { WalletFilledIcon, CoopSidebar } from "../../../flow/company-create/_components/coop-sidebar";
 import { CabinetMenuIcon } from "./cabinet-menu-icons";
 import { CARD_TINT, type CabinetConfig } from "../_config/cabinets";
-import { railHref } from "../_config/cabinet-rail";
+import { railHref, RAIL_WORKSPACES } from "../_config/cabinet-rail";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
 
 /**
@@ -30,17 +30,6 @@ import { CABINET_ROUTES } from "../../_components/cabinet-seed";
  */
 
 const USER_PHOTO = "/members/ilya.png";
-
-const RAIL: { label: string; color: MenuBadgeColor }[] = [
-  { label: "1", color: "red" },
-  { label: "2", color: "orange" },
-  { label: "3", color: "yellow" },
-  { label: "4", color: "green" },
-  { label: "5", color: "blue" },
-  { label: "6", color: "blue-strong" },
-  { label: "7", color: "purple" },
-  { label: "8", color: "cyan" },
-];
 
 export { CARD_TINT };
 
@@ -117,7 +106,7 @@ export function CompanyRail({ activeRail }: { activeRail?: number | null }) {
         </MenuFooter>
       }
     >
-      {RAIL.map((w) => {
+      {RAIL_WORKSPACES.map((w) => {
         const href = railHref(w.label);
         return (
           <MenuBadge

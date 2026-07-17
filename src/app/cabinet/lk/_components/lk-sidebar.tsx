@@ -16,7 +16,7 @@ import {
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
-import { railHref } from "../../[company]/_config/cabinet-rail";
+import { railHref, RAIL_WORKSPACES } from "../../[company]/_config/cabinet-rail";
 import { railColorOf } from "../../[company]/_config/cabinets";
 import { CARD_TINT } from "../../[company]/_components/company-sidebar";
 import { CabinetMenuIcon } from "../../[company]/_components/cabinet-menu-icons";
@@ -35,17 +35,6 @@ import "./lk-sidebar.css";
 
 /** Палитра карточки по цвету рейки подразделения (та же, что у DeptCard). */
 type CardTint = (typeof CARD_TINT)[MenuBadgeColor];
-
-const WORKSPACES: { label: string; color: MenuBadgeColor }[] = [
-  { label: "1", color: "red" },
-  { label: "2", color: "orange" },
-  { label: "3", color: "yellow" },
-  { label: "4", color: "green" },
-  { label: "5", color: "blue" },
-  { label: "6", color: "blue-strong" },
-  { label: "7", color: "purple" },
-  { label: "8", color: "cyan" },
-];
 
 /** Карточка пользователя — 1:1 структура DeptCard (полоса-обложка + аватар на
  *  границе + имя на белом). Текущая → рамка цвета подразделения. */
@@ -149,7 +138,7 @@ export function LkSidebar({ role, current = "profile", panelHidden = false, from
           </MenuFooter>
         }
       >
-        {WORKSPACES.map((w) => {
+        {RAIL_WORKSPACES.map((w) => {
           const href = railHref(w.label);
           return (
             <MenuBadge

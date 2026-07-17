@@ -1,3 +1,4 @@
+import { type MenuBadgeColor } from "@/components/ds";
 import { CABINET_LIST } from "./cabinets";
 
 /**
@@ -15,3 +16,13 @@ export const RAIL_HREFS: Record<string, string> = {
 export function railHref(label: string): string | undefined {
   return RAIL_HREFS[label];
 }
+
+/**
+ * Бейджи рейки: №1 — Администрация, дальше кабинеты из CABINET_LIST (скрытые
+ * подразделения туда не попадают). Один источник на все сайдбары — раньше этот
+ * список был скопирован в каждый из пяти.
+ */
+export const RAIL_WORKSPACES: { label: string; color: MenuBadgeColor }[] = [
+  { label: "1", color: "red" },
+  ...CABINET_LIST.map((c) => ({ label: String(c.rail), color: c.railColor })),
+];
