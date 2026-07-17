@@ -25,6 +25,7 @@ import { cn } from "@/lib/cn";
 import { CompanyRail, CARD_TINT } from "./company-sidebar";
 import { DeptProfile } from "./dept-profile";
 import { SideChatLayout } from "../../_components/side-chat-layout";
+import { CABINET_ROUTES } from "../../_components/cabinet-seed";
 import { CkpBlock, CascadeArrowDown, StructureCascade } from "./cabinet-activity-screen";
 import { LEGAL } from "../../payment/_components/payment-shared";
 import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/activity-screen";
@@ -112,7 +113,16 @@ function PeersTable() {
   );
 }
 
+/**
+ * «Деятельность» подразделения. Администрация (кабинет №1) живёт на
+ * кооператив-уровне (CABINET_ROUTES.activity), кабинеты 2–7 — под своим слагом.
+ */
+function deptActivityHref(slug: string) {
+  return slug === "administration" ? CABINET_ROUTES.activity : `/cabinet/${slug}/activity`;
+}
+
 function StructureView({ initialFocus = "administration" }: { initialFocus?: string }) {
+  const router = useRouter();
   const [tab, setTab] = useState("struct");
   // Фокус структуры: по умолчанию — Администрация; при переходе с экрана
   // подразделения (грид-иконка ЦКП) фокус приходит из URL (?focus=slug).
@@ -149,13 +159,20 @@ function StructureView({ initialFocus = "administration" }: { initialFocus?: str
               // --color-blue-* в проекте нет). railColor подразделения.
               const cardRail: MenuBadgeColor = s.slug === "administration" ? "red" : (getCabinet(s.slug)?.railColor ?? "red");
               const ca = ACCENT[cardRail];
+              // Первый клик — фокус (каскад ниже перестраивается), повторный клик
+              // по уже выделенной карточке — переход на «Деятельность» подразделения.
+              const activate = () => {
+                if (isSel) router.push(deptActivityHref(s.slug));
+                else setFocus(s.slug);
+              };
               return (
                 <div key={s.slug} className="flex min-w-[172px] flex-1 flex-col">
                   <div
                     role="button"
                     tabIndex={0}
-                    onClick={() => setFocus(s.slug)}
-                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setFocus(s.slug); } }}
+                    aria-label={isSel ? `${s.name}: перейти к деятельности` : `${s.name}: показать в структуре`}
+                    onClick={activate}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); } }}
                     className="flex-1 cursor-pointer"
                   >
                     {/* !h-full — карточки одинаковой длины (как коллектив в подразделениях) */}
