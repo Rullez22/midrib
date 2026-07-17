@@ -240,8 +240,13 @@ export function SpacesScreen() {
               { value: "kz", label: "Казахстан" },
               { value: "by", label: "Беларусь" },
             ]}
+            /* Триггер отзывается на курсор так же, как поля DS (.ds-field): подсветка рамки. */
             trigger={({ open }) => (
-              <span className="flex h-9 min-w-[200px] cursor-pointer items-center justify-between gap-2 rounded-[6px] border border-border bg-[#fff] px-3">
+              <span className={cn(
+                "flex h-9 min-w-[200px] cursor-pointer items-center justify-between gap-2 rounded-[6px] border border-border bg-[#fff] px-3",
+                "transition-colors hover:border-[color:var(--color-grey-200)]",
+                open && "border-[color:var(--color-grey-200)]",
+              )}>
                 <span className="flex flex-col gap-0 leading-[1.15]">
                   <span className="ds-caption text-foreground-subtle leading-[1.15]">Глобальный кооператив</span>
                   <span className="ds-p3 text-foreground leading-[1.15]">🇷🇺 Россия</span>
