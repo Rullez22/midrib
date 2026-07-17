@@ -74,8 +74,8 @@ export interface CabinetConfig {
   chatMessages: ChatMessage[];
   /** Кабинет-специфичные пункты меню (помимо Деятельность + Счета). */
   menu: CabinetMenuItem[];
-  /** Скрыт из навигации: нет ни в рейке, ни в оргструктуре, ни в меню
-   *  подразделений. Сам кабинет остаётся рабочим по прямой ссылке. */
+  /** Скрыт как воркспейс: нет ни в рейке, ни в оргструктуре. В меню подразделений
+   *  Администрации раздел остаётся — его страницы никуда не делись. */
   hidden?: boolean;
 }
 
@@ -278,10 +278,12 @@ export const CABINETS: Record<string, CabinetConfig> = {
   },
 };
 
-/** Кабинеты навигации (рейка, оргструктура, меню подразделений) — без скрытых. */
-export const CABINET_LIST = Object.values(CABINETS)
-  .filter((c) => !c.hidden)
-  .sort((a, b) => a.rail - b.rail);
+/** Все кабинеты по порядку рейки, включая скрытые: их страницы остаются
+ *  доступными из меню подразделений в Администрации. */
+export const CABINET_ALL = Object.values(CABINETS).sort((a, b) => a.rail - b.rail);
+
+/** Кабинеты-воркспейсы: рейка и оргструктура — без скрытых. */
+export const CABINET_LIST = CABINET_ALL.filter((c) => !c.hidden);
 
 export function getCabinet(slug: string): CabinetConfig | undefined {
   return CABINETS[slug];

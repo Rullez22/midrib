@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { MenuNavItem, MenuIcon } from "@/components/ds";
-import { CABINET_LIST } from "../[company]/_config/cabinets";
+import { CABINET_ALL } from "../[company]/_config/cabinets";
 import { useCabinetUnlock, type UnlockKey } from "../[company]/_components/cabinet-unlock";
 import { CABINET_ROUTES } from "./cabinet-seed";
 
@@ -32,7 +32,11 @@ interface DeptSection {
   items: DeptItem[];
 }
 
-/** Разделы: Администрация (её страницы — Пайщики/Партнеры) + кабинеты 2–8. */
+/**
+ * Разделы: Администрация (её страницы — Пайщики/Партнеры) + кабинеты 2–8, включая
+ * скрытые из рейки (Фонд): страницы подразделения переехали сюда и остаются
+ * доступными, даже если самого воркспейса на рейке уже нет.
+ */
 const SECTIONS: DeptSection[] = [
   {
     slug: "administration",
@@ -42,7 +46,7 @@ const SECTIONS: DeptSection[] = [
       { key: "partners", label: "Партнеры", icon: <MenuIcon.Partners />, href: CABINET_ROUTES.partners },
     ],
   },
-  ...CABINET_LIST.map((c) => ({
+  ...CABINET_ALL.map((c) => ({
     slug: c.slug,
     name: c.name,
     items: c.menu.map((m) => ({
