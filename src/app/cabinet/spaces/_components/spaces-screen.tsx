@@ -97,6 +97,7 @@ function cellColor(level: number): string {
 }
 
 function SpacesGrid() {
+  const router = useRouter();
   return (
     <div className="w-full overflow-x-auto px-5 py-8 md:px-[50px]">
       {/* Одна сетка: 7 колонок × (шапка уровней + 3 направления). gap-px + серый
@@ -116,10 +117,24 @@ function SpacesGrid() {
             LEVELS.map((l, ci) => {
               const locked = s.lockedUntil != null && l.n <= s.lockedUntil;
               const first = ci === 0;
+              // Открытая ячейка ведёт в ленту направления и отзывается на курсор —
+              // тем же осветлением, что ячейки КОБ на «Глобусе». Закрытая («?») —
+              // обычный блок: вести из неё некуда.
+              const Cell = locked ? "div" : "button";
               return (
-                <div
+                <Cell
                   key={`${s.name}-${l.n}`}
-                  className="relative flex min-h-[92px] flex-col justify-between px-4 py-3"
+                  {...(locked
+                    ? {}
+                    : {
+                        type: "button" as const,
+                        onClick: () => router.push("/cabinet/spaces/mash"),
+                        "aria-label": `${s.name}: ${l.n} уровень`,
+                      })}
+                  className={cn(
+                    "relative flex min-h-[92px] flex-col justify-between px-4 py-3 text-left",
+                    !locked && "cursor-pointer transition-opacity hover:opacity-90",
+                  )}
                   style={{ backgroundColor: locked ? "var(--color-grey-20)" : cellColor(l.n) }}
                 >
                   {locked ? (
@@ -135,7 +150,7 @@ function SpacesGrid() {
                       )}
                     </>
                   )}
-                </div>
+                </Cell>
               );
             }),
           )}

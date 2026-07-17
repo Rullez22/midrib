@@ -133,7 +133,8 @@ export function PublicationsScreen() {
 
           <div className="flex flex-col gap-8 px-8 py-8">
             {PUBLICATIONS.map((p) => (
-              <div key={p.title} className="flex h-[280px] overflow-hidden rounded-[4px]">
+              // ds-row — тот же отклик, что у постов ленты (FeedPost) и строк документов.
+              <div key={p.title} className="ds-row flex h-[280px] overflow-hidden rounded-[4px]">
                 <img src={p.cover} alt="" className="h-full w-[38%] shrink-0 rounded-l-[4px] object-cover" />
                 <div className="relative min-w-0 flex-1 overflow-hidden rounded-r-[4px] border border-border bg-[#fff]">
                   <div className="flex h-full flex-col gap-3 p-6">
