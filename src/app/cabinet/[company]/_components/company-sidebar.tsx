@@ -6,19 +6,17 @@ import {
   MenuRail,
   MenuBadge,
   MenuPanel,
-  MenuNavItem,
-  MenuDivider,
   MenuFooter,
   MenuIcon,
   type MenuBadgeColor,
 } from "@/components/ds";
 import { cn } from "@/lib/cn";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
-import { WalletFilledIcon } from "../../../flow/company-create/_components/coop-sidebar";
+import { WalletFilledIcon, CoopSidebar } from "../../../flow/company-create/_components/coop-sidebar";
 import { CabinetMenuIcon } from "./cabinet-menu-icons";
 import { CARD_TINT, type CabinetConfig } from "../_config/cabinets";
 import { railHref } from "../_config/cabinet-rail";
-import { useCabinetUnlock } from "./cabinet-unlock";
+import { CABINET_ROUTES } from "../../_components/cabinet-seed";
 
 /**
  * CompanySidebar — боковое меню кабинета (рейка воркспейсов + панель).
@@ -136,13 +134,20 @@ export function CompanyRail({ activeRail }: { activeRail?: number | null }) {
   );
 }
 
+/** Страницы, которые остались за самим подразделением: его профиль и эти две. */
+const OWN_PAGES = ["subdivision", "activity", "accounts"];
+
 export function CompanySidebar({ cabinet, current }: { cabinet: CabinetConfig; current: string }) {
   const router = useRouter();
-  const { unlocked } = useCabinetUnlock();
   const base = `/cabinet/${cabinet.slug}`;
   const go = (sub: string) => router.push(sub ? `${base}/${sub}` : base);
-  // Пункты с lockedUntil показываем только после прохождения их флоу (ВУЗы).
-  const menu = cabinet.menu.filter((m) => !m.lockedUntil || unlocked[m.lockedUntil]);
+
+  // Страницы подразделения (Заявки, Реестры, Цели …) переехали в Администрацию:
+  // открытые, они показывают её сайдбар с раскрытым разделом — иначе пункт вёл бы
+  // в кабинет, где его в меню уже нет, и вернуться к списку было бы нечем.
+  if (current && !OWN_PAGES.includes(current)) {
+    return <CoopSidebar routes={CABINET_ROUTES} current="paishiki" />;
+  }
 
   return (
     <SidebarShell>
@@ -167,16 +172,10 @@ export function CompanySidebar({ cabinet, current }: { cabinet: CabinetConfig; c
       >
         <DeptCard cabinet={cabinet} current={current === "subdivision"} onClick={() => router.push(base)} />
 
+        {/* Своё меню подразделения переехало в Администрацию — здесь остались
+            только карточка, «Деятельность» и «Счета». */}
         <Pill icon={<CabinetMenuIcon.Activity className="h-[13px] w-4" />} label="Деятельность" active={current === "activity"} onClick={() => go("activity")} />
         <Pill icon={<WalletFilledIcon className="size-4" />} label="Счета" active={current === "accounts"} onClick={() => go("accounts")} />
-
-        <MenuDivider />
-
-        {menu.map((m) => (
-          <MenuNavItem key={m.key} icon={m.icon} active={current === m.key} onClick={() => go(m.path)}>
-            {m.label}
-          </MenuNavItem>
-        ))}
       </MenuPanel>
     </SidebarShell>
   );

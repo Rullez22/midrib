@@ -11,10 +11,11 @@ import {
   type MenuBadgeColor,
 } from "@/components/ds";
 import { type KeyboardEvent } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { useRegFlow } from "./reg-flow";
+import { DeptMenu } from "../../../cabinet/_components/dept-menu";
 import { railHref } from "../../../cabinet/[company]/_config/cabinet-rail";
 import { CabinetMenuIcon } from "../../../cabinet/[company]/_components/cabinet-menu-icons";
 
@@ -211,7 +212,11 @@ export function CoopSidebar({
   routes?: Partial<CoopRoutes>;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const R: CoopRoutes = { ...ROUTES, ...routes };
+  // Операционный кабинет vs онбординг — по адресу: в /cabinet под сепаратором
+  // живёт список подразделений, в онбординге — Пайщики/Партнеры (кабинетов нет).
+  const cabinetView = pathname.startsWith("/cabinet");
   const flow = useRegFlow();
   const accountsUnlocked = flow.accountsUnlocked; // счета разблокированы баннером
   const accountsCurrent = current === "accounts";
@@ -380,20 +385,28 @@ export function CoopSidebar({
           )}
         </div>
         <MenuDivider />
-        <MenuNavItem
-          icon={<MenuIcon.Users />}
-          active={paishikiCurrent}
-          onClick={() => router.push(R.paishiki)}
-        >
-          Пайщики
-        </MenuNavItem>
-        <MenuNavItem
-          icon={<MenuIcon.Partners />}
-          active={current === "partners"}
-          onClick={R.partners ? () => router.push(R.partners as string) : undefined}
-        >
-          Партнеры
-        </MenuNavItem>
+        {/* Кабинет: под сепаратором — все 8 подразделений, их страницы переехали
+            сюда (DeptMenu). Онбординг: кабинетов ещё нет — свои Пайщики/Партнеры. */}
+        {cabinetView ? (
+          <DeptMenu />
+        ) : (
+          <>
+            <MenuNavItem
+              icon={<MenuIcon.Users />}
+              active={paishikiCurrent}
+              onClick={() => router.push(R.paishiki)}
+            >
+              Пайщики
+            </MenuNavItem>
+            <MenuNavItem
+              icon={<MenuIcon.Partners />}
+              active={current === "partners"}
+              onClick={R.partners ? () => router.push(R.partners as string) : undefined}
+            >
+              Партнеры
+            </MenuNavItem>
+          </>
+        )}
       </MenuPanel>
     </SidebarShell>
   );
