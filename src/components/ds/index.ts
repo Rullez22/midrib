@@ -96,6 +96,7 @@ export {
 } from "./upload-icons";
 
 export { EditPencilIcon } from "./edit-pencil-icon";
+export { CkpGridIcon } from "./ckp-grid-icon";
 
 export { Calendar } from "./calendar";
 export type { CalendarProps, CalendarMode, CalendarRange } from "./calendar";
@@ -397,6 +398,7 @@ export {
   MenuDivider,
   MenuFooter,
   MenuIcon,
+  BADGE_COLOR_VAR,
 } from "./composite/left-menu";
 export type {
   LeftMenuProps,

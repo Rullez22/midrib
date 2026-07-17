@@ -3,12 +3,12 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
-import { Tabs, Tab, EditPencilIcon } from "@/components/ds";
+import { Tabs, Tab, EditPencilIcon, CkpGridIcon } from "@/components/ds";
 import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/activity-screen";
 import { CompanySidebar } from "./company-sidebar";
 import { type CabinetConfig } from "../_config/cabinets";
 import { ACCENT, type CabinetActivityData, type CollectiveMember, type CascadeData } from "../_config/cabinet-activity";
-import { CARD_TINT, ckpIconColor } from "../_config/cabinets";
+import { ckpIconColor } from "../_config/cabinets";
 import { lkKeyByCabinetPhoto } from "../../lk/_components/lk-data";
 
 /**
@@ -174,18 +174,8 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
         {/* Цвет квадратика — приглушённый тон подразделения (CARD_TINT), один и тот
             же во всех блоках; layoutColor подставляет цвет своего подразделения. */}
         {layout && (
-          <button type="button" aria-label="Структура компании" onClick={onLayout} className="transition-opacity hover:opacity-70" style={{ color: layoutColor ?? CARD_TINT.red.border }}>
-            {/* QR-иконка (Figma 7574:17191), цвет через currentColor. Размер —
-                20px, как у карандаша рядом: иконки блока одного кегля. */}
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-5">
-              <path d="M8.72161 0H1.83113C0.82354 0 0.00390625 0.819634 0.00390625 1.82723V8.71771C0.00390625 9.7253 0.82354 10.5449 1.83113 10.5449H8.72161C9.72921 10.5449 10.5488 9.7253 10.5488 8.71771V1.82723C10.5487 0.819634 9.72921 0 8.72161 0Z" fill="currentColor" />
-              <path d="M22.1787 0H15.2882C14.2806 0 13.4609 0.819634 13.4609 1.82723V8.71771C13.4609 9.7253 14.2806 10.5449 15.2882 10.5449H22.1787C23.1863 10.5449 24.0059 9.7253 24.0059 8.71771V1.82723C24.0059 0.819634 23.1863 0 22.1787 0Z" fill="currentColor" />
-              <path d="M8.72161 13.4531H1.83113C0.82354 13.4531 0.00390625 14.2727 0.00390625 15.2803V22.1707C0.00390625 23.1783 0.82354 23.998 1.83113 23.998H8.72161C9.72921 23.998 10.5488 23.1783 10.5488 22.1707V15.2803C10.5487 14.2727 9.72921 13.4531 8.72161 13.4531Z" fill="currentColor" />
-              <line x1="14" y1="14.5" x2="23.5" y2="14.5" stroke="currentColor" strokeLinecap="round" />
-              <line x1="14" y1="17.5" x2="23.5" y2="17.5" stroke="currentColor" strokeLinecap="round" />
-              <line x1="14" y1="20.5" x2="23.5" y2="20.5" stroke="currentColor" strokeLinecap="round" />
-              <line x1="14" y1="23.5" x2="23.5" y2="23.5" stroke="currentColor" strokeLinecap="round" />
-            </svg>
+          <button type="button" aria-label="Структура компании" onClick={onLayout} className="transition-opacity hover:opacity-70" style={{ color: layoutColor ?? ckpIconColor("administration") }}>
+            <CkpGridIcon />
           </button>
         )}
       </div>

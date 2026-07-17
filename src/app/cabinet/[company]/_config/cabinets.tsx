@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { type MenuBadgeColor, type InfoGroup } from "@/components/ds";
+import { BADGE_COLOR_VAR, type MenuBadgeColor, type InfoGroup } from "@/components/ds";
 import {
   INFO_GROUPS,
   CHARTER_ROWS,
@@ -307,9 +307,12 @@ export const CARD_TINT: Record<MenuBadgeColor, { border: string; bg: string; cov
   cyan: { border: "#8fd6de", bg: "#eafafb", cover: "linear-gradient(120deg,#a5f3fc,#22d3ee,#38bdf8)" },
 };
 
-/** Цвет иконки-квадратика (структура/ЦКП) для подразделения — приглушённый. */
+/**
+ * Цвет иконки-квадратика (структура/ЦКП) для подразделения. Наследуется от бейджа
+ * рейки 1–8 (BADGE_COLOR_VAR) — единственный источник цвета подразделения.
+ */
 export function ckpIconColor(slug?: string): string {
-  return CARD_TINT[railColorOf(slug)].border;
+  return BADGE_COLOR_VAR[railColorOf(slug)];
 }
 
 /** Профиль-данные кабинета (мок-контент с подменой имени/контактов). */

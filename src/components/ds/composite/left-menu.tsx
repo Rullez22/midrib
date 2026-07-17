@@ -54,7 +54,9 @@ export type MenuBadgeColor =
   | "red"
   | "cyan";
 
-const BADGE_COLOR_VAR: Record<MenuBadgeColor, string> = {
+/** Цвета бейджей рейки 1–8 — источник палитры подразделений: от них наследуют
+ *  цвет элементы, привязанные к подразделению (напр. иконка структуры в ЦКП). */
+export const BADGE_COLOR_VAR: Record<MenuBadgeColor, string> = {
   orange: "var(--color-orange-200)",
   yellow: "var(--color-yellow-300)",
   green: "var(--color-green-200)",
