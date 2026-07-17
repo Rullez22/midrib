@@ -1,4 +1,5 @@
 import { type InfoGroup } from "@/components/ds";
+import { PH as CAB_PHOTO } from "../../[company]/_config/cabinet-activity";
 
 /**
  * Данные личного кабинета (ЛК) пользователя — Антонов Илья Андреевич.
@@ -7,39 +8,214 @@ import { type InfoGroup } from "@/components/ds";
  * 1857:649802 — пайщик). Различаются только: URL роли и список чатов справа.
  */
 
-export type LkRole = "chair" | "payer" | "assistant";
+/**
+ * Ключ ЛК — либо моя роль (chair/payer — это я, Антонов), либо слаг человека из
+ * коллектива подразделения, на чью страницу я зашёл (assistant, joe, stepan …).
+ * Валидный ключ — тот, что есть в LK_ROLES.
+ */
+export type LkRole = string;
+
+/** Мои роли: только на них можно редактировать (карандаши) и голосовать. */
+const SELF_ROLES = ["chair", "payer"];
+
+/** Своя страница (моя) или чужая — я в гостях у подчинённого. */
+export function isSelfRole(role: LkRole): boolean {
+  return SELF_ROLES.includes(role);
+}
 
 export interface LkRoleConfig {
   key: LkRole;
-  /** Короткая подпись (дропдаун роли + футер). */
+  /** Короткая подпись (дропдаун роли + футер + карточка в сайдбаре). */
   short: string;
   /** Полная подпись роли (под именем в профиле + пункт дропдауна). */
   full: string;
+  /** Должность на карточке обязательств («Член совета»). По умолчанию — full. */
+  title?: string;
   /** Отдельная личность роли (напр. помощник — другой человек, другое фото). */
   name?: string;
   avatar?: string;
+  /** Имя на карточке — как в коллективе («Джо В. В.»). По умолчанию из ФИО. */
+  card?: string;
 }
+
+/** Фото участников коллектива Администрации (те же файлы, что в MEMBERS). */
+const P_ILYA = "/members/ilya.png";
+const P_JOE = "/members/joe.png";
+const P_ALEKSANDR = "/members/aleksandr.png";
+const P_DMITRIY = "/members/dmitriy.png";
+const P_ROZALINA = "/members/rozalina.png";
+const P_ANNA = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=240&q=80";
 
 export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
   chair: {
     key: "chair",
     short: "Пред. правления",
     full: "Председатель правления кооператива Immatra",
+    title: "Председатель правления",
   },
   payer: {
     key: "payer",
     short: "Пайщик",
     full: "Пайщик кооператива Immatra",
+    title: "Пайщик",
   },
   assistant: {
     key: "assistant",
     short: "Помощник пред. прав.",
     full: "Помощник председателя правления кооператива Immatra",
+    title: "Помощник пред. правления",
     // Помощник — отдельный человек (не Антонов), другое фото.
     name: "Грум Анна Ивановна",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=240&q=80",
+    avatar: P_ANNA,
+  },
+
+  /* ── Коллектив Администрации: ФИО из MEMBERS, имя на карточке — как в коллективе ── */
+  joe: {
+    key: "joe",
+    short: "Пред. совета",
+    full: "Председатель совета кооператива Immatra",
+    title: "Председатель совета",
+    name: "Джо Валенов Валенович",
+    card: "Джо В. В.",
+    avatar: P_JOE,
+  },
+  aleksandr: {
+    key: "aleksandr",
+    short: "Член совета",
+    full: "Член совета кооператива Immatra",
+    title: "Член совета",
+    name: "Александр Дмитров Романович",
+    card: "Александр Д. Р.",
+    avatar: P_ALEKSANDR,
+  },
+  dmitriy: {
+    key: "dmitriy",
+    short: "Член совета",
+    full: "Член совета кооператива Immatra",
+    title: "Член совета",
+    name: "Дмитрий Александров Александрович",
+    card: "Дмитрий А. А.",
+    avatar: P_DMITRIY,
+  },
+  rozalina: {
+    key: "rozalina",
+    short: "Член совета",
+    full: "Член совета кооператива Immatra",
+    title: "Член совета",
+    name: "Розалина Курт Артуровна",
+    card: "Розалина К. А.",
+    avatar: P_ROZALINA,
+  },
+
+  /* ── Коллективы кабинетов 2–7: в данных только короткие имена ───────────── */
+  stepan: {
+    key: "stepan",
+    short: "Пред. правления",
+    full: "Председатель правления подразделения",
+    title: "Председатель правления",
+    name: "Степан А. А.",
+    card: "Степан А. А.",
+    avatar: CAB_PHOTO.stepan,
+  },
+  ganish: {
+    key: "ganish",
+    short: "Помощник пред.",
+    full: "Помощник председателя правления подразделения",
+    title: "Помощник пред.",
+    name: "Ганиш Г. И.",
+    card: "Ганиш Г. И.",
+    avatar: CAB_PHOTO.ganish,
+  },
+  tsukerberg: {
+    key: "tsukerberg",
+    short: "Помощник пред.",
+    full: "Помощник председателя правления подразделения",
+    title: "Помощник пред.",
+    name: "Цукерберг Г. И.",
+    card: "Цукерберг Г. И.",
+    avatar: CAB_PHOTO.tsukerberg,
+  },
+  branderburg: {
+    key: "branderburg",
+    short: "Помощник пред.",
+    full: "Помощник председателя правления подразделения",
+    title: "Помощник пред.",
+    name: "Брандербург Г. И.",
+    card: "Брандербург Г. И.",
+    avatar: CAB_PHOTO.branderburg,
+  },
+  "rozalina-k": {
+    key: "rozalina-k",
+    short: "Пред. совета",
+    full: "Председатель совета подразделения",
+    title: "Председатель совета",
+    name: "Розалина К. И.",
+    card: "Розалина К. И.",
+    avatar: CAB_PHOTO.rozalina,
+  },
+  vanessa: {
+    key: "vanessa",
+    short: "Помощник пред. совета",
+    full: "Помощник председателя совета подразделения",
+    title: "Помощник пред. совета",
+    name: "Ванесса П. П.",
+    card: "Ванесса П. П.",
+    avatar: CAB_PHOTO.vanessa,
+  },
+  "aleksandr-d": {
+    key: "aleksandr-d",
+    short: "Член совета",
+    full: "Член совета подразделения",
+    title: "Член совета",
+    name: "Александр Д. Р.",
+    card: "Александр Д. Р.",
+    avatar: CAB_PHOTO.aleksandr,
+  },
+  "dmitriy-a": {
+    key: "dmitriy-a",
+    short: "Член совета",
+    full: "Член совета подразделения",
+    title: "Член совета",
+    name: "Дмитрий А. А.",
+    card: "Дмитрий А. А.",
+    avatar: CAB_PHOTO.dmitriy,
   },
 };
+
+/**
+ * Слаг ЛК по фото участника коллектива. Карты раздельные: в Администрации и в
+ * кабинетах 2–7 есть тёзки (Александр Д. Р., Дмитрий А. А., Розалина) — это
+ * разные люди с разными фото, поэтому и страницы у них разные.
+ */
+const ADMIN_LK_BY_PHOTO: Record<string, LkRole> = {
+  [P_ILYA]: "chair",
+  [P_ANNA]: "assistant",
+  [P_JOE]: "joe",
+  [P_ALEKSANDR]: "aleksandr",
+  [P_DMITRIY]: "dmitriy",
+  [P_ROZALINA]: "rozalina",
+};
+
+const CABINET_LK_BY_PHOTO: Record<string, LkRole> = {
+  [CAB_PHOTO.stepan]: "stepan",
+  [CAB_PHOTO.ganish]: "ganish",
+  [CAB_PHOTO.tsukerberg]: "tsukerberg",
+  [CAB_PHOTO.branderburg]: "branderburg",
+  [CAB_PHOTO.rozalina]: "rozalina-k",
+  [CAB_PHOTO.vanessa]: "vanessa",
+  [CAB_PHOTO.aleksandr]: "aleksandr-d",
+  [CAB_PHOTO.dmitriy]: "dmitriy-a",
+};
+
+/** Слаг ЛК участника коллектива Администрации (`/cabinet/activity`). */
+export function lkKeyByAdminPhoto(photo?: string): LkRole | undefined {
+  return photo ? ADMIN_LK_BY_PHOTO[photo] : undefined;
+}
+
+/** Слаг ЛК участника коллектива кабинета 2–7. Пустой слот («-») ЛК не имеет. */
+export function lkKeyByCabinetPhoto(photo?: string): LkRole | undefined {
+  return photo ? CABINET_LK_BY_PHOTO[photo] : undefined;
+}
 
 export const LK_USER = {
   name: "Антонов Илья Андреевич",
@@ -53,10 +229,22 @@ export function lkIdentity(role: LkRole): { name: string; avatar: string } {
   return { name: cfg.name ?? LK_USER.name, avatar: cfg.avatar ?? LK_USER.avatar };
 }
 
-/** Короткое имя для карточки в сайдбаре: «Илья А. А.» / «Дмитрий А. Ш.». */
+/**
+ * Короткое имя для карточки в сайдбаре: «Илья А. А.» / «Дмитрий А. Ш.». Люди
+ * коллектива задают его явно (`card`) — их имена в данных лежат в другом порядке
+ * («Джо Валенов Валенович») либо уже сокращены («Степан А. А.»).
+ */
 export function lkShortName(role: LkRole): string {
+  const cfg = LK_ROLES[role];
+  if (cfg.card) return cfg.card;
   const [last, first, middle] = lkIdentity(role).name.split(" ");
   return `${first ?? last} ${last?.[0] ?? ""}.${middle ? ` ${middle[0]}.` : ""}`;
+}
+
+/** Должность для карточки обязательств: «Член совета», «Пред. правления». */
+export function lkTitle(role: LkRole): string {
+  const cfg = LK_ROLES[role];
+  return cfg.title ?? cfg.full;
 }
 
 /* ── Профиль (одинаков для обеих ролей) ─────────────────────────────────── */
@@ -149,13 +337,18 @@ const PAYER_CHATS: LkChatItem[] = [
   { name: "Кооператив «Слонёнок»", avatar: ELEPHANT },
 ];
 
-/** Помощник пред. — единственный чат (только с ней), без списка. */
-const ASSISTANT_CHATS: LkChatItem[] = [
-  { name: LK_ROLES.assistant.name!, avatar: LK_ROLES.assistant.avatar },
-];
-
 export const LK_CHATS: Record<LkRole, LkChatItem[]> = {
   chair: CHAIR_CHATS,
   payer: PAYER_CHATS,
-  assistant: ASSISTANT_CHATS,
 };
+
+/**
+ * Чаты страницы. Свои роли — свои списки чатов; на чужой странице список чатов
+ * человека мне не виден, вижу только чат с ним самим (как было у помощника).
+ */
+export function lkChats(role: LkRole): LkChatItem[] {
+  const own = LK_CHATS[role];
+  if (own) return own;
+  const me = lkIdentity(role);
+  return [{ name: me.name, avatar: me.avatar }];
+}

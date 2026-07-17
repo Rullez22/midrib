@@ -7,7 +7,7 @@ import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/ac
 import { CkpBlock, StructureCascade, CascadeArrowDown } from "../../[company]/_components/cabinet-activity-screen";
 import { ACCENT, CASCADE_SHARED } from "../../[company]/_config/cabinet-activity";
 import { LkSidebar } from "./lk-sidebar";
-import { lkIdentity, lkShortName, type LkRole } from "./lk-data";
+import { lkIdentity, lkShortName, lkTitle, isSelfRole, type LkRole } from "./lk-data";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
 
 /**
@@ -20,27 +20,26 @@ import { CABINET_ROUTES } from "../../_components/cabinet-seed";
  * клики и стрелки-связки, что меряются по DOM.
  */
 
-/** Роли-обязательства (переключают URL, как дропдаун роли в боковом меню).
- *  Для помощника (другой человек) вторая роль — «Помощник пред. правления». */
+/** Мои обязательства — переключают URL, как дропдаун роли в боковом меню. */
 const OBLIGATIONS: { key: LkRole; name: string }[] = [
   { key: "payer", name: "Пайщик" },
   { key: "chair", name: "Председатель правления" },
-];
-const ASSISTANT_OBLIGATIONS: { key: LkRole; name: string }[] = [
-  { key: "payer", name: "Пайщик" },
-  { key: "assistant", name: "Помощник пред. правления" },
 ];
 
 /** Таб «Структура» — ЛК-версия (Общие сведения + Ваши обязательства + каскад). */
 function StructTab({ role }: { role: LkRole }) {
   const router = useRouter();
   const me = lkIdentity(role);
-  const obligations = role === "assistant" ? ASSISTANT_OBLIGATIONS : OBLIGATIONS;
-  // Помощник (Анна) сам по себе и пайщик, и помощник — это ОДИН человек.
-  // Поэтому переключение обязательств у него локальное: меняется только активная
-  // карточка (без перехода в чужой кабинет пайщика). У Антонова — навигация по URL.
+  const self = isSelfRole(role);
+  // Чужая страница: человек из коллектива — сам по себе и пайщик, и, например,
+  // член совета: это ОДИН человек. Поэтому переключение обязательств у него
+  // локальное — меняется только активная карточка (в чужой кабинет пайщика не
+  // уходим). У себя (Антонов) — навигация по URL.
+  const obligations = self
+    ? OBLIGATIONS
+    : [{ key: "payer", name: "Пайщик" }, { key: role, name: lkTitle(role) }];
   const [selKey, setSelKey] = useState<LkRole>(role);
-  const activeKey = role === "assistant" ? selKey : role;
+  const activeKey = self ? role : selKey;
   return (
     <div className="flex flex-col gap-5">
       {/* Блок подразделения «Ценный конечный продукт» (CkpBlock), но с заголовком
@@ -50,7 +49,9 @@ function StructTab({ role }: { role: LkRole }) {
         name={lkShortName(role)}
         avatar={me.avatar}
         desc="Пайщик кооператива «Immatra» с 2019 года, с марта 2023 года — председатель правления. Отвечает за операционную работу администрации: согласование договоров с партнёрами, подготовку вопросов на заседания правления и совета, сопровождение новых пайщиков. Ведёт приём по вторникам и четвергам, с 10:00 до 17:00."
-        editable
+        /* Карандаш — только на своей странице: у подчинённого я в гостях и
+           редактировать его данные не могу. */
+        editable={self}
         layout
         /* У пользователя квадратик ведёт на «Деятельность» его подразделения
            (Администрация), а не в структуру кооператива, как одноимённая иконка
@@ -70,10 +71,10 @@ function StructTab({ role }: { role: LkRole }) {
                 status={activeKey === o.key ? "active" : "inactive"}
                 selected={activeKey === o.key}
                 onClick={() => {
-                  if (role === "assistant") setSelKey(o.key);
+                  if (!self) setSelKey(o.key);
                   else if (o.key !== role) router.push(`/cabinet/lk/${o.key}/activity`);
                 }}
-                onEdit={() => {}}
+                onEdit={self ? () => {} : undefined}
               />
               {activeKey === o.key && <CascadeArrowDown accent={ACCENT.red} />}
             </div>

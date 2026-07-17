@@ -8,6 +8,7 @@ import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/ac
 import { CompanySidebar } from "./company-sidebar";
 import { type CabinetConfig } from "../_config/cabinets";
 import { ACCENT, type CabinetActivityData, type CollectiveMember, type CascadeData } from "../_config/cabinet-activity";
+import { lkKeyByCabinetPhoto } from "../../lk/_components/lk-data";
 
 /**
  * CabinetActivityScreen — «Деятельность» кабинета (Структура / План развития /
@@ -329,9 +330,16 @@ function StructureTab({ cabinet, data, accent }: { cabinet: CabinetConfig; data:
           {data.collective.map((m, i) => {
             const selectable = m.status === "active";
             const isSel = i === sel;
+            // Первый клик — выбор (стрелка + каскад), повторный по уже выбранной —
+            // личный кабинет этого человека. Пустой слот («-») ЛК не имеет.
+            const lkRole = lkKeyByCabinetPhoto(m.photo);
+            const select = () => {
+              if (isSel && lkRole) router.push(`/cabinet/lk/${lkRole}/activity`);
+              else setSel(i);
+            };
             return (
               <div key={i} className="flex flex-col items-center gap-3">
-                <CollectiveCard m={m} accent={accent} selected={isSel} onClick={selectable ? () => setSel(i) : undefined} />
+                <CollectiveCard m={m} accent={accent} selected={isSel} onClick={selectable ? select : undefined} />
                 {isSel && <CascadeArrowDown accent={accent} />}
               </div>
             );

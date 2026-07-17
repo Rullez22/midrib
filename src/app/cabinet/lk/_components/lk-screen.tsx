@@ -22,7 +22,8 @@ import {
   LK_ACHIEVEMENTS,
   LK_HISTORY,
   LK_FEED_POSTS,
-  LK_CHATS,
+  lkChats,
+  isSelfRole,
   type LkRole,
 } from "./lk-data";
 
@@ -46,6 +47,9 @@ function LkProfile({ role }: { role: LkRole }) {
         avatar={me.avatar}
         name={me.name}
         role={LK_ROLES[role].full}
+        /* Карандаш и смена обложки — только на своей странице: чужой профиль я
+           смотрю как гость и редактировать за человека не могу. */
+        editable={isSelfRole(role)}
         tab={tab}
         onTabChange={setTab}
       />
@@ -77,7 +81,7 @@ export function LkScreen({ role }: { role: LkRole }) {
           expanded={chatExpanded}
           onExpandedChange={setChatExpanded}
           content={<LkProfile role={role} />}
-          chat={<LkChatRoster items={LK_CHATS[role]} />}
+          chat={<LkChatRoster items={lkChats(role)} />}
         />
       </main>
     </div>

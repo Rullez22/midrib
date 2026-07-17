@@ -6,6 +6,7 @@ import { cn } from "@/lib/cn";
 import { Tabs, Tab, Checkbox, Button, Modal, Input, EditPencilIcon } from "@/components/ds";
 import { CoopSidebar, type CoopRoutes } from "./coop-sidebar";
 import { useRegFlow, useEnsureInvited } from "./reg-flow";
+import { lkKeyByAdminPhoto } from "../../../cabinet/lk/_components/lk-data";
 
 /**
  * ActivityScreen — «Деятельность» кооператива (таб «Структура»). Открывается из
@@ -645,16 +646,6 @@ export function EduPanel() {
   );
 }
 
-/**
- * ЛК роли по подписи карточки коллектива. Личный кабинет есть только у тех, кого
- * знает /cabinet/lk/[role]: пред. правления и его помощник — это Антонов и Анна
- * Грум из LK_ROLES, те же люди, что в коллективе Администрации.
- */
-const ROLE_LK: Record<string, string> = {
-  "Председатель правления": "chair",
-  "Помощник пред. правления": "assistant",
-};
-
 export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false }: { seedStage?: number; routes?: Partial<CoopRoutes>; sidebar?: ReactNode; cabinetView?: boolean } = {}) {
   const router = useRouter();
   const flow = useRegFlow();
@@ -867,7 +858,7 @@ export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false
                 // Первый клик — выбор карточки (стрелка + каскад), повторный клик по
                 // уже выбранной — переход в личный кабинет этого человека, на его
                 // «Деятельность». Только в кабинете: в онбординге ЛК ещё нет.
-                const lkRole = cabinetView ? ROLE_LK[c.role] : undefined;
+                const lkRole = cabinetView ? lkKeyByAdminPhoto(c.member?.photo) : undefined;
                 const select = () => {
                   if (isActive && lkRole) router.push(`/cabinet/lk/${lkRole}/activity`);
                   else setSelectedKey(c.key);

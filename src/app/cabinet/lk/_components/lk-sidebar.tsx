@@ -20,7 +20,7 @@ import { railHref } from "../../[company]/_config/cabinet-rail";
 import { CabinetMenuIcon } from "../../[company]/_components/cabinet-menu-icons";
 import { WalletFilledIcon, VotingCheckIcon } from "../../../flow/company-create/_components/coop-sidebar";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
-import { LK_ROLES, LK_USER, lkIdentity, lkShortName, type LkRole } from "./lk-data";
+import { LK_ROLES, LK_USER, lkIdentity, lkShortName, isSelfRole, type LkRole } from "./lk-data";
 import "./lk-sidebar.css";
 
 /**
@@ -67,9 +67,9 @@ function UserCard({ role, active }: { role: LkRole; active: boolean }) {
   );
 }
 
-/** Карточка помощника пред. правления — как UserCard, но с ролью и «Подписаться»
- *  (помощник — другой человек, на которого можно подписаться). */
-function AssistantCard({ role, active, onOpen }: { role: LkRole; active: boolean; onOpen: () => void }) {
+/** Карточка человека из коллектива — как UserCard, но с должностью и «Подписаться»
+ *  (это не я, а подчинённый: на него можно подписаться, но не редактировать). */
+function PersonCard({ role, active, onOpen }: { role: LkRole; active: boolean; onOpen: () => void }) {
   const me = lkIdentity(role);
   return (
     <div
@@ -108,9 +108,10 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
   const cfg = LK_ROLES[role];
   const lkBase = `/cabinet/lk/${role}`;
   const back = () => router.push(CABINET_ROUTES.subdivision);
-  // Нижний футер = залогиненный пользователь. Кабинет помощника открывает
+  // Нижний футер = залогиненный пользователь. Чужой кабинет открывает
   // председатель, поэтому в футере он остаётся собой (пред. правления).
-  const footerRole: LkRole = role === "assistant" ? "chair" : role;
+  const self = isSelfRole(role);
+  const footerRole: LkRole = self ? role : "chair";
 
   return (
     <SidebarShell desktopClassName="sticky top-0 z-30 hidden h-screen shrink-0 lg:flex">
@@ -166,9 +167,9 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
           </MenuFooter>
         }
       >
-        {role === "assistant" ? (
+        {!self ? (
           <>
-            {/* Помощник — упрощённая панель: назад в кабинет пред. правления,
+            {/* Чужая страница — упрощённая панель: назад в свой кабинет,
                 карточка с «Подписаться», только Деятельность + Счета. */}
             <Button
               variant="ghost"
@@ -182,7 +183,7 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
               }
             />
 
-            <AssistantCard role={role} active={current === "profile"} onOpen={() => router.push(lkBase)} />
+            <PersonCard role={role} active={current === "profile"} onOpen={() => router.push(lkBase)} />
 
             <MenuButton
               icon={<CabinetMenuIcon.Activity className={cn("h-[13px] w-4", current === "activity" ? "text-primary" : "text-[var(--color-grey-300)]")} />}

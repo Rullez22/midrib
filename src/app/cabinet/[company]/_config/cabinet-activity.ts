@@ -51,7 +51,9 @@ export const ACCENT: Record<MenuBadgeColor, { border: string; bg: string }> = {
 };
 
 const P = "https://images.unsplash.com/";
-const PH = {
+/** Фото участников коллективов кабинетов 2–7. Экспорт — по ним ЛК (lk-data)
+ *  сопоставляет карточку коллектива со страницей человека. */
+export const PH = {
   stepan: `${P}photo-1500648767791-00dcc994a43e?w=200&q=80`,
   ganish: `${P}photo-1507003211169-0a1dd7228f2d?w=200&q=80`,
   rozalina: `${P}photo-1438761681033-6461ffad8d80?w=200&q=80`,
