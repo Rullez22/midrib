@@ -66,8 +66,9 @@ export function ProfileCard({
       }}
     >
       {/* Хедер: заголовок по центру (чёрный) + карандаш-кнопка в углу.
-          Сепаратор — цветной (акцент карточки), у всех карточек. */}
-      <div className="relative flex flex-col items-center gap-1 px-4 pt-4 pb-3" style={{ borderBottom: `1px solid ${accent}` }}>
+          Сепаратор — цветной (акцент карточки), у всех карточек. Не border
+          хедера, а отдельная линия: нужен отступ 12px от краёв карточки. */}
+      <div className="relative flex flex-col items-center gap-1 px-4 pt-4 pb-3">
         <span className="ds-p3-medium text-center text-foreground">{title}</span>
         {person != null && <span className="ds-caption text-center text-foreground-subtle">{person}</span>}
         {editable && (
@@ -80,6 +81,7 @@ export function ProfileCard({
             <EditIcon />
           </button>
         )}
+        <span aria-hidden className="absolute inset-x-3 bottom-0 h-px" style={{ backgroundColor: accent }} />
       </div>
 
       {/* Список отделов */}
