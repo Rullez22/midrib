@@ -33,6 +33,11 @@ export interface RoleCardProps {
   statusLabel?: ReactNode;
   /** Выбранная карточка — розовая заливка + красная рамка. */
   selected?: boolean;
+  /** Рамка выбранной карточки. По умолчанию красная (`--color-red-300`);
+   *  передайте цвет подразделения, чтобы совпасть с его палитрой (ACCENT). */
+  borderColor?: string;
+  /** Заливка выбранной карточки. По умолчанию `--color-red-50`. */
+  activeBg?: string;
   /** Клик по карточке (выбор). */
   onClick?: () => void;
   /** Клик по карандашу. Без него карандаш не рендерится. */
@@ -55,6 +60,8 @@ export function RoleCard({
   status = "active",
   statusLabel,
   selected = false,
+  borderColor,
+  activeBg,
   onClick,
   onEdit,
   className,
@@ -85,6 +92,8 @@ export function RoleCard({
         onClick && !selected && "hover:bg-[var(--color-grey-10)]",
         className,
       )}
+      // Палитра подразделения (реальный hex) перекрывает красную по умолчанию.
+      style={selected ? { borderColor, backgroundColor: activeBg } : undefined}
     >
       <span className="ds-p3-medium text-foreground">{name}</span>
       <span

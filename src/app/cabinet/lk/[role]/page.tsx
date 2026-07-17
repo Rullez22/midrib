@@ -10,9 +10,17 @@ import { LK_ROLES } from "../_components/lk-data";
  * Различие только в списке чатов справа (Figma 1857:649798 / 1857:649802).
  * Остальные слаги — люди из коллектива подразделения (помощник, члены совета,
  * пред. правления кабинетов 2–7); их страницы открываются как чужие.
+ * ?from=<слаг подразделения> — откуда открыли: задаёт палитру страницы.
  */
-export default async function Page({ params }: { params: Promise<{ role: string }> }) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ role: string }>;
+  searchParams: Promise<{ from?: string }>;
+}) {
   const { role } = await params;
+  const { from } = await searchParams;
   if (!LK_ROLES[role]) notFound();
-  return <LkScreen role={role} />;
+  return <LkScreen role={role} from={from} />;
 }

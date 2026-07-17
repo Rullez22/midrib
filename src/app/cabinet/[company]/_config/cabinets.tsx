@@ -279,6 +279,16 @@ export function getCabinet(slug: string): CabinetConfig | undefined {
   return CABINETS[slug];
 }
 
+/**
+ * Цвет рейки подразделения по слагу — им красятся каскад, карточки и стрелки.
+ * Администрация (кабинет №1) в CABINETS не лежит, её цвет — red; он же дефолт
+ * для неизвестного слага.
+ */
+export function railColorOf(slug?: string): MenuBadgeColor {
+  if (!slug || slug === "administration") return "red";
+  return getCabinet(slug)?.railColor ?? "red";
+}
+
 /** Профиль-данные кабинета (мок-контент с подменой имени/контактов). */
 export function cabinetDeptData(c: CabinetConfig): DeptProfileData {
   const domain = `${c.slug}.immatra.ru`;

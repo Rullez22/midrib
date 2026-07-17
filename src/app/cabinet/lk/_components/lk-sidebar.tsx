@@ -17,6 +17,8 @@ import {
 import { cn } from "@/lib/cn";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { railHref } from "../../[company]/_config/cabinet-rail";
+import { railColorOf } from "../../[company]/_config/cabinets";
+import { CARD_TINT } from "../../[company]/_components/company-sidebar";
 import { CabinetMenuIcon } from "../../[company]/_components/cabinet-menu-icons";
 import { WalletFilledIcon, VotingCheckIcon } from "../../../flow/company-create/_components/coop-sidebar";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
@@ -31,6 +33,9 @@ import "./lk-sidebar.css";
  * СВОИ экраны ЛК (не на подразделение). Футер (профиль снизу) → первое подразделение.
  */
 
+/** Палитра карточки по цвету рейки подразделения (та же, что у DeptCard). */
+type CardTint = (typeof CARD_TINT)[MenuBadgeColor];
+
 const WORKSPACES: { label: string; color: MenuBadgeColor }[] = [
   { label: "1", color: "red" },
   { label: "2", color: "orange" },
@@ -43,13 +48,16 @@ const WORKSPACES: { label: string; color: MenuBadgeColor }[] = [
 ];
 
 /** Карточка пользователя — 1:1 структура DeptCard (полоса-обложка + аватар на
- *  границе + имя на белом). Текущая → розовая рамка. */
-function UserCard({ role, active }: { role: LkRole; active: boolean }) {
+ *  границе + имя на белом). Текущая → рамка цвета подразделения. */
+function UserCard({ role, active, tint }: { role: LkRole; active: boolean; tint: CardTint }) {
   const me = lkIdentity(role);
   return (
     <div
-      className="flex w-full flex-col gap-2 overflow-hidden rounded-[4px] border border-border bg-surface pb-2 transition-colors hover:border-[color:#e8a0a8]"
-      style={active ? { borderColor: "#e8a0a8", backgroundColor: "#fdf3f4" } : undefined}
+      className="flex w-full flex-col gap-2 overflow-hidden rounded-[4px] border border-border bg-surface pb-2 transition-colors hover:border-[color:var(--lk-hover)]"
+      style={{
+        ...(active ? { borderColor: tint.border, backgroundColor: tint.bg } : null),
+        ["--lk-hover" as string]: tint.border,
+      } as React.CSSProperties}
     >
       <div className="relative h-[88px]">
         <div
@@ -69,12 +77,15 @@ function UserCard({ role, active }: { role: LkRole; active: boolean }) {
 
 /** Карточка человека из коллектива — как UserCard, но с должностью и «Подписаться»
  *  (это не я, а подчинённый: на него можно подписаться, но не редактировать). */
-function PersonCard({ role, active, onOpen }: { role: LkRole; active: boolean; onOpen: () => void }) {
+function PersonCard({ role, active, tint, onOpen }: { role: LkRole; active: boolean; tint: CardTint; onOpen: () => void }) {
   const me = lkIdentity(role);
   return (
     <div
-      className="flex w-full flex-col gap-2 overflow-hidden rounded-[4px] border border-border bg-surface pb-3 transition-colors hover:border-[color:#e8a0a8]"
-      style={active ? { borderColor: "#e8a0a8", backgroundColor: "#fdf3f4" } : undefined}
+      className="flex w-full flex-col gap-2 overflow-hidden rounded-[4px] border border-border bg-surface pb-3 transition-colors hover:border-[color:var(--lk-hover)]"
+      style={{
+        ...(active ? { borderColor: tint.border, backgroundColor: tint.bg } : null),
+        ["--lk-hover" as string]: tint.border,
+      } as React.CSSProperties}
     >
       <button
         type="button"
@@ -103,9 +114,13 @@ function PersonCard({ role, active, onOpen }: { role: LkRole; active: boolean; o
   );
 }
 
-export function LkSidebar({ role, current = "profile", panelHidden = false }: { role: LkRole; current?: "profile" | "activity" | "voting" | "accounts"; panelHidden?: boolean }) {
+export function LkSidebar({ role, current = "profile", panelHidden = false, from }: { role: LkRole; current?: "profile" | "activity" | "voting" | "accounts"; panelHidden?: boolean; from?: string }) {
   const router = useRouter();
   const cfg = LK_ROLES[role];
+  // `from` — подразделение, из коллектива которого открыли человека: задаёт
+  // палитру страницы и сохраняется в ссылках ЛК, чтобы цвет не терялся.
+  const tint = CARD_TINT[railColorOf(from)];
+  const qs = from ? `?from=${from}` : "";
   const lkBase = `/cabinet/lk/${role}`;
   const back = () => router.push(CABINET_ROUTES.subdivision);
   // Нижний футер = залогиненный пользователь. Чужой кабинет открывает
@@ -183,19 +198,19 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
               }
             />
 
-            <PersonCard role={role} active={current === "profile"} onOpen={() => router.push(lkBase)} />
+            <PersonCard role={role} active={current === "profile"} tint={tint} onOpen={() => router.push(`${lkBase}${qs}`)} />
 
             <MenuButton
               icon={<CabinetMenuIcon.Activity className={cn("h-[13px] w-4", current === "activity" ? "text-primary" : "text-[var(--color-grey-300)]")} />}
               className={cn(current === "activity" && "text-primary")}
-              onClick={() => router.push(`${lkBase}/activity`)}
+              onClick={() => router.push(`${lkBase}/activity${qs}`)}
             >
               Деятельность
             </MenuButton>
             <MenuButton
               icon={<WalletFilledIcon className={cn("size-4", current === "accounts" ? "text-primary" : "text-[var(--color-grey-300)]")} />}
               className={cn(current === "accounts" && "text-primary")}
-              onClick={() => router.push(`${lkBase}/account`)}
+              onClick={() => router.push(`${lkBase}/account${qs}`)}
             >
               Счета
             </MenuButton>
@@ -206,11 +221,11 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
           <>
             <button
               type="button"
-              onClick={() => router.push(lkBase)}
+              onClick={() => router.push(`${lkBase}${qs}`)}
               className="w-full cursor-pointer border-0 bg-transparent p-0"
               aria-label="Профиль"
             >
-              <UserCard role={role} active={current === "profile"} />
+              <UserCard role={role} active={current === "profile"} tint={tint} />
             </button>
 
             {/* Красный дропдаун роли — переключает обязательства (Пред. ↔ Пайщик). */}
@@ -232,7 +247,7 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
             <MenuButton
               icon={<CabinetMenuIcon.Activity className={cn("h-[13px] w-4", current === "activity" ? "text-primary" : "text-[var(--color-grey-300)]")} />}
               className={cn(current === "activity" && "text-primary")}
-              onClick={() => router.push(`${lkBase}/activity`)}
+              onClick={() => router.push(`${lkBase}/activity${qs}`)}
             >
               Деятельность
             </MenuButton>
@@ -243,7 +258,7 @@ export function LkSidebar({ role, current = "profile", panelHidden = false }: { 
                 className={cn(current === "accounts" ? "text-primary" : "text-[var(--color-grey-300)]")}
                 icon={<WalletFilledIcon className="size-4" />}
                 aria-label="Счета"
-                onClick={() => router.push(`${lkBase}/account`)}
+                onClick={() => router.push(`${lkBase}/account${qs}`)}
               />
               <MenuButton
                 variant="icon"

@@ -646,7 +646,7 @@ export function EduPanel() {
   );
 }
 
-export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false }: { seedStage?: number; routes?: Partial<CoopRoutes>; sidebar?: ReactNode; cabinetView?: boolean } = {}) {
+export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false, member }: { seedStage?: number; routes?: Partial<CoopRoutes>; sidebar?: ReactNode; cabinetView?: boolean; member?: string } = {}) {
   const router = useRouter();
   const flow = useRegFlow();
   // Пайщики уже приглашены + ПП создано к моменту совета (для консистентности
@@ -762,8 +762,12 @@ export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false
   }
   completed.forEach((c, i) => cards.push({ key: `done-${i}`, member: c.member, role: c.role, status: "active", onEdit: cabinetView ? () => {} : undefined }));
 
-  // Активная карточка: выбранная пользователем либо первая с пайщиком.
-  const activeKey = selectedKey ?? cards.find((c) => c.member)?.key ?? null;
+  // Активная карточка: выбранная пользователем; при возврате со страницы человека
+  // (?member=слаг ЛК) — его карточка; иначе первая с пайщиком.
+  const fromMemberKey = member
+    ? cards.find((c) => lkKeyByAdminPhoto(c.member?.photo) === member)?.key
+    : undefined;
+  const activeKey = selectedKey ?? fromMemberKey ?? cards.find((c) => c.member)?.key ?? null;
   const selectedRole = cards.find((c) => c.key === activeKey)?.role ?? (stageDone ? "Председатель правления" : cfg.role);
   const cascade = ROLE_CASCADE[selectedRole] ?? ROLE_CASCADE["Член совета"];
   // Видимые отделы растут по этапам; активный — отдел выбранной роли.
@@ -860,7 +864,9 @@ export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false
                 // «Деятельность». Только в кабинете: в онбординге ЛК ещё нет.
                 const lkRole = cabinetView ? lkKeyByAdminPhoto(c.member?.photo) : undefined;
                 const select = () => {
-                  if (isActive && lkRole) router.push(`/cabinet/lk/${lkRole}/activity`);
+                  // ?from=administration — страница человека знает своё
+                  // подразделение: цвет палитры и возврат по квадратику.
+                  if (isActive && lkRole) router.push(`/cabinet/lk/${lkRole}/activity?from=administration`);
                   else setSelectedKey(c.key);
                 };
                 return (

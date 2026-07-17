@@ -303,12 +303,16 @@ export function StructureCascade({ cascade: c, accent, className }: { cascade: C
   );
 }
 
-function StructureTab({ cabinet, data, accent }: { cabinet: CabinetConfig; data: CabinetActivityData; accent: Accent }) {
+function StructureTab({ cabinet, data, accent, member }: { cabinet: CabinetConfig; data: CabinetActivityData; accent: Accent; member?: string }) {
   const router = useRouter();
   // Выбранный участник коллектива (как в кабинете №1): по умолчанию — первый
   // активный. От выбора зависит подсветка карточки и стрелка-связка к каскаду.
+  // ?member=<слаг ЛК> — возврат со страницы человека: выделяем сразу его.
   const firstActive = Math.max(0, data.collective.findIndex((m) => m.status === "active"));
-  const [sel, setSel] = useState(firstActive);
+  const fromMember = member
+    ? data.collective.findIndex((m) => lkKeyByCabinetPhoto(m.photo) === member)
+    : -1;
+  const [sel, setSel] = useState(fromMember >= 0 ? fromMember : firstActive);
 
   return (
     <div className="flex w-full flex-col gap-8 px-5 py-8 md:px-[50px]">
@@ -334,7 +338,9 @@ function StructureTab({ cabinet, data, accent }: { cabinet: CabinetConfig; data:
             // личный кабинет этого человека. Пустой слот («-») ЛК не имеет.
             const lkRole = lkKeyByCabinetPhoto(m.photo);
             const select = () => {
-              if (isSel && lkRole) router.push(`/cabinet/lk/${lkRole}/activity`);
+              // ?from — подразделение, из которого открыли: страница человека
+              // красится его цветом и знает, куда возвращать по квадратику.
+              if (isSel && lkRole) router.push(`/cabinet/lk/${lkRole}/activity?from=${cabinet.slug}`);
               else setSel(i);
             };
             return (
@@ -353,7 +359,7 @@ function StructureTab({ cabinet, data, accent }: { cabinet: CabinetConfig; data:
   );
 }
 
-export function CabinetActivityScreen({ cabinet, data }: { cabinet: CabinetConfig; data: CabinetActivityData }) {
+export function CabinetActivityScreen({ cabinet, data, member }: { cabinet: CabinetConfig; data: CabinetActivityData; member?: string }) {
   const [tab, setTab] = useState("struct");
   const accent = ACCENT[cabinet.railColor];
   return (
@@ -365,7 +371,7 @@ export function CabinetActivityScreen({ cabinet, data }: { cabinet: CabinetConfi
           <Tab value="plan">План развития</Tab>
           <Tab value="edu">Обучение</Tab>
         </Tabs>
-        {tab === "struct" && <StructureTab cabinet={cabinet} data={data} accent={accent} />}
+        {tab === "struct" && <StructureTab cabinet={cabinet} data={data} accent={accent} member={member} />}
         {tab === "plan" && (
           <div className="flex w-full flex-col gap-8 px-5 py-8 md:px-[50px]">
             <PlanPanel />

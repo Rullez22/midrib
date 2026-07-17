@@ -70,12 +70,12 @@ function LkProfile({ role }: { role: LkRole }) {
   );
 }
 
-export function LkScreen({ role }: { role: LkRole }) {
+export function LkScreen({ role, from }: { role: LkRole; from?: string }) {
   // Раскрытие чата скрывает панель сайдбара → чат доходит до рейки.
   const [chatExpanded, setChatExpanded] = useState(false);
   return (
     <div className="flex min-h-screen bg-background">
-      <LkSidebar role={role} panelHidden={chatExpanded} />
+      <LkSidebar role={role} panelHidden={chatExpanded} from={from} />
       <main className="flex min-w-0 flex-1">
         <SideChatLayout
           expanded={chatExpanded}
