@@ -34,9 +34,30 @@ export interface LkRoleConfig {
   /** Отдельная личность роли (напр. помощник — другой человек, другое фото). */
   name?: string;
   avatar?: string;
+  /** Обложка профиля и карточки в сайдбаре — своя у каждого человека.
+   *  По умолчанию — обложка Антонова (LK_USER.cover). */
+  cover?: string;
   /** Имя на карточке — как в коллективе («Джо В. В.»). По умолчанию из ФИО. */
   card?: string;
 }
+
+/** Обложки профилей: у каждого человека своя (Figma-стиль — абстракции). */
+const U = "https://images.unsplash.com/";
+const COVER = {
+  anna: `${U}photo-1541701494587-cb58502866ab?w=1200&q=80`,
+  joe: `${U}photo-1550859492-d5da9d8e45f3?w=1200&q=80`,
+  aleksandr: `${U}photo-1618005182384-a83a8bd57fbe?w=1200&q=80`,
+  dmitriy: `${U}photo-1557672172-298e090bd0f1?w=1200&q=80`,
+  rozalina: `${U}photo-1579546929518-9e396f3cc809?w=1200&q=80`,
+  stepan: `${U}photo-1508739773434-c26b3d09e071?w=1200&q=80`,
+  ganish: `${U}photo-1462331940025-496dfbfc7564?w=1200&q=80`,
+  tsukerberg: `${U}photo-1451187580459-43490279c0fa?w=1200&q=80`,
+  branderburg: `${U}photo-1614850523459-c2f4c699c52e?w=1200&q=80`,
+  rozalinaK: `${U}photo-1533134486753-c833f0ed4866?w=1200&q=80`,
+  vanessa: `${U}photo-1502691876148-a84978e59af8?w=1200&q=80`,
+  aleksandrD: `${U}photo-1478760329108-5c3ed9d495a0?w=1200&q=80`,
+  dmitriyA: `${U}photo-1550684376-efcbd6e3f031?w=1200&q=80`,
+};
 
 /** Фото участников коллектива Администрации (те же файлы, что в MEMBERS). */
 const P_ILYA = "/members/ilya.png";
@@ -67,6 +88,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     // Помощник — отдельный человек (не Антонов), другое фото.
     name: "Грум Анна Ивановна",
     avatar: P_ANNA,
+    cover: COVER.anna,
   },
 
   /* ── Коллектив Администрации: ФИО из MEMBERS, имя на карточке — как в коллективе ── */
@@ -78,6 +100,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Джо Валенов Валенович",
     card: "Джо В. В.",
     avatar: P_JOE,
+    cover: COVER.joe,
   },
   aleksandr: {
     key: "aleksandr",
@@ -87,6 +110,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Александр Дмитров Романович",
     card: "Александр Д. Р.",
     avatar: P_ALEKSANDR,
+    cover: COVER.aleksandr,
   },
   dmitriy: {
     key: "dmitriy",
@@ -96,6 +120,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Дмитрий Александров Александрович",
     card: "Дмитрий А. А.",
     avatar: P_DMITRIY,
+    cover: COVER.dmitriy,
   },
   rozalina: {
     key: "rozalina",
@@ -105,6 +130,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Розалина Курт Артуровна",
     card: "Розалина К. А.",
     avatar: P_ROZALINA,
+    cover: COVER.rozalina,
   },
 
   /* ── Коллективы кабинетов 2–7: в данных только короткие имена ───────────── */
@@ -116,6 +142,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Степан А. А.",
     card: "Степан А. А.",
     avatar: CAB_PHOTO.stepan,
+    cover: COVER.stepan,
   },
   ganish: {
     key: "ganish",
@@ -125,6 +152,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Ганиш Г. И.",
     card: "Ганиш Г. И.",
     avatar: CAB_PHOTO.ganish,
+    cover: COVER.ganish,
   },
   tsukerberg: {
     key: "tsukerberg",
@@ -134,6 +162,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Цукерберг Г. И.",
     card: "Цукерберг Г. И.",
     avatar: CAB_PHOTO.tsukerberg,
+    cover: COVER.tsukerberg,
   },
   branderburg: {
     key: "branderburg",
@@ -143,6 +172,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Брандербург Г. И.",
     card: "Брандербург Г. И.",
     avatar: CAB_PHOTO.branderburg,
+    cover: COVER.branderburg,
   },
   "rozalina-k": {
     key: "rozalina-k",
@@ -152,6 +182,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Розалина К. И.",
     card: "Розалина К. И.",
     avatar: CAB_PHOTO.rozalina,
+    cover: COVER.rozalinaK,
   },
   vanessa: {
     key: "vanessa",
@@ -161,6 +192,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Ванесса П. П.",
     card: "Ванесса П. П.",
     avatar: CAB_PHOTO.vanessa,
+    cover: COVER.vanessa,
   },
   "aleksandr-d": {
     key: "aleksandr-d",
@@ -170,6 +202,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Александр Д. Р.",
     card: "Александр Д. Р.",
     avatar: CAB_PHOTO.aleksandr,
+    cover: COVER.aleksandrD,
   },
   "dmitriy-a": {
     key: "dmitriy-a",
@@ -179,6 +212,7 @@ export const LK_ROLES: Record<LkRole, LkRoleConfig> = {
     name: "Дмитрий А. А.",
     card: "Дмитрий А. А.",
     avatar: CAB_PHOTO.dmitriy,
+    cover: COVER.dmitriyA,
   },
 };
 
@@ -223,10 +257,15 @@ export const LK_USER = {
   cover: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?w=1200&q=80",
 };
 
-/** Личность (имя+фото) для роли: помощник — свой человек, остальные — LK_USER. */
-export function lkIdentity(role: LkRole): { name: string; avatar: string } {
+/** Личность (имя + фото + обложка) для роли: люди коллектива — свои, chair/payer
+ *  (это я, Антонов) — LK_USER. */
+export function lkIdentity(role: LkRole): { name: string; avatar: string; cover: string } {
   const cfg = LK_ROLES[role];
-  return { name: cfg.name ?? LK_USER.name, avatar: cfg.avatar ?? LK_USER.avatar };
+  return {
+    name: cfg.name ?? LK_USER.name,
+    avatar: cfg.avatar ?? LK_USER.avatar,
+    cover: cfg.cover ?? LK_USER.cover,
+  };
 }
 
 /**

@@ -62,7 +62,7 @@ function UserCard({ role, active, tint }: { role: LkRole; active: boolean; tint:
       <div className="relative h-[88px]">
         <div
           className="h-[57px] rounded-t-[3px] bg-cover bg-center"
-          style={{ backgroundImage: `url("${LK_USER.cover}")` }}
+          style={{ backgroundImage: `url("${me.cover}")` }}
         />
         <div className="absolute bottom-0 left-1/2 size-[72px] -translate-x-1/2 overflow-hidden rounded-full border-2 border-[#fff] bg-surface-muted">
           <img src={me.avatar} alt="" className="size-full object-cover" />
@@ -96,7 +96,7 @@ function PersonCard({ role, active, tint, onOpen }: { role: LkRole; active: bool
         <div className="relative h-[88px]">
           <div
             className="h-[57px] rounded-t-[3px] bg-cover bg-center"
-            style={{ backgroundImage: `url("${LK_USER.cover}")` }}
+            style={{ backgroundImage: `url("${me.cover}")` }}
           />
           <div className="absolute bottom-0 left-1/2 size-[72px] -translate-x-1/2 overflow-hidden rounded-full border-2 border-[#fff] bg-surface-muted">
             <img src={me.avatar} alt="" className="size-full object-cover" />

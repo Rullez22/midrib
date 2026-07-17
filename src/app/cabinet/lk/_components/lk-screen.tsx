@@ -43,7 +43,7 @@ function LkProfile({ role }: { role: LkRole }) {
   return (
     <div className="flex flex-col gap-4">
       <ProfileHeader
-        cover={LK_USER.cover}
+        cover={me.cover}
         avatar={me.avatar}
         name={me.name}
         role={LK_ROLES[role].full}
