@@ -326,7 +326,7 @@ function CkpAva() {
 function CkpMenuIcon({ className, onClick }: { className?: string; onClick?: () => void }) {
   return (
     <button type="button" aria-label="Структура компании" onClick={onClick} className={cn("text-[#e1838b] transition-opacity hover:opacity-70", className)}>
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-4">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-5">
         <rect x="3" y="3" width="7.5" height="7.5" rx="1.6" fill="currentColor" />
         <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6" fill="currentColor" />
         <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6" fill="currentColor" />
