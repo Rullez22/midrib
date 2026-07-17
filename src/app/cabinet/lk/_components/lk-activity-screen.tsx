@@ -6,7 +6,7 @@ import { Tabs, Tab, RoleCard } from "@/components/ds";
 import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/activity-screen";
 import { CkpBlock, StructureCascade, CascadeArrowDown } from "../../[company]/_components/cabinet-activity-screen";
 import { ACCENT, CASCADE_SHARED } from "../../[company]/_config/cabinet-activity";
-import { railColorOf } from "../../[company]/_config/cabinets";
+import { railColorOf, ckpIconColor } from "../../[company]/_config/cabinets";
 import { LkSidebar } from "./lk-sidebar";
 import { lkIdentity, lkShortName, lkTitle, isSelfRole, type LkRole } from "./lk-data";
 import { CABINET_ROUTES } from "../../_components/cabinet-seed";
@@ -61,7 +61,9 @@ function StructTab({ role, from }: { role: LkRole; from?: string }) {
            редактировать его данные не могу. */
         editable={self}
         layout
-        layoutColor={accent.border}
+        /* Квадратик — приглушённый тон подразделения (как во всех блоках ЦКП),
+           а не яркий ACCENT, которым нарисованы каскад и стрелки. */
+        layoutColor={ckpIconColor(from)}
         /* У пользователя квадратик ведёт на «Деятельность» его подразделения —
            с выделенной его карточкой, — а не в структуру кооператива, как
            одноимённая иконка на экране самого подразделения. */

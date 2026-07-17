@@ -7,6 +7,7 @@ import { Tabs, Tab, Checkbox, Button, Modal, Input, EditPencilIcon } from "@/com
 import { CoopSidebar, type CoopRoutes } from "./coop-sidebar";
 import { useRegFlow, useEnsureInvited } from "./reg-flow";
 import { lkKeyByAdminPhoto } from "../../../cabinet/lk/_components/lk-data";
+import { ckpIconColor } from "../../../cabinet/[company]/_config/cabinets";
 
 /**
  * ActivityScreen — «Деятельность» кооператива (таб «Структура»). Открывается из
@@ -323,10 +324,12 @@ function CkpAva() {
   );
 }
 
-/** Красная иконка-меню (2×2 сетка + список) в правом верхнем углу ЦКП (Figma «menu-2»). */
+/** Красная иконка-меню (2×2 сетка + список) в правом верхнем углу ЦКП (Figma «menu-2»).
+ *  Цвет — тот же приглушённый красный Администрации (CARD_TINT), что и у квадратика
+ *  в остальных блоках ЦКП: раньше здесь был свой оттенок #e1838b. */
 function CkpMenuIcon({ className, onClick }: { className?: string; onClick?: () => void }) {
   return (
-    <button type="button" aria-label="Структура компании" onClick={onClick} className={cn("text-[#e1838b] transition-opacity hover:opacity-70", className)}>
+    <button type="button" aria-label="Структура компании" onClick={onClick} className={cn("transition-opacity hover:opacity-70", className)} style={{ color: ckpIconColor("administration") }}>
       <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-5">
         <rect x="3" y="3" width="7.5" height="7.5" rx="1.6" fill="currentColor" />
         <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6" fill="currentColor" />

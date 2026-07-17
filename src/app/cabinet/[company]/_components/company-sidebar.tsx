@@ -16,7 +16,7 @@ import { cn } from "@/lib/cn";
 import { SidebarShell } from "@/components/ds/composite/sidebar-shell";
 import { WalletFilledIcon } from "../../../flow/company-create/_components/coop-sidebar";
 import { CabinetMenuIcon } from "./cabinet-menu-icons";
-import { type CabinetConfig } from "../_config/cabinets";
+import { CARD_TINT, type CabinetConfig } from "../_config/cabinets";
 import { railHref } from "../_config/cabinet-rail";
 import { useCabinetUnlock } from "./cabinet-unlock";
 
@@ -44,18 +44,7 @@ const RAIL: { label: string; color: MenuBadgeColor }[] = [
   { label: "8", color: "cyan" },
 ];
 
-/** Подсветка карточки департамента под цвет рейки кабинета (border/bg + cover-
- *  градиент обложки аватара). Переиспользуется в «Структуре» (company-about). */
-export const CARD_TINT: Record<MenuBadgeColor, { border: string; bg: string; cover: string }> = {
-  red: { border: "#e8a0a8", bg: "#fdf3f4", cover: "linear-gradient(120deg,#f9c5d1,#a18cd1,#84fab0)" },
-  orange: { border: "#f0c38a", bg: "#fff7ec", cover: "linear-gradient(120deg,#fbd38d,#f6ad55,#fc8181)" },
-  yellow: { border: "#ecd98a", bg: "#fffbec", cover: "linear-gradient(120deg,#fef08a,#facc15,#fb923c)" },
-  green: { border: "#a7e0b0", bg: "#f1faf2", cover: "linear-gradient(120deg,#86efac,#4ade80,#22d3ee)" },
-  blue: { border: "#a9c7f0", bg: "#eef4fd", cover: "linear-gradient(120deg,#93c5fd,#60a5fa,#818cf8)" },
-  "blue-strong": { border: "#8fb4ee", bg: "#eaf1fd", cover: "linear-gradient(120deg,#60a5fa,#3b82f6,#6366f1)" },
-  purple: { border: "#c9b6ec", bg: "#f6f2fc", cover: "linear-gradient(120deg,#c4b5fd,#a78bfa,#f0abfc)" },
-  cyan: { border: "#8fd6de", bg: "#eafafb", cover: "linear-gradient(120deg,#a5f3fc,#22d3ee,#38bdf8)" },
-};
+export { CARD_TINT };
 
 function DeptCard({ cabinet, current, onClick }: { cabinet: CabinetConfig; current: boolean; onClick: () => void }) {
   const tint = CARD_TINT[cabinet.railColor];

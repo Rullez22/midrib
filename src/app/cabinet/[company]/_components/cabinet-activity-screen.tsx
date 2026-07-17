@@ -8,6 +8,7 @@ import { PlanPanel, EduPanel } from "../../../flow/company-create/_components/ac
 import { CompanySidebar } from "./company-sidebar";
 import { type CabinetConfig } from "../_config/cabinets";
 import { ACCENT, type CabinetActivityData, type CollectiveMember, type CascadeData } from "../_config/cabinet-activity";
+import { CARD_TINT, ckpIconColor } from "../_config/cabinets";
 import { lkKeyByCabinetPhoto } from "../../lk/_components/lk-data";
 
 /**
@@ -170,8 +171,10 @@ export function CkpBlock({ name, membersLabel, desc, avatar, cover, borderColor,
             <EditPencilIcon className="size-5 text-foreground-subtle transition-colors hover:text-foreground" />
           </button>
         )}
+        {/* Цвет квадратика — приглушённый тон подразделения (CARD_TINT), один и тот
+            же во всех блоках; layoutColor подставляет цвет своего подразделения. */}
         {layout && (
-          <button type="button" aria-label="Структура компании" onClick={onLayout} className="text-[var(--color-red-200)] transition-opacity hover:opacity-70" style={layoutColor ? { color: layoutColor } : undefined}>
+          <button type="button" aria-label="Структура компании" onClick={onLayout} className="transition-opacity hover:opacity-70" style={{ color: layoutColor ?? CARD_TINT.red.border }}>
             {/* QR-иконка (Figma 7574:17191), цвет через currentColor. Размер —
                 20px, как у карандаша рядом: иконки блока одного кегля. */}
             <svg viewBox="0 0 24 24" fill="none" aria-hidden className="size-5">
@@ -323,7 +326,7 @@ function StructureTab({ cabinet, data, accent, member }: { cabinet: CabinetConfi
         membersLabel={data.membersLabel}
         desc={data.ckpDesc}
         layout
-        layoutColor={accent.border}
+        layoutColor={ckpIconColor(cabinet.slug)}
         onLayout={() => router.push(`/cabinet/about?view=structure&focus=${cabinet.slug}`)}
       />
 

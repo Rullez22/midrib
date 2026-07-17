@@ -289,6 +289,29 @@ export function railColorOf(slug?: string): MenuBadgeColor {
   return getCabinet(slug)?.railColor ?? "red";
 }
 
+/**
+ * Приглушённая палитра подразделения: подсветка карточки департамента (border/bg)
+ * + cover-градиент обложки аватара; `border` — он же цвет иконки-квадратика в
+ * блоке ЦКП / «Общих сведениях». Это МЯГКИЙ тон — в отличие от яркого ACCENT
+ * (cabinet-activity), которым красятся каскад и стрелки-связки.
+ * Живёт в конфиге, а не в сайдбаре: палитру тянут и ЛК, и экраны деятельности.
+ */
+export const CARD_TINT: Record<MenuBadgeColor, { border: string; bg: string; cover: string }> = {
+  red: { border: "#e8a0a8", bg: "#fdf3f4", cover: "linear-gradient(120deg,#f9c5d1,#a18cd1,#84fab0)" },
+  orange: { border: "#f0c38a", bg: "#fff7ec", cover: "linear-gradient(120deg,#fbd38d,#f6ad55,#fc8181)" },
+  yellow: { border: "#ecd98a", bg: "#fffbec", cover: "linear-gradient(120deg,#fef08a,#facc15,#fb923c)" },
+  green: { border: "#a7e0b0", bg: "#f1faf2", cover: "linear-gradient(120deg,#86efac,#4ade80,#22d3ee)" },
+  blue: { border: "#a9c7f0", bg: "#eef4fd", cover: "linear-gradient(120deg,#93c5fd,#60a5fa,#818cf8)" },
+  "blue-strong": { border: "#8fb4ee", bg: "#eaf1fd", cover: "linear-gradient(120deg,#60a5fa,#3b82f6,#6366f1)" },
+  purple: { border: "#c9b6ec", bg: "#f6f2fc", cover: "linear-gradient(120deg,#c4b5fd,#a78bfa,#f0abfc)" },
+  cyan: { border: "#8fd6de", bg: "#eafafb", cover: "linear-gradient(120deg,#a5f3fc,#22d3ee,#38bdf8)" },
+};
+
+/** Цвет иконки-квадратика (структура/ЦКП) для подразделения — приглушённый. */
+export function ckpIconColor(slug?: string): string {
+  return CARD_TINT[railColorOf(slug)].border;
+}
+
 /** Профиль-данные кабинета (мок-контент с подменой имени/контактов). */
 export function cabinetDeptData(c: CabinetConfig): DeptProfileData {
   const domain = `${c.slug}.immatra.ru`;
