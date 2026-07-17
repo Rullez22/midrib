@@ -645,7 +645,18 @@ export function EduPanel() {
   );
 }
 
+/**
+ * ЛК роли по подписи карточки коллектива. Личный кабинет есть только у тех, кого
+ * знает /cabinet/lk/[role]: пред. правления и его помощник — это Антонов и Анна
+ * Грум из LK_ROLES, те же люди, что в коллективе Администрации.
+ */
+const ROLE_LK: Record<string, string> = {
+  "Председатель правления": "chair",
+  "Помощник пред. правления": "assistant",
+};
+
 export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false }: { seedStage?: number; routes?: Partial<CoopRoutes>; sidebar?: ReactNode; cabinetView?: boolean } = {}) {
+  const router = useRouter();
   const flow = useRegFlow();
   // Пайщики уже приглашены + ПП создано к моменту совета (для консистентности
   // страницы «Пайщики» при переходе из сайдбара).
@@ -853,6 +864,14 @@ export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false
             <div className="flex flex-wrap items-start gap-1.5">
               {cards.map((c) => {
                 const isActive = c.member != null && c.key === activeKey;
+                // Первый клик — выбор карточки (стрелка + каскад), повторный клик по
+                // уже выбранной — переход в личный кабинет этого человека, на его
+                // «Деятельность». Только в кабинете: в онбординге ЛК ещё нет.
+                const lkRole = cabinetView ? ROLE_LK[c.role] : undefined;
+                const select = () => {
+                  if (isActive && lkRole) router.push(`/cabinet/lk/${lkRole}/activity`);
+                  else setSelectedKey(c.key);
+                };
                 return (
                   <div key={c.key} className="flex flex-col items-center gap-3">
                     <CouncilCard
@@ -861,7 +880,7 @@ export function ActivityScreen({ seedStage, routes, sidebar, cabinetView = false
                       status={c.status}
                       onEdit={c.onEdit}
                       selected={isActive}
-                      onSelect={c.member ? () => setSelectedKey(c.key) : undefined}
+                      onSelect={c.member ? select : undefined}
                       cabinetView={cabinetView}
                     />
                     {/* Стрелка-связка от выбранной карточки к каскаду структуры */}

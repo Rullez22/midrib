@@ -8,6 +8,7 @@ import { CkpBlock, StructureCascade, CascadeArrowDown } from "../../[company]/_c
 import { ACCENT, CASCADE_SHARED } from "../../[company]/_config/cabinet-activity";
 import { LkSidebar } from "./lk-sidebar";
 import { lkIdentity, lkShortName, type LkRole } from "./lk-data";
+import { CABINET_ROUTES } from "../../_components/cabinet-seed";
 
 /**
  * LkActivityScreen — «Деятельность» личного кабинета (Figma 1904:728427 —
@@ -51,7 +52,10 @@ function StructTab({ role }: { role: LkRole }) {
         desc="Пайщик кооператива «Immatra» с 2019 года, с марта 2023 года — председатель правления. Отвечает за операционную работу администрации: согласование договоров с партнёрами, подготовку вопросов на заседания правления и совета, сопровождение новых пайщиков. Ведёт приём по вторникам и четвергам, с 10:00 до 17:00."
         editable
         layout
-        onLayout={() => router.push("/cabinet/about?view=structure&focus=administration")}
+        /* У пользователя квадратик ведёт на «Деятельность» его подразделения
+           (Администрация), а не в структуру кооператива, как одноимённая иконка
+           на экране самого подразделения. */
+        onLayout={() => router.push(CABINET_ROUTES.activity)}
       />
 
       <div className="flex flex-col gap-3">
